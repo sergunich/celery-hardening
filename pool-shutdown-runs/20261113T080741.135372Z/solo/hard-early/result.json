@@ -1,0 +1,190 @@
+{
+  "pool": "solo",
+  "case": {
+    "name": "hard-early",
+    "group": "hard",
+    "description": "Endless task; four Ctrl+C signals at 0.3/0.6/0.9/1.2 s; soft timeout 2 s.",
+    "acks_late": false,
+    "signals": [
+      [
+        0.3,
+        "SIGINT"
+      ],
+      [
+        0.6,
+        "SIGINT"
+      ],
+      [
+        0.9,
+        "SIGINT"
+      ],
+      [
+        1.2,
+        "SIGINT"
+      ]
+    ],
+    "steps": null,
+    "soft_timeout": 2.0,
+    "deadline": 4.0
+  },
+  "published": true,
+  "task_id": "f155beec-90da-46a7-ba4e-8195b94efb86",
+  "returncode": 0,
+  "forced_kill": false,
+  "orphan_cleanup": false,
+  "elapsed": 1.002,
+  "result_state": "FAILURE",
+  "result_detail": "<class 'celery.concurrency.solo.TaskPool'> does not implement kill_job",
+  "completed": false,
+  "task_finally": true,
+  "hard_entered": false,
+  "shutdown_errors": [
+    "NotImplementedError"
+  ],
+  "ack_observed": true,
+  "rejects": [],
+  "broker_at_start": {
+    "queued": [],
+    "unacked": [
+      {
+        "tag": "1af8479b-8b82-4ffe-8b2a-7b903bd4cac4",
+        "exchange": "",
+        "routing_key": "shutdown-probe"
+      }
+    ]
+  },
+  "broker": {
+    "queued": [],
+    "unacked": []
+  },
+  "restored_delivery": null,
+  "signals": [
+    {
+      "signal": "SIGINT",
+      "time": 1671806.810999708,
+      "relative": 0.307
+    },
+    {
+      "signal": "SIGINT",
+      "time": 1671807.106494916,
+      "relative": 0.602
+    },
+    {
+      "signal": "SIGINT",
+      "time": 1671807.40515975,
+      "relative": 0.901
+    }
+  ],
+  "timeline": [
+    {
+      "event": "worker_ready",
+      "time": 1671806.497002833,
+      "pid": 17908,
+      "thread": 8539349760,
+      "pool": "solo",
+      "multiprocessing_start_method": "spawn",
+      "relative": -0.007
+    },
+    {
+      "event": "task_started",
+      "time": 1671806.504449291,
+      "pid": 17908,
+      "thread": 8539349760,
+      "multiprocessing_start_method": "spawn",
+      "relative": 0.0
+    },
+    {
+      "event": "task_tick",
+      "time": 1671806.609488875,
+      "pid": 17908,
+      "thread": 8539349760,
+      "step": 1,
+      "relative": 0.105
+    },
+    {
+      "event": "task_tick",
+      "time": 1671806.714079458,
+      "pid": 17908,
+      "thread": 8539349760,
+      "step": 2,
+      "relative": 0.21
+    },
+    {
+      "event": "worker_shutting_down",
+      "time": 1671806.811666791,
+      "pid": 17908,
+      "thread": 8539349760,
+      "signal": "SIGINT",
+      "how": "Warm",
+      "relative": 0.307
+    },
+    {
+      "event": "task_tick",
+      "time": 1671806.814827,
+      "pid": 17908,
+      "thread": 8539349760,
+      "step": 3,
+      "relative": 0.31
+    },
+    {
+      "event": "task_tick",
+      "time": 1671806.919996375,
+      "pid": 17908,
+      "thread": 8539349760,
+      "step": 4,
+      "relative": 0.416
+    },
+    {
+      "event": "task_tick",
+      "time": 1671807.0208285,
+      "pid": 17908,
+      "thread": 8539349760,
+      "step": 5,
+      "relative": 0.516
+    },
+    {
+      "event": "task_interrupted",
+      "time": 1671807.405629416,
+      "pid": 17908,
+      "thread": 8539349760,
+      "exception": "NotImplementedError",
+      "message": "<class 'celery.concurrency.solo.TaskPool'> does not implement kill_job",
+      "relative": 0.901
+    },
+    {
+      "event": "task_finally",
+      "time": 1671807.405786625,
+      "pid": 17908,
+      "thread": 8539349760,
+      "relative": 0.901
+    },
+    {
+      "event": "task_failure",
+      "time": 1671807.418489916,
+      "pid": 17908,
+      "thread": 8539349760,
+      "exception": "NotImplementedError",
+      "message": "<class 'celery.concurrency.solo.TaskPool'> does not implement kill_job",
+      "relative": 0.914
+    },
+    {
+      "event": "task_postrun",
+      "time": 1671807.420876,
+      "pid": 17908,
+      "thread": 8539349760,
+      "state": "FAILURE",
+      "relative": 0.916
+    },
+    {
+      "event": "message_ack",
+      "time": 1671807.424912083,
+      "pid": 17908,
+      "thread": 8539349760,
+      "task_id": "f155beec-90da-46a7-ba4e-8195b94efb86",
+      "tag": "1af8479b-8b82-4ffe-8b2a-7b903bd4cac4",
+      "relative": 0.92
+    }
+  ],
+  "errors": [],
+  "passed": true
+}

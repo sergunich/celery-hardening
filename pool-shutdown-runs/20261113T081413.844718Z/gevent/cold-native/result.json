@@ -1,0 +1,106 @@
+{
+  "pool": "gevent",
+  "case": {
+    "name": "cold-native",
+    "group": "native",
+    "description": "About 2 s PBKDF2 in native code; late ack; QUIT at 0.3 s; no soft wait.",
+    "signals": [
+      [
+        0.3,
+        "SIGQUIT"
+      ]
+    ],
+    "native": true,
+    "steps": 0,
+    "acks_late": true
+  },
+  "published": true,
+  "task_id": "78596d7e-fa03-4330-8d54-a478d28cf4af",
+  "returncode": 0,
+  "forced_kill": false,
+  "orphan_cleanup": false,
+  "elapsed": 5.082,
+  "result_state": "PENDING",
+  "result_detail": "None",
+  "completed": false,
+  "task_finally": true,
+  "hard_entered": false,
+  "shutdown_errors": [],
+  "ack_observed": true,
+  "rejects": [],
+  "broker_at_start": {
+    "queued": [],
+    "unacked": [
+      {
+        "tag": "3a9eb5c2-a9cc-462e-b584-3903690b0992",
+        "exchange": "",
+        "routing_key": "shutdown-probe"
+      }
+    ]
+  },
+  "broker": {
+    "queued": [],
+    "unacked": []
+  },
+  "restored_delivery": null,
+  "signals": [
+    {
+      "signal": "SIGQUIT",
+      "time": 1672461.174461125,
+      "relative": 0.307
+    }
+  ],
+  "timeline": [
+    {
+      "event": "worker_ready",
+      "time": 1672460.861479,
+      "pid": 19218,
+      "thread": 4311903232,
+      "pool": "gevent",
+      "multiprocessing_start_method": "spawn",
+      "relative": -0.006
+    },
+    {
+      "event": "task_started",
+      "time": 1672460.867614958,
+      "pid": 19218,
+      "thread": 4354180736,
+      "multiprocessing_start_method": "spawn",
+      "relative": 0.0
+    },
+    {
+      "event": "native_started",
+      "time": 1672460.867632916,
+      "pid": 19218,
+      "thread": 4354180736,
+      "iterations": 19443824,
+      "relative": 0.0
+    },
+    {
+      "event": "task_finally",
+      "time": 1672462.844297458,
+      "pid": 19218,
+      "thread": 4354180736,
+      "relative": 1.977
+    },
+    {
+      "event": "task_postrun",
+      "time": 1672462.844355666,
+      "pid": 19218,
+      "thread": 4354180736,
+      "state": null,
+      "relative": 1.977
+    },
+    {
+      "event": "message_ack",
+      "time": 1672462.845546875,
+      "pid": 19218,
+      "thread": 4354180736,
+      "task_id": "78596d7e-fa03-4330-8d54-a478d28cf4af",
+      "tag": "3a9eb5c2-a9cc-462e-b584-3903690b0992",
+      "relative": 1.978
+    }
+  ],
+  "errors": [],
+  "passed": true
+}

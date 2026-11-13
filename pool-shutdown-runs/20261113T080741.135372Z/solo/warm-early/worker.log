@@ -1,0 +1,25 @@
+ 
+ -------------- shutdown-probe@localhost v5.7.0 (collider)
+--- ***** ----- 
+-- ******* ---- macOS-15.8.1-arm64-arm-64bit-Mach-O 2026-11-13 11:07:42
+- *** --- * --- 
+- ** ---------- [config]
+- ** ---------- .> app:         shutdown_probe:0x104de6120
+- ** ---------- .> transport:   redis+socket:///Users/sergunich/dev/repos/celery/.dev/shutdown-17842.sock
+- ** ---------- .> results:     socket:///Users/sergunich/dev/repos/celery/.dev/shutdown-17842.sock
+- *** --- * --- .> concurrency: 1 (solo)
+-- ******* ---- .> task events: OFF (enable -E to monitor tasks in this worker)
+--- ***** ----- 
+ -------------- [queues]
+                .> shutdown-probe   exchange=shutdown-probe(direct) key=shutdown-probe
+                
+
+[tasks]
+  . shutdown_probe.task
+
+[2026-11-13 11:07:42,050: INFO/MainProcess] Connected to redis+socket:///Users/sergunich/dev/repos/celery/.dev/shutdown-17842.sock
+[2026-11-13 11:07:42,055: INFO/MainProcess] shutdown-probe@localhost ready.
+[2026-11-13 11:07:42,131: INFO/MainProcess] Task shutdown_probe.task[25b81153-c8e9-4572-a56f-3607d4e15e09] received
+
+worker: Warm shutdown (MainProcess)
+[2026-11-13 11:07:44,217: INFO/MainProcess] Task shutdown_probe.task[25b81153-c8e9-4572-a56f-3607d4e15e09] succeeded in 2.086259374860674s: 'completed'

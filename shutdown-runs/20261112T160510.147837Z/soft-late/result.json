@@ -1,0 +1,98 @@
+{
+  "case": {
+    "name": "soft-late",
+    "signals": [
+      [
+        0.3,
+        "SIGQUIT"
+      ]
+    ],
+    "soft_timeout": 1.0,
+    "acks_late": true,
+    "expect": "soft_failure"
+  },
+  "passed": true,
+  "errors": [],
+  "returncode": 0,
+  "forced_kill": false,
+  "signals": [
+    {
+      "signal": "SIGQUIT",
+      "time": 1614052.376583958
+    }
+  ],
+  "elapsed": 3.383,
+  "result_state": "FAILURE",
+  "timeline": [
+    {
+      "event": "worker_constructed",
+      "time": 1614052.055847958,
+      "pid": 59954,
+      "pool": "celery.concurrency.solo",
+      "relative": -0.019
+    },
+    {
+      "event": "worker_ready",
+      "time": 1614052.073393166,
+      "pid": 59954,
+      "relative": -0.001
+    },
+    {
+      "event": "task_started",
+      "time": 1614052.074374916,
+      "pid": 59954,
+      "acks_late": true,
+      "relative": 0.0
+    },
+    {
+      "event": "task_tick",
+      "time": 1614052.179428833,
+      "pid": 59954,
+      "step": 1,
+      "relative": 0.105
+    },
+    {
+      "event": "task_tick",
+      "time": 1614052.280611,
+      "pid": 59954,
+      "step": 2,
+      "relative": 0.206
+    },
+    {
+      "event": "task_finally",
+      "time": 1614053.382225166,
+      "pid": 59954,
+      "relative": 1.308
+    },
+    {
+      "event": "task_failure",
+      "time": 1614053.388566125,
+      "pid": 59954,
+      "exception": "NotImplementedError",
+      "message": "<class 'celery.concurrency.solo.TaskPool'> does not implement kill_job",
+      "relative": 1.314
+    },
+    {
+      "event": "task_postrun",
+      "time": 1614053.390124875,
+      "pid": 59954,
+      "state": "FAILURE",
+      "relative": 1.316
+    },
+    {
+      "event": "worker_returned",
+      "time": 1614055.393963375,
+      "pid": 59954,
+      "exitcode": null,
+      "result_state": "FAILURE",
+      "requests": [
+        {
+          "acknowledged": true,
+          "cancelled": false,
+          "revoked": false
+        }
+      ],
+      "relative": 3.32
+    }
+  ]
+}

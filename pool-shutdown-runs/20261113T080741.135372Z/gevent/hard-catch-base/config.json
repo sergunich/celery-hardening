@@ -1,0 +1,34 @@
+{
+  "name": "hard-catch-base",
+  "group": "edge",
+  "description": "Endless late-ack task catches BaseException; four Ctrl+C signals; kill at 4 s if stuck.",
+  "signals": [
+    [
+      0.3,
+      "SIGINT"
+    ],
+    [
+      0.6,
+      "SIGINT"
+    ],
+    [
+      0.9,
+      "SIGINT"
+    ],
+    [
+      1.2,
+      "SIGINT"
+    ]
+  ],
+  "steps": null,
+  "acks_late": true,
+  "catch": "base",
+  "soft_timeout": 2.0,
+  "deadline": 4.0,
+  "pool": "gevent",
+  "queue": "shutdown-probe",
+  "broker": "redis+socket:///Users/sergunich/dev/repos/celery/.dev/shutdown-17842.sock?virtual_host=0",
+  "backend": "redis+socket:///Users/sergunich/dev/repos/celery/.dev/shutdown-17842.sock?virtual_host=1",
+  "events": "/Users/sergunich/dev/repos/celery/.dev/pool-shutdown-runs/20261113T080741.135372Z/gevent/hard-catch-base/events.jsonl",
+  "native_iterations": 19529223
+}

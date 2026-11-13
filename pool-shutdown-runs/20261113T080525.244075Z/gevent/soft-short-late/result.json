@@ -1,0 +1,179 @@
+{
+  "pool": "gevent",
+  "case": {
+    "name": "soft-short-late",
+    "group": "soft-short",
+    "description": "0.8 s task; QUIT at 0.3 s; 1.5 s grace period should allow completion.",
+    "acks_late": true,
+    "signals": [
+      [
+        0.3,
+        "SIGQUIT"
+      ]
+    ],
+    "steps": 8,
+    "soft_timeout": 1.5
+  },
+  "published": true,
+  "task_id": "366ad803-94ca-4718-8902-76d1cf0d0aee",
+  "returncode": 1,
+  "forced_kill": false,
+  "orphan_cleanup": false,
+  "elapsed": 1.098,
+  "result_state": "SUCCESS",
+  "result_detail": "completed",
+  "completed": true,
+  "task_finally": true,
+  "ack_observed": true,
+  "rejects": [],
+  "broker_at_start": {
+    "queued": [],
+    "unacked": [
+      {
+        "tag": "3a8b9521-02ed-4c51-aea0-f283670e9011",
+        "exchange": "",
+        "routing_key": "shutdown-probe"
+      }
+    ]
+  },
+  "broker": {
+    "queued": [],
+    "unacked": []
+  },
+  "restored_delivery": null,
+  "signals": [
+    {
+      "signal": "SIGQUIT",
+      "time": 1671713.99023525,
+      "relative": 0.31
+    }
+  ],
+  "timeline": [
+    {
+      "event": "worker_ready",
+      "time": 1671713.671390583,
+      "pid": 17749,
+      "thread": 4374677952,
+      "pool": "gevent",
+      "relative": -0.009
+    },
+    {
+      "event": "task_started",
+      "time": 1671713.680483,
+      "pid": 17749,
+      "thread": 4416767456,
+      "relative": 0.0
+    },
+    {
+      "event": "task_tick",
+      "time": 1671713.781938416,
+      "pid": 17749,
+      "thread": 4416767456,
+      "step": 1,
+      "relative": 0.101
+    },
+    {
+      "event": "task_tick",
+      "time": 1671713.884187625,
+      "pid": 17749,
+      "thread": 4416767456,
+      "step": 2,
+      "relative": 0.204
+    },
+    {
+      "event": "task_tick",
+      "time": 1671713.985031458,
+      "pid": 17749,
+      "thread": 4416767456,
+      "step": 3,
+      "relative": 0.305
+    },
+    {
+      "event": "task_tick",
+      "time": 1671714.090268833,
+      "pid": 17749,
+      "thread": 4416767456,
+      "step": 4,
+      "relative": 0.41
+    },
+    {
+      "event": "task_tick",
+      "time": 1671714.195525625,
+      "pid": 17749,
+      "thread": 4416767456,
+      "step": 5,
+      "relative": 0.515
+    },
+    {
+      "event": "task_tick",
+      "time": 1671714.299179166,
+      "pid": 17749,
+      "thread": 4416767456,
+      "step": 6,
+      "relative": 0.619
+    },
+    {
+      "event": "task_tick",
+      "time": 1671714.402394833,
+      "pid": 17749,
+      "thread": 4416767456,
+      "step": 7,
+      "relative": 0.722
+    },
+    {
+      "event": "task_tick",
+      "time": 1671714.507745166,
+      "pid": 17749,
+      "thread": 4416767456,
+      "step": 8,
+      "relative": 0.827
+    },
+    {
+      "event": "task_completed",
+      "time": 1671714.507877375,
+      "pid": 17749,
+      "thread": 4416767456,
+      "relative": 0.827
+    },
+    {
+      "event": "task_finally",
+      "time": 1671714.507907625,
+      "pid": 17749,
+      "thread": 4416767456,
+      "relative": 0.827
+    },
+    {
+      "event": "task_success",
+      "time": 1671714.512989375,
+      "pid": 17749,
+      "thread": 4416767456,
+      "relative": 0.833
+    },
+    {
+      "event": "task_postrun",
+      "time": 1671714.513333708,
+      "pid": 17749,
+      "thread": 4416767456,
+      "state": "SUCCESS",
+      "relative": 0.833
+    },
+    {
+      "event": "message_ack",
+      "time": 1671714.514137375,
+      "pid": 17749,
+      "thread": 4416767456,
+      "task_id": "366ad803-94ca-4718-8902-76d1cf0d0aee",
+      "tag": "3a8b9521-02ed-4c51-aea0-f283670e9011",
+      "relative": 0.834
+    },
+    {
+      "event": "worker_shutdown",
+      "time": 1671714.683804708,
+      "pid": 17749,
+      "thread": 4374677952,
+      "relative": 1.003
+    }
+  ],
+  "errors": [],
+  "passed": true
+}

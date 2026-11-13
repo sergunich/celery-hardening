@@ -1,0 +1,18 @@
+{
+  "name": "remote-warm",
+  "group": "remote",
+  "description": "2 s late-ack task; broker remote shutdown broadcast at 0.3 s (not an OS signal).",
+  "signals": [
+    [
+      0.3,
+      "REMOTE"
+    ]
+  ],
+  "acks_late": true,
+  "pool": "prefork",
+  "queue": "shutdown-probe",
+  "broker": "redis+socket:///Users/sergunich/dev/repos/celery/.dev/shutdown-17842.sock?virtual_host=0",
+  "backend": "redis+socket:///Users/sergunich/dev/repos/celery/.dev/shutdown-17842.sock?virtual_host=1",
+  "events": "/Users/sergunich/dev/repos/celery/.dev/pool-shutdown-runs/20261113T080741.135372Z/prefork/remote-warm/events.jsonl",
+  "native_iterations": 19529223
+}

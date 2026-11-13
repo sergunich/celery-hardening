@@ -1,0 +1,280 @@
+{
+  "pool": "solo",
+  "case": {
+    "name": "cold-catch-base",
+    "group": "edge",
+    "description": "2 s late-ack task catches BaseException around work; QUIT at 0.3 s.",
+    "signals": [
+      [
+        0.3,
+        "SIGQUIT"
+      ]
+    ],
+    "acks_late": true,
+    "catch": "base"
+  },
+  "published": true,
+  "task_id": "ce94f698-84c0-4bd0-8510-9a2ad8d43442",
+  "returncode": 0,
+  "forced_kill": false,
+  "orphan_cleanup": false,
+  "elapsed": 2.244,
+  "result_state": "SUCCESS",
+  "result_detail": "completed",
+  "completed": true,
+  "task_finally": true,
+  "hard_entered": false,
+  "shutdown_errors": [],
+  "ack_observed": true,
+  "rejects": [],
+  "broker_at_start": {
+    "queued": [],
+    "unacked": [
+      {
+        "tag": "cd0cfb7d-172e-4195-bfd8-0a517de6c20c",
+        "exchange": "",
+        "routing_key": "shutdown-probe"
+      }
+    ]
+  },
+  "broker": {
+    "queued": [],
+    "unacked": []
+  },
+  "restored_delivery": null,
+  "signals": [
+    {
+      "signal": "SIGQUIT",
+      "time": 1672212.839681958,
+      "relative": 0.307
+    }
+  ],
+  "timeline": [
+    {
+      "event": "worker_ready",
+      "time": 1672212.528669125,
+      "pid": 18660,
+      "thread": 8539349760,
+      "pool": "solo",
+      "multiprocessing_start_method": "spawn",
+      "relative": -0.004
+    },
+    {
+      "event": "task_started",
+      "time": 1672212.532660458,
+      "pid": 18660,
+      "thread": 8539349760,
+      "multiprocessing_start_method": "spawn",
+      "relative": 0.0
+    },
+    {
+      "event": "task_tick",
+      "time": 1672212.63486375,
+      "pid": 18660,
+      "thread": 8539349760,
+      "step": 1,
+      "relative": 0.102
+    },
+    {
+      "event": "task_tick",
+      "time": 1672212.739430958,
+      "pid": 18660,
+      "thread": 8539349760,
+      "step": 2,
+      "relative": 0.207
+    },
+    {
+      "event": "task_caught",
+      "time": 1672212.840669541,
+      "pid": 18660,
+      "thread": 8539349760,
+      "exception": "NotImplementedError",
+      "message": "<class 'celery.concurrency.solo.TaskPool'> does not implement kill_job",
+      "relative": 0.308
+    },
+    {
+      "event": "task_tick",
+      "time": 1672212.942554208,
+      "pid": 18660,
+      "thread": 8539349760,
+      "step": 3,
+      "relative": 0.41
+    },
+    {
+      "event": "task_tick",
+      "time": 1672213.043254291,
+      "pid": 18660,
+      "thread": 8539349760,
+      "step": 4,
+      "relative": 0.511
+    },
+    {
+      "event": "task_tick",
+      "time": 1672213.148419583,
+      "pid": 18660,
+      "thread": 8539349760,
+      "step": 5,
+      "relative": 0.616
+    },
+    {
+      "event": "task_tick",
+      "time": 1672213.249555416,
+      "pid": 18660,
+      "thread": 8539349760,
+      "step": 6,
+      "relative": 0.717
+    },
+    {
+      "event": "task_tick",
+      "time": 1672213.354764958,
+      "pid": 18660,
+      "thread": 8539349760,
+      "step": 7,
+      "relative": 0.822
+    },
+    {
+      "event": "task_tick",
+      "time": 1672213.457008333,
+      "pid": 18660,
+      "thread": 8539349760,
+      "step": 8,
+      "relative": 0.924
+    },
+    {
+      "event": "task_tick",
+      "time": 1672213.561957166,
+      "pid": 18660,
+      "thread": 8539349760,
+      "step": 9,
+      "relative": 1.029
+    },
+    {
+      "event": "task_tick",
+      "time": 1672213.666279208,
+      "pid": 18660,
+      "thread": 8539349760,
+      "step": 10,
+      "relative": 1.134
+    },
+    {
+      "event": "task_tick",
+      "time": 1672213.769595708,
+      "pid": 18660,
+      "thread": 8539349760,
+      "step": 11,
+      "relative": 1.237
+    },
+    {
+      "event": "task_tick",
+      "time": 1672213.871305583,
+      "pid": 18660,
+      "thread": 8539349760,
+      "step": 12,
+      "relative": 1.339
+    },
+    {
+      "event": "task_tick",
+      "time": 1672213.975802166,
+      "pid": 18660,
+      "thread": 8539349760,
+      "step": 13,
+      "relative": 1.443
+    },
+    {
+      "event": "task_tick",
+      "time": 1672214.076506791,
+      "pid": 18660,
+      "thread": 8539349760,
+      "step": 14,
+      "relative": 1.544
+    },
+    {
+      "event": "task_tick",
+      "time": 1672214.181752708,
+      "pid": 18660,
+      "thread": 8539349760,
+      "step": 15,
+      "relative": 1.649
+    },
+    {
+      "event": "task_tick",
+      "time": 1672214.284911791,
+      "pid": 18660,
+      "thread": 8539349760,
+      "step": 16,
+      "relative": 1.752
+    },
+    {
+      "event": "task_tick",
+      "time": 1672214.390134625,
+      "pid": 18660,
+      "thread": 8539349760,
+      "step": 17,
+      "relative": 1.857
+    },
+    {
+      "event": "task_tick",
+      "time": 1672214.490477458,
+      "pid": 18660,
+      "thread": 8539349760,
+      "step": 18,
+      "relative": 1.958
+    },
+    {
+      "event": "task_tick",
+      "time": 1672214.592179125,
+      "pid": 18660,
+      "thread": 8539349760,
+      "step": 19,
+      "relative": 2.06
+    },
+    {
+      "event": "task_tick",
+      "time": 1672214.695213208,
+      "pid": 18660,
+      "thread": 8539349760,
+      "step": 20,
+      "relative": 2.163
+    },
+    {
+      "event": "task_completed",
+      "time": 1672214.695357083,
+      "pid": 18660,
+      "thread": 8539349760,
+      "relative": 2.163
+    },
+    {
+      "event": "task_finally",
+      "time": 1672214.6953935,
+      "pid": 18660,
+      "thread": 8539349760,
+      "relative": 2.163
+    },
+    {
+      "event": "task_success",
+      "time": 1672214.697945666,
+      "pid": 18660,
+      "thread": 8539349760,
+      "relative": 2.165
+    },
+    {
+      "event": "task_postrun",
+      "time": 1672214.698275166,
+      "pid": 18660,
+      "thread": 8539349760,
+      "state": "SUCCESS",
+      "relative": 2.166
+    },
+    {
+      "event": "message_ack",
+      "time": 1672214.703546083,
+      "pid": 18660,
+      "thread": 8539349760,
+      "task_id": "ce94f698-84c0-4bd0-8510-9a2ad8d43442",
+      "tag": "cd0cfb7d-172e-4195-bfd8-0a517de6c20c",
+      "relative": 2.171
+    }
+  ],
+  "errors": [],
+  "passed": true
+}

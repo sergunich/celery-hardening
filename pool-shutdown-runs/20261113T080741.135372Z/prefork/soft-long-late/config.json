@@ -1,0 +1,20 @@
+{
+  "name": "soft-long-late",
+  "group": "soft-long",
+  "description": "3 s task; QUIT at 0.3 s; 1 s grace period expires before completion.",
+  "acks_late": true,
+  "signals": [
+    [
+      0.3,
+      "SIGQUIT"
+    ]
+  ],
+  "steps": 30,
+  "soft_timeout": 1.0,
+  "pool": "prefork",
+  "queue": "shutdown-probe",
+  "broker": "redis+socket:///Users/sergunich/dev/repos/celery/.dev/shutdown-17842.sock?virtual_host=0",
+  "backend": "redis+socket:///Users/sergunich/dev/repos/celery/.dev/shutdown-17842.sock?virtual_host=1",
+  "events": "/Users/sergunich/dev/repos/celery/.dev/pool-shutdown-runs/20261113T080741.135372Z/prefork/soft-long-late/events.jsonl",
+  "native_iterations": 19529223
+}

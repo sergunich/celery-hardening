@@ -1,0 +1,28 @@
+ 
+ -------------- shutdown-probe@localhost v5.7.0 (collider)
+--- ***** ----- 
+-- ******* ---- macOS-15.8.1-arm64-arm-64bit-Mach-O 2026-11-13 11:09:49
+- *** --- * --- 
+- ** ---------- [config]
+- ** ---------- .> app:         shutdown_probe:0x106fca7b0
+- ** ---------- .> transport:   redis+socket:///Users/sergunich/dev/repos/celery/.dev/shutdown-17842.sock
+- ** ---------- .> results:     socket:///Users/sergunich/dev/repos/celery/.dev/shutdown-17842.sock
+- *** --- * --- .> concurrency: 1 (prefork)
+-- ******* ---- .> task events: OFF (enable -E to monitor tasks in this worker)
+--- ***** ----- 
+ -------------- [queues]
+                .> shutdown-probe   exchange=shutdown-probe(direct) key=shutdown-probe
+                
+
+[tasks]
+  . shutdown_probe.task
+
+[2026-11-13 11:09:49,981: INFO/MainProcess] Connected to redis+socket:///Users/sergunich/dev/repos/celery/.dev/shutdown-17842.sock
+[2026-11-13 11:09:49,988: INFO/MainProcess] shutdown-probe@localhost ready.
+[2026-11-13 11:09:49,996: INFO/MainProcess] Task shutdown_probe.task[1ced475a-f1ec-40a4-8a49-b2ce945723a2] received
+[2026-11-13 11:09:50,236: INFO/SpawnPoolWorker-1] child process 18128 calling self.run()
+
+worker: Hitting Ctrl+C again will terminate all running tasks!
+
+worker: Cold shutdown (MainProcess)
+[2026-11-13 11:09:53,582: INFO/MainProcess] Restoring 1 unacknowledged message(s)

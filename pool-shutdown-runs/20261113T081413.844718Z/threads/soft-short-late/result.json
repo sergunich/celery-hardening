@@ -1,0 +1,185 @@
+{
+  "pool": "threads",
+  "case": {
+    "name": "soft-short-late",
+    "group": "soft-short",
+    "description": "0.8 s task; QUIT at 0.3 s; 1.5 s grace period should allow completion.",
+    "acks_late": true,
+    "signals": [
+      [
+        0.3,
+        "SIGQUIT"
+      ]
+    ],
+    "steps": 8,
+    "soft_timeout": 1.5
+  },
+  "published": true,
+  "task_id": "31cfb765-f904-405a-b4e1-cba0da1ed7ce",
+  "returncode": 0,
+  "forced_kill": false,
+  "orphan_cleanup": false,
+  "elapsed": 1.869,
+  "result_state": "SUCCESS",
+  "result_detail": "completed",
+  "completed": true,
+  "task_finally": true,
+  "hard_entered": false,
+  "shutdown_errors": [],
+  "ack_observed": true,
+  "rejects": [],
+  "broker_at_start": {
+    "queued": [],
+    "unacked": [
+      {
+        "tag": "d035afd4-99f5-4534-94eb-9918bdd5d2fb",
+        "exchange": "",
+        "routing_key": "shutdown-probe"
+      }
+    ]
+  },
+  "broker": {
+    "queued": [],
+    "unacked": []
+  },
+  "restored_delivery": null,
+  "signals": [
+    {
+      "signal": "SIGQUIT",
+      "time": 1672350.087976833,
+      "relative": 0.301
+    }
+  ],
+  "timeline": [
+    {
+      "event": "worker_ready",
+      "time": 1672349.781869791,
+      "pid": 18967,
+      "thread": 8539349760,
+      "pool": "threads",
+      "multiprocessing_start_method": "spawn",
+      "relative": -0.005
+    },
+    {
+      "event": "task_started",
+      "time": 1672349.787198708,
+      "pid": 18967,
+      "thread": 6153891840,
+      "multiprocessing_start_method": "spawn",
+      "relative": 0.0
+    },
+    {
+      "event": "task_tick",
+      "time": 1672349.891278458,
+      "pid": 18967,
+      "thread": 6153891840,
+      "step": 1,
+      "relative": 0.104
+    },
+    {
+      "event": "task_tick",
+      "time": 1672349.992697125,
+      "pid": 18967,
+      "thread": 6153891840,
+      "step": 2,
+      "relative": 0.205
+    },
+    {
+      "event": "task_tick",
+      "time": 1672350.097771833,
+      "pid": 18967,
+      "thread": 6153891840,
+      "step": 3,
+      "relative": 0.311
+    },
+    {
+      "event": "task_tick",
+      "time": 1672350.200610291,
+      "pid": 18967,
+      "thread": 6153891840,
+      "step": 4,
+      "relative": 0.413
+    },
+    {
+      "event": "task_tick",
+      "time": 1672350.304801666,
+      "pid": 18967,
+      "thread": 6153891840,
+      "step": 5,
+      "relative": 0.518
+    },
+    {
+      "event": "task_tick",
+      "time": 1672350.407925541,
+      "pid": 18967,
+      "thread": 6153891840,
+      "step": 6,
+      "relative": 0.621
+    },
+    {
+      "event": "task_tick",
+      "time": 1672350.51002875,
+      "pid": 18967,
+      "thread": 6153891840,
+      "step": 7,
+      "relative": 0.723
+    },
+    {
+      "event": "task_tick",
+      "time": 1672350.615188833,
+      "pid": 18967,
+      "thread": 6153891840,
+      "step": 8,
+      "relative": 0.828
+    },
+    {
+      "event": "task_completed",
+      "time": 1672350.6153105,
+      "pid": 18967,
+      "thread": 6153891840,
+      "relative": 0.828
+    },
+    {
+      "event": "task_finally",
+      "time": 1672350.615345,
+      "pid": 18967,
+      "thread": 6153891840,
+      "relative": 0.828
+    },
+    {
+      "event": "task_success",
+      "time": 1672350.620125541,
+      "pid": 18967,
+      "thread": 6153891840,
+      "relative": 0.833
+    },
+    {
+      "event": "task_postrun",
+      "time": 1672350.620489291,
+      "pid": 18967,
+      "thread": 6153891840,
+      "state": "SUCCESS",
+      "relative": 0.833
+    },
+    {
+      "event": "worker_shutting_down",
+      "time": 1672351.59344375,
+      "pid": 18967,
+      "thread": 8539349760,
+      "signal": "SIGQUIT",
+      "how": "Cold",
+      "relative": 1.806
+    },
+    {
+      "event": "message_ack",
+      "time": 1672351.596911708,
+      "pid": 18967,
+      "thread": 8539349760,
+      "task_id": "31cfb765-f904-405a-b4e1-cba0da1ed7ce",
+      "tag": "d035afd4-99f5-4534-94eb-9918bdd5d2fb",
+      "relative": 1.81
+    }
+  ],
+  "errors": [],
+  "passed": true
+}

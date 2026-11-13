@@ -1,0 +1,171 @@
+{
+  "pool": "solo",
+  "case": {
+    "name": "hard-native",
+    "group": "native",
+    "description": "About 2 s PBKDF2 in native code; late ack; four Ctrl+C signals at 0.3/0.6/0.9/1.2 s (handlers may be delayed/coalesced).",
+    "signals": [
+      [
+        0.3,
+        "SIGINT"
+      ],
+      [
+        0.6,
+        "SIGINT"
+      ],
+      [
+        0.9,
+        "SIGINT"
+      ],
+      [
+        1.2,
+        "SIGINT"
+      ]
+    ],
+    "native": true,
+    "steps": 0,
+    "acks_late": true,
+    "soft_timeout": 2.0
+  },
+  "published": true,
+  "task_id": "2e6ac972-2df9-46a9-81c3-4fd2c2e7cae2",
+  "returncode": 1,
+  "forced_kill": false,
+  "orphan_cleanup": false,
+  "elapsed": 2.065,
+  "result_state": "SUCCESS",
+  "result_detail": "completed",
+  "completed": true,
+  "task_finally": true,
+  "hard_entered": false,
+  "shutdown_errors": [],
+  "ack_observed": true,
+  "rejects": [],
+  "broker_at_start": {
+    "queued": [],
+    "unacked": [
+      {
+        "tag": "c47511c2-5c7e-401f-add8-d49a8b387547",
+        "exchange": "",
+        "routing_key": "shutdown-probe"
+      }
+    ]
+  },
+  "broker": {
+    "queued": [],
+    "unacked": []
+  },
+  "restored_delivery": null,
+  "signals": [
+    {
+      "signal": "SIGINT",
+      "time": 1672737.015854833,
+      "relative": 0.302
+    },
+    {
+      "signal": "SIGINT",
+      "time": 1672737.315447833,
+      "relative": 0.602
+    },
+    {
+      "signal": "SIGINT",
+      "time": 1672737.619402666,
+      "relative": 0.906
+    },
+    {
+      "signal": "SIGINT",
+      "time": 1672737.917002041,
+      "relative": 1.204
+    }
+  ],
+  "timeline": [
+    {
+      "event": "worker_ready",
+      "time": 1672736.629554958,
+      "pid": 19628,
+      "thread": 8539349760,
+      "pool": "solo",
+      "multiprocessing_start_method": "spawn",
+      "relative": -0.084
+    },
+    {
+      "event": "task_started",
+      "time": 1672736.713479458,
+      "pid": 19628,
+      "thread": 8539349760,
+      "multiprocessing_start_method": "spawn",
+      "relative": 0.0
+    },
+    {
+      "event": "native_started",
+      "time": 1672736.713498458,
+      "pid": 19628,
+      "thread": 8539349760,
+      "iterations": 19472261,
+      "relative": 0.0
+    },
+    {
+      "event": "worker_shutting_down",
+      "time": 1672738.722597416,
+      "pid": 19628,
+      "thread": 8539349760,
+      "signal": "SIGINT",
+      "how": "Warm",
+      "relative": 2.009
+    },
+    {
+      "event": "native_returned",
+      "time": 1672738.722630208,
+      "pid": 19628,
+      "thread": 8539349760,
+      "relative": 2.009
+    },
+    {
+      "event": "task_completed",
+      "time": 1672738.722639083,
+      "pid": 19628,
+      "thread": 8539349760,
+      "relative": 2.009
+    },
+    {
+      "event": "task_finally",
+      "time": 1672738.722645041,
+      "pid": 19628,
+      "thread": 8539349760,
+      "relative": 2.009
+    },
+    {
+      "event": "task_success",
+      "time": 1672738.723432666,
+      "pid": 19628,
+      "thread": 8539349760,
+      "relative": 2.01
+    },
+    {
+      "event": "task_postrun",
+      "time": 1672738.723520583,
+      "pid": 19628,
+      "thread": 8539349760,
+      "state": "SUCCESS",
+      "relative": 2.01
+    },
+    {
+      "event": "message_ack",
+      "time": 1672738.724799291,
+      "pid": 19628,
+      "thread": 8539349760,
+      "task_id": "2e6ac972-2df9-46a9-81c3-4fd2c2e7cae2",
+      "tag": "c47511c2-5c7e-401f-add8-d49a8b387547",
+      "relative": 2.011
+    },
+    {
+      "event": "worker_shutdown",
+      "time": 1672738.724907416,
+      "pid": 19628,
+      "thread": 8539349760,
+      "relative": 2.011
+    }
+  ],
+  "errors": [],
+  "passed": true
+}

@@ -1,0 +1,57 @@
+{
+  "case": {
+    "name": "idle-cold",
+    "signals": [
+      [
+        0.3,
+        "SIGQUIT"
+      ]
+    ],
+    "idle": true,
+    "expect": "idle"
+  },
+  "passed": true,
+  "errors": [],
+  "returncode": 0,
+  "forced_kill": false,
+  "signals": [
+    {
+      "signal": "SIGQUIT",
+      "time": 1614082.584929125
+    }
+  ],
+  "elapsed": 4.091,
+  "result_state": null,
+  "timeline": [
+    {
+      "event": "worker_constructed",
+      "time": 1614082.267097083,
+      "pid": 60023,
+      "pool": "celery.concurrency.solo",
+      "relative": -0.016
+    },
+    {
+      "event": "worker_ready",
+      "time": 1614082.283467958,
+      "pid": 60023,
+      "relative": 0.0
+    },
+    {
+      "event": "worker_shutting_down",
+      "time": 1614082.585587833,
+      "pid": 60023,
+      "signal": "SIGQUIT",
+      "how": "Cold",
+      "relative": 0.302
+    },
+    {
+      "event": "worker_returned",
+      "time": 1614086.321572375,
+      "pid": 60023,
+      "exitcode": null,
+      "result_state": null,
+      "requests": [],
+      "relative": 4.038
+    }
+  ]
+}

@@ -1,0 +1,33 @@
+{
+  "name": "hard-early",
+  "group": "hard",
+  "description": "Endless task; four Ctrl+C signals at 0.3/0.6/0.9/1.2 s; soft timeout 2 s.",
+  "acks_late": false,
+  "signals": [
+    [
+      0.3,
+      "SIGINT"
+    ],
+    [
+      0.6,
+      "SIGINT"
+    ],
+    [
+      0.9,
+      "SIGINT"
+    ],
+    [
+      1.2,
+      "SIGINT"
+    ]
+  ],
+  "steps": null,
+  "soft_timeout": 2.0,
+  "deadline": 4.0,
+  "pool": "threads",
+  "queue": "shutdown-probe",
+  "broker": "redis+socket:///Users/sergunich/dev/repos/celery/.dev/shutdown-17842.sock?virtual_host=0",
+  "backend": "redis+socket:///Users/sergunich/dev/repos/celery/.dev/shutdown-17842.sock?virtual_host=1",
+  "events": "/Users/sergunich/dev/repos/celery/.dev/pool-shutdown-runs/20261113T080741.135372Z/threads/hard-early/events.jsonl",
+  "native_iterations": 19529223
+}

@@ -1,0 +1,20 @@
+{
+  "name": "soft-short-late",
+  "group": "soft-short",
+  "description": "0.8 s task; QUIT at 0.3 s; 1.5 s grace period should allow completion.",
+  "acks_late": true,
+  "signals": [
+    [
+      0.3,
+      "SIGQUIT"
+    ]
+  ],
+  "steps": 8,
+  "soft_timeout": 1.5,
+  "pool": "solo",
+  "queue": "shutdown-probe",
+  "broker": "redis+socket:///Users/sergunich/dev/repos/celery/.dev/shutdown-17618.sock?virtual_host=0",
+  "backend": "redis+socket:///Users/sergunich/dev/repos/celery/.dev/shutdown-17618.sock?virtual_host=1",
+  "events": "/Users/sergunich/dev/repos/celery/.dev/pool-shutdown-runs/20261113T080525.244075Z/solo/soft-short-late/events.jsonl",
+  "native_iterations": 19107519
+}

@@ -1,0 +1,105 @@
+{
+  "pool": "solo",
+  "case": {
+    "name": "kill-early",
+    "group": "kill",
+    "description": "Endless task; SIGKILL to entire worker process group at 0.3 s.",
+    "acks_late": false,
+    "signals": [
+      [
+        0.3,
+        "SIGKILL"
+      ]
+    ],
+    "steps": null
+  },
+  "published": true,
+  "task_id": "0277f33a-26fc-4ae9-a9d8-68f1ebc141c5",
+  "returncode": -9,
+  "forced_kill": false,
+  "orphan_cleanup": false,
+  "elapsed": 0.317,
+  "result_state": "PENDING",
+  "result_detail": "None",
+  "completed": false,
+  "task_finally": false,
+  "hard_entered": false,
+  "shutdown_errors": [],
+  "ack_observed": false,
+  "rejects": [],
+  "broker_at_start": {
+    "queued": [],
+    "unacked": [
+      {
+        "tag": "f19a4195-9d37-4fce-b575-0b4f546e3ac2",
+        "exchange": "",
+        "routing_key": "shutdown-probe"
+      }
+    ]
+  },
+  "broker": {
+    "queued": [],
+    "unacked": [
+      {
+        "tag": "f19a4195-9d37-4fce-b575-0b4f546e3ac2",
+        "exchange": "",
+        "routing_key": "shutdown-probe"
+      }
+    ]
+  },
+  "restored_delivery": null,
+  "signals": [
+    {
+      "signal": "SIGKILL",
+      "time": 1671810.555120625,
+      "relative": 0.304
+    }
+  ],
+  "timeline": [
+    {
+      "event": "worker_ready",
+      "time": 1671810.243409166,
+      "pid": 17914,
+      "thread": 8539349760,
+      "pool": "solo",
+      "multiprocessing_start_method": "spawn",
+      "relative": -0.008
+    },
+    {
+      "event": "task_started",
+      "time": 1671810.251145083,
+      "pid": 17914,
+      "thread": 8539349760,
+      "multiprocessing_start_method": "spawn",
+      "relative": 0.0
+    },
+    {
+      "event": "task_tick",
+      "time": 1671810.352353458,
+      "pid": 17914,
+      "thread": 8539349760,
+      "step": 1,
+      "relative": 0.101
+    },
+    {
+      "event": "task_tick",
+      "time": 1671810.452836666,
+      "pid": 17914,
+      "thread": 8539349760,
+      "step": 2,
+      "relative": 0.202
+    },
+    {
+      "event": "task_tick",
+      "time": 1671810.553865166,
+      "pid": 17914,
+      "thread": 8539349760,
+      "step": 3,
+      "relative": 0.303
+    }
+  ],
+  "errors": [
+    "SIGKILL ACK depends on early/late policy"
+  ],
+  "passed": false
+}

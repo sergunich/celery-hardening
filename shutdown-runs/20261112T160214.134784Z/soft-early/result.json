@@ -1,0 +1,90 @@
+{
+  "case": {
+    "name": "soft-early",
+    "signals": [
+      [
+        0.3,
+        "SIGQUIT"
+      ]
+    ],
+    "soft_timeout": 1.0,
+    "expect": "soft_failure"
+  },
+  "passed": true,
+  "errors": [],
+  "returncode": 0,
+  "forced_kill": false,
+  "signals": [
+    {
+      "signal": "SIGQUIT",
+      "time": 1613872.897112416
+    }
+  ],
+  "elapsed": 3.401,
+  "result_state": "FAILURE",
+  "timeline": [
+    {
+      "event": "worker_constructed",
+      "time": 1613872.562365541,
+      "pid": 59694,
+      "pool": "celery.concurrency.solo",
+      "relative": -0.026
+    },
+    {
+      "event": "worker_ready",
+      "time": 1613872.586251083,
+      "pid": 59694,
+      "relative": -0.003
+    },
+    {
+      "event": "task_started",
+      "time": 1613872.588832,
+      "pid": 59694,
+      "acks_late": false,
+      "relative": 0.0
+    },
+    {
+      "event": "task_tick",
+      "time": 1613872.69389225,
+      "pid": 59694,
+      "step": 1,
+      "relative": 0.105
+    },
+    {
+      "event": "task_tick",
+      "time": 1613872.798988875,
+      "pid": 59694,
+      "step": 2,
+      "relative": 0.21
+    },
+    {
+      "event": "task_finally",
+      "time": 1613873.900834416,
+      "pid": 59694,
+      "relative": 1.312
+    },
+    {
+      "event": "task_failure",
+      "time": 1613873.907533333,
+      "pid": 59694,
+      "exception": "NotImplementedError",
+      "message": "<class 'celery.concurrency.solo.TaskPool'> does not implement kill_job",
+      "relative": 1.319
+    },
+    {
+      "event": "task_postrun",
+      "time": 1613873.90897025,
+      "pid": 59694,
+      "state": "FAILURE",
+      "relative": 1.32
+    },
+    {
+      "event": "worker_returned",
+      "time": 1613875.930582208,
+      "pid": 59694,
+      "exitcode": null,
+      "result_state": "FAILURE",
+      "relative": 3.342
+    }
+  ]
+}

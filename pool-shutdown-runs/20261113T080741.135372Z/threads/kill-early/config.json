@@ -1,0 +1,19 @@
+{
+  "name": "kill-early",
+  "group": "kill",
+  "description": "Endless task; SIGKILL to entire worker process group at 0.3 s.",
+  "acks_late": false,
+  "signals": [
+    [
+      0.3,
+      "SIGKILL"
+    ]
+  ],
+  "steps": null,
+  "pool": "threads",
+  "queue": "shutdown-probe",
+  "broker": "redis+socket:///Users/sergunich/dev/repos/celery/.dev/shutdown-17842.sock?virtual_host=0",
+  "backend": "redis+socket:///Users/sergunich/dev/repos/celery/.dev/shutdown-17842.sock?virtual_host=1",
+  "events": "/Users/sergunich/dev/repos/celery/.dev/pool-shutdown-runs/20261113T080741.135372Z/threads/kill-early/events.jsonl",
+  "native_iterations": 19529223
+}

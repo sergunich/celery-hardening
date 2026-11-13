@@ -1,0 +1,96 @@
+{
+  "case": {
+    "name": "cold-early",
+    "signals": [
+      [
+        0.3,
+        "SIGQUIT"
+      ]
+    ],
+    "expect": "failure"
+  },
+  "passed": true,
+  "errors": [],
+  "returncode": 0,
+  "forced_kill": false,
+  "signals": [
+    {
+      "signal": "SIGQUIT",
+      "time": 1614043.219824041
+    }
+  ],
+  "elapsed": 2.408,
+  "result_state": "FAILURE",
+  "timeline": [
+    {
+      "event": "worker_constructed",
+      "time": 1614042.899843,
+      "pid": 59943,
+      "pool": "celery.concurrency.solo",
+      "relative": -0.017
+    },
+    {
+      "event": "worker_ready",
+      "time": 1614042.916175125,
+      "pid": 59943,
+      "relative": -0.001
+    },
+    {
+      "event": "task_started",
+      "time": 1614042.917190041,
+      "pid": 59943,
+      "acks_late": false,
+      "relative": 0.0
+    },
+    {
+      "event": "task_tick",
+      "time": 1614043.022225458,
+      "pid": 59943,
+      "step": 1,
+      "relative": 0.105
+    },
+    {
+      "event": "task_tick",
+      "time": 1614043.123667416,
+      "pid": 59943,
+      "step": 2,
+      "relative": 0.206
+    },
+    {
+      "event": "task_finally",
+      "time": 1614043.220609416,
+      "pid": 59943,
+      "relative": 0.303
+    },
+    {
+      "event": "task_failure",
+      "time": 1614043.230695166,
+      "pid": 59943,
+      "exception": "NotImplementedError",
+      "message": "<class 'celery.concurrency.solo.TaskPool'> does not implement kill_job",
+      "relative": 0.314
+    },
+    {
+      "event": "task_postrun",
+      "time": 1614043.232840458,
+      "pid": 59943,
+      "state": "FAILURE",
+      "relative": 0.316
+    },
+    {
+      "event": "worker_returned",
+      "time": 1614045.280849208,
+      "pid": 59943,
+      "exitcode": null,
+      "result_state": "FAILURE",
+      "requests": [
+        {
+          "acknowledged": true,
+          "cancelled": false,
+          "revoked": false
+        }
+      ],
+      "relative": 2.364
+    }
+  ]
+}

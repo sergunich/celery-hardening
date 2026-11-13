@@ -1,0 +1,61 @@
+{
+  "case": {
+    "name": "sigkill",
+    "signals": [
+      [
+        0.3,
+        "SIGKILL"
+      ]
+    ],
+    "steps": null,
+    "expect": "killed"
+  },
+  "passed": true,
+  "errors": [],
+  "returncode": -9,
+  "forced_kill": false,
+  "signals": [
+    {
+      "signal": "SIGKILL",
+      "time": 1614081.878579166
+    }
+  ],
+  "elapsed": 0.315,
+  "result_state": null,
+  "timeline": [
+    {
+      "event": "worker_constructed",
+      "time": 1614081.558353375,
+      "pid": 60020,
+      "pool": "celery.concurrency.solo",
+      "relative": -0.018
+    },
+    {
+      "event": "worker_ready",
+      "time": 1614081.575511875,
+      "pid": 60020,
+      "relative": -0.001
+    },
+    {
+      "event": "task_started",
+      "time": 1614081.576488541,
+      "pid": 60020,
+      "acks_late": false,
+      "relative": 0.0
+    },
+    {
+      "event": "task_tick",
+      "time": 1614081.681555333,
+      "pid": 60020,
+      "step": 1,
+      "relative": 0.105
+    },
+    {
+      "event": "task_tick",
+      "time": 1614081.786658,
+      "pid": 60020,
+      "step": 2,
+      "relative": 0.21
+    }
+  ]
+}

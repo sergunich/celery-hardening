@@ -1,0 +1,29 @@
+[2026-11-12 19:05:37,040: WARNING/MainProcess] No hostname was supplied. Reverting to default 'localhost'
+ 
+ -------------- solo-probe@localhost v5.7.0 (collider)
+--- ***** ----- 
+-- ******* ---- macOS-15.8.1-arm64-arm-64bit-Mach-O 2026-11-12 19:05:37
+- *** --- * --- 
+- ** ---------- [config]
+- ** ---------- .> app:         solo_shutdown_probe:0x10191f4d0
+- ** ---------- .> transport:   memory://:**@localhost//
+- ** ---------- .> results:     memory:///
+- *** --- * --- .> concurrency: 1 (solo)
+-- ******* ---- .> task events: OFF (enable -E to monitor tasks in this worker)
+--- ***** ----- 
+ -------------- [queues]
+                .> celery           exchange=celery(direct) key=celery
+                
+
+[tasks]
+  . solo_shutdown_probe.task
+
+[2026-11-12 19:05:37,055: WARNING/MainProcess] No hostname was supplied. Reverting to default 'localhost'
+[2026-11-12 19:05:37,055: INFO/MainProcess] Connected to memory://:**@localhost//
+[2026-11-12 19:05:37,058: WARNING/MainProcess] No hostname was supplied. Reverting to default 'localhost'
+[2026-11-12 19:05:37,058: INFO/MainProcess] solo-probe@localhost ready.
+[2026-11-12 19:05:37,058: INFO/MainProcess] Task solo_shutdown_probe.task[b2d5e5ef-5c23-43ce-9d65-a339da365a9a] received
+
+worker: Hitting Ctrl+C again will terminate all running tasks!
+[2026-11-12 19:05:37,368: WARNING/MainProcess] Initiating Soft Shutdown, terminating in 1.0 seconds
+[2026-11-12 19:05:40,242: INFO/MainProcess] Task solo_shutdown_probe.task[b2d5e5ef-5c23-43ce-9d65-a339da365a9a] succeeded in 3.1823923750780523s: 'completed'

@@ -1,0 +1,280 @@
+{
+  "pool": "threads",
+  "case": {
+    "name": "cold-catch-exception",
+    "group": "edge",
+    "description": "2 s late-ack task catches Exception around work; QUIT at 0.3 s.",
+    "signals": [
+      [
+        0.3,
+        "SIGQUIT"
+      ]
+    ],
+    "acks_late": true,
+    "catch": "exception"
+  },
+  "published": true,
+  "task_id": "82664ffd-db47-4f68-8af9-2aad876adddc",
+  "returncode": 1,
+  "forced_kill": false,
+  "orphan_cleanup": false,
+  "elapsed": 2.149,
+  "result_state": "SUCCESS",
+  "result_detail": "completed",
+  "completed": true,
+  "task_finally": true,
+  "hard_entered": false,
+  "shutdown_errors": [
+    "NotImplementedError"
+  ],
+  "ack_observed": true,
+  "rejects": [],
+  "broker_at_start": {
+    "queued": [],
+    "unacked": [
+      {
+        "tag": "0b511aa4-dbaa-4c90-bf86-766bb910d15f",
+        "exchange": "",
+        "routing_key": "shutdown-probe"
+      }
+    ]
+  },
+  "broker": {
+    "queued": [],
+    "unacked": []
+  },
+  "restored_delivery": null,
+  "signals": [
+    {
+      "signal": "SIGQUIT",
+      "time": 1672374.712449541,
+      "relative": 0.316
+    }
+  ],
+  "timeline": [
+    {
+      "event": "worker_ready",
+      "time": 1672374.385292958,
+      "pid": 19029,
+      "thread": 8539349760,
+      "pool": "threads",
+      "multiprocessing_start_method": "spawn",
+      "relative": -0.011
+    },
+    {
+      "event": "task_started",
+      "time": 1672374.39653825,
+      "pid": 19029,
+      "thread": 6111064064,
+      "multiprocessing_start_method": "spawn",
+      "relative": 0.0
+    },
+    {
+      "event": "task_tick",
+      "time": 1672374.5015795,
+      "pid": 19029,
+      "thread": 6111064064,
+      "step": 1,
+      "relative": 0.105
+    },
+    {
+      "event": "task_tick",
+      "time": 1672374.604587,
+      "pid": 19029,
+      "thread": 6111064064,
+      "step": 2,
+      "relative": 0.208
+    },
+    {
+      "event": "task_tick",
+      "time": 1672374.712469916,
+      "pid": 19029,
+      "thread": 6111064064,
+      "step": 3,
+      "relative": 0.316
+    },
+    {
+      "event": "task_tick",
+      "time": 1672374.817721541,
+      "pid": 19029,
+      "thread": 6111064064,
+      "step": 4,
+      "relative": 0.421
+    },
+    {
+      "event": "task_tick",
+      "time": 1672374.922708875,
+      "pid": 19029,
+      "thread": 6111064064,
+      "step": 5,
+      "relative": 0.526
+    },
+    {
+      "event": "task_tick",
+      "time": 1672375.025197291,
+      "pid": 19029,
+      "thread": 6111064064,
+      "step": 6,
+      "relative": 0.629
+    },
+    {
+      "event": "task_tick",
+      "time": 1672375.129034583,
+      "pid": 19029,
+      "thread": 6111064064,
+      "step": 7,
+      "relative": 0.732
+    },
+    {
+      "event": "task_tick",
+      "time": 1672375.23039425,
+      "pid": 19029,
+      "thread": 6111064064,
+      "step": 8,
+      "relative": 0.834
+    },
+    {
+      "event": "task_tick",
+      "time": 1672375.333355166,
+      "pid": 19029,
+      "thread": 6111064064,
+      "step": 9,
+      "relative": 0.937
+    },
+    {
+      "event": "task_tick",
+      "time": 1672375.437483208,
+      "pid": 19029,
+      "thread": 6111064064,
+      "step": 10,
+      "relative": 1.041
+    },
+    {
+      "event": "task_tick",
+      "time": 1672375.537715875,
+      "pid": 19029,
+      "thread": 6111064064,
+      "step": 11,
+      "relative": 1.141
+    },
+    {
+      "event": "task_tick",
+      "time": 1672375.640714125,
+      "pid": 19029,
+      "thread": 6111064064,
+      "step": 12,
+      "relative": 1.244
+    },
+    {
+      "event": "task_tick",
+      "time": 1672375.741749458,
+      "pid": 19029,
+      "thread": 6111064064,
+      "step": 13,
+      "relative": 1.345
+    },
+    {
+      "event": "task_tick",
+      "time": 1672375.8469605,
+      "pid": 19029,
+      "thread": 6111064064,
+      "step": 14,
+      "relative": 1.45
+    },
+    {
+      "event": "task_tick",
+      "time": 1672375.950724041,
+      "pid": 19029,
+      "thread": 6111064064,
+      "step": 15,
+      "relative": 1.554
+    },
+    {
+      "event": "task_tick",
+      "time": 1672376.054693833,
+      "pid": 19029,
+      "thread": 6111064064,
+      "step": 16,
+      "relative": 1.658
+    },
+    {
+      "event": "task_tick",
+      "time": 1672376.157614458,
+      "pid": 19029,
+      "thread": 6111064064,
+      "step": 17,
+      "relative": 1.761
+    },
+    {
+      "event": "task_tick",
+      "time": 1672376.262791666,
+      "pid": 19029,
+      "thread": 6111064064,
+      "step": 18,
+      "relative": 1.866
+    },
+    {
+      "event": "task_tick",
+      "time": 1672376.365144333,
+      "pid": 19029,
+      "thread": 6111064064,
+      "step": 19,
+      "relative": 1.969
+    },
+    {
+      "event": "task_tick",
+      "time": 1672376.470284666,
+      "pid": 19029,
+      "thread": 6111064064,
+      "step": 20,
+      "relative": 2.074
+    },
+    {
+      "event": "task_completed",
+      "time": 1672376.470423166,
+      "pid": 19029,
+      "thread": 6111064064,
+      "relative": 2.074
+    },
+    {
+      "event": "task_finally",
+      "time": 1672376.470473375,
+      "pid": 19029,
+      "thread": 6111064064,
+      "relative": 2.074
+    },
+    {
+      "event": "task_success",
+      "time": 1672376.476298041,
+      "pid": 19029,
+      "thread": 6111064064,
+      "relative": 2.08
+    },
+    {
+      "event": "task_postrun",
+      "time": 1672376.476614708,
+      "pid": 19029,
+      "thread": 6111064064,
+      "state": "SUCCESS",
+      "relative": 2.08
+    },
+    {
+      "event": "message_ack",
+      "time": 1672376.477738875,
+      "pid": 19029,
+      "thread": 8539349760,
+      "task_id": "82664ffd-db47-4f68-8af9-2aad876adddc",
+      "tag": "0b511aa4-dbaa-4c90-bf86-766bb910d15f",
+      "relative": 2.081
+    },
+    {
+      "event": "worker_shutdown",
+      "time": 1672376.478218,
+      "pid": 19029,
+      "thread": 8539349760,
+      "relative": 2.082
+    }
+  ],
+  "errors": [],
+  "passed": true
+}

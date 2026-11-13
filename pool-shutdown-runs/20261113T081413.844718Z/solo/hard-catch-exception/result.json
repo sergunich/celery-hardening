@@ -1,0 +1,216 @@
+{
+  "pool": "solo",
+  "case": {
+    "name": "hard-catch-exception",
+    "group": "edge",
+    "description": "Endless late-ack task catches Exception; four Ctrl+C signals; kill at 4 s if stuck.",
+    "signals": [
+      [
+        0.3,
+        "SIGINT"
+      ],
+      [
+        0.6,
+        "SIGINT"
+      ],
+      [
+        0.9,
+        "SIGINT"
+      ],
+      [
+        1.2,
+        "SIGINT"
+      ]
+    ],
+    "steps": null,
+    "acks_late": true,
+    "catch": "exception",
+    "soft_timeout": 2.0,
+    "deadline": 4.0
+  },
+  "published": true,
+  "task_id": "4ef7704a-b911-4f7d-9542-38c4399359aa",
+  "returncode": 0,
+  "forced_kill": false,
+  "orphan_cleanup": false,
+  "elapsed": 1.291,
+  "result_state": "PENDING",
+  "result_detail": "None",
+  "completed": false,
+  "task_finally": true,
+  "hard_entered": true,
+  "shutdown_errors": [],
+  "ack_observed": false,
+  "rejects": [],
+  "broker_at_start": {
+    "queued": [],
+    "unacked": [
+      {
+        "tag": "2ed3fbf0-9316-40b8-9c56-7feec24bb900",
+        "exchange": "",
+        "routing_key": "shutdown-probe"
+      }
+    ]
+  },
+  "broker": {
+    "queued": [
+      {
+        "queue": "shutdown-probe",
+        "redelivered": true
+      }
+    ],
+    "unacked": []
+  },
+  "restored_delivery": {
+    "task_id": "4ef7704a-b911-4f7d-9542-38c4399359aa",
+    "redelivered": true
+  },
+  "signals": [
+    {
+      "signal": "SIGINT",
+      "time": 1672215.943388125,
+      "relative": 0.3
+    },
+    {
+      "signal": "SIGINT",
+      "time": 1672216.243407625,
+      "relative": 0.6
+    },
+    {
+      "signal": "SIGINT",
+      "time": 1672216.547076875,
+      "relative": 0.904
+    },
+    {
+      "signal": "SIGINT",
+      "time": 1672216.845459958,
+      "relative": 1.202
+    }
+  ],
+  "timeline": [
+    {
+      "event": "worker_ready",
+      "time": 1672215.628150333,
+      "pid": 18663,
+      "thread": 8539349760,
+      "pool": "solo",
+      "multiprocessing_start_method": "spawn",
+      "relative": -0.015
+    },
+    {
+      "event": "task_started",
+      "time": 1672215.643205625,
+      "pid": 18663,
+      "thread": 8539349760,
+      "multiprocessing_start_method": "spawn",
+      "relative": 0.0
+    },
+    {
+      "event": "task_tick",
+      "time": 1672215.744024208,
+      "pid": 18663,
+      "thread": 8539349760,
+      "step": 1,
+      "relative": 0.101
+    },
+    {
+      "event": "task_tick",
+      "time": 1672215.849126333,
+      "pid": 18663,
+      "thread": 8539349760,
+      "step": 2,
+      "relative": 0.206
+    },
+    {
+      "event": "worker_shutting_down",
+      "time": 1672215.943843958,
+      "pid": 18663,
+      "thread": 8539349760,
+      "signal": "SIGINT",
+      "how": "Warm",
+      "relative": 0.301
+    },
+    {
+      "event": "task_tick",
+      "time": 1672215.949625625,
+      "pid": 18663,
+      "thread": 8539349760,
+      "step": 3,
+      "relative": 0.306
+    },
+    {
+      "event": "task_tick",
+      "time": 1672216.052588125,
+      "pid": 18663,
+      "thread": 8539349760,
+      "step": 4,
+      "relative": 0.409
+    },
+    {
+      "event": "task_tick",
+      "time": 1672216.157102625,
+      "pid": 18663,
+      "thread": 8539349760,
+      "step": 5,
+      "relative": 0.514
+    },
+    {
+      "event": "task_caught",
+      "time": 1672216.547380416,
+      "pid": 18663,
+      "thread": 8539349760,
+      "exception": "NotImplementedError",
+      "message": "<class 'celery.concurrency.solo.TaskPool'> does not implement kill_job",
+      "relative": 0.904
+    },
+    {
+      "event": "task_tick",
+      "time": 1672216.652525625,
+      "pid": 18663,
+      "thread": 8539349760,
+      "step": 6,
+      "relative": 1.009
+    },
+    {
+      "event": "task_tick",
+      "time": 1672216.757684458,
+      "pid": 18663,
+      "thread": 8539349760,
+      "step": 7,
+      "relative": 1.114
+    },
+    {
+      "event": "hard_handler_entered",
+      "time": 1672216.845565375,
+      "pid": 18663,
+      "thread": 8539349760,
+      "relative": 1.202
+    },
+    {
+      "event": "task_interrupted",
+      "time": 1672216.8457455,
+      "pid": 18663,
+      "thread": 8539349760,
+      "exception": "WorkerTerminate",
+      "message": "1",
+      "relative": 1.203
+    },
+    {
+      "event": "task_finally",
+      "time": 1672216.845783125,
+      "pid": 18663,
+      "thread": 8539349760,
+      "relative": 1.203
+    },
+    {
+      "event": "task_postrun",
+      "time": 1672216.845889708,
+      "pid": 18663,
+      "thread": 8539349760,
+      "state": null,
+      "relative": 1.203
+    }
+  ],
+  "errors": [],
+  "passed": true
+}

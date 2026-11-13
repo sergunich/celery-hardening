@@ -1,0 +1,25 @@
+ 
+ -------------- shutdown-probe@localhost v5.7.0 (collider)
+--- ***** ----- 
+-- ******* ---- macOS-15.8.1-arm64-arm-64bit-Mach-O 2026-11-13 11:09:54
+- *** --- * --- 
+- ** ---------- [config]
+- ** ---------- .> app:         shutdown_probe:0x1035967b0
+- ** ---------- .> transport:   redis+socket:///Users/sergunich/dev/repos/celery/.dev/shutdown-17842.sock
+- ** ---------- .> results:     socket:///Users/sergunich/dev/repos/celery/.dev/shutdown-17842.sock
+- *** --- * --- .> concurrency: 1 (prefork)
+-- ******* ---- .> task events: OFF (enable -E to monitor tasks in this worker)
+--- ***** ----- 
+ -------------- [queues]
+                .> shutdown-probe   exchange=shutdown-probe(direct) key=shutdown-probe
+                
+
+[tasks]
+  . shutdown_probe.task
+
+[2026-11-13 11:09:54,635: INFO/MainProcess] Connected to redis+socket:///Users/sergunich/dev/repos/celery/.dev/shutdown-17842.sock
+[2026-11-13 11:09:54,640: INFO/MainProcess] shutdown-probe@localhost ready.
+[2026-11-13 11:09:54,658: INFO/MainProcess] Task shutdown_probe.task[e3317fe9-d115-47d1-8c4a-11122f11d082] received
+[2026-11-13 11:09:54,894: INFO/SpawnPoolWorker-1] child process 18142 calling self.run()
+[2026-11-13 11:09:55,212: WARNING/MainProcess] Got shutdown from remote
+[2026-11-13 11:09:57,221: INFO/SpawnPoolWorker-1] Task shutdown_probe.task[e3317fe9-d115-47d1-8c4a-11122f11d082] succeeded in 2.3121124578174204s: 'completed'

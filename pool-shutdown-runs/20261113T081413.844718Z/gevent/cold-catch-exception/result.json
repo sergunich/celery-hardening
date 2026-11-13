@@ -1,0 +1,131 @@
+{
+  "pool": "gevent",
+  "case": {
+    "name": "cold-catch-exception",
+    "group": "edge",
+    "description": "2 s late-ack task catches Exception around work; QUIT at 0.3 s.",
+    "signals": [
+      [
+        0.3,
+        "SIGQUIT"
+      ]
+    ],
+    "acks_late": true,
+    "catch": "exception"
+  },
+  "published": true,
+  "task_id": "e79cc697-ed78-4f70-992c-15f7de8c7f1a",
+  "returncode": 1,
+  "forced_kill": false,
+  "orphan_cleanup": false,
+  "elapsed": 1.108,
+  "result_state": "PENDING",
+  "result_detail": "None",
+  "completed": false,
+  "task_finally": true,
+  "hard_entered": false,
+  "shutdown_errors": [
+    "BlockingSwitchOutError"
+  ],
+  "ack_observed": true,
+  "rejects": [],
+  "broker_at_start": {
+    "queued": [],
+    "unacked": [
+      {
+        "tag": "379693b7-b889-4ce1-8b12-2b27a7bdb393",
+        "exchange": "",
+        "routing_key": "shutdown-probe"
+      }
+    ]
+  },
+  "broker": {
+    "queued": [],
+    "unacked": []
+  },
+  "restored_delivery": null,
+  "signals": [
+    {
+      "signal": "SIGQUIT",
+      "time": 1672446.499382625,
+      "relative": 0.306
+    }
+  ],
+  "timeline": [
+    {
+      "event": "worker_ready",
+      "time": 1672446.186559708,
+      "pid": 19177,
+      "thread": 4315499328,
+      "pool": "gevent",
+      "multiprocessing_start_method": "spawn",
+      "relative": -0.007
+    },
+    {
+      "event": "task_started",
+      "time": 1672446.19364625,
+      "pid": 19177,
+      "thread": 4379395552,
+      "multiprocessing_start_method": "spawn",
+      "relative": 0.0
+    },
+    {
+      "event": "task_tick",
+      "time": 1672446.298708291,
+      "pid": 19177,
+      "thread": 4379395552,
+      "step": 1,
+      "relative": 0.105
+    },
+    {
+      "event": "task_tick",
+      "time": 1672446.399582083,
+      "pid": 19177,
+      "thread": 4379395552,
+      "step": 2,
+      "relative": 0.206
+    },
+    {
+      "event": "task_interrupted",
+      "time": 1672446.506206333,
+      "pid": 19177,
+      "thread": 4379395552,
+      "exception": "GreenletExit",
+      "message": "",
+      "relative": 0.313
+    },
+    {
+      "event": "task_finally",
+      "time": 1672446.506265583,
+      "pid": 19177,
+      "thread": 4379395552,
+      "relative": 0.313
+    },
+    {
+      "event": "task_postrun",
+      "time": 1672446.50632825,
+      "pid": 19177,
+      "thread": 4379395552,
+      "state": null,
+      "relative": 0.313
+    },
+    {
+      "event": "message_ack",
+      "time": 1672446.508313833,
+      "pid": 19177,
+      "thread": 4379395552,
+      "task_id": "e79cc697-ed78-4f70-992c-15f7de8c7f1a",
+      "tag": "379693b7-b889-4ce1-8b12-2b27a7bdb393",
+      "relative": 0.315
+    },
+    {
+      "event": "worker_shutdown",
+      "time": 1672447.20191275,
+      "pid": 19177,
+      "thread": 4315499328,
+      "relative": 1.008
+    }
+  ],
+  "errors": [],
+  "passed": true
+}

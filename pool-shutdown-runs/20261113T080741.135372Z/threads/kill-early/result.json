@@ -1,0 +1,92 @@
+{
+  "pool": "threads",
+  "case": {
+    "name": "kill-early",
+    "group": "kill",
+    "description": "Endless task; SIGKILL to entire worker process group at 0.3 s.",
+    "acks_late": false,
+    "signals": [
+      [
+        0.3,
+        "SIGKILL"
+      ]
+    ],
+    "steps": null
+  },
+  "published": true,
+  "task_id": "b8bb9cb9-433b-4c30-99ef-6b3fe73839c2",
+  "returncode": -9,
+  "forced_kill": false,
+  "orphan_cleanup": false,
+  "elapsed": 0.322,
+  "result_state": "PENDING",
+  "result_detail": "None",
+  "completed": false,
+  "task_finally": false,
+  "hard_entered": false,
+  "shutdown_errors": [],
+  "ack_observed": true,
+  "rejects": [],
+  "broker_at_start": {
+    "queued": [],
+    "unacked": []
+  },
+  "broker": {
+    "queued": [],
+    "unacked": []
+  },
+  "restored_delivery": null,
+  "signals": [
+    {
+      "signal": "SIGKILL",
+      "time": 1671968.553839833,
+      "relative": 0.309
+    }
+  ],
+  "timeline": [
+    {
+      "event": "worker_ready",
+      "time": 1671968.213432875,
+      "pid": 18225,
+      "thread": 8539349760,
+      "pool": "threads",
+      "multiprocessing_start_method": "spawn",
+      "relative": -0.032
+    },
+    {
+      "event": "task_started",
+      "time": 1671968.24506925,
+      "pid": 18225,
+      "thread": 6107869184,
+      "multiprocessing_start_method": "spawn",
+      "relative": 0.0
+    },
+    {
+      "event": "message_ack",
+      "time": 1671968.245520916,
+      "pid": 18225,
+      "thread": 8539349760,
+      "task_id": "b8bb9cb9-433b-4c30-99ef-6b3fe73839c2",
+      "tag": "e9e23771-dfd1-4d64-9b6c-50386f4015dd",
+      "relative": 0.0
+    },
+    {
+      "event": "task_tick",
+      "time": 1671968.350071041,
+      "pid": 18225,
+      "thread": 6107869184,
+      "step": 1,
+      "relative": 0.105
+    },
+    {
+      "event": "task_tick",
+      "time": 1671968.478206875,
+      "pid": 18225,
+      "thread": 6107869184,
+      "step": 2,
+      "relative": 0.233
+    }
+  ],
+  "errors": [],
+  "passed": true
+}

@@ -1,0 +1,69 @@
+{
+  "pool": "gevent",
+  "case": {
+    "name": "idle-soft-enabled",
+    "group": "idle",
+    "description": "Idle worker; QUIT at 0.3 s; soft timeout 1 s; idle grace explicitly enabled.",
+    "signals": [
+      [
+        0.3,
+        "SIGQUIT"
+      ]
+    ],
+    "idle": true,
+    "soft_timeout": 1.0,
+    "soft_on_idle": true
+  },
+  "published": false,
+  "task_id": "e9ac49c3-169b-4966-a8d2-2bca965c08b2",
+  "returncode": 1,
+  "forced_kill": false,
+  "orphan_cleanup": false,
+  "elapsed": 1.108,
+  "result_state": null,
+  "result_detail": "None",
+  "completed": false,
+  "task_finally": false,
+  "hard_entered": false,
+  "shutdown_errors": [
+    "BlockingSwitchOutError"
+  ],
+  "ack_observed": false,
+  "rejects": [],
+  "broker_at_start": {
+    "queued": [],
+    "unacked": []
+  },
+  "broker": {
+    "queued": [],
+    "unacked": []
+  },
+  "restored_delivery": null,
+  "signals": [
+    {
+      "signal": "SIGQUIT",
+      "time": 1672081.665598708,
+      "relative": 0.303
+    }
+  ],
+  "timeline": [
+    {
+      "event": "worker_ready",
+      "time": 1672081.362673,
+      "pid": 18456,
+      "thread": 4387211072,
+      "pool": "gevent",
+      "multiprocessing_start_method": "spawn",
+      "relative": 0.0
+    },
+    {
+      "event": "worker_shutdown",
+      "time": 1672082.374239,
+      "pid": 18456,
+      "thread": 4387211072,
+      "relative": 1.012
+    }
+  ],
+  "errors": [],
+  "passed": true
+}

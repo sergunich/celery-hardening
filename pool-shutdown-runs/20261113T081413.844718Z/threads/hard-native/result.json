@@ -1,0 +1,172 @@
+{
+  "pool": "threads",
+  "case": {
+    "name": "hard-native",
+    "group": "native",
+    "description": "About 2 s PBKDF2 in native code; late ack; four Ctrl+C signals at 0.3/0.6/0.9/1.2 s (handlers may be delayed/coalesced).",
+    "signals": [
+      [
+        0.3,
+        "SIGINT"
+      ],
+      [
+        0.6,
+        "SIGINT"
+      ],
+      [
+        0.9,
+        "SIGINT"
+      ],
+      [
+        1.2,
+        "SIGINT"
+      ]
+    ],
+    "native": true,
+    "steps": 0,
+    "acks_late": true,
+    "soft_timeout": 2.0
+  },
+  "published": true,
+  "task_id": "6ec104bb-1789-4379-9b0f-5c69095c06a4",
+  "returncode": 1,
+  "forced_kill": false,
+  "orphan_cleanup": false,
+  "elapsed": 2.095,
+  "result_state": "SUCCESS",
+  "result_detail": "completed",
+  "completed": true,
+  "task_finally": true,
+  "hard_entered": true,
+  "shutdown_errors": [
+    "NotImplementedError"
+  ],
+  "ack_observed": false,
+  "rejects": [],
+  "broker_at_start": {
+    "queued": [],
+    "unacked": [
+      {
+        "tag": "82c6b345-6723-487d-9e72-d21b7120b096",
+        "exchange": "",
+        "routing_key": "shutdown-probe"
+      }
+    ]
+  },
+  "broker": {
+    "queued": [
+      {
+        "queue": "shutdown-probe",
+        "redelivered": true
+      }
+    ],
+    "unacked": []
+  },
+  "restored_delivery": {
+    "task_id": "6ec104bb-1789-4379-9b0f-5c69095c06a4",
+    "redelivered": true
+  },
+  "signals": [
+    {
+      "signal": "SIGINT",
+      "time": 1672396.730649791,
+      "relative": 0.308
+    },
+    {
+      "signal": "SIGINT",
+      "time": 1672397.024164041,
+      "relative": 0.602
+    },
+    {
+      "signal": "SIGINT",
+      "time": 1672397.328636791,
+      "relative": 0.906
+    },
+    {
+      "signal": "SIGINT",
+      "time": 1672397.628268583,
+      "relative": 1.206
+    }
+  ],
+  "timeline": [
+    {
+      "event": "worker_ready",
+      "time": 1672396.411912166,
+      "pid": 19087,
+      "thread": 8539349760,
+      "pool": "threads",
+      "multiprocessing_start_method": "spawn",
+      "relative": -0.011
+    },
+    {
+      "event": "task_started",
+      "time": 1672396.4224625,
+      "pid": 19087,
+      "thread": 6113472512,
+      "multiprocessing_start_method": "spawn",
+      "relative": 0.0
+    },
+    {
+      "event": "native_started",
+      "time": 1672396.422481,
+      "pid": 19087,
+      "thread": 6113472512,
+      "iterations": 19443824,
+      "relative": 0.0
+    },
+    {
+      "event": "worker_shutting_down",
+      "time": 1672396.730929208,
+      "pid": 19087,
+      "thread": 8539349760,
+      "signal": "SIGINT",
+      "how": "Warm",
+      "relative": 0.308
+    },
+    {
+      "event": "hard_handler_entered",
+      "time": 1672397.628314416,
+      "pid": 19087,
+      "thread": 8539349760,
+      "relative": 1.206
+    },
+    {
+      "event": "native_returned",
+      "time": 1672398.467936666,
+      "pid": 19087,
+      "thread": 6113472512,
+      "relative": 2.045
+    },
+    {
+      "event": "task_completed",
+      "time": 1672398.467989958,
+      "pid": 19087,
+      "thread": 6113472512,
+      "relative": 2.046
+    },
+    {
+      "event": "task_finally",
+      "time": 1672398.46799875,
+      "pid": 19087,
+      "thread": 6113472512,
+      "relative": 2.046
+    },
+    {
+      "event": "task_success",
+      "time": 1672398.469514041,
+      "pid": 19087,
+      "thread": 6113472512,
+      "relative": 2.047
+    },
+    {
+      "event": "task_postrun",
+      "time": 1672398.469605291,
+      "pid": 19087,
+      "thread": 6113472512,
+      "state": "SUCCESS",
+      "relative": 2.047
+    }
+  ],
+  "errors": [],
+  "passed": true
+}

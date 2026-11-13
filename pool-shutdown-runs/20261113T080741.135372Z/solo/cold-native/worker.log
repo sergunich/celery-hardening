@@ -1,0 +1,54 @@
+ 
+ -------------- shutdown-probe@localhost v5.7.0 (collider)
+--- ***** ----- 
+-- ******* ---- macOS-15.8.1-arm64-arm-64bit-Mach-O 2026-11-13 11:08:26
+- *** --- * --- 
+- ** ---------- [config]
+- ** ---------- .> app:         shutdown_probe:0x1048fe120
+- ** ---------- .> transport:   redis+socket:///Users/sergunich/dev/repos/celery/.dev/shutdown-17842.sock
+- ** ---------- .> results:     socket:///Users/sergunich/dev/repos/celery/.dev/shutdown-17842.sock
+- *** --- * --- .> concurrency: 1 (solo)
+-- ******* ---- .> task events: OFF (enable -E to monitor tasks in this worker)
+--- ***** ----- 
+ -------------- [queues]
+                .> shutdown-probe   exchange=shutdown-probe(direct) key=shutdown-probe
+                
+
+[tasks]
+  . shutdown_probe.task
+
+[2026-11-13 11:08:26,992: INFO/MainProcess] Connected to redis+socket:///Users/sergunich/dev/repos/celery/.dev/shutdown-17842.sock
+[2026-11-13 11:08:26,996: INFO/MainProcess] shutdown-probe@localhost ready.
+[2026-11-13 11:08:27,007: INFO/MainProcess] Task shutdown_probe.task[f8d97d6f-0a94-4c85-999d-25c8effad1c0] received
+
+worker: Hitting Ctrl+C again will terminate all running tasks!
+[2026-11-13 11:08:29,000: ERROR/MainProcess] Task shutdown_probe.task[f8d97d6f-0a94-4c85-999d-25c8effad1c0] raised unexpected: NotImplementedError("<class 'celery.concurrency.solo.TaskPool'> does not implement kill_job")
+Traceback (most recent call last):
+  File "/Users/sergunich/dev/repos/celery/celery/app/trace.py", line 564, in trace_task
+    R = retval = fun(*args, **kwargs)
+                 ~~~^^^^^^^^^^^^^^^^^
+  File "/Users/sergunich/dev/repos/celery/celery/app/trace.py", line 883, in __protected_call__
+    return self.run(*args, **kwargs)
+           ~~~~~~~~^^^^^^^^^^^^^^^^^
+  File "/Users/sergunich/dev/repos/celery/.dev/shutdown_probe.py", line 92, in probe
+    native_work()
+    ~~~~~~~~~~~^^
+  File "/Users/sergunich/dev/repos/celery/.dev/shutdown_probe.py", line 80, in native_work
+    hashlib.pbkdf2_hmac("sha256", b"probe", b"salt", CONFIG["native_iterations"])
+    ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/sergunich/dev/repos/celery/celery/apps/worker.py", line 343, in _handle_request
+    callback(worker)
+    ~~~~~~~~^^^^^^^^
+  File "/Users/sergunich/dev/repos/celery/celery/apps/worker.py", line 479, in on_cold_shutdown
+    worker.consumer.cancel_active_requests()
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^
+  File "/Users/sergunich/dev/repos/celery/celery/worker/consumer/consumer.py", line 929, in cancel_active_requests
+    request.cancel(self.pool, emit_retry=emit_retry)
+    ~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/sergunich/dev/repos/celery/celery/worker/request.py", line 438, in cancel
+    pool.terminate_job(self.worker_pid, signal)
+    ~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/sergunich/dev/repos/celery/celery/concurrency/base.py", line 113, in terminate_job
+    raise NotImplementedError(
+        f'{type(self)} does not implement kill_job')
+NotImplementedError: <class 'celery.concurrency.solo.TaskPool'> does not implement kill_job

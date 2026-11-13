@@ -1,0 +1,95 @@
+{
+  "pool": "prefork",
+  "case": {
+    "name": "kill-late",
+    "group": "kill",
+    "description": "Endless task; SIGKILL to entire worker process group at 0.3 s.",
+    "acks_late": true,
+    "signals": [
+      [
+        0.3,
+        "SIGKILL"
+      ]
+    ],
+    "steps": null
+  },
+  "published": true,
+  "task_id": "ddeb5746-bda9-4bf1-9088-ec8bb247a6d8",
+  "returncode": -9,
+  "forced_kill": false,
+  "orphan_cleanup": false,
+  "elapsed": 0.315,
+  "result_state": "PENDING",
+  "result_detail": "None",
+  "completed": false,
+  "task_finally": false,
+  "hard_entered": false,
+  "shutdown_errors": [],
+  "ack_observed": false,
+  "rejects": [],
+  "broker_at_start": {
+    "queued": [],
+    "unacked": [
+      {
+        "tag": "03fba21a-3e43-4f86-afa8-349351ad3630",
+        "exchange": "",
+        "routing_key": "shutdown-probe"
+      }
+    ]
+  },
+  "broker": {
+    "queued": [],
+    "unacked": [
+      {
+        "tag": "03fba21a-3e43-4f86-afa8-349351ad3630",
+        "exchange": "",
+        "routing_key": "shutdown-probe"
+      }
+    ]
+  },
+  "restored_delivery": null,
+  "signals": [
+    {
+      "signal": "SIGKILL",
+      "time": 1672283.1428005,
+      "relative": 0.302
+    }
+  ],
+  "timeline": [
+    {
+      "event": "worker_ready",
+      "time": 1672282.59313175,
+      "pid": 18806,
+      "thread": 8539349760,
+      "pool": "prefork",
+      "multiprocessing_start_method": "spawn",
+      "relative": -0.247
+    },
+    {
+      "event": "task_started",
+      "time": 1672282.840397458,
+      "pid": 18810,
+      "thread": 8539349760,
+      "multiprocessing_start_method": "spawn",
+      "relative": 0.0
+    },
+    {
+      "event": "task_tick",
+      "time": 1672282.943288958,
+      "pid": 18810,
+      "thread": 8539349760,
+      "step": 1,
+      "relative": 0.103
+    },
+    {
+      "event": "task_tick",
+      "time": 1672283.048431916,
+      "pid": 18810,
+      "thread": 8539349760,
+      "step": 2,
+      "relative": 0.208
+    }
+  ],
+  "errors": [],
+  "passed": true
+}

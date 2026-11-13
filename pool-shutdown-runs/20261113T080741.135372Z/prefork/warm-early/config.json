@@ -1,0 +1,19 @@
+{
+  "name": "warm-early",
+  "group": "warm",
+  "description": "2 s task; TERM at 0.3 s; soft timeout 1 s (must not limit warm shutdown).",
+  "acks_late": false,
+  "signals": [
+    [
+      0.3,
+      "SIGTERM"
+    ]
+  ],
+  "soft_timeout": 1.0,
+  "pool": "prefork",
+  "queue": "shutdown-probe",
+  "broker": "redis+socket:///Users/sergunich/dev/repos/celery/.dev/shutdown-17842.sock?virtual_host=0",
+  "backend": "redis+socket:///Users/sergunich/dev/repos/celery/.dev/shutdown-17842.sock?virtual_host=1",
+  "events": "/Users/sergunich/dev/repos/celery/.dev/pool-shutdown-runs/20261113T080741.135372Z/prefork/warm-early/events.jsonl",
+  "native_iterations": 19529223
+}

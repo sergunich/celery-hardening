@@ -1,0 +1,134 @@
+{
+  "pool": "solo",
+  "case": {
+    "name": "soft-short-late",
+    "group": "soft-short",
+    "description": "0.8 s task; QUIT at 0.3 s; 1.5 s grace period should allow completion.",
+    "acks_late": true,
+    "signals": [
+      [
+        0.3,
+        "SIGQUIT"
+      ]
+    ],
+    "steps": 8,
+    "soft_timeout": 1.5
+  },
+  "published": true,
+  "task_id": "96435086-e9be-41cc-9a49-39e2c8611a55",
+  "returncode": 0,
+  "forced_kill": false,
+  "orphan_cleanup": false,
+  "elapsed": 1.909,
+  "result_state": "FAILURE",
+  "result_detail": "<class 'celery.concurrency.solo.TaskPool'> does not implement kill_job",
+  "completed": false,
+  "task_finally": true,
+  "hard_entered": false,
+  "shutdown_errors": [
+    "NotImplementedError"
+  ],
+  "ack_observed": true,
+  "rejects": [],
+  "broker_at_start": {
+    "queued": [],
+    "unacked": [
+      {
+        "tag": "af6678b9-3599-4dd5-ad61-a8928fd43453",
+        "exchange": "",
+        "routing_key": "shutdown-probe"
+      }
+    ]
+  },
+  "broker": {
+    "queued": [],
+    "unacked": []
+  },
+  "restored_delivery": null,
+  "signals": [
+    {
+      "signal": "SIGQUIT",
+      "time": 1672192.427321916,
+      "relative": 0.309
+    }
+  ],
+  "timeline": [
+    {
+      "event": "worker_ready",
+      "time": 1672192.107235333,
+      "pid": 18611,
+      "thread": 8539349760,
+      "pool": "solo",
+      "multiprocessing_start_method": "spawn",
+      "relative": -0.011
+    },
+    {
+      "event": "task_started",
+      "time": 1672192.118359916,
+      "pid": 18611,
+      "thread": 8539349760,
+      "multiprocessing_start_method": "spawn",
+      "relative": 0.0
+    },
+    {
+      "event": "task_tick",
+      "time": 1672192.22339875,
+      "pid": 18611,
+      "thread": 8539349760,
+      "step": 1,
+      "relative": 0.105
+    },
+    {
+      "event": "task_tick",
+      "time": 1672192.323654333,
+      "pid": 18611,
+      "thread": 8539349760,
+      "step": 2,
+      "relative": 0.205
+    },
+    {
+      "event": "task_interrupted",
+      "time": 1672193.9296975,
+      "pid": 18611,
+      "thread": 8539349760,
+      "exception": "NotImplementedError",
+      "message": "<class 'celery.concurrency.solo.TaskPool'> does not implement kill_job",
+      "relative": 1.811
+    },
+    {
+      "event": "task_finally",
+      "time": 1672193.929856125,
+      "pid": 18611,
+      "thread": 8539349760,
+      "relative": 1.811
+    },
+    {
+      "event": "task_failure",
+      "time": 1672193.943074125,
+      "pid": 18611,
+      "thread": 8539349760,
+      "exception": "NotImplementedError",
+      "message": "<class 'celery.concurrency.solo.TaskPool'> does not implement kill_job",
+      "relative": 1.825
+    },
+    {
+      "event": "task_postrun",
+      "time": 1672193.945348416,
+      "pid": 18611,
+      "thread": 8539349760,
+      "state": "FAILURE",
+      "relative": 1.827
+    },
+    {
+      "event": "message_ack",
+      "time": 1672193.950742791,
+      "pid": 18611,
+      "thread": 8539349760,
+      "task_id": "96435086-e9be-41cc-9a49-39e2c8611a55",
+      "tag": "af6678b9-3599-4dd5-ad61-a8928fd43453",
+      "relative": 1.832
+    }
+  ],
+  "errors": [],
+  "passed": true
+}

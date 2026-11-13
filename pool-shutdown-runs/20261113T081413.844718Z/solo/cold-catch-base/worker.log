@@ -1,0 +1,25 @@
+ 
+ -------------- shutdown-probe@localhost v5.7.0 (collider)
+--- ***** ----- 
+-- ******* ---- macOS-15.8.1-arm64-arm-64bit-Mach-O 2026-11-13 11:14:46
+- *** --- * --- 
+- ** ---------- [config]
+- ** ---------- .> app:         shutdown_probe:0x1034d6120
+- ** ---------- .> transport:   redis+socket:///Users/sergunich/dev/repos/celery/.dev/shutdown-18582.sock
+- ** ---------- .> results:     socket:///Users/sergunich/dev/repos/celery/.dev/shutdown-18582.sock
+- *** --- * --- .> concurrency: 1 (solo)
+-- ******* ---- .> task events: OFF (enable -E to monitor tasks in this worker)
+--- ***** ----- 
+ -------------- [queues]
+                .> shutdown-probe   exchange=shutdown-probe(direct) key=shutdown-probe
+                
+
+[tasks]
+  . shutdown_probe.task
+
+[2026-11-13 11:14:46,674: INFO/MainProcess] Connected to redis+socket:///Users/sergunich/dev/repos/celery/.dev/shutdown-18582.sock
+[2026-11-13 11:14:46,678: INFO/MainProcess] shutdown-probe@localhost ready.
+[2026-11-13 11:14:46,682: INFO/MainProcess] Task shutdown_probe.task[ce94f698-84c0-4bd0-8510-9a2ad8d43442] received
+
+worker: Hitting Ctrl+C again will terminate all running tasks!
+[2026-11-13 11:14:48,847: INFO/MainProcess] Task shutdown_probe.task[ce94f698-84c0-4bd0-8510-9a2ad8d43442] succeeded in 2.165293083060533s: 'completed'

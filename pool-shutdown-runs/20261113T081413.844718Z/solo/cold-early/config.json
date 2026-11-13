@@ -1,0 +1,18 @@
+{
+  "name": "cold-early",
+  "group": "cold",
+  "description": "2 s task; QUIT at 0.3 s; soft shutdown disabled.",
+  "acks_late": false,
+  "signals": [
+    [
+      0.3,
+      "SIGQUIT"
+    ]
+  ],
+  "pool": "solo",
+  "queue": "shutdown-probe",
+  "broker": "redis+socket:///Users/sergunich/dev/repos/celery/.dev/shutdown-18582.sock?virtual_host=0",
+  "backend": "redis+socket:///Users/sergunich/dev/repos/celery/.dev/shutdown-18582.sock?virtual_host=1",
+  "events": "/Users/sergunich/dev/repos/celery/.dev/pool-shutdown-runs/20261113T081413.844718Z/solo/cold-early/events.jsonl",
+  "native_iterations": 19443824
+}

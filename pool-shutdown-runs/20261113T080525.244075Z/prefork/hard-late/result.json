@@ -1,0 +1,212 @@
+{
+  "pool": "prefork",
+  "case": {
+    "name": "hard-late",
+    "group": "hard",
+    "description": "Endless task; four Ctrl+C signals at 0.3/0.6/0.9/1.2 s; soft timeout 2 s.",
+    "acks_late": true,
+    "signals": [
+      [
+        0.3,
+        "SIGINT"
+      ],
+      [
+        0.6,
+        "SIGINT"
+      ],
+      [
+        0.9,
+        "SIGINT"
+      ],
+      [
+        1.2,
+        "SIGINT"
+      ]
+    ],
+    "steps": null,
+    "soft_timeout": 2.0,
+    "deadline": 4.0
+  },
+  "published": true,
+  "task_id": "f09a7fa1-673c-4ade-9c5a-d74eb3168909",
+  "returncode": 0,
+  "forced_kill": false,
+  "orphan_cleanup": false,
+  "elapsed": 2.308,
+  "result_state": "PENDING",
+  "result_detail": "None",
+  "completed": false,
+  "task_finally": true,
+  "ack_observed": false,
+  "rejects": [],
+  "broker_at_start": {
+    "queued": [],
+    "unacked": [
+      {
+        "tag": "eb6f60bb-fd24-40a9-b604-d0f78802a617",
+        "exchange": "",
+        "routing_key": "shutdown-probe"
+      }
+    ]
+  },
+  "broker": {
+    "queued": [
+      {
+        "queue": "shutdown-probe",
+        "redelivered": true
+      }
+    ],
+    "unacked": []
+  },
+  "restored_delivery": {
+    "task_id": "f09a7fa1-673c-4ade-9c5a-d74eb3168909",
+    "redelivered": true
+  },
+  "signals": [
+    {
+      "signal": "SIGINT",
+      "time": 1671681.463118291,
+      "relative": 0.308
+    },
+    {
+      "signal": "SIGINT",
+      "time": 1671681.759790833,
+      "relative": 0.605
+    },
+    {
+      "signal": "SIGINT",
+      "time": 1671682.056392958,
+      "relative": 0.901
+    },
+    {
+      "signal": "SIGINT",
+      "time": 1671682.360688708,
+      "relative": 1.206
+    }
+  ],
+  "timeline": [
+    {
+      "event": "worker_ready",
+      "time": 1671680.91527175,
+      "pid": 17698,
+      "thread": 8539349760,
+      "pool": "prefork",
+      "relative": -0.24
+    },
+    {
+      "event": "task_started",
+      "time": 1671681.155127583,
+      "pid": 17702,
+      "thread": 8539349760,
+      "relative": 0.0
+    },
+    {
+      "event": "task_tick",
+      "time": 1671681.258226416,
+      "pid": 17702,
+      "thread": 8539349760,
+      "step": 1,
+      "relative": 0.103
+    },
+    {
+      "event": "task_tick",
+      "time": 1671681.363333916,
+      "pid": 17702,
+      "thread": 8539349760,
+      "step": 2,
+      "relative": 0.208
+    },
+    {
+      "event": "worker_shutting_down",
+      "time": 1671681.463574458,
+      "pid": 17698,
+      "thread": 8539349760,
+      "signal": "SIGINT",
+      "how": "Warm",
+      "relative": 0.308
+    },
+    {
+      "event": "task_tick",
+      "time": 1671681.468468166,
+      "pid": 17702,
+      "thread": 8539349760,
+      "step": 3,
+      "relative": 0.313
+    },
+    {
+      "event": "task_tick",
+      "time": 1671681.572136916,
+      "pid": 17702,
+      "thread": 8539349760,
+      "step": 4,
+      "relative": 0.417
+    },
+    {
+      "event": "task_tick",
+      "time": 1671681.676017291,
+      "pid": 17702,
+      "thread": 8539349760,
+      "step": 5,
+      "relative": 0.521
+    },
+    {
+      "event": "task_tick",
+      "time": 1671681.78125275,
+      "pid": 17702,
+      "thread": 8539349760,
+      "step": 6,
+      "relative": 0.626
+    },
+    {
+      "event": "task_tick",
+      "time": 1671681.886502291,
+      "pid": 17702,
+      "thread": 8539349760,
+      "step": 7,
+      "relative": 0.731
+    },
+    {
+      "event": "task_tick",
+      "time": 1671681.989041166,
+      "pid": 17702,
+      "thread": 8539349760,
+      "step": 8,
+      "relative": 0.834
+    },
+    {
+      "event": "task_interrupted",
+      "time": 1671682.05688325,
+      "pid": 17702,
+      "thread": 8539349760,
+      "exception": "SystemExit",
+      "message": "-241",
+      "relative": 0.902
+    },
+    {
+      "event": "task_finally",
+      "time": 1671682.056962375,
+      "pid": 17702,
+      "thread": 8539349760,
+      "relative": 0.902
+    },
+    {
+      "event": "worker_shutting_down",
+      "time": 1671682.056947291,
+      "pid": 17698,
+      "thread": 8539349760,
+      "signal": "SIGINT",
+      "how": "Cold",
+      "relative": 0.902
+    },
+    {
+      "event": "task_postrun",
+      "time": 1671682.057125291,
+      "pid": 17702,
+      "thread": 8539349760,
+      "state": null,
+      "relative": 0.902
+    }
+  ],
+  "errors": [],
+  "passed": true
+}

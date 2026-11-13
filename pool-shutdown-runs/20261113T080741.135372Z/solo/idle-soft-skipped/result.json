@@ -1,0 +1,68 @@
+{
+  "pool": "solo",
+  "case": {
+    "name": "idle-soft-skipped",
+    "group": "idle",
+    "description": "Idle worker; QUIT at 0.3 s; soft timeout 1 s; idle grace disabled.",
+    "signals": [
+      [
+        0.3,
+        "SIGQUIT"
+      ]
+    ],
+    "idle": true,
+    "soft_timeout": 1.0
+  },
+  "published": false,
+  "task_id": "f0e7f456-4abe-4b05-90aa-a957d2bf8bac",
+  "returncode": 0,
+  "forced_kill": false,
+  "orphan_cleanup": false,
+  "elapsed": 0.654,
+  "result_state": null,
+  "result_detail": "None",
+  "completed": false,
+  "task_finally": false,
+  "hard_entered": false,
+  "shutdown_errors": [],
+  "ack_observed": false,
+  "rejects": [],
+  "broker_at_start": {
+    "queued": [],
+    "unacked": []
+  },
+  "broker": {
+    "queued": [],
+    "unacked": []
+  },
+  "restored_delivery": null,
+  "signals": [
+    {
+      "signal": "SIGQUIT",
+      "time": 1671840.97130025,
+      "relative": 0.307
+    }
+  ],
+  "timeline": [
+    {
+      "event": "worker_ready",
+      "time": 1671840.664157083,
+      "pid": 17952,
+      "thread": 8539349760,
+      "pool": "solo",
+      "multiprocessing_start_method": "spawn",
+      "relative": 0.0
+    },
+    {
+      "event": "worker_shutting_down",
+      "time": 1671840.972253791,
+      "pid": 17952,
+      "thread": 8539349760,
+      "signal": "SIGQUIT",
+      "how": "Cold",
+      "relative": 0.308
+    }
+  ],
+  "errors": [],
+  "passed": true
+}

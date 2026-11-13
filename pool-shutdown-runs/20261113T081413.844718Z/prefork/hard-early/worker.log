@@ -1,0 +1,34 @@
+ 
+ -------------- shutdown-probe@localhost v5.7.0 (collider)
+--- ***** ----- 
+-- ******* ---- macOS-15.8.1-arm64-arm-64bit-Mach-O 2026-11-13 11:15:48
+- *** --- * --- 
+- ** ---------- [config]
+- ** ---------- .> app:         shutdown_probe:0x102be27b0
+- ** ---------- .> transport:   redis+socket:///Users/sergunich/dev/repos/celery/.dev/shutdown-18582.sock
+- ** ---------- .> results:     socket:///Users/sergunich/dev/repos/celery/.dev/shutdown-18582.sock
+- *** --- * --- .> concurrency: 1 (prefork)
+-- ******* ---- .> task events: OFF (enable -E to monitor tasks in this worker)
+--- ***** ----- 
+ -------------- [queues]
+                .> shutdown-probe   exchange=shutdown-probe(direct) key=shutdown-probe
+                
+
+[tasks]
+  . shutdown_probe.task
+
+[2026-11-13 11:15:48,152: INFO/MainProcess] Connected to redis+socket:///Users/sergunich/dev/repos/celery/.dev/shutdown-18582.sock
+[2026-11-13 11:15:48,157: INFO/MainProcess] shutdown-probe@localhost ready.
+[2026-11-13 11:15:48,166: INFO/MainProcess] Task shutdown_probe.task[4c62c874-fc9c-4521-9f71-376519102c98] received
+[2026-11-13 11:15:48,390: INFO/SpawnPoolWorker-1] child process 18795 calling self.run()
+
+worker: Hitting Ctrl+C again will initiate cold shutdown, terminating all running tasks!
+
+worker: Warm shutdown (MainProcess)
+
+worker: Hitting Ctrl+C again will terminate all running tasks!
+[2026-11-13 11:15:49,010: WARNING/MainProcess] Initiating Soft Shutdown, terminating in 2.0 seconds
+
+Waiting gracefully for cold shutdown to complete...
+
+worker: Cold shutdown (MainProcess)

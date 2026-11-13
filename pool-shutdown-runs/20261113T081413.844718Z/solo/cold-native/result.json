@@ -1,0 +1,117 @@
+{
+  "pool": "solo",
+  "case": {
+    "name": "cold-native",
+    "group": "native",
+    "description": "About 2 s PBKDF2 in native code; late ack; QUIT at 0.3 s; no soft wait.",
+    "signals": [
+      [
+        0.3,
+        "SIGQUIT"
+      ]
+    ],
+    "native": true,
+    "steps": 0,
+    "acks_late": true
+  },
+  "published": true,
+  "task_id": "544480b4-dc4d-427d-ae56-1ef7647821dc",
+  "returncode": 0,
+  "forced_kill": false,
+  "orphan_cleanup": false,
+  "elapsed": 2.048,
+  "result_state": "FAILURE",
+  "result_detail": "<class 'celery.concurrency.solo.TaskPool'> does not implement kill_job",
+  "completed": false,
+  "task_finally": true,
+  "hard_entered": false,
+  "shutdown_errors": [
+    "NotImplementedError"
+  ],
+  "ack_observed": true,
+  "rejects": [],
+  "broker_at_start": {
+    "queued": [],
+    "unacked": [
+      {
+        "tag": "36916018-bae3-4d4c-9932-af1ffc66a24a",
+        "exchange": "",
+        "routing_key": "shutdown-probe"
+      }
+    ]
+  },
+  "broker": {
+    "queued": [],
+    "unacked": []
+  },
+  "restored_delivery": null,
+  "signals": [
+    {
+      "signal": "SIGQUIT",
+      "time": 1672225.860020833,
+      "relative": 0.31
+    }
+  ],
+  "timeline": [
+    {
+      "event": "worker_ready",
+      "time": 1672225.53546375,
+      "pid": 18681,
+      "thread": 8539349760,
+      "pool": "solo",
+      "multiprocessing_start_method": "spawn",
+      "relative": -0.014
+    },
+    {
+      "event": "task_started",
+      "time": 1672225.549780791,
+      "pid": 18681,
+      "thread": 8539349760,
+      "multiprocessing_start_method": "spawn",
+      "relative": 0.0
+    },
+    {
+      "event": "native_started",
+      "time": 1672225.549796541,
+      "pid": 18681,
+      "thread": 8539349760,
+      "iterations": 19443824,
+      "relative": 0.0
+    },
+    {
+      "event": "task_finally",
+      "time": 1672227.527912708,
+      "pid": 18681,
+      "thread": 8539349760,
+      "relative": 1.978
+    },
+    {
+      "event": "task_failure",
+      "time": 1672227.530863625,
+      "pid": 18681,
+      "thread": 8539349760,
+      "exception": "NotImplementedError",
+      "message": "<class 'celery.concurrency.solo.TaskPool'> does not implement kill_job",
+      "relative": 1.981
+    },
+    {
+      "event": "task_postrun",
+      "time": 1672227.53142025,
+      "pid": 18681,
+      "thread": 8539349760,
+      "state": "FAILURE",
+      "relative": 1.982
+    },
+    {
+      "event": "message_ack",
+      "time": 1672227.532718041,
+      "pid": 18681,
+      "thread": 8539349760,
+      "task_id": "544480b4-dc4d-427d-ae56-1ef7647821dc",
+      "tag": "36916018-bae3-4d4c-9932-af1ffc66a24a",
+      "relative": 1.983
+    }
+  ],
+  "errors": [],
+  "passed": true
+}

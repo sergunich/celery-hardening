@@ -1,0 +1,185 @@
+{
+  "pool": "gevent",
+  "case": {
+    "name": "soft-short-late",
+    "group": "soft-short",
+    "description": "0.8 s task; QUIT at 0.3 s; 1.5 s grace period should allow completion.",
+    "acks_late": true,
+    "signals": [
+      [
+        0.3,
+        "SIGQUIT"
+      ]
+    ],
+    "steps": 8,
+    "soft_timeout": 1.5
+  },
+  "published": true,
+  "task_id": "2fd22dc8-fea9-48be-a681-56c05959b78e",
+  "returncode": 1,
+  "forced_kill": false,
+  "orphan_cleanup": false,
+  "elapsed": 1.109,
+  "result_state": "SUCCESS",
+  "result_detail": "completed",
+  "completed": true,
+  "task_finally": true,
+  "hard_entered": false,
+  "shutdown_errors": [
+    "BlockingSwitchOutError"
+  ],
+  "ack_observed": true,
+  "rejects": [],
+  "broker_at_start": {
+    "queued": [],
+    "unacked": [
+      {
+        "tag": "a6f7e896-8a0a-4f1b-b47c-7574aea96a69",
+        "exchange": "",
+        "routing_key": "shutdown-probe"
+      }
+    ]
+  },
+  "broker": {
+    "queued": [],
+    "unacked": []
+  },
+  "restored_delivery": null,
+  "signals": [
+    {
+      "signal": "SIGQUIT",
+      "time": 1672024.006221166,
+      "relative": 0.305
+    }
+  ],
+  "timeline": [
+    {
+      "event": "worker_ready",
+      "time": 1672023.692757875,
+      "pid": 18335,
+      "thread": 4374428096,
+      "pool": "gevent",
+      "multiprocessing_start_method": "spawn",
+      "relative": -0.008
+    },
+    {
+      "event": "task_started",
+      "time": 1672023.701247916,
+      "pid": 18335,
+      "thread": 4563945088,
+      "multiprocessing_start_method": "spawn",
+      "relative": 0.0
+    },
+    {
+      "event": "task_tick",
+      "time": 1672023.805919166,
+      "pid": 18335,
+      "thread": 4563945088,
+      "step": 1,
+      "relative": 0.105
+    },
+    {
+      "event": "task_tick",
+      "time": 1672023.911057916,
+      "pid": 18335,
+      "thread": 4563945088,
+      "step": 2,
+      "relative": 0.21
+    },
+    {
+      "event": "task_tick",
+      "time": 1672024.023177083,
+      "pid": 18335,
+      "thread": 4563945088,
+      "step": 3,
+      "relative": 0.322
+    },
+    {
+      "event": "task_tick",
+      "time": 1672024.126746458,
+      "pid": 18335,
+      "thread": 4563945088,
+      "step": 4,
+      "relative": 0.425
+    },
+    {
+      "event": "task_tick",
+      "time": 1672024.228563666,
+      "pid": 18335,
+      "thread": 4563945088,
+      "step": 5,
+      "relative": 0.527
+    },
+    {
+      "event": "task_tick",
+      "time": 1672024.32999375,
+      "pid": 18335,
+      "thread": 4563945088,
+      "step": 6,
+      "relative": 0.629
+    },
+    {
+      "event": "task_tick",
+      "time": 1672024.435155375,
+      "pid": 18335,
+      "thread": 4563945088,
+      "step": 7,
+      "relative": 0.734
+    },
+    {
+      "event": "task_tick",
+      "time": 1672024.537352458,
+      "pid": 18335,
+      "thread": 4563945088,
+      "step": 8,
+      "relative": 0.836
+    },
+    {
+      "event": "task_completed",
+      "time": 1672024.537445416,
+      "pid": 18335,
+      "thread": 4563945088,
+      "relative": 0.836
+    },
+    {
+      "event": "task_finally",
+      "time": 1672024.537470291,
+      "pid": 18335,
+      "thread": 4563945088,
+      "relative": 0.836
+    },
+    {
+      "event": "task_success",
+      "time": 1672024.541434125,
+      "pid": 18335,
+      "thread": 4563945088,
+      "relative": 0.84
+    },
+    {
+      "event": "task_postrun",
+      "time": 1672024.541735041,
+      "pid": 18335,
+      "thread": 4563945088,
+      "state": "SUCCESS",
+      "relative": 0.84
+    },
+    {
+      "event": "message_ack",
+      "time": 1672024.542376583,
+      "pid": 18335,
+      "thread": 4563945088,
+      "task_id": "2fd22dc8-fea9-48be-a681-56c05959b78e",
+      "tag": "a6f7e896-8a0a-4f1b-b47c-7574aea96a69",
+      "relative": 0.841
+    },
+    {
+      "event": "worker_shutdown",
+      "time": 1672024.705916375,
+      "pid": 18335,
+      "thread": 4374428096,
+      "relative": 1.005
+    }
+  ],
+  "errors": [],
+  "passed": true
+}

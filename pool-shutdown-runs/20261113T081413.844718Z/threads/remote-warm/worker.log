@@ -1,0 +1,24 @@
+ 
+ -------------- shutdown-probe@localhost v5.7.0 (collider)
+--- ***** ----- 
+-- ******* ---- macOS-15.8.1-arm64-arm-64bit-Mach-O 2026-11-13 11:17:53
+- *** --- * --- 
+- ** ---------- [config]
+- ** ---------- .> app:         shutdown_probe:0x104bedfd0
+- ** ---------- .> transport:   redis+socket:///Users/sergunich/dev/repos/celery/.dev/shutdown-18582.sock
+- ** ---------- .> results:     socket:///Users/sergunich/dev/repos/celery/.dev/shutdown-18582.sock
+- *** --- * --- .> concurrency: 1 (thread)
+-- ******* ---- .> task events: OFF (enable -E to monitor tasks in this worker)
+--- ***** ----- 
+ -------------- [queues]
+                .> shutdown-probe   exchange=shutdown-probe(direct) key=shutdown-probe
+                
+
+[tasks]
+  . shutdown_probe.task
+
+[2026-11-13 11:17:53,513: INFO/MainProcess] Connected to redis+socket:///Users/sergunich/dev/repos/celery/.dev/shutdown-18582.sock
+[2026-11-13 11:17:53,517: INFO/MainProcess] shutdown-probe@localhost ready.
+[2026-11-13 11:17:53,530: INFO/MainProcess] Task shutdown_probe.task[e5bab381-c313-4d52-a2e6-5c8043489fdf] received
+[2026-11-13 11:17:53,839: WARNING/MainProcess] Got shutdown from remote
+[2026-11-13 11:17:55,601: INFO/MainProcess] Task shutdown_probe.task[e5bab381-c313-4d52-a2e6-5c8043489fdf] succeeded in 2.070750124985352s: 'completed'

@@ -1,0 +1,19 @@
+{
+  "name": "idle-soft-skipped",
+  "group": "idle",
+  "description": "Idle worker; QUIT at 0.3 s; soft timeout 1 s; idle grace disabled.",
+  "signals": [
+    [
+      0.3,
+      "SIGQUIT"
+    ]
+  ],
+  "idle": true,
+  "soft_timeout": 1.0,
+  "pool": "threads",
+  "queue": "shutdown-probe",
+  "broker": "redis+socket:///Users/sergunich/dev/repos/celery/.dev/shutdown-18582.sock?virtual_host=0",
+  "backend": "redis+socket:///Users/sergunich/dev/repos/celery/.dev/shutdown-18582.sock?virtual_host=1",
+  "events": "/Users/sergunich/dev/repos/celery/.dev/pool-shutdown-runs/20261113T081413.844718Z/threads/idle-soft-skipped/events.jsonl",
+  "native_iterations": 19443824
+}

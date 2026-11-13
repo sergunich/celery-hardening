@@ -1,0 +1,184 @@
+{
+  "pool": "solo",
+  "case": {
+    "name": "hard-late",
+    "group": "hard",
+    "description": "Endless task; four Ctrl+C signals at 0.3/0.6/0.9/1.2 s; soft timeout 2 s.",
+    "acks_late": true,
+    "signals": [
+      [
+        0.3,
+        "SIGINT"
+      ],
+      [
+        0.6,
+        "SIGINT"
+      ],
+      [
+        0.9,
+        "SIGINT"
+      ],
+      [
+        1.2,
+        "SIGINT"
+      ]
+    ],
+    "steps": null,
+    "soft_timeout": 2.0,
+    "deadline": 4.0
+  },
+  "published": true,
+  "task_id": "7086f55c-b989-481c-a744-3f8c00a01cf8",
+  "returncode": 0,
+  "forced_kill": false,
+  "orphan_cleanup": false,
+  "elapsed": 1.003,
+  "result_state": "FAILURE",
+  "result_detail": "<class 'celery.concurrency.solo.TaskPool'> does not implement kill_job",
+  "completed": false,
+  "task_finally": true,
+  "ack_observed": true,
+  "rejects": [],
+  "broker_at_start": {
+    "queued": [],
+    "unacked": [
+      {
+        "tag": "77177432-ae28-401e-a87f-32b5d7a35290",
+        "exchange": "",
+        "routing_key": "shutdown-probe"
+      }
+    ]
+  },
+  "broker": {
+    "queued": [],
+    "unacked": []
+  },
+  "restored_delivery": null,
+  "signals": [
+    {
+      "signal": "SIGINT",
+      "time": 1671662.143402333,
+      "relative": 0.301
+    },
+    {
+      "signal": "SIGINT",
+      "time": 1671662.44831025,
+      "relative": 0.606
+    },
+    {
+      "signal": "SIGINT",
+      "time": 1671662.743046416,
+      "relative": 0.901
+    }
+  ],
+  "timeline": [
+    {
+      "event": "worker_ready",
+      "time": 1671661.830988125,
+      "pid": 17657,
+      "thread": 8539349760,
+      "pool": "solo",
+      "relative": -0.011
+    },
+    {
+      "event": "task_started",
+      "time": 1671661.842291791,
+      "pid": 17657,
+      "thread": 8539349760,
+      "relative": 0.0
+    },
+    {
+      "event": "task_tick",
+      "time": 1671661.947327166,
+      "pid": 17657,
+      "thread": 8539349760,
+      "step": 1,
+      "relative": 0.105
+    },
+    {
+      "event": "task_tick",
+      "time": 1671662.048337125,
+      "pid": 17657,
+      "thread": 8539349760,
+      "step": 2,
+      "relative": 0.206
+    },
+    {
+      "event": "worker_shutting_down",
+      "time": 1671662.143784041,
+      "pid": 17657,
+      "thread": 8539349760,
+      "signal": "SIGINT",
+      "how": "Warm",
+      "relative": 0.301
+    },
+    {
+      "event": "task_tick",
+      "time": 1671662.149588208,
+      "pid": 17657,
+      "thread": 8539349760,
+      "step": 3,
+      "relative": 0.307
+    },
+    {
+      "event": "task_tick",
+      "time": 1671662.253576916,
+      "pid": 17657,
+      "thread": 8539349760,
+      "step": 4,
+      "relative": 0.411
+    },
+    {
+      "event": "task_tick",
+      "time": 1671662.358777666,
+      "pid": 17657,
+      "thread": 8539349760,
+      "step": 5,
+      "relative": 0.516
+    },
+    {
+      "event": "task_interrupted",
+      "time": 1671662.743469458,
+      "pid": 17657,
+      "thread": 8539349760,
+      "exception": "NotImplementedError",
+      "message": "<class 'celery.concurrency.solo.TaskPool'> does not implement kill_job",
+      "relative": 0.901
+    },
+    {
+      "event": "task_finally",
+      "time": 1671662.743623291,
+      "pid": 17657,
+      "thread": 8539349760,
+      "relative": 0.901
+    },
+    {
+      "event": "task_failure",
+      "time": 1671662.756264458,
+      "pid": 17657,
+      "thread": 8539349760,
+      "exception": "NotImplementedError",
+      "message": "<class 'celery.concurrency.solo.TaskPool'> does not implement kill_job",
+      "relative": 0.914
+    },
+    {
+      "event": "task_postrun",
+      "time": 1671662.75870575,
+      "pid": 17657,
+      "thread": 8539349760,
+      "state": "FAILURE",
+      "relative": 0.916
+    },
+    {
+      "event": "message_ack",
+      "time": 1671662.762747166,
+      "pid": 17657,
+      "thread": 8539349760,
+      "task_id": "7086f55c-b989-481c-a744-3f8c00a01cf8",
+      "tag": "77177432-ae28-401e-a87f-32b5d7a35290",
+      "relative": 0.92
+    }
+  ],
+  "errors": [],
+  "passed": true
+}

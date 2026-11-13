@@ -1,0 +1,108 @@
+{
+  "case": {
+    "name": "warm-native",
+    "signals": [
+      [
+        0.3,
+        "SIGTERM"
+      ]
+    ],
+    "native_first": true,
+    "steps": 0,
+    "expect": "success"
+  },
+  "passed": true,
+  "errors": [],
+  "returncode": 0,
+  "forced_kill": false,
+  "signals": [
+    {
+      "signal": "SIGTERM",
+      "time": 1613987.04227175
+    }
+  ],
+  "elapsed": 4.636,
+  "result_state": "SUCCESS",
+  "timeline": [
+    {
+      "event": "worker_constructed",
+      "time": 1613986.712047291,
+      "pid": 59863,
+      "pool": "celery.concurrency.solo",
+      "relative": -0.02
+    },
+    {
+      "event": "worker_ready",
+      "time": 1613986.73056625,
+      "pid": 59863,
+      "relative": -0.001
+    },
+    {
+      "event": "task_started",
+      "time": 1613986.731634958,
+      "pid": 59863,
+      "acks_late": false,
+      "relative": 0.0
+    },
+    {
+      "event": "native_started",
+      "time": 1613986.731649458,
+      "pid": 59863,
+      "iterations": 19617539,
+      "relative": 0.0
+    },
+    {
+      "event": "worker_shutting_down",
+      "time": 1613989.270180291,
+      "pid": 59863,
+      "signal": "SIGTERM",
+      "how": "Warm",
+      "relative": 2.539
+    },
+    {
+      "event": "native_returned",
+      "time": 1613989.270288583,
+      "pid": 59863,
+      "relative": 2.539
+    },
+    {
+      "event": "task_completed",
+      "time": 1613989.270304875,
+      "pid": 59863,
+      "relative": 2.539
+    },
+    {
+      "event": "task_finally",
+      "time": 1613989.270311,
+      "pid": 59863,
+      "relative": 2.539
+    },
+    {
+      "event": "task_success",
+      "time": 1613989.2707535,
+      "pid": 59863,
+      "relative": 2.539
+    },
+    {
+      "event": "task_postrun",
+      "time": 1613989.270948791,
+      "pid": 59863,
+      "state": "SUCCESS",
+      "relative": 2.539
+    },
+    {
+      "event": "worker_shutdown",
+      "time": 1613991.307691916,
+      "pid": 59863,
+      "relative": 4.576
+    },
+    {
+      "event": "worker_returned",
+      "time": 1613991.30799725,
+      "pid": 59863,
+      "exitcode": 0,
+      "result_state": "SUCCESS",
+      "relative": 4.576
+    }
+  ]
+}

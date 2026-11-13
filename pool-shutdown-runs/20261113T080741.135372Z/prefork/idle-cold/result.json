@@ -1,0 +1,67 @@
+{
+  "pool": "prefork",
+  "case": {
+    "name": "idle-cold",
+    "group": "idle",
+    "description": "Idle worker; QUIT at 0.3 s; soft shutdown disabled.",
+    "signals": [
+      [
+        0.3,
+        "SIGQUIT"
+      ]
+    ],
+    "idle": true
+  },
+  "published": false,
+  "task_id": "61247b58-af43-4a9a-b8dd-00da46c6d5c4",
+  "returncode": 0,
+  "forced_kill": false,
+  "orphan_cleanup": true,
+  "elapsed": 1.89,
+  "result_state": null,
+  "result_detail": "None",
+  "completed": false,
+  "task_finally": false,
+  "hard_entered": false,
+  "shutdown_errors": [],
+  "ack_observed": false,
+  "rejects": [],
+  "broker_at_start": {
+    "queued": [],
+    "unacked": []
+  },
+  "broker": {
+    "queued": [],
+    "unacked": []
+  },
+  "restored_delivery": null,
+  "signals": [
+    {
+      "signal": "SIGQUIT",
+      "time": 1671925.981415041,
+      "relative": 0.305
+    }
+  ],
+  "timeline": [
+    {
+      "event": "worker_ready",
+      "time": 1671925.676033125,
+      "pid": 18143,
+      "thread": 8539349760,
+      "pool": "prefork",
+      "multiprocessing_start_method": "spawn",
+      "relative": 0.0
+    },
+    {
+      "event": "worker_shutting_down",
+      "time": 1671927.491485458,
+      "pid": 18143,
+      "thread": 8539349760,
+      "signal": "SIGQUIT",
+      "how": "Cold",
+      "relative": 1.815
+    }
+  ],
+  "errors": [],
+  "passed": true
+}

@@ -1,0 +1,143 @@
+{
+  "pool": "gevent",
+  "case": {
+    "name": "warm-native",
+    "group": "native",
+    "description": "About 2 s PBKDF2 in native code; late ack; TERM at 0.3 s.",
+    "signals": [
+      [
+        0.3,
+        "SIGTERM"
+      ]
+    ],
+    "native": true,
+    "steps": 0,
+    "acks_late": true
+  },
+  "published": true,
+  "task_id": "6fbf5ded-8769-49fb-9707-b9cfdaff2395",
+  "returncode": 0,
+  "forced_kill": false,
+  "orphan_cleanup": false,
+  "elapsed": 4.353,
+  "result_state": "SUCCESS",
+  "result_detail": "completed",
+  "completed": true,
+  "task_finally": true,
+  "hard_entered": false,
+  "shutdown_errors": [],
+  "ack_observed": true,
+  "rejects": [],
+  "broker_at_start": {
+    "queued": [],
+    "unacked": [
+      {
+        "tag": "52d881af-ff15-49d6-99d8-80f491006058",
+        "exchange": "",
+        "routing_key": "shutdown-probe"
+      }
+    ]
+  },
+  "broker": {
+    "queued": [],
+    "unacked": []
+  },
+  "restored_delivery": null,
+  "signals": [
+    {
+      "signal": "SIGTERM",
+      "time": 1672055.73638575,
+      "relative": 0.303
+    }
+  ],
+  "timeline": [
+    {
+      "event": "worker_ready",
+      "time": 1672055.421937625,
+      "pid": 18431,
+      "thread": 4343194688,
+      "pool": "gevent",
+      "multiprocessing_start_method": "spawn",
+      "relative": -0.011
+    },
+    {
+      "event": "task_started",
+      "time": 1672055.433084583,
+      "pid": 18431,
+      "thread": 4570236544,
+      "multiprocessing_start_method": "spawn",
+      "relative": 0.0
+    },
+    {
+      "event": "native_started",
+      "time": 1672055.433105291,
+      "pid": 18431,
+      "thread": 4570236544,
+      "iterations": 19529223,
+      "relative": 0.0
+    },
+    {
+      "event": "worker_shutting_down",
+      "time": 1672057.693193333,
+      "pid": 18431,
+      "thread": 4570236544,
+      "signal": "SIGTERM",
+      "how": "Warm",
+      "relative": 2.26
+    },
+    {
+      "event": "native_returned",
+      "time": 1672057.693247541,
+      "pid": 18431,
+      "thread": 4570236544,
+      "relative": 2.26
+    },
+    {
+      "event": "task_completed",
+      "time": 1672057.693257083,
+      "pid": 18431,
+      "thread": 4570236544,
+      "relative": 2.26
+    },
+    {
+      "event": "task_finally",
+      "time": 1672057.693263083,
+      "pid": 18431,
+      "thread": 4570236544,
+      "relative": 2.26
+    },
+    {
+      "event": "task_success",
+      "time": 1672057.695950208,
+      "pid": 18431,
+      "thread": 4570236544,
+      "relative": 2.263
+    },
+    {
+      "event": "task_postrun",
+      "time": 1672057.696076916,
+      "pid": 18431,
+      "thread": 4570236544,
+      "state": "SUCCESS",
+      "relative": 2.263
+    },
+    {
+      "event": "message_ack",
+      "time": 1672057.69632625,
+      "pid": 18431,
+      "thread": 4570236544,
+      "task_id": "6fbf5ded-8769-49fb-9707-b9cfdaff2395",
+      "tag": "52d881af-ff15-49d6-99d8-80f491006058",
+      "relative": 2.263
+    },
+    {
+      "event": "worker_shutdown",
+      "time": 1672059.705486083,
+      "pid": 18431,
+      "thread": 4343194688,
+      "relative": 4.272
+    }
+  ],
+  "errors": [],
+  "passed": true
+}

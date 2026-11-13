@@ -1,0 +1,68 @@
+ 
+ -------------- shutdown-probe@localhost v5.7.0 (collider)
+--- ***** ----- 
+-- ******* ---- macOS-15.8.1-arm64-arm-64bit-Mach-O 2026-11-13 11:17:31
+- *** --- * --- 
+- ** ---------- [config]
+- ** ---------- .> app:         shutdown_probe:0x1052d9fd0
+- ** ---------- .> transport:   redis+socket:///Users/sergunich/dev/repos/celery/.dev/shutdown-18582.sock
+- ** ---------- .> results:     socket:///Users/sergunich/dev/repos/celery/.dev/shutdown-18582.sock
+- *** --- * --- .> concurrency: 1 (thread)
+-- ******* ---- .> task events: OFF (enable -E to monitor tasks in this worker)
+--- ***** ----- 
+ -------------- [queues]
+                .> shutdown-probe   exchange=shutdown-probe(direct) key=shutdown-probe
+                
+
+[tasks]
+  . shutdown_probe.task
+
+[2026-11-13 11:17:31,554: INFO/MainProcess] Connected to redis+socket:///Users/sergunich/dev/repos/celery/.dev/shutdown-18582.sock
+[2026-11-13 11:17:31,558: INFO/MainProcess] shutdown-probe@localhost ready.
+[2026-11-13 11:17:31,561: INFO/MainProcess] Task shutdown_probe.task[5086c89f-c47f-4e39-aee4-aae40d247cd4] received
+
+worker: Hitting Ctrl+C again will terminate all running tasks!
+[2026-11-13 11:17:31,866: CRITICAL/MainProcess] Unrecoverable error: NotImplementedError("<class 'celery.concurrency.thread.TaskPool'> does not implement kill_job")
+Traceback (most recent call last):
+  File "/Users/sergunich/dev/repos/celery/celery/worker/worker.py", line 271, in start
+    self.blueprint.start(self)
+    ~~~~~~~~~~~~~~~~~~~~^^^^^^
+  File "/Users/sergunich/dev/repos/celery/celery/bootsteps.py", line 116, in start
+    step.start(parent)
+    ~~~~~~~~~~^^^^^^^^
+  File "/Users/sergunich/dev/repos/celery/celery/bootsteps.py", line 365, in start
+    return self.obj.start()
+           ~~~~~~~~~~~~~~^^
+  File "/Users/sergunich/dev/repos/celery/celery/worker/consumer/consumer.py", line 406, in start
+    blueprint.start(self)
+    ~~~~~~~~~~~~~~~^^^^^^
+  File "/Users/sergunich/dev/repos/celery/celery/bootsteps.py", line 116, in start
+    step.start(parent)
+    ~~~~~~~~~~^^^^^^^^
+  File "/Users/sergunich/dev/repos/celery/celery/worker/consumer/consumer.py", line 944, in start
+    c.loop(*c.loop_args())
+    ~~~~~~^^^^^^^^^^^^^^^^
+  File "/Users/sergunich/dev/repos/celery/celery/worker/loops.py", line 130, in asynloop
+    next(loop)
+    ~~~~^^^^^^
+  File "/Users/sergunich/dev/repos/celery/.dev/.venv/lib/python3.13/site-packages/kombu/asynchronous/hub.py", line 406, in create_loop
+    events = poll(poll_timeout)
+  File "/Users/sergunich/dev/repos/celery/.dev/.venv/lib/python3.13/site-packages/kombu/utils/eventio.py", line 216, in poll
+    event_list = self._quick_poll(timeout)
+  File "/Users/sergunich/dev/repos/celery/celery/apps/worker.py", line 343, in _handle_request
+    callback(worker)
+    ~~~~~~~~^^^^^^^^
+  File "/Users/sergunich/dev/repos/celery/celery/apps/worker.py", line 479, in on_cold_shutdown
+    worker.consumer.cancel_active_requests()
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^
+  File "/Users/sergunich/dev/repos/celery/celery/worker/consumer/consumer.py", line 929, in cancel_active_requests
+    request.cancel(self.pool, emit_retry=emit_retry)
+    ~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/sergunich/dev/repos/celery/celery/worker/request.py", line 438, in cancel
+    pool.terminate_job(self.worker_pid, signal)
+    ~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/sergunich/dev/repos/celery/celery/concurrency/base.py", line 113, in terminate_job
+    raise NotImplementedError(
+        f'{type(self)} does not implement kill_job')
+NotImplementedError: <class 'celery.concurrency.thread.TaskPool'> does not implement kill_job
+[2026-11-13 11:17:33,632: INFO/MainProcess] Task shutdown_probe.task[5086c89f-c47f-4e39-aee4-aae40d247cd4] succeeded in 2.070259833941236s: 'completed'

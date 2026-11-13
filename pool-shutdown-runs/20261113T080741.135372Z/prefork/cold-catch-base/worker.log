@@ -1,0 +1,28 @@
+ 
+ -------------- shutdown-probe@localhost v5.7.0 (collider)
+--- ***** ----- 
+-- ******* ---- macOS-15.8.1-arm64-arm-64bit-Mach-O 2026-11-13 11:09:31
+- *** --- * --- 
+- ** ---------- [config]
+- ** ---------- .> app:         shutdown_probe:0x1048aa7b0
+- ** ---------- .> transport:   redis+socket:///Users/sergunich/dev/repos/celery/.dev/shutdown-17842.sock
+- ** ---------- .> results:     socket:///Users/sergunich/dev/repos/celery/.dev/shutdown-17842.sock
+- *** --- * --- .> concurrency: 1 (prefork)
+-- ******* ---- .> task events: OFF (enable -E to monitor tasks in this worker)
+--- ***** ----- 
+ -------------- [queues]
+                .> shutdown-probe   exchange=shutdown-probe(direct) key=shutdown-probe
+                
+
+[tasks]
+  . shutdown_probe.task
+
+[2026-11-13 11:09:31,675: INFO/MainProcess] Connected to redis+socket:///Users/sergunich/dev/repos/celery/.dev/shutdown-17842.sock
+[2026-11-13 11:09:31,684: INFO/MainProcess] shutdown-probe@localhost ready.
+[2026-11-13 11:09:31,701: INFO/MainProcess] Task shutdown_probe.task[d4852a23-9cae-491c-8266-3a99d69bdd5b] received
+[2026-11-13 11:09:31,934: INFO/SpawnPoolWorker-1] child process 18087 calling self.run()
+
+worker: Hitting Ctrl+C again will terminate all running tasks!
+[2026-11-13 11:09:34,403: INFO/SpawnPoolWorker-1] Task shutdown_probe.task[d4852a23-9cae-491c-8266-3a99d69bdd5b] succeeded in 2.454456124920398s: 'completed'
+
+worker: Cold shutdown (MainProcess)

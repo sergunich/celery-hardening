@@ -1,0 +1,28 @@
+[2026-11-12 19:06:12,308: WARNING/MainProcess] No hostname was supplied. Reverting to default 'localhost'
+ 
+ -------------- solo-probe@localhost v5.7.0 (collider)
+--- ***** ----- 
+-- ******* ---- macOS-15.8.1-arm64-arm-64bit-Mach-O 2026-11-12 19:06:12
+- *** --- * --- 
+- ** ---------- [config]
+- ** ---------- .> app:         solo_shutdown_probe:0x10540f4d0
+- ** ---------- .> transport:   memory://:**@localhost//
+- ** ---------- .> results:     memory:///
+- *** --- * --- .> concurrency: 1 (solo)
+-- ******* ---- .> task events: OFF (enable -E to monitor tasks in this worker)
+--- ***** ----- 
+ -------------- [queues]
+                .> celery           exchange=celery(direct) key=celery
+                
+
+[tasks]
+  . solo_shutdown_probe.task
+
+[2026-11-12 19:06:12,323: WARNING/MainProcess] No hostname was supplied. Reverting to default 'localhost'
+[2026-11-12 19:06:12,323: INFO/MainProcess] Connected to memory://:**@localhost//
+[2026-11-12 19:06:12,325: WARNING/MainProcess] No hostname was supplied. Reverting to default 'localhost'
+[2026-11-12 19:06:12,325: INFO/MainProcess] solo-probe@localhost ready.
+[2026-11-12 19:06:12,326: INFO/MainProcess] Task solo_shutdown_probe.task[eaaf81c4-c973-4fe5-a5cf-c7522ad2cd1a] received
+[2026-11-12 19:06:12,631: WARNING/MainProcess] No hostname was supplied. Reverting to default 'localhost'
+[2026-11-12 19:06:14,398: INFO/MainProcess] Task solo_shutdown_probe.task[eaaf81c4-c973-4fe5-a5cf-c7522ad2cd1a] succeeded in 2.072419499978423s: 'completed'
+[2026-11-12 19:06:14,399: WARNING/MainProcess] Got shutdown from remote

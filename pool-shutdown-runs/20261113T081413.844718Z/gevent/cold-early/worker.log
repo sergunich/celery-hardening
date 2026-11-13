@@ -1,0 +1,311 @@
+ 
+ -------------- shutdown-probe@localhost v5.7.0 (collider)
+--- ***** ----- 
+-- ******* ---- macOS-15.8.1-arm64-arm-64bit-Mach-O 2026-11-13 11:18:13
+- *** --- * --- 
+- ** ---------- [config]
+- ** ---------- .> app:         shutdown_probe:0x1037b4690
+- ** ---------- .> transport:   redis+socket:///Users/sergunich/dev/repos/celery/.dev/shutdown-18582.sock
+- ** ---------- .> results:     socket:///Users/sergunich/dev/repos/celery/.dev/shutdown-18582.sock
+- *** --- * --- .> concurrency: 1 (gevent)
+-- ******* ---- .> task events: OFF (enable -E to monitor tasks in this worker)
+--- ***** ----- 
+ -------------- [queues]
+                .> shutdown-probe   exchange=shutdown-probe(direct) key=shutdown-probe
+                
+
+[tasks]
+  . shutdown_probe.task
+
+[2026-11-13 11:18:13,243: INFO/MainProcess] Connected to redis+socket:///Users/sergunich/dev/repos/celery/.dev/shutdown-18582.sock
+[2026-11-13 11:18:13,246: INFO/MainProcess] shutdown-probe@localhost ready.
+[2026-11-13 11:18:13,247: INFO/MainProcess] pidbox: Connected to redis+socket:///Users/sergunich/dev/repos/celery/.dev/shutdown-18582.sock.
+[2026-11-13 11:18:13,257: INFO/MainProcess] Task shutdown_probe.task[9c02e5f4-0f0e-4c22-a5d3-e837de21ee68] received
+
+worker: Hitting Ctrl+C again will terminate all running tasks!
+Traceback (most recent call last):
+  File "/Users/sergunich/dev/repos/celery/celery/apps/worker.py", line 343, in _handle_request
+    callback(worker)
+    ~~~~~~~~^^^^^^^^
+  File "/Users/sergunich/dev/repos/celery/celery/apps/worker.py", line 479, in on_cold_shutdown
+    worker.consumer.cancel_active_requests()
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^
+  File "/Users/sergunich/dev/repos/celery/celery/worker/consumer/consumer.py", line 929, in cancel_active_requests
+    request.cancel(self.pool, emit_retry=emit_retry)
+    ~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/sergunich/dev/repos/celery/celery/worker/request.py", line 439, in cancel
+    self._announce_cancelled(emit_retry=emit_retry)
+    ~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/sergunich/dev/repos/celery/celery/worker/request.py", line 453, in _announce_cancelled
+    self.task.backend.mark_as_retry(self.id,
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+                                    exc,
+                                    ^^^^
+                                    request=self._context)
+                                    ^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/sergunich/dev/repos/celery/celery/backends/base.py", line 461, in mark_as_retry
+    return self.store_result(task_id, exc, state,
+           ~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^
+                             traceback=traceback, request=request)
+                             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/sergunich/dev/repos/celery/celery/backends/base.py", line 873, in store_result
+    self._ensure_retryable(
+    ~~~~~~~~~~~~~~~~~~~~~~^
+        self._store_result,
+        ^^^^^^^^^^^^^^^^^^^
+    ...<4 lines>...
+        **kwargs
+        ^^^^^^^^
+    )
+    ^
+  File "/Users/sergunich/dev/repos/celery/celery/backends/base.py", line 833, in _ensure_retryable
+    return func(*args, **kwargs)
+  File "/Users/sergunich/dev/repos/celery/celery/backends/base.py", line 1367, in _store_result
+    current_meta = self._get_task_meta_for(task_id)
+  File "/Users/sergunich/dev/repos/celery/celery/backends/base.py", line 1389, in _get_task_meta_for
+    meta = self.get(self.get_key_for_task(task_id))
+  File "/Users/sergunich/dev/repos/celery/celery/backends/redis.py", line 785, in get
+    return self.client.get(key)
+           ~~~~~~~~~~~~~~~^^^^^
+  File "/Users/sergunich/dev/repos/celery/.dev/.venv/lib/python3.13/site-packages/redis/commands/core.py", line 3200, in get
+    return self.execute_command("GET", name, keys=[name])
+           ~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/sergunich/dev/repos/celery/.dev/.venv/lib/python3.13/site-packages/redis/client.py", line 867, in execute_command
+    return self._execute_command(*args, **options)
+           ~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^
+  File "/Users/sergunich/dev/repos/celery/.dev/.venv/lib/python3.13/site-packages/redis/client.py", line 873, in _execute_command
+    conn = self.connection or pool.get_connection()
+                              ~~~~~~~~~~~~~~~~~~~^^
+  File "/Users/sergunich/dev/repos/celery/.dev/.venv/lib/python3.13/site-packages/redis/utils.py", line 258, in wrapper
+    return func(*args, **kwargs)
+  File "/Users/sergunich/dev/repos/celery/.dev/.venv/lib/python3.13/site-packages/redis/connection.py", line 3273, in get_connection
+    connection.connect()
+    ~~~~~~~~~~~~~~~~~~^^
+  File "/Users/sergunich/dev/repos/celery/.dev/.venv/lib/python3.13/site-packages/redis/connection.py", line 1028, in connect
+    self.retry.call_with_retry(
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~^
+        lambda: self.connect_check_health(
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    ...<2 lines>...
+        lambda error: self.disconnect(error),
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "/Users/sergunich/dev/repos/celery/.dev/.venv/lib/python3.13/site-packages/redis/retry.py", line 120, in call_with_retry
+    return do()
+  File "/Users/sergunich/dev/repos/celery/.dev/.venv/lib/python3.13/site-packages/redis/connection.py", line 1029, in <lambda>
+    lambda: self.connect_check_health(
+            ~~~~~~~~~~~~~~~~~~~~~~~~~^
+        check_health=True, retry_socket_connect=False
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    ),
+    ^
+  File "/Users/sergunich/dev/repos/celery/.dev/.venv/lib/python3.13/site-packages/redis/connection.py", line 1083, in connect_check_health
+    self.on_connect_check_health(check_health=check_health)
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/sergunich/dev/repos/celery/.dev/.venv/lib/python3.13/site-packages/redis/connection.py", line 1186, in on_connect_check_health
+    self.handshake_metadata = self.read_response()
+                              ~~~~~~~~~~~~~~~~~~^^
+  File "/Users/sergunich/dev/repos/celery/.dev/.venv/lib/python3.13/site-packages/redis/connection.py", line 1407, in read_response
+    response = self._parser.read_response(
+        disable_decoding=disable_decoding,
+        push_request=push_request,
+        timeout=timeout,
+    )
+  File "/Users/sergunich/dev/repos/celery/.dev/.venv/lib/python3.13/site-packages/redis/_parsers/resp3.py", line 40, in read_response
+    result = self._read_response(
+        disable_decoding=disable_decoding,
+        push_request=push_request,
+        timeout=timeout,
+    )
+  File "/Users/sergunich/dev/repos/celery/.dev/.venv/lib/python3.13/site-packages/redis/_parsers/resp3.py", line 65, in _read_response
+    raw = self._buffer.readline(timeout=timeout)
+  File "/Users/sergunich/dev/repos/celery/.dev/.venv/lib/python3.13/site-packages/redis/_parsers/socket.py", line 117, in readline
+    self._read_from_socket(timeout=timeout)
+    ~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^
+  File "/Users/sergunich/dev/repos/celery/.dev/.venv/lib/python3.13/site-packages/redis/_parsers/socket.py", line 64, in _read_from_socket
+    data = sock.recv(socket_read_size)
+  File "/Users/sergunich/dev/repos/celery/.dev/.venv/lib/python3.13/site-packages/gevent/_socketcommon.py", line 657, in recv
+    self._wait(self._read_event)
+    ~~~~~~~~~~^^^^^^^^^^^^^^^^^^
+  File "src/gevent/_hub_primitives.py", line 317, in gevent._gevent_c_hub_primitives.wait_on_socket
+  File "src/gevent/_hub_primitives.py", line 322, in gevent._gevent_c_hub_primitives.wait_on_socket
+  File "src/gevent/_hub_primitives.py", line 313, in gevent._gevent_c_hub_primitives._primitive_wait
+  File "src/gevent/_hub_primitives.py", line 314, in gevent._gevent_c_hub_primitives._primitive_wait
+  File "src/gevent/_hub_primitives.py", line 55, in gevent._gevent_c_hub_primitives.WaitOperationsGreenlet.wait
+  File "src/gevent/_waiter.py", line 154, in gevent._gevent_c_waiter.Waiter.get
+  File "src/gevent/_greenlet_primitives.py", line 64, in gevent._gevent_c_greenlet_primitives.SwitchOutGreenletWithLoop.switch
+  File "src/gevent/_greenlet_primitives.py", line 67, in gevent._gevent_c_greenlet_primitives.SwitchOutGreenletWithLoop.switch_out
+  File "src/gevent/_greenlet_primitives.py", line 68, in gevent._gevent_c_greenlet_primitives.SwitchOutGreenletWithLoop.switch_out
+gevent.exceptions.BlockingSwitchOutError: Impossible to call blocking function in the event loop callback
+2026-11-13T08:18:13Z
+[2026-11-13 11:18:13,593: CRITICAL/MainProcess] Unrecoverable error: BlockingSwitchOutError('Impossible to call blocking function in the event loop callback')
+Traceback (most recent call last):
+  File "/Users/sergunich/dev/repos/celery/celery/worker/worker.py", line 271, in start
+    self.blueprint.start(self)
+    ~~~~~~~~~~~~~~~~~~~~^^^^^^
+  File "/Users/sergunich/dev/repos/celery/celery/bootsteps.py", line 116, in start
+    step.start(parent)
+    ~~~~~~~~~~^^^^^^^^
+  File "/Users/sergunich/dev/repos/celery/celery/bootsteps.py", line 365, in start
+    return self.obj.start()
+           ~~~~~~~~~~~~~~^^
+  File "/Users/sergunich/dev/repos/celery/celery/worker/consumer/consumer.py", line 406, in start
+    blueprint.start(self)
+    ~~~~~~~~~~~~~~~^^^^^^
+  File "/Users/sergunich/dev/repos/celery/celery/bootsteps.py", line 116, in start
+    step.start(parent)
+    ~~~~~~~~~~^^^^^^^^
+  File "/Users/sergunich/dev/repos/celery/celery/worker/consumer/consumer.py", line 944, in start
+    c.loop(*c.loop_args())
+    ~~~~~~^^^^^^^^^^^^^^^^
+  File "/Users/sergunich/dev/repos/celery/celery/worker/loops.py", line 213, in synloop
+    _loop_cycle()
+    ~~~~~~~~~~~^^
+  File "/Users/sergunich/dev/repos/celery/celery/worker/loops.py", line 192, in _loop_cycle
+    connection.drain_events(timeout=2.0)
+    ~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^
+  File "/Users/sergunich/dev/repos/celery/.dev/.venv/lib/python3.13/site-packages/kombu/connection.py", line 399, in drain_events
+    return self.transport.drain_events(self.connection, **kwargs)
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/sergunich/dev/repos/celery/.dev/.venv/lib/python3.13/site-packages/kombu/transport/virtual/base.py", line 1007, in drain_events
+    get(self._deliver, timeout=timeout)
+    ~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/sergunich/dev/repos/celery/.dev/.venv/lib/python3.13/site-packages/kombu/transport/redis.py", line 899, in get
+    events = self.poller.poll(timeout)
+  File "/Users/sergunich/dev/repos/celery/.dev/.venv/lib/python3.13/site-packages/kombu/utils/eventio.py", line 281, in poll
+    read, write, error = _selectf(
+                         ~~~~~~~~^
+        self._rfd, self._wfd, self._efd, timeout,
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "/Users/sergunich/dev/repos/celery/.dev/.venv/lib/python3.13/site-packages/gevent/select.py", line 203, in select
+    return result.select(rlist, wlist, timeout)
+           ~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/sergunich/dev/repos/celery/.dev/.venv/lib/python3.13/site-packages/gevent/select.py", line 139, in select
+    event.wait(timeout=timeout)
+    ~~~~~~~~~~^^^^^^^^^^^^^^^^^
+  File "src/gevent/event.py", line 165, in gevent._gevent_cevent.Event.wait
+  File "src/gevent/_abstract_linkable.py", line 586, in gevent._gevent_c_abstract_linkable.AbstractLinkable._wait
+  File "src/gevent/_abstract_linkable.py", line 552, in gevent._gevent_c_abstract_linkable.AbstractLinkable._wait_core
+  File "src/gevent/_abstract_linkable.py", line 555, in gevent._gevent_c_abstract_linkable.AbstractLinkable._wait_core
+  File "src/gevent/_abstract_linkable.py", line 507, in gevent._gevent_c_abstract_linkable.AbstractLinkable._AbstractLinkable__wait_to_be_notified
+  File "src/gevent/_abstract_linkable.py", line 516, in gevent._gevent_c_abstract_linkable.AbstractLinkable._switch_to_hub
+  File "src/gevent/_greenlet_primitives.py", line 61, in gevent._gevent_c_greenlet_primitives.SwitchOutGreenletWithLoop.switch
+  File "src/gevent/_greenlet_primitives.py", line 65, in gevent._gevent_c_greenlet_primitives.SwitchOutGreenletWithLoop.switch
+  File "src/gevent/_gevent_c_greenlet_primitives.pxd", line 35, in gevent._gevent_c_greenlet_primitives._greenlet_switch
+  File "/Users/sergunich/dev/repos/celery/celery/apps/worker.py", line 343, in _handle_request
+    callback(worker)
+    ~~~~~~~~^^^^^^^^
+  File "/Users/sergunich/dev/repos/celery/celery/apps/worker.py", line 479, in on_cold_shutdown
+    worker.consumer.cancel_active_requests()
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^
+  File "/Users/sergunich/dev/repos/celery/celery/worker/consumer/consumer.py", line 929, in cancel_active_requests
+    request.cancel(self.pool, emit_retry=emit_retry)
+    ~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/sergunich/dev/repos/celery/celery/worker/request.py", line 439, in cancel
+    self._announce_cancelled(emit_retry=emit_retry)
+    ~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/sergunich/dev/repos/celery/celery/worker/request.py", line 453, in _announce_cancelled
+    self.task.backend.mark_as_retry(self.id,
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+                                    exc,
+                                    ^^^^
+                                    request=self._context)
+                                    ^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/sergunich/dev/repos/celery/celery/backends/base.py", line 461, in mark_as_retry
+    return self.store_result(task_id, exc, state,
+           ~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^
+                             traceback=traceback, request=request)
+                             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/sergunich/dev/repos/celery/celery/backends/base.py", line 873, in store_result
+    self._ensure_retryable(
+    ~~~~~~~~~~~~~~~~~~~~~~^
+        self._store_result,
+        ^^^^^^^^^^^^^^^^^^^
+    ...<4 lines>...
+        **kwargs
+        ^^^^^^^^
+    )
+    ^
+  File "/Users/sergunich/dev/repos/celery/celery/backends/base.py", line 833, in _ensure_retryable
+    return func(*args, **kwargs)
+  File "/Users/sergunich/dev/repos/celery/celery/backends/base.py", line 1367, in _store_result
+    current_meta = self._get_task_meta_for(task_id)
+  File "/Users/sergunich/dev/repos/celery/celery/backends/base.py", line 1389, in _get_task_meta_for
+    meta = self.get(self.get_key_for_task(task_id))
+  File "/Users/sergunich/dev/repos/celery/celery/backends/redis.py", line 785, in get
+    return self.client.get(key)
+           ~~~~~~~~~~~~~~~^^^^^
+  File "/Users/sergunich/dev/repos/celery/.dev/.venv/lib/python3.13/site-packages/redis/commands/core.py", line 3200, in get
+    return self.execute_command("GET", name, keys=[name])
+           ~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/sergunich/dev/repos/celery/.dev/.venv/lib/python3.13/site-packages/redis/client.py", line 867, in execute_command
+    return self._execute_command(*args, **options)
+           ~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^
+  File "/Users/sergunich/dev/repos/celery/.dev/.venv/lib/python3.13/site-packages/redis/client.py", line 873, in _execute_command
+    conn = self.connection or pool.get_connection()
+                              ~~~~~~~~~~~~~~~~~~~^^
+  File "/Users/sergunich/dev/repos/celery/.dev/.venv/lib/python3.13/site-packages/redis/utils.py", line 258, in wrapper
+    return func(*args, **kwargs)
+  File "/Users/sergunich/dev/repos/celery/.dev/.venv/lib/python3.13/site-packages/redis/connection.py", line 3273, in get_connection
+    connection.connect()
+    ~~~~~~~~~~~~~~~~~~^^
+  File "/Users/sergunich/dev/repos/celery/.dev/.venv/lib/python3.13/site-packages/redis/connection.py", line 1028, in connect
+    self.retry.call_with_retry(
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~^
+        lambda: self.connect_check_health(
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    ...<2 lines>...
+        lambda error: self.disconnect(error),
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "/Users/sergunich/dev/repos/celery/.dev/.venv/lib/python3.13/site-packages/redis/retry.py", line 120, in call_with_retry
+    return do()
+  File "/Users/sergunich/dev/repos/celery/.dev/.venv/lib/python3.13/site-packages/redis/connection.py", line 1029, in <lambda>
+    lambda: self.connect_check_health(
+            ~~~~~~~~~~~~~~~~~~~~~~~~~^
+        check_health=True, retry_socket_connect=False
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    ),
+    ^
+  File "/Users/sergunich/dev/repos/celery/.dev/.venv/lib/python3.13/site-packages/redis/connection.py", line 1083, in connect_check_health
+    self.on_connect_check_health(check_health=check_health)
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/sergunich/dev/repos/celery/.dev/.venv/lib/python3.13/site-packages/redis/connection.py", line 1186, in on_connect_check_health
+    self.handshake_metadata = self.read_response()
+                              ~~~~~~~~~~~~~~~~~~^^
+  File "/Users/sergunich/dev/repos/celery/.dev/.venv/lib/python3.13/site-packages/redis/connection.py", line 1407, in read_response
+    response = self._parser.read_response(
+        disable_decoding=disable_decoding,
+        push_request=push_request,
+        timeout=timeout,
+    )
+  File "/Users/sergunich/dev/repos/celery/.dev/.venv/lib/python3.13/site-packages/redis/_parsers/resp3.py", line 40, in read_response
+    result = self._read_response(
+        disable_decoding=disable_decoding,
+        push_request=push_request,
+        timeout=timeout,
+    )
+  File "/Users/sergunich/dev/repos/celery/.dev/.venv/lib/python3.13/site-packages/redis/_parsers/resp3.py", line 65, in _read_response
+    raw = self._buffer.readline(timeout=timeout)
+  File "/Users/sergunich/dev/repos/celery/.dev/.venv/lib/python3.13/site-packages/redis/_parsers/socket.py", line 117, in readline
+    self._read_from_socket(timeout=timeout)
+    ~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^
+  File "/Users/sergunich/dev/repos/celery/.dev/.venv/lib/python3.13/site-packages/redis/_parsers/socket.py", line 64, in _read_from_socket
+    data = sock.recv(socket_read_size)
+  File "/Users/sergunich/dev/repos/celery/.dev/.venv/lib/python3.13/site-packages/gevent/_socketcommon.py", line 657, in recv
+    self._wait(self._read_event)
+    ~~~~~~~~~~^^^^^^^^^^^^^^^^^^
+  File "src/gevent/_hub_primitives.py", line 317, in gevent._gevent_c_hub_primitives.wait_on_socket
+  File "src/gevent/_hub_primitives.py", line 322, in gevent._gevent_c_hub_primitives.wait_on_socket
+  File "src/gevent/_hub_primitives.py", line 313, in gevent._gevent_c_hub_primitives._primitive_wait
+  File "src/gevent/_hub_primitives.py", line 314, in gevent._gevent_c_hub_primitives._primitive_wait
+  File "src/gevent/_hub_primitives.py", line 55, in gevent._gevent_c_hub_primitives.WaitOperationsGreenlet.wait
+  File "src/gevent/_waiter.py", line 154, in gevent._gevent_c_waiter.Waiter.get
+  File "src/gevent/_greenlet_primitives.py", line 64, in gevent._gevent_c_greenlet_primitives.SwitchOutGreenletWithLoop.switch
+  File "src/gevent/_greenlet_primitives.py", line 67, in gevent._gevent_c_greenlet_primitives.SwitchOutGreenletWithLoop.switch_out
+  File "src/gevent/_greenlet_primitives.py", line 68, in gevent._gevent_c_greenlet_primitives.SwitchOutGreenletWithLoop.switch_out
+gevent.exceptions.BlockingSwitchOutError: Impossible to call blocking function in the event loop callback

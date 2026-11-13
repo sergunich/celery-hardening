@@ -1,0 +1,18 @@
+{
+  "name": "idle-cold",
+  "group": "idle",
+  "description": "Idle worker; QUIT at 0.3 s; soft shutdown disabled.",
+  "signals": [
+    [
+      0.3,
+      "SIGQUIT"
+    ]
+  ],
+  "idle": true,
+  "pool": "prefork",
+  "queue": "shutdown-probe",
+  "broker": "redis+socket:///Users/sergunich/dev/repos/celery/.dev/shutdown-18582.sock?virtual_host=0",
+  "backend": "redis+socket:///Users/sergunich/dev/repos/celery/.dev/shutdown-18582.sock?virtual_host=1",
+  "events": "/Users/sergunich/dev/repos/celery/.dev/pool-shutdown-runs/20261113T081413.844718Z/prefork/idle-cold/events.jsonl",
+  "native_iterations": 19443824
+}

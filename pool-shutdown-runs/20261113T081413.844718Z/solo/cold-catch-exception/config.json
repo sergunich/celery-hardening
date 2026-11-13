@@ -1,0 +1,19 @@
+{
+  "name": "cold-catch-exception",
+  "group": "edge",
+  "description": "2 s late-ack task catches Exception around work; QUIT at 0.3 s.",
+  "signals": [
+    [
+      0.3,
+      "SIGQUIT"
+    ]
+  ],
+  "acks_late": true,
+  "catch": "exception",
+  "pool": "solo",
+  "queue": "shutdown-probe",
+  "broker": "redis+socket:///Users/sergunich/dev/repos/celery/.dev/shutdown-18582.sock?virtual_host=0",
+  "backend": "redis+socket:///Users/sergunich/dev/repos/celery/.dev/shutdown-18582.sock?virtual_host=1",
+  "events": "/Users/sergunich/dev/repos/celery/.dev/pool-shutdown-runs/20261113T081413.844718Z/solo/cold-catch-exception/events.jsonl",
+  "native_iterations": 19443824
+}

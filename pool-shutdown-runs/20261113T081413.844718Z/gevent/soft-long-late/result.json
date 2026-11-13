@@ -1,0 +1,361 @@
+{
+  "pool": "gevent",
+  "case": {
+    "name": "soft-long-late",
+    "group": "soft-long",
+    "description": "3 s task; QUIT at 0.3 s; 1 s grace period expires before completion.",
+    "acks_late": true,
+    "signals": [
+      [
+        0.3,
+        "SIGQUIT"
+      ]
+    ],
+    "steps": 30,
+    "soft_timeout": 1.0
+  },
+  "published": true,
+  "task_id": "4319adbc-5843-485d-a5b0-a846102688ad",
+  "returncode": 1,
+  "forced_kill": false,
+  "orphan_cleanup": false,
+  "elapsed": 3.191,
+  "result_state": "SUCCESS",
+  "result_detail": "completed",
+  "completed": true,
+  "task_finally": true,
+  "hard_entered": false,
+  "shutdown_errors": [
+    "BlockingSwitchOutError"
+  ],
+  "ack_observed": true,
+  "rejects": [],
+  "broker_at_start": {
+    "queued": [],
+    "unacked": [
+      {
+        "tag": "de82b134-a931-493a-a6e4-ad15e5ff35b9",
+        "exchange": "",
+        "routing_key": "shutdown-probe"
+      }
+    ]
+  },
+  "broker": {
+    "queued": [],
+    "unacked": []
+  },
+  "restored_delivery": null,
+  "signals": [
+    {
+      "signal": "SIGQUIT",
+      "time": 1672431.629778333,
+      "relative": 0.31
+    }
+  ],
+  "timeline": [
+    {
+      "event": "worker_ready",
+      "time": 1672431.312513708,
+      "pid": 19157,
+      "thread": 4340872896,
+      "pool": "gevent",
+      "multiprocessing_start_method": "spawn",
+      "relative": -0.007
+    },
+    {
+      "event": "task_started",
+      "time": 1672431.319929291,
+      "pid": 19157,
+      "thread": 4383608960,
+      "multiprocessing_start_method": "spawn",
+      "relative": 0.0
+    },
+    {
+      "event": "task_tick",
+      "time": 1672431.425011333,
+      "pid": 19157,
+      "thread": 4383608960,
+      "step": 1,
+      "relative": 0.105
+    },
+    {
+      "event": "task_tick",
+      "time": 1672431.531535666,
+      "pid": 19157,
+      "thread": 4383608960,
+      "step": 2,
+      "relative": 0.212
+    },
+    {
+      "event": "task_tick",
+      "time": 1672431.643358583,
+      "pid": 19157,
+      "thread": 4383608960,
+      "step": 3,
+      "relative": 0.323
+    },
+    {
+      "event": "task_tick",
+      "time": 1672431.746205541,
+      "pid": 19157,
+      "thread": 4383608960,
+      "step": 4,
+      "relative": 0.426
+    },
+    {
+      "event": "task_tick",
+      "time": 1672431.850433333,
+      "pid": 19157,
+      "thread": 4383608960,
+      "step": 5,
+      "relative": 0.531
+    },
+    {
+      "event": "task_tick",
+      "time": 1672431.955610125,
+      "pid": 19157,
+      "thread": 4383608960,
+      "step": 6,
+      "relative": 0.636
+    },
+    {
+      "event": "task_tick",
+      "time": 1672432.061351083,
+      "pid": 19157,
+      "thread": 4383608960,
+      "step": 7,
+      "relative": 0.741
+    },
+    {
+      "event": "task_tick",
+      "time": 1672432.166175833,
+      "pid": 19157,
+      "thread": 4383608960,
+      "step": 8,
+      "relative": 0.846
+    },
+    {
+      "event": "task_tick",
+      "time": 1672432.269198875,
+      "pid": 19157,
+      "thread": 4383608960,
+      "step": 9,
+      "relative": 0.949
+    },
+    {
+      "event": "task_tick",
+      "time": 1672432.37407075,
+      "pid": 19157,
+      "thread": 4383608960,
+      "step": 10,
+      "relative": 1.054
+    },
+    {
+      "event": "task_tick",
+      "time": 1672432.475028875,
+      "pid": 19157,
+      "thread": 4383608960,
+      "step": 11,
+      "relative": 1.155
+    },
+    {
+      "event": "task_tick",
+      "time": 1672432.575729833,
+      "pid": 19157,
+      "thread": 4383608960,
+      "step": 12,
+      "relative": 1.256
+    },
+    {
+      "event": "task_tick",
+      "time": 1672432.680077833,
+      "pid": 19157,
+      "thread": 4383608960,
+      "step": 13,
+      "relative": 1.36
+    },
+    {
+      "event": "task_tick",
+      "time": 1672432.78215875,
+      "pid": 19157,
+      "thread": 4383608960,
+      "step": 14,
+      "relative": 1.462
+    },
+    {
+      "event": "task_tick",
+      "time": 1672432.8832555,
+      "pid": 19157,
+      "thread": 4383608960,
+      "step": 15,
+      "relative": 1.563
+    },
+    {
+      "event": "task_tick",
+      "time": 1672432.985532083,
+      "pid": 19157,
+      "thread": 4383608960,
+      "step": 16,
+      "relative": 1.666
+    },
+    {
+      "event": "task_tick",
+      "time": 1672433.089350208,
+      "pid": 19157,
+      "thread": 4383608960,
+      "step": 17,
+      "relative": 1.769
+    },
+    {
+      "event": "task_tick",
+      "time": 1672433.189647541,
+      "pid": 19157,
+      "thread": 4383608960,
+      "step": 18,
+      "relative": 1.87
+    },
+    {
+      "event": "task_tick",
+      "time": 1672433.291934166,
+      "pid": 19157,
+      "thread": 4383608960,
+      "step": 19,
+      "relative": 1.972
+    },
+    {
+      "event": "task_tick",
+      "time": 1672433.394404166,
+      "pid": 19157,
+      "thread": 4383608960,
+      "step": 20,
+      "relative": 2.074
+    },
+    {
+      "event": "task_tick",
+      "time": 1672433.496883708,
+      "pid": 19157,
+      "thread": 4383608960,
+      "step": 21,
+      "relative": 2.177
+    },
+    {
+      "event": "task_tick",
+      "time": 1672433.600707208,
+      "pid": 19157,
+      "thread": 4383608960,
+      "step": 22,
+      "relative": 2.281
+    },
+    {
+      "event": "task_tick",
+      "time": 1672433.703401125,
+      "pid": 19157,
+      "thread": 4383608960,
+      "step": 23,
+      "relative": 2.383
+    },
+    {
+      "event": "task_tick",
+      "time": 1672433.808516416,
+      "pid": 19157,
+      "thread": 4383608960,
+      "step": 24,
+      "relative": 2.489
+    },
+    {
+      "event": "task_tick",
+      "time": 1672433.913414083,
+      "pid": 19157,
+      "thread": 4383608960,
+      "step": 25,
+      "relative": 2.593
+    },
+    {
+      "event": "task_tick",
+      "time": 1672434.01678025,
+      "pid": 19157,
+      "thread": 4383608960,
+      "step": 26,
+      "relative": 2.697
+    },
+    {
+      "event": "task_tick",
+      "time": 1672434.121287708,
+      "pid": 19157,
+      "thread": 4383608960,
+      "step": 27,
+      "relative": 2.801
+    },
+    {
+      "event": "task_tick",
+      "time": 1672434.222904958,
+      "pid": 19157,
+      "thread": 4383608960,
+      "step": 28,
+      "relative": 2.903
+    },
+    {
+      "event": "task_tick",
+      "time": 1672434.324518041,
+      "pid": 19157,
+      "thread": 4383608960,
+      "step": 29,
+      "relative": 3.005
+    },
+    {
+      "event": "task_tick",
+      "time": 1672434.426584458,
+      "pid": 19157,
+      "thread": 4383608960,
+      "step": 30,
+      "relative": 3.107
+    },
+    {
+      "event": "task_completed",
+      "time": 1672434.426731208,
+      "pid": 19157,
+      "thread": 4383608960,
+      "relative": 3.107
+    },
+    {
+      "event": "task_finally",
+      "time": 1672434.426781916,
+      "pid": 19157,
+      "thread": 4383608960,
+      "relative": 3.107
+    },
+    {
+      "event": "task_success",
+      "time": 1672434.433285166,
+      "pid": 19157,
+      "thread": 4383608960,
+      "relative": 3.113
+    },
+    {
+      "event": "task_postrun",
+      "time": 1672434.433752291,
+      "pid": 19157,
+      "thread": 4383608960,
+      "state": "SUCCESS",
+      "relative": 3.114
+    },
+    {
+      "event": "message_ack",
+      "time": 1672434.434966333,
+      "pid": 19157,
+      "thread": 4383608960,
+      "task_id": "4319adbc-5843-485d-a5b0-a846102688ad",
+      "tag": "de82b134-a931-493a-a6e4-ad15e5ff35b9",
+      "relative": 3.115
+    },
+    {
+      "event": "worker_shutdown",
+      "time": 1672434.43558325,
+      "pid": 19157,
+      "thread": 4340872896,
+      "relative": 3.116
+    }
+  ],
+  "errors": [],
+  "passed": true
+}
