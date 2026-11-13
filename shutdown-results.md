@@ -189,8 +189,7 @@ children, not just the worker parent. This is separate from Celery's hard handle
 | gevent | early | No | PENDING | Yes | Absent | KILL (requested) / 0.32 s | — |
 | gevent | late | No | PENDING | No | Unacked | KILL (requested) / 0.31 s | — |
 
-**Correction to the earlier memory-broker report:** with solo + Redis's async
-consumer, the “early ACK” callback is queued on the same event loop blocked by
+With solo + Redis's async consumer, the “early ACK” callback is queued on the same event loop blocked by
 the task. In this case it had **not reached Redis before SIGKILL**. This was
 reproduced; it is not a reason to treat early acknowledgment as safe in general.
 The other pools sent their early ACK before the kill. All late-ack messages
@@ -461,23 +460,6 @@ all planned and actually delivered signals are retained.
   futures, ETA tasks, different acknowledgment policies, or production side effects.
 - No universal shutdown-duration guarantee follows from these timings. Native
   code, signal coalescing, teardown, and application exception handling all matter.
-
-## What changed from the first solo-only report?
-
-The [original memory-broker report](shutdown-results-solo-memory.md) is archived,
-along with its scripts and raw runs. Its core solo pause/cancellation conclusions
-still hold, but the new experiment is a stronger delivery test:
-
-1. Redis lets the parent inspect prefork child results and the broker's actual
-   queued/unacked state. The memory backend could not support that comparison.
-2. Actual ACK calls and message presence are now separate table columns; request
-   flags are no longer presented as proof of delivery acknowledgment.
-3. Solo early ACK can be deferred with Redis; the SIGKILL case disproved the
-   initial test assumption that early-ack configuration guarantees an ACK first.
-4. The production CLI is now exercised directly, including its exit status and
-   gevent startup patching. Hard-handler entry is measured, not assumed.
-5. The native threaded `SUCCESS`-but-restored case and canceled gevent
-   `PENDING`-but-ACKed case show why task outcome and message outcome must be separate.
 
 All scripts, logs, and this report remain under locally ignored `.dev/`
 (`/.dev/` in `.git/info/exclude`). No production code or shared ignore file was changed.
