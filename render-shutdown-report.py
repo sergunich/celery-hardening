@@ -1,5 +1,8 @@
 #!/usr/bin/env python3
-"""Render the readable comparison from a complete four-pool experiment run."""
+"""Render experiment results and include the separately maintained appendix.
+
+Never generate or overwrite shutdown-appendix.md from experiment output.
+"""
 import argparse
 import json
 from pathlib import Path
@@ -13,6 +16,13 @@ def main():
     parser.add_argument("summary", type=Path)
     parser.add_argument("--previous", type=Path)
     args = parser.parse_args()
+    appendix_path = DEV / "shutdown-appendix.md"
+    try:
+        appendix = appendix_path.read_text(encoding="utf-8")
+    except OSError as exc:
+        raise SystemExit(f"Refusing to overwrite report: cannot read maintained appendix {appendix_path}: {exc}") from exc
+    if not appendix.strip():
+        raise SystemExit(f"Refusing to overwrite report: maintained appendix {appendix_path} is empty")
     data = json.loads(args.summary.read_text())
     outcomes = data["outcomes"]
     by_key = {(o["pool"], o["case"]["name"]): o for o in outcomes}
@@ -41,6 +51,10 @@ def main():
                     "message location, forced kill, exit code, or whether the hard handler ran. "
                     "Elapsed times are not expected to match.\n")
     parts = [f"""# Celery shutdowns: solo, prefork, threads, and gevent
+
+> Experiment sections are generated. The explanatory appendix is maintained in
+> [shutdown-appendix.md](shutdown-appendix.md) and included on every regeneration.
+> Edit that source file to update the appendix; do not edit its rendered copy here.
 
 ## Bottom line
 
@@ -391,8 +405,12 @@ The temporary Redis databases are reset only inside that private server.
   normal early monkey-patching. Shutdown implementations are not replaced.
   ACK/reject methods and the hard handler are wrapped only to record calls,
   then delegate to their original implementations without swallowing exceptions.
-- `.dev/render-shutdown-report.py`: regenerates this document from a complete
-  run's `summary.json`, optionally comparing it with a previous run.
+- `.dev/render-shutdown-report.py`: regenerates experiment sections from a complete
+  run's `summary.json`, optionally comparing it with a previous run, then includes
+  the maintained `.dev/shutdown-appendix.md`. Refuses to overwrite this report if
+  that source is missing or empty; experiment runs never write the appendix source.
+- `.dev/test-render-shutdown-report.py`: verifies appendix preservation across
+  regeneration and that missing/empty appendix sources leave the report untouched.
 """)
     parts.append(f"""
 **Results used here:** [{artifacts}/summary.json]({artifacts}/summary.json).
@@ -426,8 +444,9 @@ all planned and actually delivered signals are retained.
 All scripts, logs, and this report remain under locally ignored `.dev/`
 (`/.dev/` in `.git/info/exclude`). No production code or shared ignore file was changed.
 """)
+    parts.append("\n" + appendix)
     output = DEV / "shutdown-results.md"
-    output.write_text("".join(parts))
+    output.write_text("".join(parts), encoding="utf-8")
     print(f"Wrote {output}: {len(outcomes)} rows")
 
 

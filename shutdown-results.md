@@ -1,5 +1,9 @@
 # Celery shutdowns: solo, prefork, threads, and gevent
 
+> Experiment sections are generated. The explanatory appendix is maintained in
+> [shutdown-appendix.md](shutdown-appendix.md) and included on every regeneration.
+> Edit that source file to update the appendix; do not edit its rendered copy here.
+
 ## Bottom line
 
 These are **runtime observations for this checkout and environment**, not a
@@ -430,8 +434,12 @@ The temporary Redis databases are reset only inside that private server.
   normal early monkey-patching. Shutdown implementations are not replaced.
   ACK/reject methods and the hard handler are wrapped only to record calls,
   then delegate to their original implementations without swallowing exceptions.
-- `.dev/render-shutdown-report.py`: regenerates this document from a complete
-  run's `summary.json`, optionally comparing it with a previous run.
+- `.dev/render-shutdown-report.py`: regenerates experiment sections from a complete
+  run's `summary.json`, optionally comparing it with a previous run, then includes
+  the maintained `.dev/shutdown-appendix.md`. Refuses to overwrite this report if
+  that source is missing or empty; experiment runs never write the appendix source.
+- `.dev/test-render-shutdown-report.py`: verifies appendix preservation across
+  regeneration and that missing/empty appendix sources leave the report untouched.
 
 **Results used here:** [pool-shutdown-runs/20261113T081413.844718Z/summary.json](pool-shutdown-runs/20261113T081413.844718Z/summary.json).
 Each `<pool>/<case>/` directory contains `config.json`, `events.jsonl`,
@@ -463,3 +471,280 @@ all planned and actually delivered signals are retained.
 
 All scripts, logs, and this report remain under locally ignored `.dev/`
 (`/.dev/` in `.git/info/exclude`). No production code or shared ignore file was changed.
+
+## Appendix: shutdown, acknowledgment, and signal semantics
+
+> **Maintained explanation, not generated experiment output.** Edit
+> `.dev/shutdown-appendix.md`, not this appendix's rendered copy in
+> `.dev/shutdown-results.md`. The report generator includes this file unchanged
+> on every run and refuses to overwrite the report if it is missing or empty.
+> These explanations describe the tested checkout; review them explicitly if
+> a future version changes the implementation.
+
+### A1. Does warm shutdown let a running task continue indefinitely?
+
+**Yes: warm shutdown itself imposes no deadline.** The task can continue until
+it returns, raises an exception, or is stopped by something else: a supported
+pool/task time limit, an application timeout, another shutdown signal, or the
+supervisor.
+
+#### On the first warm-shutdown signal
+
+With the default signal mapping:
+
+- `SIGTERM` requests warm shutdown.
+- The first Ctrl+C (`SIGINT`) also requests warm shutdown.
+
+The signal handler sets Celery's `should_stop` flag and returns. **It does not
+raise a cancellation exception inside the task.**
+
+When the worker notices the flag, it starts shutdown: stops consumption, lets
+running work finish, stops worker components, and closes broker connections.
+Stopping consumption is not an instantaneous guarantee that no already-delivered
+or already-submitted work can start; pool scheduling and shutdown races matter.
+
+With **solo**, the consumer loop cannot notice the flag while it is executing
+the task inline. The signal handler returns to the task, and shutdown proceeds
+after the task returns.
+
+#### After the task finishes
+
+Celery processes the normal task outcome: stores the result, handles
+ACK/reject/retry according to policy, and completes worker teardown.
+
+A task calling `self.retry()` publishes another attempt. Warm shutdown does not
+mean this worker must stay alive to execute that future attempt.
+
+Additional `SIGTERM` signals do **not** escalate warm shutdown into cold shutdown.
+
+#### What happens to prefetched tasks?
+
+**Fetched, accepted for execution, and ACKed are different stages.**
+
+| Task location/state | Expected shutdown handling |
+| --- | --- |
+| Still in the broker queue | Remains available to other workers |
+| Reserved locally but not accepted for execution | Normally remains unacknowledged and is restored/redelivered during connection cleanup |
+| Already accepted/running | Allowed to finish during warm shutdown |
+| Already ACKed | The broker cannot automatically recover it just because the worker exits |
+
+There are pool-specific details and races. This checkout cancels pending
+thread-pool futures during warm shutdown; prefork also has logic to discard
+work not yet accepted by children. Do not interpret this as a guarantee that
+all submitted-but-not-yet-running work behaves identically across pools.
+
+**The experiments published one task per case and did not validate a prefetched
+backlog.** This explanation comes from the shutdown implementation, not a
+runtime backlog test. Broker-specific recovery and forced termination can also
+change the outcome.
+
+### A2. What is `worker_soft_shutdown_timeout` for?
+
+It adds a grace period **when cold shutdown is requested**, rather than placing
+a deadline on warm shutdown.
+
+```text
+TERM
+  → warm shutdown
+  → wait for running tasks without a shutdown-imposed deadline
+
+QUIT
+  → soft grace period, if enabled
+  → cold cancellation of remaining tasks
+  → teardown
+```
+
+For example:
+
+```python
+worker_soft_shutdown_timeout = 10
+```
+
+When `SIGQUIT` is sent:
+
+1. Celery enters the cold-shutdown path.
+2. It gives executing tasks a 10-second completion window.
+3. It then attempts to cancel whatever remains.
+
+That window starts when **cold shutdown is requested**, not when an earlier
+TERM arrived. It is a grace period before attempted cancellation, not an exact
+process-exit deadline; teardown can take additional time.
+
+The cold path can be entered through:
+
+- `SIGQUIT`.
+- Ctrl+C escalation.
+- `SIGTERM` if explicitly configured with `REMAP_SIGTERM=SIGQUIT`.
+
+**Setting the timeout alone does not activate a timer after ordinary TERM.**
+
+Use it when cold shutdown should give short remaining work a chance to finish
+before cancellation. Prefork demonstrated that behavior in these tests. Threads
+could finish during the window but could not forcibly cancel overrunning work;
+solo and gevent had the limitations documented in the comparison.
+
+When idle, the wait is normally skipped.
+`worker_enable_soft_shutdown_on_idle=True` enables it even without active tasks.
+
+### A3. Why ACK a failed task? Should solo catch the error and retry?
+
+#### ACK does not mean “the task succeeded”
+
+It means approximately: **“This delivery has been handled; the broker should
+remove it.”**
+
+Celery normally treats an application exception as a completed, failed attempt,
+not as a reason for unlimited broker redelivery. With late acknowledgments, the
+default acknowledge-on-failure policy therefore ACKs failed tasks too.
+
+The solo cold-shutdown case followed this path:
+
+```text
+Cancellation calls unsupported terminate_job()
+  → NotImplementedError enters task execution
+  → Celery records ordinary task FAILURE
+  → acknowledge-on-failure policy ACKs the delivery
+```
+
+**Turning off acknowledge-on-failure does not automatically fix this.** In this
+checkout, an ordinary failed task is then rejected **without requeue**, rather
+than automatically retried. See `task_acks_on_failure` and its fallback setting
+`task_acks_on_failure_or_timeout`; this policy is relevant to late-ack tasks.
+
+#### Recommended solo shutdown strategy
+
+**Prefer TERM and allow the task to finish.** Give the supervisor enough grace
+time, and use application-level I/O timeouts/checkpoints so tasks do not hang
+indefinitely.
+
+Do **not** treat any `NotImplementedError` as “Celery asked me to shut down”:
+
+- It is an implementation failure, not a stable cancellation API.
+- The same exception could represent a genuine application bug.
+- Interruption can occur after side effects have already happened.
+- Retrying can duplicate those effects.
+- Publishing a replacement attempt is not atomic with acknowledging the
+  original delivery.
+
+If cooperative interruption is required, design it explicitly: check a stop
+condition at safe checkpoints, preserve progress, and use `self.retry()` for
+the intended retry policy. That is application-level behavior, not a workaround
+based on catching Celery's unsupported cancellation error.
+
+For independently terminating task execution, prefork is the better fit, subject
+to its own signal, native-code, and delivery limitations.
+
+### A4. Why was the solo “early-ack” task unacked after SIGKILL?
+
+Two distinctions matter:
+
+1. **Early ACK is normally requested when the execution pool accepts the task**,
+   not simply when the broker delivers it into the worker's prefetch buffer.
+2. **Requesting an ACK does not necessarily execute the broker operation immediately.**
+
+In this checkout's Redis async-consumer path:
+
+```text
+Broker delivers message
+  ↓
+Solo accepts task for execution
+  ↓
+Request.acknowledge()
+  ↓
+Schedule broker ACK callback on the event loop
+  ↓
+Run task inline in the same thread
+```
+
+Solo then occupies the event-loop thread. If SIGKILL arrives before that thread
+can process the queued callback, **Redis never receives the ACK operation**.
+
+This explains the experiment. It does not make early acknowledgment a dependable
+recovery strategy: different pools, transports, or execution timing can send the
+ACK earlier.
+
+### A5. How are ACK callbacks queued, and how should this work?
+
+The relevant chain is:
+
+```text
+Request.acknowledge()
+  → consumer.call_soon_ack(message.ack_log_error, ...)
+    → hub.call_soon(callback)
+```
+
+`hub.call_soon()` adds the callback to the hub's ready-callback collection.
+When the event loop gets control, it removes and executes ready callbacks.
+For Redis, the eventual ACK removes the delivery from its unacked bookkeeping.
+
+This scheduling keeps broker operations on the consumer/event-loop execution
+path, including when pool callbacks originate elsewhere. The chain above
+specifically describes the **hub-enabled path** used by the solo Redis test;
+this checkout can execute ACK callbacks directly when no hub is present.
+
+With prefork or threads:
+
+```text
+Controller/event loop: schedule ACK → execute ACK → continue handling events
+Task execution:                         runs independently
+```
+
+With solo:
+
+```text
+One thread: schedule ACK → execute entire task → return control → process ACK
+```
+
+Queued ACKs can also be processed during shutdown cleanup. The task returning
+does not guarantee that an ordinary next loop iteration is what executes them,
+nor that abrupt termination will allow the callbacks to run.
+
+An important implementation detail: `Request.acknowledged` is set after invoking
+the scheduling callback. Therefore it can already be `True` **while the actual
+broker operation is still pending**. That is why the tests observe ACK operations
+and Redis state separately.
+
+Relevant source: `celery/worker/request.py` (`on_accepted`, `acknowledge`),
+`celery/worker/consumer/consumer.py` (`create_task_handler`, `call_soon_ack`),
+Kombu's `asynchronous/hub.py` (`call_soon`, `create_loop`), and its Redis transport.
+
+### A6. What does “SIGINTs coalesced while Python was in C” mean?
+
+**Signals are not a reliable queue of button presses.**
+
+There are two relevant layers:
+
+- Standard OS signals such as SIGINT can merge while pending.
+- CPython normally first handles a signal through a small low-level handler
+  that marks it pending. The Python-level handler runs later, when the main
+  thread can execute it. Repeated occurrences of the same signal need not be
+  counted separately.
+
+The native-code experiment effectively did this:
+
+```text
+0.0 s   Main thread enters PBKDF2 in C
+0.3 s   SIGINT: mark SIGINT pending
+0.6 s   SIGINT: SIGINT is still pending
+0.9 s   SIGINT: SIGINT is still pending
+1.2 s   SIGINT: SIGINT is still pending
+~2 s    C call returns; Python runs one pending SIGINT handler
+```
+
+That handler was still Celery's **first Ctrl+C handler**, so it requested warm
+shutdown and installed the handler for the next stage. It did **not** receive
+a preserved count of four presses and jump through four stages.
+
+This particularly affects solo/gevent when native work occupies their shared
+main thread. In prefork, the parent can handle signals while its child executes
+native code. In the threads test, the native function released the GIL, allowing
+the controller to run. Other native functions can behave differently; releasing
+the GIL does not itself make the interrupted main thread execute Python handlers.
+
+This is not a claim that every burst of signals collapses, or that different
+signal types merge into one. The outcome depends on which signals arrive and
+when handlers get a chance to run.
+
+**Practical consequence:** do not implement an external shutdown deadline by
+rapidly sending several Ctrl+C signals. Use explicit shutdown stages and an
+independently enforced final SIGKILL deadline.
