@@ -1,0 +1,31 @@
+ 
+ -------------- policy-probe@localhost v5.7.0 (collider)
+--- ***** ----- 
+-- ******* ---- macOS-15.8.1-arm64-arm-64bit-Mach-O 2026-11-14 12:30:24
+- *** --- * --- 
+- ** ---------- [config]
+- ** ---------- .> app:         shutdown_probe:0x10709a7b0
+- ** ---------- .> transport:   redis+socket:///Users/sergunich/dev/repos/celery/.dev/shutdown-7298.sock
+- ** ---------- .> results:     socket:///Users/sergunich/dev/repos/celery/.dev/shutdown-7298.sock
+- *** --- * --- .> concurrency: 1 (prefork)
+-- ******* ---- .> task events: OFF (enable -E to monitor tasks in this worker)
+--- ***** ----- 
+ -------------- [queues]
+                .> policy-probe     exchange=policy-probe(direct) key=policy-probe
+                
+
+[tasks]
+  . policy_probe.ping
+  . policy_probe.work
+  . shutdown_probe.task
+
+[2026-11-14 12:30:24,218: INFO/MainProcess] Connected to redis+socket:///Users/sergunich/dev/repos/celery/.dev/shutdown-7298.sock
+[2026-11-14 12:30:24,227: INFO/MainProcess] policy-probe@localhost ready.
+[2026-11-14 12:30:24,254: INFO/MainProcess] Task policy_probe.work[f0312ba7-5af8-435c-aabe-eb7da35bb4f9] received
+[2026-11-14 12:30:24,478: INFO/SpawnPoolWorker-1] child process 7454 calling self.run()
+[2026-11-14 12:30:24,848: WARNING/MainProcess] Soft time limit (0.35s) exceeded for policy_probe.work[f0312ba7-5af8-435c-aabe-eb7da35bb4f9]
+[2026-11-14 12:30:24,849: INFO/SpawnPoolWorker-1] Task policy_probe.work[f0312ba7-5af8-435c-aabe-eb7da35bb4f9] succeeded in 0.3521245000883937s: 'completed'
+[2026-11-14 12:30:25,116: INFO/MainProcess] Task policy_probe.ping[29c63600-b1b5-4b2d-ac4e-22325c32cf3d] received
+[2026-11-14 12:30:25,117: INFO/SpawnPoolWorker-1] Task policy_probe.ping[29c63600-b1b5-4b2d-ac4e-22325c32cf3d] succeeded in 0.0008313751313835382s: 'alive'
+
+worker: Warm shutdown (MainProcess)

@@ -1,0 +1,42 @@
+ 
+ -------------- policy-probe@localhost v5.7.0 (collider)
+--- ***** ----- 
+-- ******* ---- macOS-15.8.1-arm64-arm-64bit-Mach-O 2026-11-14 12:28:47
+- *** --- * --- 
+- ** ---------- [config]
+- ** ---------- .> app:         shutdown_probe:0x106d6a3c0
+- ** ---------- .> transport:   redis+socket:///Users/sergunich/dev/repos/celery/.dev/shutdown-7169.sock
+- ** ---------- .> results:     socket:///Users/sergunich/dev/repos/celery/.dev/shutdown-7169.sock
+- *** --- * --- .> concurrency: 1 (solo)
+-- ******* ---- .> task events: OFF (enable -E to monitor tasks in this worker)
+--- ***** ----- 
+ -------------- [queues]
+                .> policy-probe     exchange=policy-probe(direct) key=policy-probe
+                
+
+[tasks]
+  . policy_probe.ping
+  . policy_probe.work
+  . shutdown_probe.task
+
+[2026-11-14 12:28:47,064: INFO/MainProcess] Connected to redis+socket:///Users/sergunich/dev/repos/celery/.dev/shutdown-7169.sock
+[2026-11-14 12:28:47,068: INFO/MainProcess] policy-probe@localhost ready.
+[2026-11-14 12:28:47,074: INFO/MainProcess] Task policy_probe.work[e9d39f4e-f51d-470e-9ef2-6196e4cce7bc] received
+[2026-11-14 12:28:47,076: ERROR/MainProcess] Task policy_probe.work[e9d39f4e-f51d-470e-9ef2-6196e4cce7bc] raised unexpected: WorkerLostError('synthetic task exception; no process died')
+Traceback (most recent call last):
+  File "/Users/sergunich/dev/repos/celery/celery/app/trace.py", line 564, in trace_task
+    R = retval = fun(*args, **kwargs)
+                 ~~~^^^^^^^^^^^^^^^^^
+  File "/Users/sergunich/dev/repos/celery/celery/app/trace.py", line 883, in __protected_call__
+    return self.run(*args, **kwargs)
+           ~~~~~~~~^^^^^^^^^^^^^^^^^
+  File "/Users/sergunich/dev/repos/celery/.dev/policy_probe.py", line 66, in work
+    raise WorkerLostError("synthetic task exception; no process died")
+billiard.exceptions.WorkerLostError: synthetic task exception; no process died
+[2026-11-14 12:28:47,078: INFO/MainProcess] Task policy_probe.work[e9d39f4e-f51d-470e-9ef2-6196e4cce7bc] retry: Retry in 0.35s: WorkerLostError('synthetic task exception; no process died')
+[2026-11-14 12:28:47,079: INFO/MainProcess] Task policy_probe.work[e9d39f4e-f51d-470e-9ef2-6196e4cce7bc] received
+[2026-11-14 12:28:47,636: INFO/MainProcess] Task policy_probe.work[e9d39f4e-f51d-470e-9ef2-6196e4cce7bc] succeeded in 0.20674816705286503s: 'completed'
+[2026-11-14 12:28:47,919: INFO/MainProcess] Task policy_probe.ping[f37e2934-f2c4-484d-9848-f22a40112bc5] received
+[2026-11-14 12:28:47,920: INFO/MainProcess] Task policy_probe.ping[f37e2934-f2c4-484d-9848-f22a40112bc5] succeeded in 0.0007139169611036777s: 'alive'
+
+worker: Warm shutdown (MainProcess)

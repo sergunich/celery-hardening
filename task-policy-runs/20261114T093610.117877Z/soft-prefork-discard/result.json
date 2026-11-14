@@ -1,0 +1,255 @@
+{
+  "case": {
+    "name": "soft-prefork-discard",
+    "pool": "prefork",
+    "kind": "sleep",
+    "soft_limit": 0.35,
+    "ack_failure": false,
+    "expected": {
+      "starts": 1,
+      "completed": 0,
+      "acks": 0,
+      "rejects": [
+        false
+      ],
+      "state": "FAILURE",
+      "publications": 0,
+      "timeouts": [
+        true
+      ],
+      "failure": "SoftTimeLimitExceeded"
+    }
+  },
+  "task_id": "5a6102c4-72d2-41a5-af75-5c130b640ea1",
+  "timeline": [
+    {
+      "event": "worker_ready",
+      "time": 1759221.910995708,
+      "pid": 8299,
+      "thread": 8539349760,
+      "pool": "prefork",
+      "multiprocessing_start_method": "spawn"
+    },
+    {
+      "event": "policy_settings",
+      "time": 1759221.913315583,
+      "pid": 8299,
+      "thread": 8539349760,
+      "acks_late": true,
+      "acks_on_failure": false,
+      "acks_on_timeout": true,
+      "reject_on_worker_lost": false,
+      "retry_on_worker_lost": false,
+      "soft_time_limit": 0.35,
+      "time_limit": null,
+      "max_retries": 1,
+      "default_retry_delay": 0.35
+    },
+    {
+      "event": "policy_received",
+      "time": 1759221.917689291,
+      "pid": 8299,
+      "thread": 8539349760,
+      "task_id": "5a6102c4-72d2-41a5-af75-5c130b640ea1",
+      "task": "policy_probe.work",
+      "retries": 0,
+      "redelivered": false
+    },
+    {
+      "event": "policy_accepted",
+      "time": 1759222.168409458,
+      "pid": 8299,
+      "thread": 8539349760,
+      "task_id": "5a6102c4-72d2-41a5-af75-5c130b640ea1",
+      "executor_pid": 8303,
+      "retries": 0,
+      "ack_requested": false
+    },
+    {
+      "event": "policy_started",
+      "time": 1759222.368482333,
+      "pid": 8303,
+      "thread": 8539349760,
+      "task_id": "5a6102c4-72d2-41a5-af75-5c130b640ea1",
+      "attempt": 1,
+      "retries": 0,
+      "redelivered": false
+    },
+    {
+      "event": "policy_timeout",
+      "time": 1759222.51889275,
+      "pid": 8299,
+      "thread": 8539349760,
+      "task_id": "5a6102c4-72d2-41a5-af75-5c130b640ea1",
+      "soft": true,
+      "timeout": 0.35
+    },
+    {
+      "event": "policy_soft_caught",
+      "time": 1759222.519284583,
+      "pid": 8303,
+      "thread": 8539349760,
+      "task_id": "5a6102c4-72d2-41a5-af75-5c130b640ea1",
+      "action": null
+    },
+    {
+      "event": "policy_interrupted",
+      "time": 1759222.519348041,
+      "pid": 8303,
+      "thread": 8539349760,
+      "task_id": "5a6102c4-72d2-41a5-af75-5c130b640ea1",
+      "exception": "SoftTimeLimitExceeded"
+    },
+    {
+      "event": "policy_finally",
+      "time": 1759222.519375291,
+      "pid": 8303,
+      "thread": 8539349760,
+      "task_id": "5a6102c4-72d2-41a5-af75-5c130b640ea1",
+      "attempt": 1
+    },
+    {
+      "event": "task_failure",
+      "time": 1759222.522893625,
+      "pid": 8303,
+      "thread": 8539349760,
+      "exception": "SoftTimeLimitExceeded",
+      "message": "SoftTimeLimitExceeded()"
+    },
+    {
+      "event": "task_postrun",
+      "time": 1759222.523626833,
+      "pid": 8303,
+      "thread": 8539349760,
+      "state": "FAILURE"
+    },
+    {
+      "event": "policy_failure",
+      "time": 1759222.525611291,
+      "pid": 8299,
+      "thread": 8539349760,
+      "task_id": "5a6102c4-72d2-41a5-af75-5c130b640ea1",
+      "exception": "SoftTimeLimitExceeded",
+      "retries": 0
+    },
+    {
+      "event": "message_reject",
+      "time": 1759222.526479416,
+      "pid": 8299,
+      "thread": 8539349760,
+      "task_id": "5a6102c4-72d2-41a5-af75-5c130b640ea1",
+      "requeue": false
+    },
+    {
+      "event": "policy_received",
+      "time": 1759222.809791916,
+      "pid": 8299,
+      "thread": 8539349760,
+      "task_id": "21cc7e53-2884-4b9f-b6c1-2c4cf86a578d",
+      "task": "policy_probe.ping",
+      "retries": 0,
+      "redelivered": false
+    },
+    {
+      "event": "policy_ping",
+      "time": 1759222.810410458,
+      "pid": 8303,
+      "thread": 8539349760
+    },
+    {
+      "event": "task_success",
+      "time": 1759222.811237958,
+      "pid": 8303,
+      "thread": 8539349760
+    },
+    {
+      "event": "task_postrun",
+      "time": 1759222.811423458,
+      "pid": 8303,
+      "thread": 8539349760,
+      "state": "SUCCESS"
+    },
+    {
+      "event": "message_ack",
+      "time": 1759222.812117666,
+      "pid": 8299,
+      "thread": 8539349760,
+      "task_id": "21cc7e53-2884-4b9f-b6c1-2c4cf86a578d",
+      "tag": "87ec3ce5-c242-46b9-8b9e-53ee803c61cd"
+    },
+    {
+      "event": "worker_shutting_down",
+      "time": 1759222.839936583,
+      "pid": 8299,
+      "thread": 8539349760,
+      "signal": "SIGTERM",
+      "how": "Warm"
+    },
+    {
+      "event": "worker_shutdown",
+      "time": 1759224.429934625,
+      "pid": 8299,
+      "thread": 8539349760
+    }
+  ],
+  "states": [
+    {
+      "time": 1759221.917603,
+      "state": "PENDING",
+      "detail": "None"
+    },
+    {
+      "time": 1759222.545894666,
+      "state": "FAILURE",
+      "detail": "SoftTimeLimitExceeded()"
+    }
+  ],
+  "final_state": "FAILURE",
+  "snapshots": {
+    "first_start": {
+      "queued": [],
+      "unacked": [
+        {
+          "tag": "857da020-4a26-49dd-bed5-02b37eab17f3",
+          "exchange": "",
+          "routing_key": "policy-probe"
+        }
+      ]
+    },
+    "before_shutdown": {
+      "queued": [],
+      "unacked": []
+    },
+    "after_exit": {
+      "queued": [],
+      "unacked": []
+    }
+  },
+  "fetched_after_exit": [],
+  "signals": [
+    {
+      "signal": "SIGTERM",
+      "time": 1759222.839686
+    }
+  ],
+  "pinged": true,
+  "forced_kill": false,
+  "returncode": 0,
+  "elapsed": 3.511,
+  "harness_error": null,
+  "observations": {
+    "starts": 1,
+    "completed": 0,
+    "acks": 0,
+    "rejects": [
+      false
+    ],
+    "state": "FAILURE",
+    "publications": 0,
+    "timeouts": [
+      true
+    ]
+  },
+  "errors": [],
+  "passed": true
+}

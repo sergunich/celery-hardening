@@ -1,0 +1,22 @@
+{
+  "name": "hard-solo-synthetic",
+  "pool": "solo",
+  "kind": "synthetic_hard",
+  "ack_timeout": false,
+  "expected": {
+    "starts": 2,
+    "completed": 1,
+    "acks": 1,
+    "rejects": [
+      true
+    ],
+    "state": "SUCCESS",
+    "publications": 0,
+    "timeouts": [],
+    "failure": "TimeLimitExceeded"
+  },
+  "broker": "redis+socket:///Users/sergunich/dev/repos/celery/.dev/shutdown-7298.sock?virtual_host=0",
+  "backend": "redis+socket:///Users/sergunich/dev/repos/celery/.dev/shutdown-7298.sock?virtual_host=1",
+  "events": "/Users/sergunich/dev/repos/celery/.dev/task-policy-runs/20261114T092917.329363Z/hard-solo-synthetic/events.jsonl",
+  "queue": "policy-probe"
+}

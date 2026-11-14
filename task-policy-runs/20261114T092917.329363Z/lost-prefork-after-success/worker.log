@@ -1,0 +1,33 @@
+ 
+ -------------- policy-probe@localhost v5.7.0 (collider)
+--- ***** ----- 
+-- ******* ---- macOS-15.8.1-arm64-arm-64bit-Mach-O 2026-11-14 12:31:28
+- *** --- * --- 
+- ** ---------- [config]
+- ** ---------- .> app:         shutdown_probe:0x1034627b0
+- ** ---------- .> transport:   redis+socket:///Users/sergunich/dev/repos/celery/.dev/shutdown-7298.sock
+- ** ---------- .> results:     socket:///Users/sergunich/dev/repos/celery/.dev/shutdown-7298.sock
+- *** --- * --- .> concurrency: 1 (prefork)
+-- ******* ---- .> task events: OFF (enable -E to monitor tasks in this worker)
+--- ***** ----- 
+ -------------- [queues]
+                .> policy-probe     exchange=policy-probe(direct) key=policy-probe
+                
+
+[tasks]
+  . policy_probe.ping
+  . policy_probe.work
+  . shutdown_probe.task
+
+[2026-11-14 12:31:28,765: INFO/MainProcess] Connected to redis+socket:///Users/sergunich/dev/repos/celery/.dev/shutdown-7298.sock
+[2026-11-14 12:31:28,770: INFO/MainProcess] policy-probe@localhost ready.
+[2026-11-14 12:31:28,778: INFO/MainProcess] Task policy_probe.work[f9e518cb-92e9-4a91-9268-3f5885f0bb57] received
+[2026-11-14 12:31:29,003: INFO/SpawnPoolWorker-1] child process 7602 calling self.run()
+[2026-11-14 12:31:30,529: INFO/SpawnPoolWorker-1] Task policy_probe.work[f9e518cb-92e9-4a91-9268-3f5885f0bb57] succeeded in 1.506349541945383s: 'completed'
+[2026-11-14 12:31:30,532: ERROR/MainProcess] Process 'SpawnPoolWorker-1' pid:7602 exited with 'exitcode 23'
+[2026-11-14 12:31:30,545: WARNING/MainProcess] Task policy_probe.work[f9e518cb-92e9-4a91-9268-3f5885f0bb57] succeeded before the worker was lost: WorkerLostError('Worker exited prematurely: exitcode 23 Job: 0.')
+[2026-11-14 12:31:30,804: INFO/SpawnPoolWorker-2] child process 7604 calling self.run()
+[2026-11-14 12:31:30,839: INFO/MainProcess] Task policy_probe.ping[84ebccdf-87b6-4cf8-bae2-b68909d33b12] received
+
+worker: Warm shutdown (MainProcess)
+[2026-11-14 12:31:31,045: INFO/SpawnPoolWorker-2] Task policy_probe.ping[84ebccdf-87b6-4cf8-bae2-b68909d33b12] succeeded in 0.20544712501578033s: 'alive'

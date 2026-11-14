@@ -1,0 +1,41 @@
+ 
+ -------------- policy-probe@localhost v5.7.0 (collider)
+--- ***** ----- 
+-- ******* ---- macOS-15.8.1-arm64-arm-64bit-Mach-O 2026-11-14 12:38:08
+- *** --- * --- 
+- ** ---------- [config]
+- ** ---------- .> app:         shutdown_probe:0x102c7a270
+- ** ---------- .> transport:   redis+socket:///Users/sergunich/dev/repos/celery/.dev/shutdown-8133.sock
+- ** ---------- .> results:     socket:///Users/sergunich/dev/repos/celery/.dev/shutdown-8133.sock
+- *** --- * --- .> concurrency: 1 (solo)
+-- ******* ---- .> task events: OFF (enable -E to monitor tasks in this worker)
+--- ***** ----- 
+ -------------- [queues]
+                .> policy-probe     exchange=policy-probe(direct) key=policy-probe
+                
+
+[tasks]
+  . policy_probe.ping
+  . policy_probe.work
+  . shutdown_probe.task
+
+[2026-11-14 12:38:08,711: INFO/MainProcess] Connected to redis+socket:///Users/sergunich/dev/repos/celery/.dev/shutdown-8133.sock
+[2026-11-14 12:38:08,715: INFO/MainProcess] policy-probe@localhost ready.
+[2026-11-14 12:38:08,738: INFO/MainProcess] Task policy_probe.work[13c154f6-9c5c-4cd5-9d45-ac5734ba27e8] received
+[2026-11-14 12:38:08,741: ERROR/MainProcess] Task policy_probe.work[13c154f6-9c5c-4cd5-9d45-ac5734ba27e8] raised unexpected: TimeLimitExceeded(0.45)
+Traceback (most recent call last):
+  File "/Users/sergunich/dev/repos/celery/celery/app/trace.py", line 564, in trace_task
+    R = retval = fun(*args, **kwargs)
+                 ~~~^^^^^^^^^^^^^^^^^
+  File "/Users/sergunich/dev/repos/celery/celery/app/trace.py", line 883, in __protected_call__
+    return self.run(*args, **kwargs)
+           ~~~~~~~~^^^^^^^^^^^^^^^^^
+  File "/Users/sergunich/dev/repos/celery/.dev/policy_probe.py", line 71, in work
+    raise TimeLimitExceeded(0.45)
+billiard.exceptions.TimeLimitExceeded: TimeLimitExceeded(0.45,)
+[2026-11-14 12:38:08,742: INFO/MainProcess] Task policy_probe.work[13c154f6-9c5c-4cd5-9d45-ac5734ba27e8] received
+[2026-11-14 12:38:08,945: INFO/MainProcess] Task policy_probe.work[13c154f6-9c5c-4cd5-9d45-ac5734ba27e8] succeeded in 0.2035398338921368s: 'completed'
+[2026-11-14 12:38:09,223: INFO/MainProcess] Task policy_probe.ping[f0cfb0dc-d9bc-44c5-87d4-1df0a9b4e426] received
+[2026-11-14 12:38:09,224: INFO/MainProcess] Task policy_probe.ping[f0cfb0dc-d9bc-44c5-87d4-1df0a9b4e426] succeeded in 0.0010036251042038202s: 'alive'
+
+worker: Warm shutdown (MainProcess)

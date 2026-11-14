@@ -1,0 +1,30 @@
+ 
+ -------------- policy-probe@localhost v5.7.0 (collider)
+--- ***** ----- 
+-- ******* ---- macOS-15.8.1-arm64-arm-64bit-Mach-O 2026-11-14 12:43:53
+- *** --- * --- 
+- ** ---------- [config]
+- ** ---------- .> app:         shutdown_probe:0x10545c7d0
+- ** ---------- .> transport:   redis+socket:///Users/sergunich/dev/repos/celery/.dev/shutdown-8874.sock
+- ** ---------- .> results:     socket:///Users/sergunich/dev/repos/celery/.dev/shutdown-8874.sock
+- *** --- * --- .> concurrency: 1 (gevent)
+-- ******* ---- .> task events: OFF (enable -E to monitor tasks in this worker)
+--- ***** ----- 
+ -------------- [queues]
+                .> policy-probe     exchange=policy-probe(direct) key=policy-probe
+                
+
+[tasks]
+  . policy_probe.ping
+  . policy_probe.work
+  . shutdown_probe.task
+
+[2026-11-14 12:43:53,818: INFO/MainProcess] Connected to redis+socket:///Users/sergunich/dev/repos/celery/.dev/shutdown-8874.sock
+[2026-11-14 12:43:53,821: INFO/MainProcess] policy-probe@localhost ready.
+[2026-11-14 12:43:53,822: INFO/MainProcess] pidbox: Connected to redis+socket:///Users/sergunich/dev/repos/celery/.dev/shutdown-8874.sock.
+[2026-11-14 12:43:53,843: INFO/MainProcess] Task policy_probe.work[2b7f03d5-8f1f-4d06-9504-56d4ded15eee] received
+[2026-11-14 12:43:55,162: INFO/MainProcess] Task policy_probe.work[2b7f03d5-8f1f-4d06-9504-56d4ded15eee] succeeded in 1.3187615419737995s: 'completed'
+[2026-11-14 12:43:55,849: INFO/MainProcess] Task policy_probe.ping[295d5493-7f9a-474f-9726-ff48ea19ffd0] received
+[2026-11-14 12:43:55,854: INFO/MainProcess] Task policy_probe.ping[295d5493-7f9a-474f-9726-ff48ea19ffd0] succeeded in 0.003746249945834279s: 'alive'
+
+worker: Warm shutdown (MainProcess)

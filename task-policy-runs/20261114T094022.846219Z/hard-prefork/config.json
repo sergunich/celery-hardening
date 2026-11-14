@@ -1,0 +1,23 @@
+{
+  "name": "hard-prefork",
+  "pool": "prefork",
+  "kind": "sleep",
+  "hard_limit": 0.45,
+  "ack_failure": false,
+  "expected": {
+    "starts": 1,
+    "completed": 0,
+    "acks": 1,
+    "rejects": [],
+    "state": "FAILURE",
+    "publications": 0,
+    "timeouts": [
+      false
+    ],
+    "failure": null
+  },
+  "broker": "redis+socket:///Users/sergunich/dev/repos/celery/.dev/shutdown-8618.sock?virtual_host=0",
+  "backend": "redis+socket:///Users/sergunich/dev/repos/celery/.dev/shutdown-8618.sock?virtual_host=1",
+  "events": "/Users/sergunich/dev/repos/celery/.dev/task-policy-runs/20261114T094022.846219Z/hard-prefork/events.jsonl",
+  "queue": "policy-probe"
+}

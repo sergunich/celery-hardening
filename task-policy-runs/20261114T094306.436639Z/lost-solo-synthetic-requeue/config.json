@@ -1,0 +1,22 @@
+{
+  "name": "lost-solo-synthetic-requeue",
+  "pool": "solo",
+  "kind": "synthetic_lost",
+  "reject_lost": true,
+  "expected": {
+    "starts": 2,
+    "completed": 1,
+    "acks": 1,
+    "rejects": [
+      true
+    ],
+    "state": "SUCCESS",
+    "publications": 0,
+    "timeouts": [],
+    "failure": "WorkerLostError"
+  },
+  "broker": "redis+socket:///Users/sergunich/dev/repos/celery/.dev/shutdown-8874.sock?virtual_host=0",
+  "backend": "redis+socket:///Users/sergunich/dev/repos/celery/.dev/shutdown-8874.sock?virtual_host=1",
+  "events": "/Users/sergunich/dev/repos/celery/.dev/task-policy-runs/20261114T094306.436639Z/lost-solo-synthetic-requeue/events.jsonl",
+  "queue": "policy-probe"
+}

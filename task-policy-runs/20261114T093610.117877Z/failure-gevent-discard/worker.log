@@ -1,0 +1,40 @@
+ 
+ -------------- policy-probe@localhost v5.7.0 (collider)
+--- ***** ----- 
+-- ******* ---- macOS-15.8.1-arm64-arm-64bit-Mach-O 2026-11-14 12:36:48
+- *** --- * --- 
+- ** ---------- [config]
+- ** ---------- .> app:         shutdown_probe:0x10544c7d0
+- ** ---------- .> transport:   redis+socket:///Users/sergunich/dev/repos/celery/.dev/shutdown-8133.sock
+- ** ---------- .> results:     socket:///Users/sergunich/dev/repos/celery/.dev/shutdown-8133.sock
+- *** --- * --- .> concurrency: 1 (gevent)
+-- ******* ---- .> task events: OFF (enable -E to monitor tasks in this worker)
+--- ***** ----- 
+ -------------- [queues]
+                .> policy-probe     exchange=policy-probe(direct) key=policy-probe
+                
+
+[tasks]
+  . policy_probe.ping
+  . policy_probe.work
+  . shutdown_probe.task
+
+[2026-11-14 12:36:48,522: INFO/MainProcess] Connected to redis+socket:///Users/sergunich/dev/repos/celery/.dev/shutdown-8133.sock
+[2026-11-14 12:36:48,525: INFO/MainProcess] policy-probe@localhost ready.
+[2026-11-14 12:36:48,526: INFO/MainProcess] pidbox: Connected to redis+socket:///Users/sergunich/dev/repos/celery/.dev/shutdown-8133.sock.
+[2026-11-14 12:36:48,535: INFO/MainProcess] Task policy_probe.work[edb45501-9889-4d15-aed7-8ccb30392641] received
+[2026-11-14 12:36:48,538: ERROR/MainProcess] Task policy_probe.work[edb45501-9889-4d15-aed7-8ccb30392641] raised unexpected: ValueError('intentional ordinary failure')
+Traceback (most recent call last):
+  File "/Users/sergunich/dev/repos/celery/celery/app/trace.py", line 564, in trace_task
+    R = retval = fun(*args, **kwargs)
+                 ~~~^^^^^^^^^^^^^^^^^
+  File "/Users/sergunich/dev/repos/celery/celery/app/trace.py", line 883, in __protected_call__
+    return self.run(*args, **kwargs)
+           ~~~~~~~~^^^^^^^^^^^^^^^^^
+  File "/Users/sergunich/dev/repos/celery/.dev/policy_probe.py", line 60, in work
+    raise ValueError("intentional ordinary failure")
+ValueError: intentional ordinary failure
+[2026-11-14 12:36:50,547: INFO/MainProcess] Task policy_probe.ping[d9ae98ac-c96c-404f-b029-b9272f2293e6] received
+[2026-11-14 12:36:50,550: INFO/MainProcess] Task policy_probe.ping[d9ae98ac-c96c-404f-b029-b9272f2293e6] succeeded in 0.002644958905875683s: 'alive'
+
+worker: Warm shutdown (MainProcess)

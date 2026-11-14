@@ -1,0 +1,44 @@
+ 
+ -------------- policy-probe@localhost v5.7.0 (collider)
+--- ***** ----- 
+-- ******* ---- macOS-15.8.1-arm64-arm-64bit-Mach-O 2026-11-14 12:43:22
+- *** --- * --- 
+- ** ---------- [config]
+- ** ---------- .> app:         shutdown_probe:0x1014467b0
+- ** ---------- .> transport:   redis+socket:///Users/sergunich/dev/repos/celery/.dev/shutdown-8874.sock
+- ** ---------- .> results:     socket:///Users/sergunich/dev/repos/celery/.dev/shutdown-8874.sock
+- *** --- * --- .> concurrency: 1 (prefork)
+-- ******* ---- .> task events: OFF (enable -E to monitor tasks in this worker)
+--- ***** ----- 
+ -------------- [queues]
+                .> policy-probe     exchange=policy-probe(direct) key=policy-probe
+                
+
+[tasks]
+  . policy_probe.ping
+  . policy_probe.work
+  . shutdown_probe.task
+
+[2026-11-14 12:43:22,230: INFO/MainProcess] Connected to redis+socket:///Users/sergunich/dev/repos/celery/.dev/shutdown-8874.sock
+[2026-11-14 12:43:22,235: INFO/MainProcess] policy-probe@localhost ready.
+[2026-11-14 12:43:22,259: INFO/MainProcess] Task policy_probe.work[6a52ac7f-0bfa-4134-9735-5bb8d621f5ae] received
+[2026-11-14 12:43:22,495: INFO/SpawnPoolWorker-1] child process 8933 calling self.run()
+[2026-11-14 12:43:22,869: WARNING/MainProcess] Soft time limit (0.35s) exceeded for policy_probe.work[6a52ac7f-0bfa-4134-9735-5bb8d621f5ae]
+[2026-11-14 12:43:22,871: ERROR/SpawnPoolWorker-1] Task policy_probe.work[6a52ac7f-0bfa-4134-9735-5bb8d621f5ae] raised unexpected: SoftTimeLimitExceeded()
+Traceback (most recent call last):
+  File "/Users/sergunich/dev/repos/celery/celery/app/trace.py", line 564, in trace_task
+    R = retval = fun(*args, **kwargs)
+                 ~~~^^^^^^^^^^^^^^^^^
+  File "/Users/sergunich/dev/repos/celery/celery/app/trace.py", line 883, in __protected_call__
+    return self.run(*args, **kwargs)
+           ~~~~~~~~^^^^^^^^^^^^^^^^^
+  File "/Users/sergunich/dev/repos/celery/.dev/policy_probe.py", line 80, in work
+    time.sleep(0.03)
+    ~~~~~~~~~~^^^^^^
+  File "/Users/sergunich/dev/repos/celery/.dev/.venv/lib/python3.13/site-packages/billiard/pool.py", line 229, in soft_timeout_sighandler
+    raise SoftTimeLimitExceeded()
+billiard.exceptions.SoftTimeLimitExceeded: SoftTimeLimitExceeded()
+[2026-11-14 12:43:23,153: INFO/MainProcess] Task policy_probe.ping[733bd969-fd98-4d35-8b7a-9ff3bd2d571d] received
+[2026-11-14 12:43:23,155: INFO/SpawnPoolWorker-1] Task policy_probe.ping[733bd969-fd98-4d35-8b7a-9ff3bd2d571d] succeeded in 0.0011945830192416906s: 'alive'
+
+worker: Warm shutdown (MainProcess)

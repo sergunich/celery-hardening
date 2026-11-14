@@ -1,0 +1,181 @@
+{
+  "case": {
+    "name": "quit-solo-ack",
+    "pool": "solo",
+    "kind": "quit",
+    "ack_failure": true,
+    "ack_timeout": false,
+    "reject_lost": true,
+    "retry_lost": true,
+    "expected": {
+      "starts": 1,
+      "completed": 0,
+      "acks": 1,
+      "rejects": [],
+      "state": "FAILURE",
+      "publications": 0,
+      "timeouts": [],
+      "failure": "NotImplementedError"
+    }
+  },
+  "task_id": "9f46e12c-6b84-48d9-afa5-303f14a5d80e",
+  "timeline": [
+    {
+      "event": "worker_ready",
+      "time": 1759352.134700791,
+      "pid": 8530,
+      "thread": 8539349760,
+      "pool": "solo",
+      "multiprocessing_start_method": "spawn"
+    },
+    {
+      "event": "policy_settings",
+      "time": 1759352.134755916,
+      "pid": 8530,
+      "thread": 8539349760,
+      "acks_late": true,
+      "acks_on_failure": true,
+      "acks_on_timeout": false,
+      "reject_on_worker_lost": true,
+      "retry_on_worker_lost": true,
+      "soft_time_limit": null,
+      "time_limit": null,
+      "max_retries": 1,
+      "default_retry_delay": 0.35
+    },
+    {
+      "event": "policy_received",
+      "time": 1759352.1530005,
+      "pid": 8530,
+      "thread": 8539349760,
+      "task_id": "9f46e12c-6b84-48d9-afa5-303f14a5d80e",
+      "task": "policy_probe.work",
+      "retries": 0,
+      "redelivered": false
+    },
+    {
+      "event": "policy_accepted",
+      "time": 1759352.153053666,
+      "pid": 8530,
+      "thread": 8539349760,
+      "task_id": "9f46e12c-6b84-48d9-afa5-303f14a5d80e",
+      "executor_pid": 8530,
+      "retries": 0,
+      "ack_requested": false
+    },
+    {
+      "event": "policy_started",
+      "time": 1759352.153478625,
+      "pid": 8530,
+      "thread": 8539349760,
+      "task_id": "9f46e12c-6b84-48d9-afa5-303f14a5d80e",
+      "attempt": 1,
+      "retries": 0,
+      "redelivered": false
+    },
+    {
+      "event": "policy_interrupted",
+      "time": 1759352.375753083,
+      "pid": 8530,
+      "thread": 8539349760,
+      "task_id": "9f46e12c-6b84-48d9-afa5-303f14a5d80e",
+      "exception": "NotImplementedError"
+    },
+    {
+      "event": "policy_finally",
+      "time": 1759352.375799541,
+      "pid": 8530,
+      "thread": 8539349760,
+      "task_id": "9f46e12c-6b84-48d9-afa5-303f14a5d80e",
+      "attempt": 1
+    },
+    {
+      "event": "task_failure",
+      "time": 1759352.3809575,
+      "pid": 8530,
+      "thread": 8539349760,
+      "exception": "NotImplementedError",
+      "message": "<class 'celery.concurrency.solo.TaskPool'> does not implement kill_job"
+    },
+    {
+      "event": "task_postrun",
+      "time": 1759352.382016666,
+      "pid": 8530,
+      "thread": 8539349760,
+      "state": "FAILURE"
+    },
+    {
+      "event": "policy_failure",
+      "time": 1759352.382073375,
+      "pid": 8530,
+      "thread": 8539349760,
+      "task_id": "9f46e12c-6b84-48d9-afa5-303f14a5d80e",
+      "exception": "NotImplementedError",
+      "retries": 0
+    },
+    {
+      "event": "message_ack",
+      "time": 1759352.384431833,
+      "pid": 8530,
+      "thread": 8539349760,
+      "task_id": "9f46e12c-6b84-48d9-afa5-303f14a5d80e",
+      "tag": "1af9d73b-2627-420f-8b6b-dbe179a2a9d0"
+    }
+  ],
+  "states": [
+    {
+      "time": 1759352.15293225,
+      "state": "PENDING",
+      "detail": "None"
+    },
+    {
+      "time": 1759352.406023958,
+      "state": "FAILURE",
+      "detail": "<class 'celery.concurrency.solo.TaskPool'> does not implement kill_job"
+    }
+  ],
+  "final_state": "FAILURE",
+  "snapshots": {
+    "first_start": {
+      "queued": [],
+      "unacked": [
+        {
+          "tag": "1af9d73b-2627-420f-8b6b-dbe179a2a9d0",
+          "exchange": "",
+          "routing_key": "policy-probe"
+        }
+      ]
+    },
+    "before_shutdown": {
+      "queued": [],
+      "unacked": []
+    },
+    "after_exit": {
+      "queued": [],
+      "unacked": []
+    }
+  },
+  "fetched_after_exit": [],
+  "signals": [
+    {
+      "signal": "SIGQUIT",
+      "time": 1759352.375368416
+    }
+  ],
+  "pinged": false,
+  "forced_kill": false,
+  "returncode": 0,
+  "elapsed": 1.379,
+  "harness_error": null,
+  "observations": {
+    "starts": 1,
+    "completed": 0,
+    "acks": 1,
+    "rejects": [],
+    "state": "FAILURE",
+    "publications": 0,
+    "timeouts": []
+  },
+  "errors": [],
+  "passed": true
+}

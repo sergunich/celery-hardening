@@ -1,0 +1,25 @@
+{
+  "name": "soft-prefork-discard",
+  "pool": "prefork",
+  "kind": "sleep",
+  "soft_limit": 0.35,
+  "ack_failure": false,
+  "expected": {
+    "starts": 1,
+    "completed": 0,
+    "acks": 0,
+    "rejects": [
+      false
+    ],
+    "state": "FAILURE",
+    "publications": 0,
+    "timeouts": [
+      true
+    ],
+    "failure": "SoftTimeLimitExceeded"
+  },
+  "broker": "redis+socket:///Users/sergunich/dev/repos/celery/.dev/shutdown-8874.sock?virtual_host=0",
+  "backend": "redis+socket:///Users/sergunich/dev/repos/celery/.dev/shutdown-8874.sock?virtual_host=1",
+  "events": "/Users/sergunich/dev/repos/celery/.dev/task-policy-runs/20261114T094306.436639Z/soft-prefork-discard/events.jsonl",
+  "queue": "policy-probe"
+}

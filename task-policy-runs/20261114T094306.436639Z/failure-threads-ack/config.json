@@ -1,0 +1,21 @@
+{
+  "name": "failure-threads-ack",
+  "pool": "threads",
+  "kind": "fail",
+  "ack_failure": true,
+  "ack_timeout": false,
+  "expected": {
+    "starts": 1,
+    "completed": 0,
+    "acks": 1,
+    "rejects": [],
+    "state": "FAILURE",
+    "publications": 0,
+    "timeouts": [],
+    "failure": "ValueError"
+  },
+  "broker": "redis+socket:///Users/sergunich/dev/repos/celery/.dev/shutdown-8874.sock?virtual_host=0",
+  "backend": "redis+socket:///Users/sergunich/dev/repos/celery/.dev/shutdown-8874.sock?virtual_host=1",
+  "events": "/Users/sergunich/dev/repos/celery/.dev/task-policy-runs/20261114T094306.436639Z/failure-threads-ack/events.jsonl",
+  "queue": "policy-probe"
+}

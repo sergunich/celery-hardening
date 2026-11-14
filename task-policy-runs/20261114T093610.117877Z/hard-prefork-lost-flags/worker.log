@@ -1,0 +1,43 @@
+ 
+ -------------- policy-probe@localhost v5.7.0 (collider)
+--- ***** ----- 
+-- ******* ---- macOS-15.8.1-arm64-arm-64bit-Mach-O 2026-11-14 12:38:01
+- *** --- * --- 
+- ** ---------- [config]
+- ** ---------- .> app:         shutdown_probe:0x102f067b0
+- ** ---------- .> transport:   redis+socket:///Users/sergunich/dev/repos/celery/.dev/shutdown-8133.sock
+- ** ---------- .> results:     socket:///Users/sergunich/dev/repos/celery/.dev/shutdown-8133.sock
+- *** --- * --- .> concurrency: 1 (prefork)
+-- ******* ---- .> task events: OFF (enable -E to monitor tasks in this worker)
+--- ***** ----- 
+ -------------- [queues]
+                .> policy-probe     exchange=policy-probe(direct) key=policy-probe
+                
+
+[tasks]
+  . policy_probe.ping
+  . policy_probe.work
+  . shutdown_probe.task
+
+[2026-11-14 12:38:01,379: INFO/MainProcess] Connected to redis+socket:///Users/sergunich/dev/repos/celery/.dev/shutdown-8133.sock
+[2026-11-14 12:38:01,384: INFO/MainProcess] policy-probe@localhost ready.
+[2026-11-14 12:38:01,391: INFO/MainProcess] Task policy_probe.work[b77d85d7-2ec9-4a06-8316-69a61aa33071] received
+[2026-11-14 12:38:01,617: INFO/SpawnPoolWorker-1] child process 8376 calling self.run()
+[2026-11-14 12:38:02,091: ERROR/MainProcess] Task handler raised error: TimeLimitExceeded(0.45)
+Traceback (most recent call last):
+  File "/Users/sergunich/dev/repos/celery/.dev/.venv/lib/python3.13/site-packages/billiard/pool.py", line 745, in on_hard_timeout
+    raise TimeLimitExceeded(job._timeout)
+billiard.einfo.ExceptionWithTraceback: 
+"""
+Traceback (most recent call last):
+  File "/Users/sergunich/dev/repos/celery/.dev/.venv/lib/python3.13/site-packages/billiard/pool.py", line 745, in on_hard_timeout
+    raise TimeLimitExceeded(job._timeout)
+billiard.exceptions.TimeLimitExceeded: TimeLimitExceeded(0.45,)
+"""
+[2026-11-14 12:38:02,092: ERROR/MainProcess] Hard time limit (0.45s) exceeded for policy_probe.work[b77d85d7-2ec9-4a06-8316-69a61aa33071]
+[2026-11-14 12:38:02,485: INFO/MainProcess] Task policy_probe.ping[08fcfec0-ef04-4c58-b84e-a61226c10061] received
+[2026-11-14 12:38:06,386: ERROR/MainProcess] Process 'SpawnPoolWorker-1' pid:8376 exited with 'signal 9 (SIGKILL)'
+
+worker: Warm shutdown (MainProcess)
+[2026-11-14 12:38:06,698: INFO/SpawnPoolWorker-2] child process 8389 calling self.run()
+[2026-11-14 12:38:07,738: INFO/MainProcess] Restoring 1 unacknowledged message(s)

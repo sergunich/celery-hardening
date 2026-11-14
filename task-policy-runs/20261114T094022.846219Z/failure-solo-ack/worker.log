@@ -1,0 +1,39 @@
+ 
+ -------------- policy-probe@localhost v5.7.0 (collider)
+--- ***** ----- 
+-- ******* ---- macOS-15.8.1-arm64-arm-64bit-Mach-O 2026-11-14 12:40:23
+- *** --- * --- 
+- ** ---------- [config]
+- ** ---------- .> app:         shutdown_probe:0x103ece270
+- ** ---------- .> transport:   redis+socket:///Users/sergunich/dev/repos/celery/.dev/shutdown-8618.sock
+- ** ---------- .> results:     socket:///Users/sergunich/dev/repos/celery/.dev/shutdown-8618.sock
+- *** --- * --- .> concurrency: 1 (solo)
+-- ******* ---- .> task events: OFF (enable -E to monitor tasks in this worker)
+--- ***** ----- 
+ -------------- [queues]
+                .> policy-probe     exchange=policy-probe(direct) key=policy-probe
+                
+
+[tasks]
+  . policy_probe.ping
+  . policy_probe.work
+  . shutdown_probe.task
+
+[2026-11-14 12:40:23,707: INFO/MainProcess] Connected to redis+socket:///Users/sergunich/dev/repos/celery/.dev/shutdown-8618.sock
+[2026-11-14 12:40:23,712: INFO/MainProcess] policy-probe@localhost ready.
+[2026-11-14 12:40:23,795: INFO/MainProcess] Task policy_probe.work[c2a2765e-5041-4c17-831d-c739215dbefd] received
+[2026-11-14 12:40:23,797: ERROR/MainProcess] Task policy_probe.work[c2a2765e-5041-4c17-831d-c739215dbefd] raised unexpected: ValueError('intentional ordinary failure')
+Traceback (most recent call last):
+  File "/Users/sergunich/dev/repos/celery/celery/app/trace.py", line 564, in trace_task
+    R = retval = fun(*args, **kwargs)
+                 ~~~^^^^^^^^^^^^^^^^^
+  File "/Users/sergunich/dev/repos/celery/celery/app/trace.py", line 883, in __protected_call__
+    return self.run(*args, **kwargs)
+           ~~~~~~~~^^^^^^^^^^^^^^^^^
+  File "/Users/sergunich/dev/repos/celery/.dev/policy_probe.py", line 60, in work
+    raise ValueError("intentional ordinary failure")
+ValueError: intentional ordinary failure
+[2026-11-14 12:40:24,087: INFO/MainProcess] Task policy_probe.ping[e16f70cd-9b9c-49dd-980e-41f7e08ce915] received
+[2026-11-14 12:40:24,088: INFO/MainProcess] Task policy_probe.ping[e16f70cd-9b9c-49dd-980e-41f7e08ce915] succeeded in 0.0007647080346941948s: 'alive'
+
+worker: Warm shutdown (MainProcess)

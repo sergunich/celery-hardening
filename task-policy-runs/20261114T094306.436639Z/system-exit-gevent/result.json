@@ -1,0 +1,185 @@
+{
+  "case": {
+    "name": "system-exit-gevent",
+    "pool": "gevent",
+    "kind": "system_exit",
+    "reject_lost": true,
+    "retry_lost": true,
+    "expected": {
+      "starts": 1,
+      "completed": 0,
+      "acks": 0,
+      "rejects": [],
+      "state": "PENDING",
+      "publications": 0,
+      "timeouts": [],
+      "failure": null
+    }
+  },
+  "task_id": "e93a5288-4179-4610-a680-e0b99a696eda",
+  "timeline": [
+    {
+      "event": "worker_ready",
+      "time": 1759736.298962541,
+      "pid": 9276,
+      "thread": 4350327168,
+      "pool": "gevent",
+      "multiprocessing_start_method": "spawn"
+    },
+    {
+      "event": "policy_settings",
+      "time": 1759736.299028416,
+      "pid": 9276,
+      "thread": 4350327168,
+      "acks_late": true,
+      "acks_on_failure": true,
+      "acks_on_timeout": true,
+      "reject_on_worker_lost": true,
+      "retry_on_worker_lost": true,
+      "soft_time_limit": null,
+      "time_limit": null,
+      "max_retries": 1,
+      "default_retry_delay": 0.35
+    },
+    {
+      "event": "policy_received",
+      "time": 1759736.314614041,
+      "pid": 9276,
+      "thread": 4350327168,
+      "task_id": "e93a5288-4179-4610-a680-e0b99a696eda",
+      "task": "policy_probe.work",
+      "retries": 0,
+      "redelivered": false
+    },
+    {
+      "event": "policy_accepted",
+      "time": 1759736.314750375,
+      "pid": 9276,
+      "thread": 4392633184,
+      "task_id": "e93a5288-4179-4610-a680-e0b99a696eda",
+      "executor_pid": 4392633184,
+      "retries": 0,
+      "ack_requested": false
+    },
+    {
+      "event": "policy_started",
+      "time": 1759736.315795625,
+      "pid": 9276,
+      "thread": 4392633184,
+      "task_id": "e93a5288-4179-4610-a680-e0b99a696eda",
+      "attempt": 1,
+      "retries": 0,
+      "redelivered": false
+    },
+    {
+      "event": "policy_interrupted",
+      "time": 1759736.315815833,
+      "pid": 9276,
+      "thread": 4392633184,
+      "task_id": "e93a5288-4179-4610-a680-e0b99a696eda",
+      "exception": "SystemExit"
+    },
+    {
+      "event": "policy_finally",
+      "time": 1759736.315826375,
+      "pid": 9276,
+      "thread": 4392633184,
+      "task_id": "e93a5288-4179-4610-a680-e0b99a696eda",
+      "attempt": 1
+    },
+    {
+      "event": "task_postrun",
+      "time": 1759736.315848583,
+      "pid": 9276,
+      "thread": 4392633184,
+      "state": null
+    },
+    {
+      "event": "worker_shutting_down",
+      "time": 1759742.109890541,
+      "pid": 9276,
+      "thread": 4392319824,
+      "signal": "SIGTERM",
+      "how": "Warm"
+    },
+    {
+      "event": "worker_shutdown",
+      "time": 1759744.334555291,
+      "pid": 9276,
+      "thread": 4350327168
+    }
+  ],
+  "states": [
+    {
+      "time": 1759736.314490333,
+      "state": "PENDING",
+      "detail": "None"
+    }
+  ],
+  "final_state": "PENDING",
+  "snapshots": {
+    "first_start": {
+      "queued": [],
+      "unacked": [
+        {
+          "tag": "08239ba5-0b4d-4e2a-a30a-aa1055ea453f",
+          "exchange": "",
+          "routing_key": "policy-probe"
+        }
+      ]
+    },
+    "before_shutdown": {
+      "queued": [],
+      "unacked": [
+        {
+          "tag": "08239ba5-0b4d-4e2a-a30a-aa1055ea453f",
+          "exchange": "",
+          "routing_key": "policy-probe"
+        }
+      ]
+    },
+    "after_exit": {
+      "queued": [
+        {
+          "queue": "policy-probe",
+          "redelivered": true
+        }
+      ],
+      "unacked": []
+    }
+  },
+  "fetched_after_exit": [
+    {
+      "task_id": "e93a5288-4179-4610-a680-e0b99a696eda",
+      "retries": 0,
+      "redelivered": true
+    },
+    {
+      "task_id": "ddced3f4-a108-45e5-be19-967485a6efd5",
+      "retries": 0,
+      "redelivered": null
+    }
+  ],
+  "signals": [
+    {
+      "signal": "SIGTERM",
+      "time": 1759742.109432625
+    }
+  ],
+  "pinged": false,
+  "forced_kill": false,
+  "returncode": 0,
+  "elapsed": 9.142,
+  "harness_error": null,
+  "observations": {
+    "starts": 1,
+    "completed": 0,
+    "acks": 0,
+    "rejects": [],
+    "state": "PENDING",
+    "publications": 0,
+    "timeouts": []
+  },
+  "errors": [],
+  "passed": true
+}

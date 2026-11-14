@@ -1,0 +1,23 @@
+{
+  "name": "soft-prefork-retry",
+  "pool": "prefork",
+  "kind": "sleep",
+  "soft_limit": 0.35,
+  "soft_action": "retry",
+  "expected": {
+    "starts": 2,
+    "completed": 1,
+    "acks": 2,
+    "rejects": [],
+    "state": "SUCCESS",
+    "publications": 1,
+    "timeouts": [
+      true
+    ],
+    "failure": null
+  },
+  "broker": "redis+socket:///Users/sergunich/dev/repos/celery/.dev/shutdown-8133.sock?virtual_host=0",
+  "backend": "redis+socket:///Users/sergunich/dev/repos/celery/.dev/shutdown-8133.sock?virtual_host=1",
+  "events": "/Users/sergunich/dev/repos/celery/.dev/task-policy-runs/20261114T093610.117877Z/soft-prefork-retry/events.jsonl",
+  "queue": "policy-probe"
+}

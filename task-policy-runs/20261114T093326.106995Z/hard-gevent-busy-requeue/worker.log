@@ -1,0 +1,32 @@
+ 
+ -------------- policy-probe@localhost v5.7.0 (collider)
+--- ***** ----- 
+-- ******* ---- macOS-15.8.1-arm64-arm-64bit-Mach-O 2026-11-14 12:33:34
+- *** --- * --- 
+- ** ---------- [config]
+- ** ---------- .> app:         shutdown_probe:0x102f307d0
+- ** ---------- .> transport:   redis+socket:///Users/sergunich/dev/repos/celery/.dev/shutdown-7860.sock
+- ** ---------- .> results:     socket:///Users/sergunich/dev/repos/celery/.dev/shutdown-7860.sock
+- *** --- * --- .> concurrency: 1 (gevent)
+-- ******* ---- .> task events: OFF (enable -E to monitor tasks in this worker)
+--- ***** ----- 
+ -------------- [queues]
+                .> policy-probe     exchange=policy-probe(direct) key=policy-probe
+                
+
+[tasks]
+  . policy_probe.ping
+  . policy_probe.work
+  . shutdown_probe.task
+
+[2026-11-14 12:33:34,596: INFO/MainProcess] Connected to redis+socket:///Users/sergunich/dev/repos/celery/.dev/shutdown-7860.sock
+[2026-11-14 12:33:34,599: INFO/MainProcess] policy-probe@localhost ready.
+[2026-11-14 12:33:34,600: INFO/MainProcess] pidbox: Connected to redis+socket:///Users/sergunich/dev/repos/celery/.dev/shutdown-7860.sock.
+[2026-11-14 12:33:34,626: INFO/MainProcess] Task policy_probe.work[2688f770-73d2-4303-8237-2da9b37c4635] received
+[2026-11-14 12:33:35,928: ERROR/MainProcess] Hard time limit (0.45s) exceeded for policy_probe.work[2688f770-73d2-4303-8237-2da9b37c4635]
+[2026-11-14 12:33:36,634: INFO/MainProcess] Task policy_probe.work[2688f770-73d2-4303-8237-2da9b37c4635] received
+[2026-11-14 12:33:36,844: INFO/MainProcess] Task policy_probe.work[2688f770-73d2-4303-8237-2da9b37c4635] succeeded in 0.20912079187110066s: 'completed'
+[2026-11-14 12:33:38,641: INFO/MainProcess] Task policy_probe.ping[053b76e8-cb79-422b-80fb-1ed83a848a89] received
+[2026-11-14 12:33:38,642: INFO/MainProcess] Task policy_probe.ping[053b76e8-cb79-422b-80fb-1ed83a848a89] succeeded in 0.0014907089062035084s: 'alive'
+
+worker: Warm shutdown (MainProcess)

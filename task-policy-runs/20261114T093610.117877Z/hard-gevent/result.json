@@ -1,0 +1,234 @@
+{
+  "case": {
+    "name": "hard-gevent",
+    "pool": "gevent",
+    "kind": "sleep",
+    "hard_limit": 0.45,
+    "ack_failure": false,
+    "expected": {
+      "starts": 1,
+      "completed": 0,
+      "acks": 1,
+      "rejects": [],
+      "state": "FAILURE",
+      "publications": 0,
+      "timeouts": [
+        false
+      ],
+      "failure": null
+    }
+  },
+  "task_id": "0242ff55-892d-4054-9132-2eb1549f9315",
+  "timeline": [
+    {
+      "event": "worker_ready",
+      "time": 1759212.431632041,
+      "pid": 8283,
+      "thread": 4307504960,
+      "pool": "gevent",
+      "multiprocessing_start_method": "spawn"
+    },
+    {
+      "event": "policy_settings",
+      "time": 1759212.4316855,
+      "pid": 8283,
+      "thread": 4307504960,
+      "acks_late": true,
+      "acks_on_failure": false,
+      "acks_on_timeout": true,
+      "reject_on_worker_lost": false,
+      "retry_on_worker_lost": false,
+      "soft_time_limit": null,
+      "time_limit": 0.45,
+      "max_retries": 1,
+      "default_retry_delay": 0.35
+    },
+    {
+      "event": "policy_received",
+      "time": 1759212.443001291,
+      "pid": 8283,
+      "thread": 4307504960,
+      "task_id": "0242ff55-892d-4054-9132-2eb1549f9315",
+      "task": "policy_probe.work",
+      "retries": 0,
+      "redelivered": false
+    },
+    {
+      "event": "policy_accepted",
+      "time": 1759212.443165958,
+      "pid": 8283,
+      "thread": 4349821792,
+      "task_id": "0242ff55-892d-4054-9132-2eb1549f9315",
+      "executor_pid": 4349821792,
+      "retries": 0,
+      "ack_requested": false
+    },
+    {
+      "event": "policy_started",
+      "time": 1759212.444547833,
+      "pid": 8283,
+      "thread": 4349821792,
+      "task_id": "0242ff55-892d-4054-9132-2eb1549f9315",
+      "attempt": 1,
+      "retries": 0,
+      "redelivered": false
+    },
+    {
+      "event": "policy_interrupted",
+      "time": 1759212.895624458,
+      "pid": 8283,
+      "thread": 4349821792,
+      "task_id": "0242ff55-892d-4054-9132-2eb1549f9315",
+      "exception": "Timeout"
+    },
+    {
+      "event": "policy_finally",
+      "time": 1759212.895729125,
+      "pid": 8283,
+      "thread": 4349821792,
+      "task_id": "0242ff55-892d-4054-9132-2eb1549f9315",
+      "attempt": 1
+    },
+    {
+      "event": "task_postrun",
+      "time": 1759212.895822541,
+      "pid": 8283,
+      "thread": 4349821792,
+      "state": null
+    },
+    {
+      "event": "policy_timeout",
+      "time": 1759212.89593375,
+      "pid": 8283,
+      "thread": 4349821792,
+      "task_id": "0242ff55-892d-4054-9132-2eb1549f9315",
+      "soft": false,
+      "timeout": 0.45
+    },
+    {
+      "event": "task_failure",
+      "time": 1759212.901733583,
+      "pid": 8283,
+      "thread": 4349821792,
+      "exception": "TimeLimitExceeded",
+      "message": "TimeLimitExceeded(0.45,)"
+    },
+    {
+      "event": "message_ack",
+      "time": 1759212.902395666,
+      "pid": 8283,
+      "thread": 4349821792,
+      "task_id": "0242ff55-892d-4054-9132-2eb1549f9315",
+      "tag": "f1cf3514-5fab-4f69-95b1-ab1131e2098b"
+    },
+    {
+      "event": "policy_received",
+      "time": 1759214.450586416,
+      "pid": 8283,
+      "thread": 4307504960,
+      "task_id": "327cd46a-38fa-4c29-be5c-73980e36bb55",
+      "task": "policy_probe.ping",
+      "retries": 0,
+      "redelivered": false
+    },
+    {
+      "event": "policy_ping",
+      "time": 1759214.450977583,
+      "pid": 8283,
+      "thread": 4349821952
+    },
+    {
+      "event": "worker_shutting_down",
+      "time": 1759214.453568833,
+      "pid": 8283,
+      "thread": 4349821952,
+      "signal": "SIGTERM",
+      "how": "Warm"
+    },
+    {
+      "event": "task_success",
+      "time": 1759214.454122166,
+      "pid": 8283,
+      "thread": 4349821952
+    },
+    {
+      "event": "task_postrun",
+      "time": 1759214.454298875,
+      "pid": 8283,
+      "thread": 4349821952,
+      "state": "SUCCESS"
+    },
+    {
+      "event": "message_ack",
+      "time": 1759214.454778833,
+      "pid": 8283,
+      "thread": 4349821952,
+      "task_id": "327cd46a-38fa-4c29-be5c-73980e36bb55",
+      "tag": "b20bcce2-f92a-47ba-95db-b5eb670fc259"
+    },
+    {
+      "event": "worker_shutdown",
+      "time": 1759219.485247708,
+      "pid": 8283,
+      "thread": 4307504960
+    }
+  ],
+  "states": [
+    {
+      "time": 1759212.442897416,
+      "state": "PENDING",
+      "detail": "None"
+    },
+    {
+      "time": 1759212.915961375,
+      "state": "FAILURE",
+      "detail": "TimeLimitExceeded(0.45,)"
+    }
+  ],
+  "final_state": "FAILURE",
+  "snapshots": {
+    "first_start": {
+      "queued": [],
+      "unacked": [
+        {
+          "tag": "f1cf3514-5fab-4f69-95b1-ab1131e2098b",
+          "exchange": "",
+          "routing_key": "policy-probe"
+        }
+      ]
+    },
+    "before_shutdown": {
+      "queued": [],
+      "unacked": []
+    },
+    "after_exit": {
+      "queued": [],
+      "unacked": []
+    }
+  },
+  "fetched_after_exit": [],
+  "signals": [
+    {
+      "signal": "SIGTERM",
+      "time": 1759214.453475083
+    }
+  ],
+  "pinged": true,
+  "forced_kill": false,
+  "returncode": 0,
+  "elapsed": 8.094,
+  "harness_error": null,
+  "observations": {
+    "starts": 1,
+    "completed": 0,
+    "acks": 1,
+    "rejects": [],
+    "state": "FAILURE",
+    "publications": 0,
+    "timeouts": [
+      false
+    ]
+  },
+  "errors": [],
+  "passed": true
+}

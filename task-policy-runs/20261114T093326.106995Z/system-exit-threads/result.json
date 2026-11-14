@@ -1,0 +1,193 @@
+{
+  "case": {
+    "name": "system-exit-threads",
+    "pool": "threads",
+    "kind": "system_exit",
+    "reject_lost": true,
+    "retry_lost": true,
+    "expected": {
+      "starts": 1,
+      "completed": 0,
+      "acks": 0,
+      "rejects": [],
+      "state": "PENDING",
+      "publications": 0,
+      "timeouts": [],
+      "failure": null
+    }
+  },
+  "task_id": "44073fef-51c7-4bb1-a33e-f0048f162d94",
+  "timeline": [
+    {
+      "event": "worker_ready",
+      "time": 1759012.837144708,
+      "pid": 7894,
+      "thread": 8539349760,
+      "pool": "threads",
+      "multiprocessing_start_method": "spawn"
+    },
+    {
+      "event": "policy_settings",
+      "time": 1759012.837203625,
+      "pid": 7894,
+      "thread": 8539349760,
+      "acks_late": true,
+      "acks_on_failure": true,
+      "acks_on_timeout": true,
+      "reject_on_worker_lost": true,
+      "retry_on_worker_lost": true,
+      "soft_time_limit": null,
+      "time_limit": null,
+      "max_retries": 1,
+      "default_retry_delay": 0.35
+    },
+    {
+      "event": "policy_received",
+      "time": 1759012.847940708,
+      "pid": 7894,
+      "thread": 8539349760,
+      "task_id": "44073fef-51c7-4bb1-a33e-f0048f162d94",
+      "task": "policy_probe.work",
+      "retries": 0,
+      "redelivered": false
+    },
+    {
+      "event": "policy_accepted",
+      "time": 1759012.848082708,
+      "pid": 7894,
+      "thread": 6115422208,
+      "task_id": "44073fef-51c7-4bb1-a33e-f0048f162d94",
+      "executor_pid": 7894,
+      "retries": 0,
+      "ack_requested": false
+    },
+    {
+      "event": "policy_started",
+      "time": 1759012.849131041,
+      "pid": 7894,
+      "thread": 6115422208,
+      "task_id": "44073fef-51c7-4bb1-a33e-f0048f162d94",
+      "attempt": 1,
+      "retries": 0,
+      "redelivered": false
+    },
+    {
+      "event": "policy_interrupted",
+      "time": 1759012.849149166,
+      "pid": 7894,
+      "thread": 6115422208,
+      "task_id": "44073fef-51c7-4bb1-a33e-f0048f162d94",
+      "exception": "SystemExit"
+    },
+    {
+      "event": "policy_finally",
+      "time": 1759012.849159,
+      "pid": 7894,
+      "thread": 6115422208,
+      "task_id": "44073fef-51c7-4bb1-a33e-f0048f162d94",
+      "attempt": 1
+    },
+    {
+      "event": "task_postrun",
+      "time": 1759012.849176875,
+      "pid": 7894,
+      "thread": 6115422208,
+      "state": null
+    },
+    {
+      "event": "policy_future_error",
+      "time": 1759012.851058083,
+      "pid": 7894,
+      "thread": 6115422208,
+      "exception": "TypeError",
+      "message": "cannot unpack non-iterable ExceptionInfo object"
+    },
+    {
+      "event": "worker_shutting_down",
+      "time": 1759018.623082708,
+      "pid": 7894,
+      "thread": 8539349760,
+      "signal": "SIGTERM",
+      "how": "Warm"
+    },
+    {
+      "event": "worker_shutdown",
+      "time": 1759018.847875208,
+      "pid": 7894,
+      "thread": 8539349760
+    }
+  ],
+  "states": [
+    {
+      "time": 1759012.847969541,
+      "state": "PENDING",
+      "detail": "None"
+    }
+  ],
+  "final_state": "PENDING",
+  "snapshots": {
+    "first_start": {
+      "queued": [],
+      "unacked": [
+        {
+          "tag": "929b9821-f6f0-41a1-8612-c39095e713e0",
+          "exchange": "",
+          "routing_key": "policy-probe"
+        }
+      ]
+    },
+    "before_shutdown": {
+      "queued": [],
+      "unacked": [
+        {
+          "tag": "929b9821-f6f0-41a1-8612-c39095e713e0",
+          "exchange": "",
+          "routing_key": "policy-probe"
+        }
+      ]
+    },
+    "after_exit": {
+      "queued": [
+        {
+          "queue": "policy-probe",
+          "redelivered": true
+        }
+      ],
+      "unacked": []
+    }
+  },
+  "fetched_after_exit": [
+    {
+      "task_id": "44073fef-51c7-4bb1-a33e-f0048f162d94",
+      "retries": 0,
+      "redelivered": true
+    },
+    {
+      "task_id": "d09e5297-38b0-4eca-81d7-7817269b8a38",
+      "retries": 0,
+      "redelivered": null
+    }
+  ],
+  "signals": [
+    {
+      "signal": "SIGTERM",
+      "time": 1759018.622843
+    }
+  ],
+  "pinged": false,
+  "forced_kill": false,
+  "returncode": 0,
+  "elapsed": 6.959,
+  "harness_error": null,
+  "observations": {
+    "starts": 1,
+    "completed": 0,
+    "acks": 0,
+    "rejects": [],
+    "state": "PENDING",
+    "publications": 0,
+    "timeouts": []
+  },
+  "errors": [],
+  "passed": true
+}

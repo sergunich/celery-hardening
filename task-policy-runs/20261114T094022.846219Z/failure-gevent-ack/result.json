@@ -1,0 +1,224 @@
+{
+  "case": {
+    "name": "failure-gevent-ack",
+    "pool": "gevent",
+    "kind": "fail",
+    "ack_failure": true,
+    "ack_timeout": false,
+    "expected": {
+      "starts": 1,
+      "completed": 0,
+      "acks": 1,
+      "rejects": [],
+      "state": "FAILURE",
+      "publications": 0,
+      "timeouts": [],
+      "failure": "ValueError"
+    }
+  },
+  "task_id": "f04065dc-b336-428a-9503-9f0248c09eb5",
+  "timeline": [
+    {
+      "event": "worker_ready",
+      "time": 1759440.918256166,
+      "pid": 8690,
+      "thread": 4339846976,
+      "pool": "gevent",
+      "multiprocessing_start_method": "spawn"
+    },
+    {
+      "event": "policy_settings",
+      "time": 1759440.918314458,
+      "pid": 8690,
+      "thread": 4339846976,
+      "acks_late": true,
+      "acks_on_failure": true,
+      "acks_on_timeout": false,
+      "reject_on_worker_lost": false,
+      "retry_on_worker_lost": false,
+      "soft_time_limit": null,
+      "time_limit": null,
+      "max_retries": 1,
+      "default_retry_delay": 0.35
+    },
+    {
+      "event": "policy_received",
+      "time": 1759440.93942725,
+      "pid": 8690,
+      "thread": 4339846976,
+      "task_id": "f04065dc-b336-428a-9503-9f0248c09eb5",
+      "task": "policy_probe.work",
+      "retries": 0,
+      "redelivered": false
+    },
+    {
+      "event": "policy_accepted",
+      "time": 1759440.939566458,
+      "pid": 8690,
+      "thread": 4382311264,
+      "task_id": "f04065dc-b336-428a-9503-9f0248c09eb5",
+      "executor_pid": 4382311264,
+      "retries": 0,
+      "ack_requested": false
+    },
+    {
+      "event": "policy_started",
+      "time": 1759440.940715833,
+      "pid": 8690,
+      "thread": 4382311264,
+      "task_id": "f04065dc-b336-428a-9503-9f0248c09eb5",
+      "attempt": 1,
+      "retries": 0,
+      "redelivered": false
+    },
+    {
+      "event": "policy_interrupted",
+      "time": 1759440.940738666,
+      "pid": 8690,
+      "thread": 4382311264,
+      "task_id": "f04065dc-b336-428a-9503-9f0248c09eb5",
+      "exception": "ValueError"
+    },
+    {
+      "event": "policy_finally",
+      "time": 1759440.940751416,
+      "pid": 8690,
+      "thread": 4382311264,
+      "task_id": "f04065dc-b336-428a-9503-9f0248c09eb5",
+      "attempt": 1
+    },
+    {
+      "event": "task_failure",
+      "time": 1759440.94233775,
+      "pid": 8690,
+      "thread": 4382311264,
+      "exception": "ValueError",
+      "message": "intentional ordinary failure"
+    },
+    {
+      "event": "task_postrun",
+      "time": 1759440.942672166,
+      "pid": 8690,
+      "thread": 4382311264,
+      "state": "FAILURE"
+    },
+    {
+      "event": "policy_failure",
+      "time": 1759440.942703083,
+      "pid": 8690,
+      "thread": 4382311264,
+      "task_id": "f04065dc-b336-428a-9503-9f0248c09eb5",
+      "exception": "ValueError",
+      "retries": 0
+    },
+    {
+      "event": "message_ack",
+      "time": 1759440.942932291,
+      "pid": 8690,
+      "thread": 4382311264,
+      "task_id": "f04065dc-b336-428a-9503-9f0248c09eb5",
+      "tag": "20547ccf-28ca-4efb-b282-3ab0f7acfea7"
+    },
+    {
+      "event": "policy_received",
+      "time": 1759442.947500041,
+      "pid": 8690,
+      "thread": 4339846976,
+      "task_id": "5194727a-ccde-4b68-a551-b07bed361f7e",
+      "task": "policy_probe.ping",
+      "retries": 0,
+      "redelivered": false
+    },
+    {
+      "event": "policy_ping",
+      "time": 1759442.947893125,
+      "pid": 8690,
+      "thread": 4382317824
+    },
+    {
+      "event": "task_success",
+      "time": 1759442.951046375,
+      "pid": 8690,
+      "thread": 4382317824
+    },
+    {
+      "event": "task_postrun",
+      "time": 1759442.951249,
+      "pid": 8690,
+      "thread": 4382317824,
+      "state": "SUCCESS"
+    },
+    {
+      "event": "message_ack",
+      "time": 1759442.951763958,
+      "pid": 8690,
+      "thread": 4382317824,
+      "task_id": "5194727a-ccde-4b68-a551-b07bed361f7e",
+      "tag": "e0310830-c155-47ad-88b5-99258e6ee958"
+    },
+    {
+      "event": "worker_shutting_down",
+      "time": 1759442.969710458,
+      "pid": 8690,
+      "thread": 4381998064,
+      "signal": "SIGTERM",
+      "how": "Warm"
+    },
+    {
+      "event": "worker_shutdown",
+      "time": 1759447.9771795,
+      "pid": 8690,
+      "thread": 4339846976
+    }
+  ],
+  "states": [
+    {
+      "time": 1759440.939383583,
+      "state": "PENDING",
+      "detail": "None"
+    },
+    {
+      "time": 1759440.964707666,
+      "state": "FAILURE",
+      "detail": "intentional ordinary failure"
+    }
+  ],
+  "final_state": "FAILURE",
+  "snapshots": {
+    "first_start": {
+      "queued": [],
+      "unacked": []
+    },
+    "before_shutdown": {
+      "queued": [],
+      "unacked": []
+    },
+    "after_exit": {
+      "queued": [],
+      "unacked": []
+    }
+  },
+  "fetched_after_exit": [],
+  "signals": [
+    {
+      "signal": "SIGTERM",
+      "time": 1759442.969595416
+    }
+  ],
+  "pinged": true,
+  "forced_kill": false,
+  "returncode": 0,
+  "elapsed": 8.176,
+  "harness_error": null,
+  "observations": {
+    "starts": 1,
+    "completed": 0,
+    "acks": 1,
+    "rejects": [],
+    "state": "FAILURE",
+    "publications": 0,
+    "timeouts": []
+  },
+  "errors": [],
+  "passed": true
+}

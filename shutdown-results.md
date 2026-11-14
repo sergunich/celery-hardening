@@ -888,3 +888,20 @@ Artifacts: [two-case summary](solo-requeue-runs/20261114T090428.875791Z/summary.
 with per-case worker logs and event timelines under the same run directory.
 This explanation is part of the maintained appendix source and survives future
 shutdown-report regeneration.
+
+### A9. Follow-up: task time limits, failure ACKs, and worker-loss policies
+
+The [task-policy report](task-policy-results.md) adds **47 selected runtime
+cases**, distinguishing pool deadline enforcement, failure disposition, and
+whether a surviving controller can detect executor loss.
+
+For solo, ordinary failure ACK policy works, but neither soft nor hard task
+limits are enforced. A dead solo process cannot run worker-loss recovery.
+The QUIT `kill_job` error is an ordinary failure: disabling failure ACK changes
+ACK to discard, not requeue, even with both worker-loss flags enabled.
+
+The report also covers bounded prefork worker-loss retries, soft exceptions
+using failure rather than timeout ACK policy, a non-prefork `SystemExit`
+callback defect, and gevent requeueing after a non-yielding task body has already
+completed. It explicitly separates synthetic exception tests from actual
+process-loss recovery, with measured ACK/reject/result/redelivery outcomes.

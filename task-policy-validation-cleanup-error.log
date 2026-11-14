@@ -1,0 +1,31 @@
+PASS failure-solo-ack                     {'starts': 1, 'completed': 0, 'acks': 1, 'rejects': [], 'state': 'FAILURE', 'publications': 0, 'timeouts': []} exit=0 ping=True 1.553s
+PASS failure-solo-discard                 {'starts': 1, 'completed': 0, 'acks': 0, 'rejects': [False], 'state': 'FAILURE', 'publications': 0, 'timeouts': []} exit=0 ping=True 1.411s
+PASS soft-solo                            {'starts': 1, 'completed': 1, 'acks': 1, 'rejects': [], 'state': 'SUCCESS', 'publications': 0, 'timeouts': []} exit=0 ping=True 2.679s
+PASS hard-solo                            {'starts': 1, 'completed': 1, 'acks': 1, 'rejects': [], 'state': 'SUCCESS', 'publications': 0, 'timeouts': []} exit=0 ping=True 2.726s
+PASS failure-prefork-ack                  {'starts': 1, 'completed': 0, 'acks': 1, 'rejects': [], 'state': 'FAILURE', 'publications': 0, 'timeouts': []} exit=0 ping=True 2.948s
+PASS failure-prefork-discard              {'starts': 1, 'completed': 0, 'acks': 0, 'rejects': [False], 'state': 'FAILURE', 'publications': 0, 'timeouts': []} exit=0 ping=True 2.93s
+PASS soft-prefork                         {'starts': 1, 'completed': 0, 'acks': 1, 'rejects': [], 'state': 'FAILURE', 'publications': 0, 'timeouts': [True]} exit=0 ping=True 3.534s
+PASS hard-prefork                         {'starts': 1, 'completed': 0, 'acks': 1, 'rejects': [], 'state': 'FAILURE', 'publications': 0, 'timeouts': [False]} exit=0 ping=True 3.316s
+PASS failure-threads-ack                  {'starts': 1, 'completed': 0, 'acks': 1, 'rejects': [], 'state': 'FAILURE', 'publications': 0, 'timeouts': []} exit=0 ping=True 1.385s
+PASS failure-threads-discard              {'starts': 1, 'completed': 0, 'acks': 0, 'rejects': [False], 'state': 'FAILURE', 'publications': 0, 'timeouts': []} exit=0 ping=True 1.44s
+PASS soft-threads                         {'starts': 1, 'completed': 1, 'acks': 1, 'rejects': [], 'state': 'SUCCESS', 'publications': 0, 'timeouts': []} exit=0 ping=True 2.731s
+PASS hard-threads                         {'starts': 1, 'completed': 1, 'acks': 1, 'rejects': [], 'state': 'SUCCESS', 'publications': 0, 'timeouts': []} exit=0 ping=True 2.752s
+PASS failure-gevent-ack                   {'starts': 1, 'completed': 0, 'acks': 1, 'rejects': [], 'state': 'FAILURE', 'publications': 0, 'timeouts': []} exit=0 ping=True 8.176s
+PASS failure-gevent-discard               {'starts': 1, 'completed': 0, 'acks': 0, 'rejects': [False], 'state': 'FAILURE', 'publications': 0, 'timeouts': []} exit=0 ping=True 8.104s
+PASS soft-gevent                          {'starts': 1, 'completed': 1, 'acks': 1, 'rejects': [], 'state': 'SUCCESS', 'publications': 0, 'timeouts': []} exit=0 ping=True 8.118s
+PASS hard-gevent                          {'starts': 1, 'completed': 0, 'acks': 1, 'rejects': [], 'state': 'FAILURE', 'publications': 0, 'timeouts': [False]} exit=0 ping=True 8.115s
+PASS failure-solo-early                   {'starts': 1, 'completed': 0, 'acks': 1, 'rejects': [], 'state': 'FAILURE', 'publications': 0, 'timeouts': []} exit=0 ping=True 1.379s
+Traceback (most recent call last):
+  File "/Users/sergunich/dev/repos/celery/.dev/verify-task-policies.py", line 324, in <module>
+    raise SystemExit(main())
+                     ~~~~^^
+  File "/Users/sergunich/dev/repos/celery/.dev/verify-task-policies.py", line 317, in main
+    summary["outcomes"].append(run_case(case, run_dir, client, broker, backend))
+                               ~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/sergunich/dev/repos/celery/.dev/verify-task-policies.py", line 213, in run_case
+    helpers.kill_group(process.pid)
+    ~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^
+  File "/Users/sergunich/dev/repos/celery/.dev/verify-pool-shutdown.py", line 84, in kill_group
+    os.killpg(pid, signal.SIGKILL)
+    ~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^
+PermissionError: [Errno 1] Operation not permitted

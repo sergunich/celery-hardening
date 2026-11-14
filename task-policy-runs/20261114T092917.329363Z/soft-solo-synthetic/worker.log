@@ -1,0 +1,39 @@
+ 
+ -------------- policy-probe@localhost v5.7.0 (collider)
+--- ***** ----- 
+-- ******* ---- macOS-15.8.1-arm64-arm-64bit-Mach-O 2026-11-14 12:30:30
+- *** --- * --- 
+- ** ---------- [config]
+- ** ---------- .> app:         shutdown_probe:0x1078823c0
+- ** ---------- .> transport:   redis+socket:///Users/sergunich/dev/repos/celery/.dev/shutdown-7298.sock
+- ** ---------- .> results:     socket:///Users/sergunich/dev/repos/celery/.dev/shutdown-7298.sock
+- *** --- * --- .> concurrency: 1 (solo)
+-- ******* ---- .> task events: OFF (enable -E to monitor tasks in this worker)
+--- ***** ----- 
+ -------------- [queues]
+                .> policy-probe     exchange=policy-probe(direct) key=policy-probe
+                
+
+[tasks]
+  . policy_probe.ping
+  . policy_probe.work
+  . shutdown_probe.task
+
+[2026-11-14 12:30:30,791: INFO/MainProcess] Connected to redis+socket:///Users/sergunich/dev/repos/celery/.dev/shutdown-7298.sock
+[2026-11-14 12:30:30,795: INFO/MainProcess] policy-probe@localhost ready.
+[2026-11-14 12:30:30,810: INFO/MainProcess] Task policy_probe.work[3f689c1c-2e0e-4c78-95c3-b8450ef63ffb] received
+[2026-11-14 12:30:30,812: ERROR/MainProcess] Task policy_probe.work[3f689c1c-2e0e-4c78-95c3-b8450ef63ffb] raised unexpected: SoftTimeLimitExceeded()
+Traceback (most recent call last):
+  File "/Users/sergunich/dev/repos/celery/celery/app/trace.py", line 564, in trace_task
+    R = retval = fun(*args, **kwargs)
+                 ~~~^^^^^^^^^^^^^^^^^
+  File "/Users/sergunich/dev/repos/celery/celery/app/trace.py", line 883, in __protected_call__
+    return self.run(*args, **kwargs)
+           ~~~~~~~~^^^^^^^^^^^^^^^^^
+  File "/Users/sergunich/dev/repos/celery/.dev/policy_probe.py", line 68, in work
+    raise SoftTimeLimitExceeded()
+billiard.exceptions.SoftTimeLimitExceeded: SoftTimeLimitExceeded()
+[2026-11-14 12:30:31,096: INFO/MainProcess] Task policy_probe.ping[4b0f52d8-5286-45eb-bc49-832ab9aa7f34] received
+[2026-11-14 12:30:31,097: INFO/MainProcess] Task policy_probe.ping[4b0f52d8-5286-45eb-bc49-832ab9aa7f34] succeeded in 0.0008222500327974558s: 'alive'
+
+worker: Warm shutdown (MainProcess)

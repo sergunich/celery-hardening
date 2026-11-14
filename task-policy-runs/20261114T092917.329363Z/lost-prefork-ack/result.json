@@ -1,0 +1,213 @@
+{
+  "case": {
+    "name": "lost-prefork-ack",
+    "pool": "prefork",
+    "kind": "lost",
+    "expected": {
+      "starts": 1,
+      "completed": 0,
+      "acks": 1,
+      "rejects": [],
+      "state": "FAILURE",
+      "publications": 0,
+      "timeouts": [],
+      "failure": "WorkerLostError"
+    }
+  },
+  "task_id": "9e5eca17-1e31-4c44-bd34-f2cdad9c85dc",
+  "timeline": [
+    {
+      "event": "worker_ready",
+      "time": 1758846.334774,
+      "pid": 7536,
+      "thread": 8539349760,
+      "pool": "prefork",
+      "multiprocessing_start_method": "spawn"
+    },
+    {
+      "event": "policy_settings",
+      "time": 1758846.334894083,
+      "pid": 7536,
+      "thread": 8539349760,
+      "acks_late": true,
+      "acks_on_failure": true,
+      "acks_on_timeout": true,
+      "reject_on_worker_lost": false,
+      "retry_on_worker_lost": false,
+      "soft_time_limit": null,
+      "time_limit": null,
+      "max_retries": 1,
+      "default_retry_delay": 0.35
+    },
+    {
+      "event": "policy_received",
+      "time": 1758846.362031875,
+      "pid": 7536,
+      "thread": 8539349760,
+      "task_id": "9e5eca17-1e31-4c44-bd34-f2cdad9c85dc",
+      "task": "policy_probe.work",
+      "retries": 0,
+      "redelivered": false
+    },
+    {
+      "event": "policy_accepted",
+      "time": 1758846.594485666,
+      "pid": 7536,
+      "thread": 8539349760,
+      "task_id": "9e5eca17-1e31-4c44-bd34-f2cdad9c85dc",
+      "executor_pid": 7540,
+      "retries": 0,
+      "ack_requested": false
+    },
+    {
+      "event": "policy_started",
+      "time": 1758846.802521,
+      "pid": 7540,
+      "thread": 8539349760,
+      "task_id": "9e5eca17-1e31-4c44-bd34-f2cdad9c85dc",
+      "attempt": 1,
+      "retries": 0,
+      "redelivered": false
+    },
+    {
+      "event": "policy_process_exit",
+      "time": 1758846.802567958,
+      "pid": 7540,
+      "thread": 8539349760,
+      "task_id": "9e5eca17-1e31-4c44-bd34-f2cdad9c85dc",
+      "attempt": 1
+    },
+    {
+      "event": "policy_failure",
+      "time": 1758846.816062583,
+      "pid": 7536,
+      "thread": 8539349760,
+      "task_id": "9e5eca17-1e31-4c44-bd34-f2cdad9c85dc",
+      "exception": "WorkerLostError",
+      "retries": 0
+    },
+    {
+      "event": "task_failure",
+      "time": 1758846.817054666,
+      "pid": 7536,
+      "thread": 8539349760,
+      "exception": "WorkerLostError",
+      "message": "Worker exited prematurely: exitcode 23 Job: 0."
+    },
+    {
+      "event": "message_ack",
+      "time": 1758846.831719541,
+      "pid": 7536,
+      "thread": 8539349760,
+      "task_id": "9e5eca17-1e31-4c44-bd34-f2cdad9c85dc",
+      "tag": "efdc3ff5-a525-45f9-8c17-a81082635514"
+    },
+    {
+      "event": "policy_received",
+      "time": 1758847.102950083,
+      "pid": 7536,
+      "thread": 8539349760,
+      "task_id": "70842fe3-d086-4950-9e0d-cce4fe5546b4",
+      "task": "policy_probe.ping",
+      "retries": 0,
+      "redelivered": false
+    },
+    {
+      "event": "policy_ping",
+      "time": 1758847.103395083,
+      "pid": 7541,
+      "thread": 8539349760
+    },
+    {
+      "event": "worker_shutting_down",
+      "time": 1758847.127214333,
+      "pid": 7536,
+      "thread": 8539349760,
+      "signal": "SIGTERM",
+      "how": "Warm"
+    },
+    {
+      "event": "task_success",
+      "time": 1758847.326097083,
+      "pid": 7541,
+      "thread": 8539349760
+    },
+    {
+      "event": "task_postrun",
+      "time": 1758847.326212583,
+      "pid": 7541,
+      "thread": 8539349760,
+      "state": "SUCCESS"
+    },
+    {
+      "event": "message_ack",
+      "time": 1758847.328218041,
+      "pid": 7536,
+      "thread": 6112849920,
+      "task_id": "70842fe3-d086-4950-9e0d-cce4fe5546b4",
+      "tag": "c6ed5413-a298-4727-80d2-89b59f93ac8b"
+    },
+    {
+      "event": "worker_shutdown",
+      "time": 1758848.338308791,
+      "pid": 7536,
+      "thread": 8539349760
+    }
+  ],
+  "states": [
+    {
+      "time": 1758846.361906541,
+      "state": "PENDING",
+      "detail": "None"
+    },
+    {
+      "time": 1758846.822770583,
+      "state": "FAILURE",
+      "detail": "Worker exited prematurely: exitcode 23 Job: 0."
+    }
+  ],
+  "final_state": "FAILURE",
+  "snapshots": {
+    "first_start": {
+      "queued": [],
+      "unacked": [
+        {
+          "tag": "efdc3ff5-a525-45f9-8c17-a81082635514",
+          "exchange": "",
+          "routing_key": "policy-probe"
+        }
+      ]
+    },
+    "before_shutdown": {
+      "queued": [],
+      "unacked": []
+    },
+    "after_exit": {
+      "queued": [],
+      "unacked": []
+    }
+  },
+  "fetched_after_exit": [],
+  "signals": [
+    {
+      "signal": "SIGTERM",
+      "time": 1758847.127081541
+    }
+  ],
+  "pinged": true,
+  "forced_kill": false,
+  "returncode": 0,
+  "elapsed": 2.983,
+  "harness_error": null,
+  "observations": {
+    "starts": 1,
+    "completed": 0,
+    "acks": 1,
+    "rejects": [],
+    "state": "FAILURE",
+    "publications": 0,
+    "timeouts": []
+  },
+  "errors": [],
+  "passed": true
+}

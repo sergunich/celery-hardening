@@ -1,0 +1,25 @@
+{
+  "name": "hard-gevent-busy-requeue",
+  "pool": "gevent",
+  "kind": "busy",
+  "hard_limit": 0.45,
+  "ack_timeout": false,
+  "expected": {
+    "starts": 2,
+    "completed": 2,
+    "acks": 1,
+    "rejects": [
+      true
+    ],
+    "state": "SUCCESS",
+    "publications": 0,
+    "timeouts": [
+      false
+    ],
+    "failure": null
+  },
+  "broker": "redis+socket:///Users/sergunich/dev/repos/celery/.dev/shutdown-7860.sock?virtual_host=0",
+  "backend": "redis+socket:///Users/sergunich/dev/repos/celery/.dev/shutdown-7860.sock?virtual_host=1",
+  "events": "/Users/sergunich/dev/repos/celery/.dev/task-policy-runs/20261114T093326.106995Z/hard-gevent-busy-requeue/events.jsonl",
+  "queue": "policy-probe"
+}

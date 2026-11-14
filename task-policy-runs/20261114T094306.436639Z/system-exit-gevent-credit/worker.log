@@ -1,0 +1,101 @@
+ 
+ -------------- policy-probe@localhost v5.7.0 (collider)
+--- ***** ----- 
+-- ******* ---- macOS-15.8.1-arm64-arm-64bit-Mach-O 2026-11-14 12:46:00
+- *** --- * --- 
+- ** ---------- [config]
+- ** ---------- .> app:         shutdown_probe:0x10984c7d0
+- ** ---------- .> transport:   redis+socket:///Users/sergunich/dev/repos/celery/.dev/shutdown-8874.sock
+- ** ---------- .> results:     socket:///Users/sergunich/dev/repos/celery/.dev/shutdown-8874.sock
+- *** --- * --- .> concurrency: 1 (gevent)
+-- ******* ---- .> task events: OFF (enable -E to monitor tasks in this worker)
+--- ***** ----- 
+ -------------- [queues]
+                .> policy-probe     exchange=policy-probe(direct) key=policy-probe
+                
+
+[tasks]
+  . policy_probe.ping
+  . policy_probe.work
+  . shutdown_probe.task
+
+[2026-11-14 12:46:00,695: INFO/MainProcess] Connected to redis+socket:///Users/sergunich/dev/repos/celery/.dev/shutdown-8874.sock
+[2026-11-14 12:46:00,698: INFO/MainProcess] policy-probe@localhost ready.
+[2026-11-14 12:46:00,699: INFO/MainProcess] pidbox: Connected to redis+socket:///Users/sergunich/dev/repos/celery/.dev/shutdown-8874.sock.
+[2026-11-14 12:46:00,713: INFO/MainProcess] Task policy_probe.work[16bf2204-bb31-4a8b-9930-95a8de933138] received
+Traceback (most recent call last):
+  File "/Users/sergunich/dev/repos/celery/celery/concurrency/base.py", line 30, in apply_target
+    ret = target(*args, **kwargs)
+  File "/Users/sergunich/dev/repos/celery/celery/concurrency/gevent.py", line 158, in killable_target
+    return target(*args, **kwargs)
+  File "/Users/sergunich/dev/repos/celery/celery/app/trace.py", line 798, in fast_trace_task
+    R, I, T, Rstr = tasks[task].__trace__(
+                    ~~~~~~~~~~~~~~~~~~~~~^
+        uuid, args, kwargs, request,
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "/Users/sergunich/dev/repos/celery/celery/app/trace.py", line 564, in trace_task
+    R = retval = fun(*args, **kwargs)
+                 ~~~^^^^^^^^^^^^^^^^^
+  File "/Users/sergunich/dev/repos/celery/celery/app/trace.py", line 883, in __protected_call__
+    return self.run(*args, **kwargs)
+           ~~~~~~~~^^^^^^^^^^^^^^^^^
+  File "/Users/sergunich/dev/repos/celery/.dev/policy_probe.py", line 65, in work
+    raise SystemExit(23)
+SystemExit: 23
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/Users/sergunich/dev/repos/celery/celery/concurrency/base.py", line 39, in apply_target
+    reraise(WorkerLostError, WorkerLostError(repr(exc)),
+    ~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+            sys.exc_info()[2])
+            ^^^^^^^^^^^^^^^^^^
+  File "/Users/sergunich/dev/repos/celery/celery/exceptions.py", line 111, in reraise
+    raise value.with_traceback(tb)
+  File "/Users/sergunich/dev/repos/celery/celery/concurrency/base.py", line 30, in apply_target
+    ret = target(*args, **kwargs)
+  File "/Users/sergunich/dev/repos/celery/celery/concurrency/gevent.py", line 158, in killable_target
+    return target(*args, **kwargs)
+  File "/Users/sergunich/dev/repos/celery/celery/app/trace.py", line 798, in fast_trace_task
+    R, I, T, Rstr = tasks[task].__trace__(
+                    ~~~~~~~~~~~~~~~~~~~~~^
+        uuid, args, kwargs, request,
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "/Users/sergunich/dev/repos/celery/celery/app/trace.py", line 564, in trace_task
+    R = retval = fun(*args, **kwargs)
+                 ~~~^^^^^^^^^^^^^^^^^
+  File "/Users/sergunich/dev/repos/celery/celery/app/trace.py", line 883, in __protected_call__
+    return self.run(*args, **kwargs)
+           ~~~~~~~~^^^^^^^^^^^^^^^^^
+  File "/Users/sergunich/dev/repos/celery/.dev/policy_probe.py", line 65, in work
+    raise SystemExit(23)
+billiard.exceptions.WorkerLostError: SystemExit(23)
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "src/gevent/greenlet.py", line 912, in gevent._gevent_cgreenlet.Greenlet.run
+  File "/Users/sergunich/dev/repos/celery/celery/concurrency/gevent.py", line 24, in apply_target
+    return base.apply_target(target, args, kwargs, callback, accept_callback,
+           ~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+                             pid=getpid(), **_)
+                             ^^^^^^^^^^^^^^^^^^
+  File "/Users/sergunich/dev/repos/celery/celery/concurrency/base.py", line 42, in apply_target
+    callback(ExceptionInfo())
+    ~~~~~~~~^^^^^^^^^^^^^^^^^
+  File "/Users/sergunich/dev/repos/celery/celery/worker/request.py", line 1027, in on_success
+    failed, retval, runtime = failed__retval__runtime
+    ^^^^^^^^^^^^^^^^^^^^^^^
+TypeError: cannot unpack non-iterable ExceptionInfo object
+2026-11-14T09:46:00Z <Greenlet at 0x10a0d8360: apply_target(<function TaskPool._make_killable_target.<locals>., ('policy_probe.work', '16bf2204-bb31-4a8b-9930-95a, {}, <bound method create_request_cls.<locals>.Request., <bound method ObservedRequest.on_accepted of <Requ, <function TaskPool.__init__.<locals>.<lambda> at 0, timeout=None, timeout_callback=<bound method ObservedRequest.on_timeout of <Reque)> failed with TypeError
+
+[2026-11-14 12:46:02,515: INFO/MainProcess] Task policy_probe.ping[6065998b-350b-4e73-a810-912102718af2] received
+[2026-11-14 12:46:02,520: INFO/MainProcess] Task policy_probe.ping[6065998b-350b-4e73-a810-912102718af2] succeeded in 0.004441249882802367s: 'alive'
+
+worker: Warm shutdown (MainProcess)
+[2026-11-14 12:46:07,724: INFO/MainProcess] Restoring 1 unacknowledged message(s)

@@ -1,0 +1,11 @@
+PASS failure-solo-discard                 {'starts': 1, 'completed': 0, 'acks': 0, 'rejects': [False], 'state': 'FAILURE', 'publications': 0, 'timeouts': []} exit=0 ping=True 1.546s
+PASS soft-prefork                         {'starts': 1, 'completed': 0, 'acks': 1, 'rejects': [], 'state': 'FAILURE', 'publications': 0, 'timeouts': [True]} exit=0 ping=True 3.497s
+PASS hard-prefork-requeue                 {'starts': 2, 'completed': 1, 'acks': 1, 'rejects': [True], 'state': 'SUCCESS', 'publications': 0, 'timeouts': [False]} exit=0 ping=True 3.996s
+PASS hard-gevent-requeue                  {'starts': 2, 'completed': 1, 'acks': 1, 'rejects': [True], 'state': 'SUCCESS', 'publications': 0, 'timeouts': [False]} exit=0 ping=True 10.195s
+PASS lost-prefork-retry                   {'starts': 2, 'completed': 1, 'acks': 2, 'rejects': [], 'state': 'SUCCESS', 'publications': 1, 'timeouts': []} exit=0 ping=True 4.116s
+PASS lost-solo-whole-process              {'starts': 1, 'completed': 0, 'acks': 0, 'rejects': [], 'state': 'PENDING', 'publications': 0, 'timeouts': []} exit=23 ping=False 1.146s
+PASS system-exit-solo                     {'starts': 1, 'completed': 0, 'acks': 0, 'rejects': [], 'state': 'PENDING', 'publications': 0, 'timeouts': []} exit=1 ping=False 1.207s
+PASS system-exit-threads                  {'starts': 1, 'completed': 0, 'acks': 0, 'rejects': [], 'state': 'PENDING', 'publications': 0, 'timeouts': []} exit=0 ping=False 6.943s
+PASS system-exit-gevent                   {'starts': 1, 'completed': 0, 'acks': 0, 'rejects': [], 'state': 'PENDING', 'publications': 0, 'timeouts': []} exit=0 ping=False 9.062s
+PASS lost-solo-synthetic-retry            {'starts': 2, 'completed': 1, 'acks': 2, 'rejects': [], 'state': 'SUCCESS', 'publications': 1, 'timeouts': []} exit=0 ping=True 1.903s
+Artifacts: /Users/sergunich/dev/repos/celery/.dev/task-policy-runs/20261114T092804.466935Z

@@ -1,0 +1,34 @@
+ 
+ -------------- policy-probe@localhost v5.7.0 (collider)
+--- ***** ----- 
+-- ******* ---- macOS-15.8.1-arm64-arm-64bit-Mach-O 2026-11-14 12:38:23
+- *** --- * --- 
+- ** ---------- [config]
+- ** ---------- .> app:         shutdown_probe:0x103e1a7b0
+- ** ---------- .> transport:   redis+socket:///Users/sergunich/dev/repos/celery/.dev/shutdown-8133.sock
+- ** ---------- .> results:     socket:///Users/sergunich/dev/repos/celery/.dev/shutdown-8133.sock
+- *** --- * --- .> concurrency: 1 (prefork)
+-- ******* ---- .> task events: OFF (enable -E to monitor tasks in this worker)
+--- ***** ----- 
+ -------------- [queues]
+                .> policy-probe     exchange=policy-probe(direct) key=policy-probe
+                
+
+[tasks]
+  . policy_probe.ping
+  . policy_probe.work
+  . shutdown_probe.task
+
+[2026-11-14 12:38:23,803: INFO/MainProcess] Connected to redis+socket:///Users/sergunich/dev/repos/celery/.dev/shutdown-8133.sock
+[2026-11-14 12:38:23,808: INFO/MainProcess] policy-probe@localhost ready.
+[2026-11-14 12:38:23,822: INFO/MainProcess] Task policy_probe.work[bcadda2b-016b-4258-8a31-47e2738d292b] received
+[2026-11-14 12:38:24,039: INFO/SpawnPoolWorker-1] child process 8421 calling self.run()
+[2026-11-14 12:38:24,257: ERROR/MainProcess] Process 'SpawnPoolWorker-1' pid:8421 exited with 'exitcode 23'
+[2026-11-14 12:38:24,274: INFO/MainProcess] Task policy_probe.work[bcadda2b-016b-4258-8a31-47e2738d292b] retry: Retry in 0.35s: WorkerLostError('Worker exited prematurely: exitcode 23 Job: 0.')
+[2026-11-14 12:38:24,288: INFO/MainProcess] Task policy_probe.work[bcadda2b-016b-4258-8a31-47e2738d292b] received
+[2026-11-14 12:38:24,523: INFO/SpawnPoolWorker-2] child process 8422 calling self.run()
+[2026-11-14 12:38:25,047: INFO/SpawnPoolWorker-2] Task policy_probe.work[bcadda2b-016b-4258-8a31-47e2738d292b] succeeded in 0.42314224992878735s: 'completed'
+[2026-11-14 12:38:25,323: INFO/MainProcess] Task policy_probe.ping[4d33a4d9-9da5-49c5-b2f8-76877280e965] received
+[2026-11-14 12:38:25,325: INFO/SpawnPoolWorker-2] Task policy_probe.ping[4d33a4d9-9da5-49c5-b2f8-76877280e965] succeeded in 0.0007997499778866768s: 'alive'
+
+worker: Warm shutdown (MainProcess)

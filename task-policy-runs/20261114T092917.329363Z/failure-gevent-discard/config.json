@@ -1,0 +1,23 @@
+{
+  "name": "failure-gevent-discard",
+  "pool": "gevent",
+  "kind": "fail",
+  "ack_failure": false,
+  "ack_timeout": true,
+  "expected": {
+    "starts": 1,
+    "completed": 0,
+    "acks": 0,
+    "rejects": [
+      false
+    ],
+    "state": "FAILURE",
+    "publications": 0,
+    "timeouts": [],
+    "failure": "ValueError"
+  },
+  "broker": "redis+socket:///Users/sergunich/dev/repos/celery/.dev/shutdown-7298.sock?virtual_host=0",
+  "backend": "redis+socket:///Users/sergunich/dev/repos/celery/.dev/shutdown-7298.sock?virtual_host=1",
+  "events": "/Users/sergunich/dev/repos/celery/.dev/task-policy-runs/20261114T092917.329363Z/failure-gevent-discard/events.jsonl",
+  "queue": "policy-probe"
+}

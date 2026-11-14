@@ -1,0 +1,48 @@
+ 
+ -------------- policy-probe@localhost v5.7.0 (collider)
+--- ***** ----- 
+-- ******* ---- macOS-15.8.1-arm64-arm-64bit-Mach-O 2026-11-14 12:38:16
+- *** --- * --- 
+- ** ---------- [config]
+- ** ---------- .> app:         shutdown_probe:0x106d0a7b0
+- ** ---------- .> transport:   redis+socket:///Users/sergunich/dev/repos/celery/.dev/shutdown-8133.sock
+- ** ---------- .> results:     socket:///Users/sergunich/dev/repos/celery/.dev/shutdown-8133.sock
+- *** --- * --- .> concurrency: 1 (prefork)
+-- ******* ---- .> task events: OFF (enable -E to monitor tasks in this worker)
+--- ***** ----- 
+ -------------- [queues]
+                .> policy-probe     exchange=policy-probe(direct) key=policy-probe
+                
+
+[tasks]
+  . policy_probe.ping
+  . policy_probe.work
+  . shutdown_probe.task
+
+[2026-11-14 12:38:16,423: INFO/MainProcess] Connected to redis+socket:///Users/sergunich/dev/repos/celery/.dev/shutdown-8133.sock
+[2026-11-14 12:38:16,433: INFO/MainProcess] policy-probe@localhost ready.
+[2026-11-14 12:38:16,457: INFO/MainProcess] Task policy_probe.work[0f6ab38a-6aec-4f93-aeb5-450aa2fb5895] received
+[2026-11-14 12:38:16,717: INFO/SpawnPoolWorker-1] child process 8409 calling self.run()
+[2026-11-14 12:38:16,937: ERROR/MainProcess] Process 'SpawnPoolWorker-1' pid:8409 exited with 'exitcode 23'
+[2026-11-14 12:38:16,950: ERROR/MainProcess] Task handler raised error: WorkerLostError('Worker exited prematurely: exitcode 23 Job: 0.')
+Traceback (most recent call last):
+  File "/Users/sergunich/dev/repos/celery/.dev/.venv/lib/python3.13/site-packages/billiard/pool.py", line 1367, in mark_as_worker_lost
+    raise WorkerLostError(
+    ...<2 lines>...
+    )
+billiard.einfo.ExceptionWithTraceback: 
+"""
+Traceback (most recent call last):
+  File "/Users/sergunich/dev/repos/celery/.dev/.venv/lib/python3.13/site-packages/billiard/pool.py", line 1367, in mark_as_worker_lost
+    raise WorkerLostError(
+    ...<2 lines>...
+    )
+billiard.exceptions.WorkerLostError: Worker exited prematurely: exitcode 23 Job: 0.
+"""
+[2026-11-14 12:38:16,965: INFO/MainProcess] Task policy_probe.work[0f6ab38a-6aec-4f93-aeb5-450aa2fb5895] received
+[2026-11-14 12:38:17,201: INFO/SpawnPoolWorker-2] child process 8410 calling self.run()
+[2026-11-14 12:38:17,632: INFO/SpawnPoolWorker-2] Task policy_probe.work[0f6ab38a-6aec-4f93-aeb5-450aa2fb5895] succeeded in 0.40958579210564494s: 'completed'
+[2026-11-14 12:38:17,924: INFO/MainProcess] Task policy_probe.ping[315ce2f5-7d5c-4834-bacb-a0a77dc92eaa] received
+[2026-11-14 12:38:17,925: INFO/SpawnPoolWorker-2] Task policy_probe.ping[315ce2f5-7d5c-4834-bacb-a0a77dc92eaa] succeeded in 0.000787791796028614s: 'alive'
+
+worker: Warm shutdown (MainProcess)

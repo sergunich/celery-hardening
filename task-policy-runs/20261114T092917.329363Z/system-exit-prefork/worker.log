@@ -1,0 +1,33 @@
+ 
+ -------------- policy-probe@localhost v5.7.0 (collider)
+--- ***** ----- 
+-- ******* ---- macOS-15.8.1-arm64-arm-64bit-Mach-O 2026-11-14 12:31:35
+- *** --- * --- 
+- ** ---------- [config]
+- ** ---------- .> app:         shutdown_probe:0x10754e7b0
+- ** ---------- .> transport:   redis+socket:///Users/sergunich/dev/repos/celery/.dev/shutdown-7298.sock
+- ** ---------- .> results:     socket:///Users/sergunich/dev/repos/celery/.dev/shutdown-7298.sock
+- *** --- * --- .> concurrency: 1 (prefork)
+-- ******* ---- .> task events: OFF (enable -E to monitor tasks in this worker)
+--- ***** ----- 
+ -------------- [queues]
+                .> policy-probe     exchange=policy-probe(direct) key=policy-probe
+                
+
+[tasks]
+  . policy_probe.ping
+  . policy_probe.work
+  . shutdown_probe.task
+
+[2026-11-14 12:31:35,372: INFO/MainProcess] Connected to redis+socket:///Users/sergunich/dev/repos/celery/.dev/shutdown-7298.sock
+[2026-11-14 12:31:35,377: INFO/MainProcess] policy-probe@localhost ready.
+[2026-11-14 12:31:35,386: INFO/MainProcess] Task policy_probe.work[5634f612-5f4f-441c-be6e-dbf9c3d8b059] received
+[2026-11-14 12:31:35,614: INFO/SpawnPoolWorker-1] child process 7615 calling self.run()
+[2026-11-14 12:31:35,846: INFO/MainProcess] Task policy_probe.work[5634f612-5f4f-441c-be6e-dbf9c3d8b059] retry: Retry in 0.35s: WorkerLostError('Worker exited prematurely: exitcode 23.')
+[2026-11-14 12:31:35,847: INFO/MainProcess] Task policy_probe.work[5634f612-5f4f-441c-be6e-dbf9c3d8b059] received
+[2026-11-14 12:31:36,232: INFO/SpawnPoolWorker-2] child process 7625 calling self.run()
+[2026-11-14 12:31:36,657: INFO/SpawnPoolWorker-2] Task policy_probe.work[5634f612-5f4f-441c-be6e-dbf9c3d8b059] succeeded in 0.4057204579003155s: 'completed'
+[2026-11-14 12:31:36,935: INFO/MainProcess] Task policy_probe.ping[a8216953-41be-4f6c-8da5-fc173abe582f] received
+[2026-11-14 12:31:36,937: INFO/SpawnPoolWorker-2] Task policy_probe.ping[a8216953-41be-4f6c-8da5-fc173abe582f] succeeded in 0.00090020801872015s: 'alive'
+
+worker: Warm shutdown (MainProcess)

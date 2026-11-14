@@ -1,0 +1,25 @@
+{
+  "name": "lost-prefork-exhausted-discard",
+  "pool": "prefork",
+  "kind": "lost",
+  "always_fail": true,
+  "reject_lost": true,
+  "retry_lost": true,
+  "ack_failure": false,
+  "expected": {
+    "starts": 2,
+    "completed": 0,
+    "acks": 1,
+    "rejects": [
+      false
+    ],
+    "state": "FAILURE",
+    "publications": 1,
+    "timeouts": [],
+    "failure": "WorkerLostError"
+  },
+  "broker": "redis+socket:///Users/sergunich/dev/repos/celery/.dev/shutdown-8874.sock?virtual_host=0",
+  "backend": "redis+socket:///Users/sergunich/dev/repos/celery/.dev/shutdown-8874.sock?virtual_host=1",
+  "events": "/Users/sergunich/dev/repos/celery/.dev/task-policy-runs/20261114T094306.436639Z/lost-prefork-exhausted-discard/events.jsonl",
+  "queue": "policy-probe"
+}

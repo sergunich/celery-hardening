@@ -1,0 +1,33 @@
+ 
+ -------------- policy-probe@localhost v5.7.0 (collider)
+--- ***** ----- 
+-- ******* ---- macOS-15.8.1-arm64-arm-64bit-Mach-O 2026-11-14 12:37:20
+- *** --- * --- 
+- ** ---------- [config]
+- ** ---------- .> app:         shutdown_probe:0x1062c27b0
+- ** ---------- .> transport:   redis+socket:///Users/sergunich/dev/repos/celery/.dev/shutdown-8133.sock
+- ** ---------- .> results:     socket:///Users/sergunich/dev/repos/celery/.dev/shutdown-8133.sock
+- *** --- * --- .> concurrency: 1 (prefork)
+-- ******* ---- .> task events: OFF (enable -E to monitor tasks in this worker)
+--- ***** ----- 
+ -------------- [queues]
+                .> policy-probe     exchange=policy-probe(direct) key=policy-probe
+                
+
+[tasks]
+  . policy_probe.ping
+  . policy_probe.work
+  . shutdown_probe.task
+
+[2026-11-14 12:37:20,756: INFO/MainProcess] Connected to redis+socket:///Users/sergunich/dev/repos/celery/.dev/shutdown-8133.sock
+[2026-11-14 12:37:20,762: INFO/MainProcess] policy-probe@localhost ready.
+[2026-11-14 12:37:20,765: INFO/MainProcess] Task policy_probe.work[980f65a6-7d17-4aec-a45b-8c6f6bd22285] received
+[2026-11-14 12:37:20,992: INFO/SpawnPoolWorker-1] child process 8314 calling self.run()
+[2026-11-14 12:37:21,364: WARNING/MainProcess] Soft time limit (0.35s) exceeded for policy_probe.work[980f65a6-7d17-4aec-a45b-8c6f6bd22285]
+[2026-11-14 12:37:21,377: INFO/SpawnPoolWorker-1] Task policy_probe.work[980f65a6-7d17-4aec-a45b-8c6f6bd22285] retry: Retry in 0.35s: SoftTimeLimitExceeded()
+[2026-11-14 12:37:21,380: INFO/MainProcess] Task policy_probe.work[980f65a6-7d17-4aec-a45b-8c6f6bd22285] received
+[2026-11-14 12:37:21,931: INFO/SpawnPoolWorker-1] Task policy_probe.work[980f65a6-7d17-4aec-a45b-8c6f6bd22285] succeeded in 0.21251987502910197s: 'completed'
+[2026-11-14 12:37:22,200: INFO/MainProcess] Task policy_probe.ping[9c51c8d1-8459-428f-a141-208d0b3aa253] received
+[2026-11-14 12:37:22,202: INFO/SpawnPoolWorker-1] Task policy_probe.ping[9c51c8d1-8459-428f-a141-208d0b3aa253] succeeded in 0.0010692079085856676s: 'alive'
+
+worker: Warm shutdown (MainProcess)

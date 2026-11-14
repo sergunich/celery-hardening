@@ -1,0 +1,50 @@
+ 
+ -------------- policy-probe@localhost v5.7.0 (collider)
+--- ***** ----- 
+-- ******* ---- macOS-15.8.1-arm64-arm-64bit-Mach-O 2026-11-14 12:31:25
+- *** --- * --- 
+- ** ---------- [config]
+- ** ---------- .> app:         shutdown_probe:0x1071ca7b0
+- ** ---------- .> transport:   redis+socket:///Users/sergunich/dev/repos/celery/.dev/shutdown-7298.sock
+- ** ---------- .> results:     socket:///Users/sergunich/dev/repos/celery/.dev/shutdown-7298.sock
+- *** --- * --- .> concurrency: 1 (prefork)
+-- ******* ---- .> task events: OFF (enable -E to monitor tasks in this worker)
+--- ***** ----- 
+ -------------- [queues]
+                .> policy-probe     exchange=policy-probe(direct) key=policy-probe
+                
+
+[tasks]
+  . policy_probe.ping
+  . policy_probe.work
+  . shutdown_probe.task
+
+[2026-11-14 12:31:25,277: INFO/MainProcess] Connected to redis+socket:///Users/sergunich/dev/repos/celery/.dev/shutdown-7298.sock
+[2026-11-14 12:31:25,282: INFO/MainProcess] policy-probe@localhost ready.
+[2026-11-14 12:31:25,294: INFO/MainProcess] Task policy_probe.work[e31a8a06-72b8-40b3-808e-a0f6d8341a41] received
+[2026-11-14 12:31:25,516: INFO/SpawnPoolWorker-1] child process 7595 calling self.run()
+[2026-11-14 12:31:25,744: ERROR/MainProcess] Process 'SpawnPoolWorker-1' pid:7595 exited with 'exitcode 23'
+[2026-11-14 12:31:25,759: INFO/MainProcess] Task policy_probe.work[e31a8a06-72b8-40b3-808e-a0f6d8341a41] retry: Retry in 0.35s: WorkerLostError('Worker exited prematurely: exitcode 23 Job: 0.')
+[2026-11-14 12:31:25,774: INFO/MainProcess] Task policy_probe.work[e31a8a06-72b8-40b3-808e-a0f6d8341a41] received
+[2026-11-14 12:31:26,015: INFO/SpawnPoolWorker-2] child process 7596 calling self.run()
+[2026-11-14 12:31:26,314: ERROR/MainProcess] Process 'SpawnPoolWorker-2' pid:7596 exited with 'exitcode 23'
+[2026-11-14 12:31:26,326: ERROR/MainProcess] Task handler raised error: WorkerLostError('Worker exited prematurely: exitcode 23 Job: 1.')
+Traceback (most recent call last):
+  File "/Users/sergunich/dev/repos/celery/.dev/.venv/lib/python3.13/site-packages/billiard/pool.py", line 1367, in mark_as_worker_lost
+    raise WorkerLostError(
+    ...<2 lines>...
+    )
+billiard.einfo.ExceptionWithTraceback: 
+"""
+Traceback (most recent call last):
+  File "/Users/sergunich/dev/repos/celery/.dev/.venv/lib/python3.13/site-packages/billiard/pool.py", line 1367, in mark_as_worker_lost
+    raise WorkerLostError(
+    ...<2 lines>...
+    )
+billiard.exceptions.WorkerLostError: Worker exited prematurely: exitcode 23 Job: 1.
+"""
+[2026-11-14 12:31:26,586: INFO/SpawnPoolWorker-3] child process 7597 calling self.run()
+[2026-11-14 12:31:26,597: INFO/MainProcess] Task policy_probe.ping[68f8269d-4f79-42c7-beb5-74c220835966] received
+
+worker: Warm shutdown (MainProcess)
+[2026-11-14 12:31:26,810: INFO/SpawnPoolWorker-3] Task policy_probe.ping[68f8269d-4f79-42c7-beb5-74c220835966] succeeded in 0.20466204197145998s: 'alive'

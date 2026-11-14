@@ -1,0 +1,41 @@
+ 
+ -------------- policy-probe@localhost v5.7.0 (collider)
+--- ***** ----- 
+-- ******* ---- macOS-15.8.1-arm64-arm-64bit-Mach-O 2026-11-14 12:31:55
+- *** --- * --- 
+- ** ---------- [config]
+- ** ---------- .> app:         shutdown_probe:0x102dce3c0
+- ** ---------- .> transport:   redis+socket:///Users/sergunich/dev/repos/celery/.dev/shutdown-7298.sock
+- ** ---------- .> results:     socket:///Users/sergunich/dev/repos/celery/.dev/shutdown-7298.sock
+- *** --- * --- .> concurrency: 1 (solo)
+-- ******* ---- .> task events: OFF (enable -E to monitor tasks in this worker)
+--- ***** ----- 
+ -------------- [queues]
+                .> policy-probe     exchange=policy-probe(direct) key=policy-probe
+                
+
+[tasks]
+  . policy_probe.ping
+  . policy_probe.work
+  . shutdown_probe.task
+
+[2026-11-14 12:31:55,583: INFO/MainProcess] Connected to redis+socket:///Users/sergunich/dev/repos/celery/.dev/shutdown-7298.sock
+[2026-11-14 12:31:55,587: INFO/MainProcess] policy-probe@localhost ready.
+[2026-11-14 12:31:55,608: INFO/MainProcess] Task policy_probe.work[96265de4-1982-421e-9867-33d463ba86dc] received
+[2026-11-14 12:31:55,610: ERROR/MainProcess] Task policy_probe.work[96265de4-1982-421e-9867-33d463ba86dc] raised unexpected: WorkerLostError('synthetic task exception; no process died')
+Traceback (most recent call last):
+  File "/Users/sergunich/dev/repos/celery/celery/app/trace.py", line 564, in trace_task
+    R = retval = fun(*args, **kwargs)
+                 ~~~^^^^^^^^^^^^^^^^^
+  File "/Users/sergunich/dev/repos/celery/celery/app/trace.py", line 883, in __protected_call__
+    return self.run(*args, **kwargs)
+           ~~~~~~~~^^^^^^^^^^^^^^^^^
+  File "/Users/sergunich/dev/repos/celery/.dev/policy_probe.py", line 66, in work
+    raise WorkerLostError("synthetic task exception; no process died")
+billiard.exceptions.WorkerLostError: synthetic task exception; no process died
+[2026-11-14 12:31:55,611: INFO/MainProcess] Task policy_probe.work[96265de4-1982-421e-9867-33d463ba86dc] received
+[2026-11-14 12:31:55,817: INFO/MainProcess] Task policy_probe.work[96265de4-1982-421e-9867-33d463ba86dc] succeeded in 0.20567458402365446s: 'completed'
+[2026-11-14 12:31:56,089: INFO/MainProcess] Task policy_probe.ping[fabf8db8-3f61-445f-b492-bc8d4e1e7c6d] received
+[2026-11-14 12:31:56,090: INFO/MainProcess] Task policy_probe.ping[fabf8db8-3f61-445f-b492-bc8d4e1e7c6d] succeeded in 0.0006338749080896378s: 'alive'
+
+worker: Warm shutdown (MainProcess)

@@ -1,0 +1,21 @@
+{
+  "name": "lost-prefork-retry",
+  "pool": "prefork",
+  "kind": "lost",
+  "reject_lost": true,
+  "retry_lost": true,
+  "expected": {
+    "starts": 2,
+    "completed": 1,
+    "acks": 2,
+    "rejects": [],
+    "state": "SUCCESS",
+    "publications": 1,
+    "timeouts": [],
+    "failure": "WorkerLostError"
+  },
+  "broker": "redis+socket:///Users/sergunich/dev/repos/celery/.dev/shutdown-7298.sock?virtual_host=0",
+  "backend": "redis+socket:///Users/sergunich/dev/repos/celery/.dev/shutdown-7298.sock?virtual_host=1",
+  "events": "/Users/sergunich/dev/repos/celery/.dev/task-policy-runs/20261114T092917.329363Z/lost-prefork-retry/events.jsonl",
+  "queue": "policy-probe"
+}
