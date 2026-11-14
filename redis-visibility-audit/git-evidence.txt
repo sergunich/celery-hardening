@@ -1,0 +1,643 @@
+$ git blame -L 330,347 -- docs/getting-started/backends-and-brokers/redis.rst
+2b4b500ca1 docs/getting-started/backends-and-brokers/redis.rst (Norbert Cyran 2023-02-17 18:34:41 +0100 330) Broker is not a database, so if you are in need of scheduling tasks for
+2b4b500ca1 docs/getting-started/backends-and-brokers/redis.rst (Norbert Cyran 2023-02-17 18:34:41 +0100 331) a more distant future, database-backed periodic task might be a better choice.
+6027e445ec docs/getting-started/brokers/redis.rst              (Ask Solem     2016-07-29 17:56:16 -0700 332) Periodic tasks won't be affected by the visibility timeout,
+09058a175e docs/getting-started/brokers/redis.rst              (Ask Solem     2016-07-19 11:12:23 -0400 333) as this is a concept separate from ETA/countdown.
+09058a175e docs/getting-started/brokers/redis.rst              (Ask Solem     2016-07-19 11:12:23 -0400 334) 
+235368ceb2 docs/getting-started/backends-and-brokers/redis.rst (Kyle Zurawski 2024-09-13 10:10:42 -0400 335) You can increase this timeout by configuring all of the following options
+235368ceb2 docs/getting-started/backends-and-brokers/redis.rst (Kyle Zurawski 2024-09-13 10:10:42 -0400 336) with the same name (required to set all of them):
+09058a175e docs/getting-started/brokers/redis.rst              (Ask Solem     2016-07-19 11:12:23 -0400 337) 
+09058a175e docs/getting-started/brokers/redis.rst              (Ask Solem     2016-07-19 11:12:23 -0400 338) .. code-block:: python
+09058a175e docs/getting-started/brokers/redis.rst              (Ask Solem     2016-07-19 11:12:23 -0400 339) 
+09058a175e docs/getting-started/brokers/redis.rst              (Ask Solem     2016-07-19 11:12:23 -0400 340)     app.conf.broker_transport_options = {'visibility_timeout': 43200}
+8ae0b22959 docs/getting-started/backends-and-brokers/redis.rst (rainnnnny     2023-08-22 17:41:15 +0800 341)     app.conf.result_backend_transport_options = {'visibility_timeout': 43200}
+8ae0b22959 docs/getting-started/backends-and-brokers/redis.rst (rainnnnny     2023-08-22 17:41:15 +0800 342)     app.conf.visibility_timeout = 43200
+09058a175e docs/getting-started/brokers/redis.rst              (Ask Solem     2016-07-19 11:12:23 -0400 343) 
+09058a175e docs/getting-started/brokers/redis.rst              (Ask Solem     2016-07-19 11:12:23 -0400 344) The value must be an int describing the number of seconds.
+09058a175e docs/getting-started/brokers/redis.rst              (Ask Solem     2016-07-19 11:12:23 -0400 345) 
+235368ceb2 docs/getting-started/backends-and-brokers/redis.rst (Kyle Zurawski 2024-09-13 10:10:42 -0400 346) Note: If multiple applications are sharing the same Broker, with different settings, the _shortest_ value will be used.
+235368ceb2 docs/getting-started/backends-and-brokers/redis.rst (Kyle Zurawski 2024-09-13 10:10:42 -0400 347) This include if the value is not set, and the default is sent
+
+[exit 0]
+
+$ git blame -L 976,994 -- docs/userguide/configuration.rst
+7d52b0bddf (Geoffrey Bauduin 2017-10-08 12:58:36 +0200 976) .. setting:: result_backend_transport_options
+7d52b0bddf (Geoffrey Bauduin 2017-10-08 12:58:36 +0200 977) 
+7d52b0bddf (Geoffrey Bauduin 2017-10-08 12:58:36 +0200 978) ``result_backend_transport_options``
+7d52b0bddf (Geoffrey Bauduin 2017-10-08 12:58:36 +0200 979) ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+7d52b0bddf (Geoffrey Bauduin 2017-10-08 12:58:36 +0200 980) 
+7d52b0bddf (Geoffrey Bauduin 2017-10-08 12:58:36 +0200 981) Default: ``{}`` (empty mapping).
+7d52b0bddf (Geoffrey Bauduin 2017-10-08 12:58:36 +0200 982) 
+7d52b0bddf (Geoffrey Bauduin 2017-10-08 12:58:36 +0200 983) A dict of additional options passed to the underlying transport.
+7d52b0bddf (Geoffrey Bauduin 2017-10-08 12:58:36 +0200 984) 
+7d52b0bddf (Geoffrey Bauduin 2017-10-08 12:58:36 +0200 985) See your transport user manual for supported options (if any).
+7d52b0bddf (Geoffrey Bauduin 2017-10-08 12:58:36 +0200 986) 
+7d52b0bddf (Geoffrey Bauduin 2017-10-08 12:58:36 +0200 987) Example setting the visibility timeout (supported by Redis and SQS
+7d52b0bddf (Geoffrey Bauduin 2017-10-08 12:58:36 +0200 988) transports):
+7d52b0bddf (Geoffrey Bauduin 2017-10-08 12:58:36 +0200 989) 
+7d52b0bddf (Geoffrey Bauduin 2017-10-08 12:58:36 +0200 990) .. code-block:: python
+7d52b0bddf (Geoffrey Bauduin 2017-10-08 12:58:36 +0200 991) 
+7d52b0bddf (Geoffrey Bauduin 2017-10-08 12:58:36 +0200 992)     result_backend_transport_options = {'visibility_timeout': 18000}  # 5 hours
+7d52b0bddf (Geoffrey Bauduin 2017-10-08 12:58:36 +0200 993) 
+7d52b0bddf (Geoffrey Bauduin 2017-10-08 12:58:36 +0200 994) 
+
+[exit 0]
+
+$ git show --format=fuller 8ae0b22959 --
+commit 8ae0b229596cc8aeea4fb71020d9358a59338e08
+Author:     rainnnnny <rainnnnny@sina.com>
+AuthorDate: Tue Aug 22 17:41:15 2023 +0800
+Commit:     Asif Saif Uddin <auvipy@gmail.com>
+CommitDate: Tue Aug 22 18:46:33 2023 +0600
+
+    doc update from #7651
+
+diff --git a/docs/getting-started/backends-and-brokers/redis.rst b/docs/getting-started/backends-and-brokers/redis.rst
+index e7760762c..1924cb5db 100644
+--- a/docs/getting-started/backends-and-brokers/redis.rst
++++ b/docs/getting-started/backends-and-brokers/redis.rst
+@@ -164,12 +164,14 @@ a more distant future, database-backed periodic task might be a better choice.
+ Periodic tasks won't be affected by the visibility timeout,
+ as this is a concept separate from ETA/countdown.
+ 
+-You can increase this timeout by configuring a transport option
++You can increase this timeout by configuring several options
+ with the same name:
+ 
+ .. code-block:: python
+ 
+     app.conf.broker_transport_options = {'visibility_timeout': 43200}
++    app.conf.result_backend_transport_options = {'visibility_timeout': 43200}
++    app.conf.visibility_timeout = 43200
+ 
+ The value must be an int describing the number of seconds.
+ 
+
+[exit 0]
+
+$ git show --format=fuller 235368ceb2 --
+commit 235368ceb2416fb0484b41d14484622a1c39fc24
+Author:     Kyle Zurawski <39493372+kylez-ithaka@users.noreply.github.com>
+AuthorDate: Fri Sep 13 10:10:42 2024 -0400
+Commit:     GitHub <noreply@github.com>
+CommitDate: Fri Sep 13 17:10:42 2024 +0300
+
+    Improve documentation on visibility timeout (#9264)
+    
+    Need to set ALL the values (not clear in documentation still) for it to take effect, and conflicts between apps cause issues
+    
+    Per https://github.com/celery/celery/issues/7651 and https://github.com/celery/celery/issues/5935
+
+diff --git a/docs/getting-started/backends-and-brokers/redis.rst b/docs/getting-started/backends-and-brokers/redis.rst
+index 7b658f5d9..997431b89 100644
+--- a/docs/getting-started/backends-and-brokers/redis.rst
++++ b/docs/getting-started/backends-and-brokers/redis.rst
+@@ -188,8 +188,8 @@ a more distant future, database-backed periodic task might be a better choice.
+ Periodic tasks won't be affected by the visibility timeout,
+ as this is a concept separate from ETA/countdown.
+ 
+-You can increase this timeout by configuring several options
+-with the same name:
++You can increase this timeout by configuring all of the following options
++with the same name (required to set all of them):
+ 
+ .. code-block:: python
+ 
+@@ -199,6 +199,9 @@ with the same name:
+ 
+ The value must be an int describing the number of seconds.
+ 
++Note: If multiple applications are sharing the same Broker, with different settings, the _shortest_ value will be used.
++This include if the value is not set, and the default is sent
++
+ Soft Shutdown
+ -------------
+ 
+
+[exit 0]
+
+$ git show --format=fuller ddf2ae124 --
+commit ddf2ae124ae0b19ee0255ae3f84339a3d72b0d98
+Author:     Tomer Nosrati <tomer.nosrati@gmail.com>
+AuthorDate: Sun Sep 15 04:44:53 2024 +0300
+Commit:     GitHub <noreply@github.com>
+CommitDate: Sun Sep 15 04:44:53 2024 +0300
+
+    Added missing "app.conf.visibility_timeout" in smoke tests (#9266)
+
+diff --git a/t/smoke/tests/test_consumer.py b/t/smoke/tests/test_consumer.py
+index 0c6e9372d..415161302 100644
+--- a/t/smoke/tests/test_consumer.py
++++ b/t/smoke/tests/test_consumer.py
+@@ -25,6 +25,7 @@ def default_worker_app(default_worker_app: Celery) -> Celery:
+             "visibility_timeout": 1,
+             "polling_interval": 1,
+         }
++    app.conf.visibility_timeout = 1
+     return app
+ 
+ 
+diff --git a/t/smoke/tests/test_worker.py b/t/smoke/tests/test_worker.py
+index 6b7892a24..420dad973 100644
+--- a/t/smoke/tests/test_worker.py
++++ b/t/smoke/tests/test_worker.py
+@@ -276,6 +276,8 @@ class test_worker_shutdown(SuiteOperations):
+                     "visibility_timeout": 3600,  # 1 hour
+                     "polling_interval": 1,
+                 }
++                app.conf.result_backend_transport_options = {'visibility_timeout': 3600}
++                app.conf.visibility_timeout = 3600
+                 return app
+ 
+             def test_soft_shutdown_reset_visibility_timeout(self, celery_setup: CeleryTestSetup):
+
+[exit 0]
+
+$ git show --format=fuller 7d52b0bddf --
+commit 7d52b0bddfcac369acc750c532c2bb08012721a5
+Author:     Geoffrey Bauduin <bauduin.geo@gmail.com>
+AuthorDate: Sun Oct 8 12:58:36 2017 +0200
+Commit:     Omer Katz <omer.drow@gmail.com>
+CommitDate: Sun Oct 8 13:58:36 2017 +0300
+
+    Adding redis sentinel backend (#4144)
+    
+    * Adding redis sentinel backend
+    
+    Signed-off-by: Geoffrey Bauduin <geoffrey.bauduin@corp.ovh.com>
+    
+    * Addressed flake8 issues
+    
+    Signed-off-by: Geoffrey Bauduin <geoffrey.bauduin@corp.ovh.com>
+    
+    * Updating pydoc style to match requirements
+    
+    Signed-off-by: Geoffrey Bauduin <geoffrey.bauduin@corp.ovh.com>
+    
+    * Fixing unit tests on Appveyor by setting up a fake sentinel module inside the SentinelBackend class
+    
+    Signed-off-by: Geoffrey Bauduin <geoffrey.bauduin@corp.ovh.com>
+    
+    * Redefining the fake Sentinel class to use correct parameters when calling 'master_for'
+    
+    Signed-off-by: Geoffrey Bauduin <geoffrey.bauduin@corp.ovh.com>
+    
+    * Updated configuration name, 'result_backend_transpoirt_options'
+    
+    Signed-off-by: Geoffrey Bauduin <geoffrey.bauduin@corp.ovh.com>
+    
+    * Added documentation for the feature
+    
+    Signed-off-by: Geoffrey Bauduin <geoffrey.bauduin@corp.ovh.com>
+    
+    * Make sure the database/password parameters are forwarded to the StrictRedis class while instantiating a Sentinel
+    
+    Signed-off-by: Geoffrey Bauduin <geoffrey.bauduin@corp.ovh.com>
+    
+    * Database/password parameters should be sent as connection_kwargs to the Sentinel class, to be used when connection to redis is created
+    
+    Signed-off-by: Geoffrey Bauduin <geoffrey.bauduin@corp.ovh.com>
+    
+    * Fixing flake8 issues
+    
+    Signed-off-by: Geoffrey Bauduin <geoffrey.bauduin@corp.ovh.com>
+    
+    * Addressing configcheck issues
+    
+    Signed-off-by: Geoffrey Bauduin <geoffrey.bauduin@corp.ovh.com>
+    
+    * Add docstring to SentinelBackend.
+    
+    * Fix flake8 error.
+
+diff --git a/celery/app/backends.py b/celery/app/backends.py
+index fbfb61cc5..dfe0d505e 100644
+--- a/celery/app/backends.py
++++ b/celery/app/backends.py
+@@ -19,6 +19,7 @@ BACKEND_ALIASES = {
+     'rpc': 'celery.backends.rpc.RPCBackend',
+     'cache': 'celery.backends.cache:CacheBackend',
+     'redis': 'celery.backends.redis:RedisBackend',
++    'sentinel': 'celery.backends.redis:SentinelBackend',
+     'mongodb': 'celery.backends.mongodb:MongoBackend',
+     'db': 'celery.backends.database:DatabaseBackend',
+     'database': 'celery.backends.database:DatabaseBackend',
+diff --git a/celery/app/defaults.py b/celery/app/defaults.py
+index ccbf524fa..e10135aab 100644
+--- a/celery/app/defaults.py
++++ b/celery/app/defaults.py
+@@ -179,6 +179,7 @@ NAMESPACES = Namespace(
+         ),
+         persistent=Option(None, type='bool'),
+         serializer=Option('json'),
++        backend_transport_options=Option({}, type='dict'),
+     ),
+     elasticsearch=Namespace(
+         __old__=old_ns('celery_elasticsearch'),
+diff --git a/celery/backends/redis.py b/celery/backends/redis.py
+index 17faec9fd..3ead2b205 100644
+--- a/celery/backends/redis.py
++++ b/celery/backends/redis.py
+@@ -24,24 +24,33 @@ from . import base
+ try:
+     import redis
+     from kombu.transport.redis import get_redis_error_classes
+-except ImportError:                 # pragma: no cover
+-    redis = None                    # noqa
++except ImportError:  # pragma: no cover
++    redis = None  # noqa
+     get_redis_error_classes = None  # noqa
+ 
+-__all__ = ('RedisBackend',)
++try:
++    from redis import sentinel
++except ImportError:
++    sentinel = None
++
++__all__ = ('RedisBackend', 'SentinelBackend')
+ 
+ E_REDIS_MISSING = """
+ You need to install the redis library in order to use \
+ the Redis result store backend.
+ """
+ 
++E_REDIS_SENTINEL_MISSING = """
++You need to install the redis library with support of \
++sentinel in order to use the Redis result store backend.
++"""
++
+ E_LOST = 'Connection to Redis lost: Retry (%s/%s) %s.'
+ 
+ logger = get_logger(__name__)
+ 
+ 
+ class ResultConsumer(async.BaseResultConsumer):
+-
+     _pubsub = None
+ 
+     def __init__(self, *args, **kwargs):
+@@ -265,12 +274,12 @@ class RedisBackend(base.BaseKeyValueStoreBackend, async.AsyncBackendMixin):
+         tkey = self.get_key_for_group(gid, '.t')
+         result = self.encode_result(result, state)
+         with client.pipeline() as pipe:
+-            _, readycount, totaldiff, _, _ = pipe                           \
+-                .rpush(jkey, self.encode([1, tid, state, result]))          \
+-                .llen(jkey)                                                 \
+-                .get(tkey)                                                  \
+-                .expire(jkey, self.expires)                                 \
+-                .expire(tkey, self.expires)                                 \
++            _, readycount, totaldiff, _, _ = pipe \
++                .rpush(jkey, self.encode([1, tid, state, result])) \
++                .llen(jkey) \
++                .get(tkey) \
++                .expire(jkey, self.expires) \
++                .expire(tkey, self.expires) \
+                 .execute()
+ 
+         totaldiff = int(totaldiff or 0)
+@@ -281,10 +290,10 @@ class RedisBackend(base.BaseKeyValueStoreBackend, async.AsyncBackendMixin):
+             if readycount == total:
+                 decode, unpack = self.decode, self._unpack_chord_result
+                 with client.pipeline() as pipe:
+-                    resl, _, _ = pipe               \
+-                        .lrange(jkey, 0, total)     \
+-                        .delete(jkey)               \
+-                        .delete(tkey)               \
++                    resl, _, _ = pipe \
++                        .lrange(jkey, 0, total) \
++                        .delete(jkey) \
++                        .delete(tkey) \
+                         .execute()
+                 try:
+                     callback.delay([unpack(tup, decode) for tup in resl])
+@@ -306,10 +315,16 @@ class RedisBackend(base.BaseKeyValueStoreBackend, async.AsyncBackendMixin):
+             )
+ 
+     def _create_client(self, **params):
+-        return self.redis.StrictRedis(
+-            connection_pool=self.ConnectionPool(**params),
++        return self._get_client()(
++            connection_pool=self._get_pool(**params),
+         )
+ 
++    def _get_client(self):
++        return self.redis.StrictRedis
++
++    def _get_pool(self, **params):
++        return self.ConnectionPool(**params)
++
+     @property
+     def ConnectionPool(self):
+         if self._ConnectionPool is None:
+@@ -340,3 +355,63 @@ class RedisBackend(base.BaseKeyValueStoreBackend, async.AsyncBackendMixin):
+     @deprecated.Property(4.0, 5.0)
+     def password(self):
+         return self.connparams['password']
++
++
++class SentinelBackend(RedisBackend):
++    """Redis sentinel task result store."""
++
++    sentinel = sentinel
++
++    def __init__(self, *args, **kwargs):
++        if self.sentinel is None:
++            raise ImproperlyConfigured(E_REDIS_SENTINEL_MISSING.strip())
++
++        super(SentinelBackend, self).__init__(*args, **kwargs)
++
++    def _params_from_url(self, url, defaults):
++        # URL looks like sentinel://0.0.0.0:26347/3;sentinel://0.0.0.0:26348/3.
++        chunks = url.split(";")
++        connparams = dict(defaults, hosts=[])
++        for chunk in chunks:
++            data = super(SentinelBackend, self)._params_from_url(
++                url=chunk, defaults=defaults)
++            connparams['hosts'].append(data)
++        for p in ("host", "port", "db", "password"):
++            connparams.pop(p)
++
++        # Adding db/password in connparams to connect to the correct instance
++        for p in ("db", "password"):
++            if connparams['hosts'] and p in connparams['hosts'][0]:
++                connparams[p] = connparams['hosts'][0].get(p)
++        return connparams
++
++    def _get_sentinel_instance(self, **params):
++        connparams = params.copy()
++
++        hosts = connparams.pop("hosts")
++        result_backend_transport_opts = self.app.conf.get(
++            "result_backend_transport_options", {})
++        min_other_sentinels = result_backend_transport_opts.get(
++            "min_other_sentinels", 0)
++        sentinel_kwargs = result_backend_transport_opts.get(
++            "sentinel_kwargs", {})
++
++        sentinel_instance = self.sentinel.Sentinel(
++            [(cp['host'], cp['port']) for cp in hosts],
++            min_other_sentinels=min_other_sentinels,
++            sentinel_kwargs=sentinel_kwargs,
++            **connparams)
++
++        return sentinel_instance
++
++    def _get_pool(self, **params):
++        sentinel_instance = self._get_sentinel_instance(**params)
++
++        result_backend_transport_opts = self.app.conf.get(
++            "result_backend_transport_options", {})
++        master_name = result_backend_transport_opts.get("master_name", None)
++
++        return sentinel_instance.master_for(
++            service_name=master_name,
++            redis_class=self._get_client(),
++        ).connection_pool
+diff --git a/docs/getting-started/brokers/redis.rst b/docs/getting-started/brokers/redis.rst
+index 991f1036c..343d99f3a 100644
+--- a/docs/getting-started/brokers/redis.rst
++++ b/docs/getting-started/brokers/redis.rst
+@@ -86,9 +86,14 @@ you should configure these settings::
+     app.conf.result_backend = 'redis://localhost:6379/0'
+ 
+ For a complete list of options supported by the Redis result backend, see
+-:ref:`conf-redis-result-backend`
++:ref:`conf-redis-result-backend`.
++
++If you are using Sentinel, you should specify the master_name using the :setting:`result_backend_transport_options` setting:
++
++.. code-block:: python
++
++    app.conf.result_backend_transport_options = {'master_name': "mymaster"}
+ 
+-*Note that sentinel is not a supported backend*
+ 
+ .. _redis-caveats:
+ 
+diff --git a/docs/userguide/configuration.rst b/docs/userguide/configuration.rst
+index 94d25148f..b516ee359 100644
+--- a/docs/userguide/configuration.rst
++++ b/docs/userguide/configuration.rst
+@@ -593,6 +593,27 @@ Can be one of the following:
+ .. _`Couchbase`: https://www.couchbase.com/
+ .. _`Consul`: https://consul.io/
+ 
++
++.. setting:: result_backend_transport_options
++
++``result_backend_transport_options``
++~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
++
++Default: ``{}`` (empty mapping).
++
++A dict of additional options passed to the underlying transport.
++
++See your transport user manual for supported options (if any).
++
++Example setting the visibility timeout (supported by Redis and SQS
++transports):
++
++.. code-block:: python
++
++    result_backend_transport_options = {'visibility_timeout': 18000}  # 5 hours
++
++
++
+ .. setting:: result_serializer
+ 
+ ``result_serializer``
+diff --git a/t/unit/backends/test_redis.py b/t/unit/backends/test_redis.py
+index 233217868..f5863944e 100644
+--- a/t/unit/backends/test_redis.py
++++ b/t/unit/backends/test_redis.py
+@@ -1,6 +1,7 @@
+ from __future__ import absolute_import, unicode_literals
+ import pytest
+ import ssl
++import random
+ from datetime import timedelta
+ from contextlib import contextmanager
+ from pickle import loads, dumps
+@@ -16,10 +17,10 @@ from celery.utils.collections import AttributeDict
+ 
+ 
+ def raise_on_second_call(mock, exc, *retval):
+-
+     def on_first_call(*args, **kwargs):
+         mock.side_effect = exc
+         return mock.return_value
++
+     mock.side_effect = on_first_call
+     if retval:
+         mock.return_value, = retval
+@@ -33,16 +34,15 @@ class Connection(object):
+ 
+ 
+ class Pipeline(object):
+-
+     def __init__(self, client):
+         self.client = client
+         self.steps = []
+ 
+     def __getattr__(self, attr):
+-
+         def add_step(*args, **kwargs):
+             self.steps.append((getattr(self.client, attr), args, kwargs))
+             return self
++
+         return add_step
+ 
+     def __enter__(self):
+@@ -105,22 +105,36 @@ class Redis(mock.MockCallbacks):
+         return len(self.keyspace.get(key) or [])
+ 
+ 
++class Sentinel(mock.MockCallbacks):
++    def __init__(self, sentinels, min_other_sentinels=0, sentinel_kwargs=None,
++                 **connection_kwargs):
++        self.sentinel_kwargs = sentinel_kwargs
++        self.sentinels = [Redis(hostname, port, **self.sentinel_kwargs)
++                          for hostname, port in sentinels]
++        self.min_other_sentinels = min_other_sentinels
++        self.connection_kwargs = connection_kwargs
++
++    def master_for(self, service_name, redis_class):
++        return random.choice(self.sentinels)
++
++
+ class redis(object):
+     StrictRedis = Redis
+ 
+     class ConnectionPool(object):
+-
+         def __init__(self, **kwargs):
+             pass
+ 
+     class UnixDomainSocketConnection(object):
+-
+         def __init__(self, **kwargs):
+             pass
+ 
+ 
+-class test_RedisBackend:
++class sentinel(object):
++    Sentinel = Sentinel
++
+ 
++class test_RedisBackend:
+     def get_backend(self):
+         from celery.backends.redis import RedisBackend
+ 
+@@ -418,3 +432,86 @@ class test_RedisBackend:
+         self.b.client.expire.assert_called_with(
+             key, 512,
+         )
++
++
++class test_SentinelBackend:
++    def get_backend(self):
++        from celery.backends.redis import SentinelBackend
++
++        class _SentinelBackend(SentinelBackend):
++            redis = redis
++            sentinel = sentinel
++
++        return _SentinelBackend
++
++    def get_E_LOST(self):
++        from celery.backends.redis import E_LOST
++        return E_LOST
++
++    def setup(self):
++        self.Backend = self.get_backend()
++        self.E_LOST = self.get_E_LOST()
++        self.b = self.Backend(app=self.app)
++
++    @pytest.mark.usefixtures('depends_on_current_app')
++    @skip.unless_module('redis')
++    def test_reduce(self):
++        from celery.backends.redis import SentinelBackend
++        x = SentinelBackend(app=self.app)
++        assert loads(dumps(x))
++
++    def test_no_redis(self):
++        self.Backend.redis = None
++        with pytest.raises(ImproperlyConfigured):
++            self.Backend(app=self.app)
++
++    def test_url(self):
++        self.app.conf.redis_socket_timeout = 30.0
++        self.app.conf.redis_socket_connect_timeout = 100.0
++        x = self.Backend(
++            'sentinel://:test@github.com:123/1;'
++            'sentinel://:test@github.com:124/1',
++            app=self.app,
++        )
++        assert x.connparams
++        assert "host" not in x.connparams
++        assert x.connparams['db'] == 1
++        assert "port" not in x.connparams
++        assert x.connparams['password'] == "test"
++        assert len(x.connparams['hosts']) == 2
++        expected_hosts = ["github.com", "github.com"]
++        found_hosts = [cp['host'] for cp in x.connparams['hosts']]
++        assert found_hosts == expected_hosts
++
++        expected_ports = [123, 124]
++        found_ports = [cp['port'] for cp in x.connparams['hosts']]
++        assert found_ports == expected_ports
++
++        expected_passwords = ["test", "test"]
++        found_passwords = [cp['password'] for cp in x.connparams['hosts']]
++        assert found_passwords == expected_passwords
++
++        expected_dbs = [1, 1]
++        found_dbs = [cp['db'] for cp in x.connparams['hosts']]
++        assert found_dbs == expected_dbs
++
++    def test_get_sentinel_instance(self):
++        x = self.Backend(
++            'sentinel://:test@github.com:123/1;'
++            'sentinel://:test@github.com:124/1',
++            app=self.app,
++        )
++        sentinel_instance = x._get_sentinel_instance(**x.connparams)
++        assert sentinel_instance.sentinel_kwargs == {}
++        assert sentinel_instance.connection_kwargs['db'] == 1
++        assert sentinel_instance.connection_kwargs['password'] == "test"
++        assert len(sentinel_instance.sentinels) == 2
++
++    def test_get_pool(self):
++        x = self.Backend(
++            'sentinel://:test@github.com:123/1;'
++            'sentinel://:test@github.com:124/1',
++            app=self.app,
++        )
++        pool = x._get_pool(**x.connparams)
++        assert pool
+
+[exit 0]
+
+$ git log --all --oneline -S visibility_timeout -- celery/
+
+[exit 0]
+
+$ git grep -n -i visibility.*timeout HEAD -- celery/
+
+[exit 1]
+
+$ git grep -n -i visibility.*timeout 8ae0b22959 -- celery/
+
+[exit 1]
+
+$ git grep -n -i visibility.*timeout 235368ceb2 -- celery/
+
+[exit 1]
+
+$ git grep -n result_backend_transport_options HEAD -- celery/
+HEAD:celery/backends/base.py:1209:        This method checks if a global keyprefix is configured in `result_backend_transport_options` using the
+HEAD:celery/backends/base.py:1212:        global_keyprefix = self.app.conf.get('result_backend_transport_options', {}).get("global_keyprefix", None)
+HEAD:celery/backends/redis.py:621:            'result_backend_transport_options', {})
+HEAD:celery/backends/redis.py:890:        return self.app.conf.get('result_backend_transport_options', {})
+
+[exit 0]

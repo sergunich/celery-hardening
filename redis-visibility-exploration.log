@@ -1,0 +1,22 @@
+PASS config-none                         receipt/start/done/ACK=1/1/0/0 state=PENDING exit=[-9, 0] 6.664s
+FAIL config-B                            receipt/start/done/ACK=1/1/0/0 state=PENDING exit=[-9, 0] 6.638s
+  configured timeout/scan controls recovery in window
+  crash/replacement execution count
+  crash/replacement backend state
+FAIL scan-throttled                      receipt/start/done/ACK=1/1/0/0 state=PENDING exit=[-9, 0] 13.657s
+  Harness: RuntimeError: Timeout: throttled scan eventually restores
+  crash/replacement execution count
+  crash/replacement backend state
+PASS solo-alone-early                    receipt/start/done/ACK=1/1/1/1 state=SUCCESS exit=[0] 8.01s
+FAIL solo-short-other-queue              receipt/start/done/ACK=1/1/1/1 state=SUCCESS exit=[0, 0] 8.743s
+  active execution count
+  other queue worker restores but does not execute target delivery
+FAIL solo-eta-short-late                 receipt/start/done/ACK=1/1/1/1 state=SUCCESS exit=[0] 9.99s
+  ETA receipt/redelivery
+  ETA body dedup depends on late ACK
+FAIL solo-eta-short-dedup                receipt/start/done/ACK=1/1/1/1 state=SUCCESS exit=[0] 10.032s
+  ETA receipt/redelivery
+FAIL prefork-reserved-expiry             receipt/start/done/ACK=1/1/1/1 state=SUCCESS exit=[0] 9.772s
+  reserved task expires before its first execution
+  active and reserved copies both execute twice
+Artifacts: /Users/sergunich/dev/repos/celery/.dev/redis-visibility-runs/20261114T185133.969865Z

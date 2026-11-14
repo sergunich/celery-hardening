@@ -1,0 +1,26 @@
+ 
+ -------------- worker-0@localhost v5.7.0 (collider)
+--- ***** ----- 
+-- ******* ---- macOS-15.8.1-arm64-arm-64bit-Mach-O 2026-11-14 22:04:41
+- *** --- * --- 
+- ** ---------- [config]
+- ** ---------- .> app:         visibility_probe:0x10549a3c0
+- ** ---------- .> transport:   redis+socket:///Users/sergunich/dev/repos/celery/.dev/shutdown-43692.sock
+- ** ---------- .> results:     socket:///Users/sergunich/dev/repos/celery/.dev/shutdown-43692.sock
+- *** --- * --- .> concurrency: 1 (prefork)
+-- ******* ---- .> task events: OFF (enable -E to monitor tasks in this worker)
+--- ***** ----- 
+ -------------- [queues]
+                .> visibility-probe exchange=visibility-probe(direct) key=visibility-probe
+                
+
+[tasks]
+  . redis_visibility_probe.work
+
+[2026-11-14 22:04:41,463: INFO/MainProcess] Connected to redis+socket:///Users/sergunich/dev/repos/celery/.dev/shutdown-43692.sock
+[2026-11-14 22:04:41,465: INFO/MainProcess] worker-0@localhost ready.
+[2026-11-14 22:04:41,482: INFO/MainProcess] Task redis_visibility_probe.work[e54d906c-9503-4f3d-9243-20d349ed58ed] received
+[2026-11-14 22:04:41,697: INFO/SpawnPoolWorker-1] child process 43966 calling self.run()
+[2026-11-14 22:04:46,929: INFO/SpawnPoolWorker-1] Task redis_visibility_probe.work[e54d906c-9503-4f3d-9243-20d349ed58ed] succeeded in 5.017354917014018s: 'long'
+
+worker: Warm shutdown (MainProcess)

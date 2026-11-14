@@ -1,0 +1,28 @@
+ 
+ -------------- worker-0@localhost v5.7.0 (collider)
+--- ***** ----- 
+-- ******* ---- macOS-15.8.1-arm64-arm-64bit-Mach-O 2026-11-14 21:58:48
+- *** --- * --- 
+- ** ---------- [config]
+- ** ---------- .> app:         visibility_probe:0x1052c1010
+- ** ---------- .> transport:   redis+socket:///Users/sergunich/dev/repos/celery/.dev/shutdown-43109.sock
+- ** ---------- .> results:     socket:///Users/sergunich/dev/repos/celery/.dev/shutdown-43109.sock
+- *** --- * --- .> concurrency: 1 (solo)
+-- ******* ---- .> task events: OFF (enable -E to monitor tasks in this worker)
+--- ***** ----- 
+ -------------- [queues]
+                .> visibility-probe exchange=visibility-probe(direct) key=visibility-probe
+                
+
+[tasks]
+  . redis_visibility_probe.work
+
+[2026-11-14 21:58:48,832: INFO/MainProcess] Connected to redis+socket:///Users/sergunich/dev/repos/celery/.dev/shutdown-43109.sock
+[2026-11-14 21:58:48,834: INFO/MainProcess] worker-0@localhost ready.
+[2026-11-14 21:58:48,852: INFO/MainProcess] Task redis_visibility_probe.work[f7a04376-d4b6-4800-86fa-6f19f24c3012] received
+[2026-11-14 21:58:50,854: INFO/MainProcess] Task redis_visibility_probe.work[f7a04376-d4b6-4800-86fa-6f19f24c3012] received
+[2026-11-14 21:58:52,881: INFO/MainProcess] Task redis_visibility_probe.work[f7a04376-d4b6-4800-86fa-6f19f24c3012] received
+[2026-11-14 21:58:54,978: INFO/MainProcess] Task redis_visibility_probe.work[f7a04376-d4b6-4800-86fa-6f19f24c3012] succeeded in 0.127180082956329s: 'eta'
+[2026-11-14 21:58:54,982: INFO/MainProcess] Task redis_visibility_probe.work[f7a04376-d4b6-4800-86fa-6f19f24c3012] received
+
+worker: Warm shutdown (MainProcess)

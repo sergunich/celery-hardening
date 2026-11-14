@@ -1,0 +1,673 @@
+ 
+ -------------- worker-0@localhost v5.7.0 (collider)
+--- ***** ----- 
+-- ******* ---- macOS-15.8.1-arm64-arm-64bit-Mach-O 2026-11-14 21:52:38
+- *** --- * --- 
+- ** ---------- [config]
+- ** ---------- .> app:         visibility_probe:0x103f1e3c0
+- ** ---------- .> transport:   redis+socket:///Users/sergunich/dev/repos/celery/.dev/shutdown-42690.sock
+- ** ---------- .> results:     socket:///Users/sergunich/dev/repos/celery/.dev/shutdown-42690.sock
+- *** --- * --- .> concurrency: 1 (prefork)
+-- ******* ---- .> task events: OFF (enable -E to monitor tasks in this worker)
+--- ***** ----- 
+ -------------- [queues]
+                .> visibility-probe exchange=visibility-probe(direct) key=visibility-probe
+                
+
+[tasks]
+  . redis_visibility_probe.work
+
+[2026-11-14 21:52:38,627: INFO/MainProcess] Connected to redis+socket:///Users/sergunich/dev/repos/celery/.dev/shutdown-42690.sock
+[2026-11-14 21:52:38,630: INFO/MainProcess] worker-0@localhost ready.
+[2026-11-14 21:52:38,657: INFO/MainProcess] Task redis_visibility_probe.work[385e6519-66b8-4909-951b-981aa42c65ba] received
+[2026-11-14 21:52:38,864: INFO/SpawnPoolWorker-1] child process 42838 calling self.run()
+[2026-11-14 21:52:39,372: INFO/MainProcess] Task redis_visibility_probe.work[c13abb32-1b52-4f87-ba0f-c639edc79927] received
+[2026-11-14 21:52:40,684: ERROR/MainProcess] Error in timer: TypeError('Object of type bytes is not JSON serializable')
+Traceback (most recent call last):
+  File "/Users/sergunich/dev/repos/celery/.dev/.venv/lib/python3.13/site-packages/kombu/asynchronous/hub.py", line 205, in fire_timers
+    entry()
+    ~~~~~^^
+  File "/Users/sergunich/dev/repos/celery/.dev/.venv/lib/python3.13/site-packages/kombu/asynchronous/timer.py", line 70, in __call__
+    return self.fun(*self.args, **self.kwargs)
+           ~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/sergunich/dev/repos/celery/.dev/.venv/lib/python3.13/site-packages/kombu/asynchronous/timer.py", line 137, in _reschedules
+    return fun(*args, **kwargs)
+  File "/Users/sergunich/dev/repos/celery/.dev/.venv/lib/python3.13/site-packages/kombu/transport/redis.py", line 759, in maybe_restore_messages
+    return channel.qos.restore_visible(
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~^
+        num=channel.unacked_restore_limit,
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+        interval=channel.unacked_restore_throttle,
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "/Users/sergunich/dev/repos/celery/.dev/redis_visibility_probe.py", line 79, in scan
+    return _original_scan(self, *args, **kwargs)
+  File "/Users/sergunich/dev/repos/celery/.dev/.venv/lib/python3.13/site-packages/kombu/transport/redis.py", line 547, in restore_visible
+    self.restore_by_tag(tag, client)
+    ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^
+  File "/Users/sergunich/dev/repos/celery/.dev/redis_visibility_probe.py", line 64, in restore
+    emit("restore_attempt", tag=tag, visibility=self.visibility_timeout,
+    ~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+         scan=bool(getattr(self, "_probe_scanning", False)))
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/sergunich/dev/repos/celery/.dev/redis_visibility_probe.py", line 19, in emit
+    os.write(FD, (json.dumps(record) + "\n").encode())
+                  ~~~~~~~~~~^^^^^^^^
+  File "/Users/sergunich/.local/share/uv/python/cpython-3.13-macos-aarch64-none/lib/python3.13/json/__init__.py", line 231, in dumps
+    return _default_encoder.encode(obj)
+           ~~~~~~~~~~~~~~~~~~~~~~~^^^^^
+  File "/Users/sergunich/.local/share/uv/python/cpython-3.13-macos-aarch64-none/lib/python3.13/json/encoder.py", line 200, in encode
+    chunks = self.iterencode(o, _one_shot=True)
+  File "/Users/sergunich/.local/share/uv/python/cpython-3.13-macos-aarch64-none/lib/python3.13/json/encoder.py", line 261, in iterencode
+    return _iterencode(o, 0)
+  File "/Users/sergunich/.local/share/uv/python/cpython-3.13-macos-aarch64-none/lib/python3.13/json/encoder.py", line 180, in default
+    raise TypeError(f'Object of type {o.__class__.__name__} '
+                    f'is not JSON serializable')
+TypeError: Object of type bytes is not JSON serializable
+[2026-11-14 21:52:40,937: ERROR/MainProcess] Error in timer: TypeError('Object of type bytes is not JSON serializable')
+Traceback (most recent call last):
+  File "/Users/sergunich/dev/repos/celery/.dev/.venv/lib/python3.13/site-packages/kombu/asynchronous/hub.py", line 205, in fire_timers
+    entry()
+    ~~~~~^^
+  File "/Users/sergunich/dev/repos/celery/.dev/.venv/lib/python3.13/site-packages/kombu/asynchronous/timer.py", line 70, in __call__
+    return self.fun(*self.args, **self.kwargs)
+           ~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/sergunich/dev/repos/celery/.dev/.venv/lib/python3.13/site-packages/kombu/asynchronous/timer.py", line 137, in _reschedules
+    return fun(*args, **kwargs)
+  File "/Users/sergunich/dev/repos/celery/.dev/.venv/lib/python3.13/site-packages/kombu/transport/redis.py", line 759, in maybe_restore_messages
+    return channel.qos.restore_visible(
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~^
+        num=channel.unacked_restore_limit,
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+        interval=channel.unacked_restore_throttle,
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "/Users/sergunich/dev/repos/celery/.dev/redis_visibility_probe.py", line 79, in scan
+    return _original_scan(self, *args, **kwargs)
+  File "/Users/sergunich/dev/repos/celery/.dev/.venv/lib/python3.13/site-packages/kombu/transport/redis.py", line 547, in restore_visible
+    self.restore_by_tag(tag, client)
+    ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^
+  File "/Users/sergunich/dev/repos/celery/.dev/redis_visibility_probe.py", line 64, in restore
+    emit("restore_attempt", tag=tag, visibility=self.visibility_timeout,
+    ~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+         scan=bool(getattr(self, "_probe_scanning", False)))
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/sergunich/dev/repos/celery/.dev/redis_visibility_probe.py", line 19, in emit
+    os.write(FD, (json.dumps(record) + "\n").encode())
+                  ~~~~~~~~~~^^^^^^^^
+  File "/Users/sergunich/.local/share/uv/python/cpython-3.13-macos-aarch64-none/lib/python3.13/json/__init__.py", line 231, in dumps
+    return _default_encoder.encode(obj)
+           ~~~~~~~~~~~~~~~~~~~~~~~^^^^^
+  File "/Users/sergunich/.local/share/uv/python/cpython-3.13-macos-aarch64-none/lib/python3.13/json/encoder.py", line 200, in encode
+    chunks = self.iterencode(o, _one_shot=True)
+  File "/Users/sergunich/.local/share/uv/python/cpython-3.13-macos-aarch64-none/lib/python3.13/json/encoder.py", line 261, in iterencode
+    return _iterencode(o, 0)
+  File "/Users/sergunich/.local/share/uv/python/cpython-3.13-macos-aarch64-none/lib/python3.13/json/encoder.py", line 180, in default
+    raise TypeError(f'Object of type {o.__class__.__name__} '
+                    f'is not JSON serializable')
+TypeError: Object of type bytes is not JSON serializable
+[2026-11-14 21:52:41,190: ERROR/MainProcess] Error in timer: TypeError('Object of type bytes is not JSON serializable')
+Traceback (most recent call last):
+  File "/Users/sergunich/dev/repos/celery/.dev/.venv/lib/python3.13/site-packages/kombu/asynchronous/hub.py", line 205, in fire_timers
+    entry()
+    ~~~~~^^
+  File "/Users/sergunich/dev/repos/celery/.dev/.venv/lib/python3.13/site-packages/kombu/asynchronous/timer.py", line 70, in __call__
+    return self.fun(*self.args, **self.kwargs)
+           ~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/sergunich/dev/repos/celery/.dev/.venv/lib/python3.13/site-packages/kombu/asynchronous/timer.py", line 137, in _reschedules
+    return fun(*args, **kwargs)
+  File "/Users/sergunich/dev/repos/celery/.dev/.venv/lib/python3.13/site-packages/kombu/transport/redis.py", line 759, in maybe_restore_messages
+    return channel.qos.restore_visible(
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~^
+        num=channel.unacked_restore_limit,
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+        interval=channel.unacked_restore_throttle,
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "/Users/sergunich/dev/repos/celery/.dev/redis_visibility_probe.py", line 79, in scan
+    return _original_scan(self, *args, **kwargs)
+  File "/Users/sergunich/dev/repos/celery/.dev/.venv/lib/python3.13/site-packages/kombu/transport/redis.py", line 547, in restore_visible
+    self.restore_by_tag(tag, client)
+    ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^
+  File "/Users/sergunich/dev/repos/celery/.dev/redis_visibility_probe.py", line 64, in restore
+    emit("restore_attempt", tag=tag, visibility=self.visibility_timeout,
+    ~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+         scan=bool(getattr(self, "_probe_scanning", False)))
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/sergunich/dev/repos/celery/.dev/redis_visibility_probe.py", line 19, in emit
+    os.write(FD, (json.dumps(record) + "\n").encode())
+                  ~~~~~~~~~~^^^^^^^^
+  File "/Users/sergunich/.local/share/uv/python/cpython-3.13-macos-aarch64-none/lib/python3.13/json/__init__.py", line 231, in dumps
+    return _default_encoder.encode(obj)
+           ~~~~~~~~~~~~~~~~~~~~~~~^^^^^
+  File "/Users/sergunich/.local/share/uv/python/cpython-3.13-macos-aarch64-none/lib/python3.13/json/encoder.py", line 200, in encode
+    chunks = self.iterencode(o, _one_shot=True)
+  File "/Users/sergunich/.local/share/uv/python/cpython-3.13-macos-aarch64-none/lib/python3.13/json/encoder.py", line 261, in iterencode
+    return _iterencode(o, 0)
+  File "/Users/sergunich/.local/share/uv/python/cpython-3.13-macos-aarch64-none/lib/python3.13/json/encoder.py", line 180, in default
+    raise TypeError(f'Object of type {o.__class__.__name__} '
+                    f'is not JSON serializable')
+TypeError: Object of type bytes is not JSON serializable
+[2026-11-14 21:52:41,444: ERROR/MainProcess] Error in timer: TypeError('Object of type bytes is not JSON serializable')
+Traceback (most recent call last):
+  File "/Users/sergunich/dev/repos/celery/.dev/.venv/lib/python3.13/site-packages/kombu/asynchronous/hub.py", line 205, in fire_timers
+    entry()
+    ~~~~~^^
+  File "/Users/sergunich/dev/repos/celery/.dev/.venv/lib/python3.13/site-packages/kombu/asynchronous/timer.py", line 70, in __call__
+    return self.fun(*self.args, **self.kwargs)
+           ~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/sergunich/dev/repos/celery/.dev/.venv/lib/python3.13/site-packages/kombu/asynchronous/timer.py", line 137, in _reschedules
+    return fun(*args, **kwargs)
+  File "/Users/sergunich/dev/repos/celery/.dev/.venv/lib/python3.13/site-packages/kombu/transport/redis.py", line 759, in maybe_restore_messages
+    return channel.qos.restore_visible(
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~^
+        num=channel.unacked_restore_limit,
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+        interval=channel.unacked_restore_throttle,
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "/Users/sergunich/dev/repos/celery/.dev/redis_visibility_probe.py", line 79, in scan
+    return _original_scan(self, *args, **kwargs)
+  File "/Users/sergunich/dev/repos/celery/.dev/.venv/lib/python3.13/site-packages/kombu/transport/redis.py", line 547, in restore_visible
+    self.restore_by_tag(tag, client)
+    ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^
+  File "/Users/sergunich/dev/repos/celery/.dev/redis_visibility_probe.py", line 64, in restore
+    emit("restore_attempt", tag=tag, visibility=self.visibility_timeout,
+    ~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+         scan=bool(getattr(self, "_probe_scanning", False)))
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/sergunich/dev/repos/celery/.dev/redis_visibility_probe.py", line 19, in emit
+    os.write(FD, (json.dumps(record) + "\n").encode())
+                  ~~~~~~~~~~^^^^^^^^
+  File "/Users/sergunich/.local/share/uv/python/cpython-3.13-macos-aarch64-none/lib/python3.13/json/__init__.py", line 231, in dumps
+    return _default_encoder.encode(obj)
+           ~~~~~~~~~~~~~~~~~~~~~~~^^^^^
+  File "/Users/sergunich/.local/share/uv/python/cpython-3.13-macos-aarch64-none/lib/python3.13/json/encoder.py", line 200, in encode
+    chunks = self.iterencode(o, _one_shot=True)
+  File "/Users/sergunich/.local/share/uv/python/cpython-3.13-macos-aarch64-none/lib/python3.13/json/encoder.py", line 261, in iterencode
+    return _iterencode(o, 0)
+  File "/Users/sergunich/.local/share/uv/python/cpython-3.13-macos-aarch64-none/lib/python3.13/json/encoder.py", line 180, in default
+    raise TypeError(f'Object of type {o.__class__.__name__} '
+                    f'is not JSON serializable')
+TypeError: Object of type bytes is not JSON serializable
+[2026-11-14 21:52:41,698: ERROR/MainProcess] Error in timer: TypeError('Object of type bytes is not JSON serializable')
+Traceback (most recent call last):
+  File "/Users/sergunich/dev/repos/celery/.dev/.venv/lib/python3.13/site-packages/kombu/asynchronous/hub.py", line 205, in fire_timers
+    entry()
+    ~~~~~^^
+  File "/Users/sergunich/dev/repos/celery/.dev/.venv/lib/python3.13/site-packages/kombu/asynchronous/timer.py", line 70, in __call__
+    return self.fun(*self.args, **self.kwargs)
+           ~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/sergunich/dev/repos/celery/.dev/.venv/lib/python3.13/site-packages/kombu/asynchronous/timer.py", line 137, in _reschedules
+    return fun(*args, **kwargs)
+  File "/Users/sergunich/dev/repos/celery/.dev/.venv/lib/python3.13/site-packages/kombu/transport/redis.py", line 759, in maybe_restore_messages
+    return channel.qos.restore_visible(
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~^
+        num=channel.unacked_restore_limit,
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+        interval=channel.unacked_restore_throttle,
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "/Users/sergunich/dev/repos/celery/.dev/redis_visibility_probe.py", line 79, in scan
+    return _original_scan(self, *args, **kwargs)
+  File "/Users/sergunich/dev/repos/celery/.dev/.venv/lib/python3.13/site-packages/kombu/transport/redis.py", line 547, in restore_visible
+    self.restore_by_tag(tag, client)
+    ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^
+  File "/Users/sergunich/dev/repos/celery/.dev/redis_visibility_probe.py", line 64, in restore
+    emit("restore_attempt", tag=tag, visibility=self.visibility_timeout,
+    ~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+         scan=bool(getattr(self, "_probe_scanning", False)))
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/sergunich/dev/repos/celery/.dev/redis_visibility_probe.py", line 19, in emit
+    os.write(FD, (json.dumps(record) + "\n").encode())
+                  ~~~~~~~~~~^^^^^^^^
+  File "/Users/sergunich/.local/share/uv/python/cpython-3.13-macos-aarch64-none/lib/python3.13/json/__init__.py", line 231, in dumps
+    return _default_encoder.encode(obj)
+           ~~~~~~~~~~~~~~~~~~~~~~~^^^^^
+  File "/Users/sergunich/.local/share/uv/python/cpython-3.13-macos-aarch64-none/lib/python3.13/json/encoder.py", line 200, in encode
+    chunks = self.iterencode(o, _one_shot=True)
+  File "/Users/sergunich/.local/share/uv/python/cpython-3.13-macos-aarch64-none/lib/python3.13/json/encoder.py", line 261, in iterencode
+    return _iterencode(o, 0)
+  File "/Users/sergunich/.local/share/uv/python/cpython-3.13-macos-aarch64-none/lib/python3.13/json/encoder.py", line 180, in default
+    raise TypeError(f'Object of type {o.__class__.__name__} '
+                    f'is not JSON serializable')
+TypeError: Object of type bytes is not JSON serializable
+[2026-11-14 21:52:41,950: ERROR/MainProcess] Error in timer: TypeError('Object of type bytes is not JSON serializable')
+Traceback (most recent call last):
+  File "/Users/sergunich/dev/repos/celery/.dev/.venv/lib/python3.13/site-packages/kombu/asynchronous/hub.py", line 205, in fire_timers
+    entry()
+    ~~~~~^^
+  File "/Users/sergunich/dev/repos/celery/.dev/.venv/lib/python3.13/site-packages/kombu/asynchronous/timer.py", line 70, in __call__
+    return self.fun(*self.args, **self.kwargs)
+           ~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/sergunich/dev/repos/celery/.dev/.venv/lib/python3.13/site-packages/kombu/asynchronous/timer.py", line 137, in _reschedules
+    return fun(*args, **kwargs)
+  File "/Users/sergunich/dev/repos/celery/.dev/.venv/lib/python3.13/site-packages/kombu/transport/redis.py", line 759, in maybe_restore_messages
+    return channel.qos.restore_visible(
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~^
+        num=channel.unacked_restore_limit,
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+        interval=channel.unacked_restore_throttle,
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "/Users/sergunich/dev/repos/celery/.dev/redis_visibility_probe.py", line 79, in scan
+    return _original_scan(self, *args, **kwargs)
+  File "/Users/sergunich/dev/repos/celery/.dev/.venv/lib/python3.13/site-packages/kombu/transport/redis.py", line 547, in restore_visible
+    self.restore_by_tag(tag, client)
+    ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^
+  File "/Users/sergunich/dev/repos/celery/.dev/redis_visibility_probe.py", line 64, in restore
+    emit("restore_attempt", tag=tag, visibility=self.visibility_timeout,
+    ~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+         scan=bool(getattr(self, "_probe_scanning", False)))
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/sergunich/dev/repos/celery/.dev/redis_visibility_probe.py", line 19, in emit
+    os.write(FD, (json.dumps(record) + "\n").encode())
+                  ~~~~~~~~~~^^^^^^^^
+  File "/Users/sergunich/.local/share/uv/python/cpython-3.13-macos-aarch64-none/lib/python3.13/json/__init__.py", line 231, in dumps
+    return _default_encoder.encode(obj)
+           ~~~~~~~~~~~~~~~~~~~~~~~^^^^^
+  File "/Users/sergunich/.local/share/uv/python/cpython-3.13-macos-aarch64-none/lib/python3.13/json/encoder.py", line 200, in encode
+    chunks = self.iterencode(o, _one_shot=True)
+  File "/Users/sergunich/.local/share/uv/python/cpython-3.13-macos-aarch64-none/lib/python3.13/json/encoder.py", line 261, in iterencode
+    return _iterencode(o, 0)
+  File "/Users/sergunich/.local/share/uv/python/cpython-3.13-macos-aarch64-none/lib/python3.13/json/encoder.py", line 180, in default
+    raise TypeError(f'Object of type {o.__class__.__name__} '
+                    f'is not JSON serializable')
+TypeError: Object of type bytes is not JSON serializable
+[2026-11-14 21:52:42,203: ERROR/MainProcess] Error in timer: TypeError('Object of type bytes is not JSON serializable')
+Traceback (most recent call last):
+  File "/Users/sergunich/dev/repos/celery/.dev/.venv/lib/python3.13/site-packages/kombu/asynchronous/hub.py", line 205, in fire_timers
+    entry()
+    ~~~~~^^
+  File "/Users/sergunich/dev/repos/celery/.dev/.venv/lib/python3.13/site-packages/kombu/asynchronous/timer.py", line 70, in __call__
+    return self.fun(*self.args, **self.kwargs)
+           ~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/sergunich/dev/repos/celery/.dev/.venv/lib/python3.13/site-packages/kombu/asynchronous/timer.py", line 137, in _reschedules
+    return fun(*args, **kwargs)
+  File "/Users/sergunich/dev/repos/celery/.dev/.venv/lib/python3.13/site-packages/kombu/transport/redis.py", line 759, in maybe_restore_messages
+    return channel.qos.restore_visible(
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~^
+        num=channel.unacked_restore_limit,
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+        interval=channel.unacked_restore_throttle,
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "/Users/sergunich/dev/repos/celery/.dev/redis_visibility_probe.py", line 79, in scan
+    return _original_scan(self, *args, **kwargs)
+  File "/Users/sergunich/dev/repos/celery/.dev/.venv/lib/python3.13/site-packages/kombu/transport/redis.py", line 547, in restore_visible
+    self.restore_by_tag(tag, client)
+    ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^
+  File "/Users/sergunich/dev/repos/celery/.dev/redis_visibility_probe.py", line 64, in restore
+    emit("restore_attempt", tag=tag, visibility=self.visibility_timeout,
+    ~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+         scan=bool(getattr(self, "_probe_scanning", False)))
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/sergunich/dev/repos/celery/.dev/redis_visibility_probe.py", line 19, in emit
+    os.write(FD, (json.dumps(record) + "\n").encode())
+                  ~~~~~~~~~~^^^^^^^^
+  File "/Users/sergunich/.local/share/uv/python/cpython-3.13-macos-aarch64-none/lib/python3.13/json/__init__.py", line 231, in dumps
+    return _default_encoder.encode(obj)
+           ~~~~~~~~~~~~~~~~~~~~~~~^^^^^
+  File "/Users/sergunich/.local/share/uv/python/cpython-3.13-macos-aarch64-none/lib/python3.13/json/encoder.py", line 200, in encode
+    chunks = self.iterencode(o, _one_shot=True)
+  File "/Users/sergunich/.local/share/uv/python/cpython-3.13-macos-aarch64-none/lib/python3.13/json/encoder.py", line 261, in iterencode
+    return _iterencode(o, 0)
+  File "/Users/sergunich/.local/share/uv/python/cpython-3.13-macos-aarch64-none/lib/python3.13/json/encoder.py", line 180, in default
+    raise TypeError(f'Object of type {o.__class__.__name__} '
+                    f'is not JSON serializable')
+TypeError: Object of type bytes is not JSON serializable
+[2026-11-14 21:52:42,457: ERROR/MainProcess] Error in timer: TypeError('Object of type bytes is not JSON serializable')
+Traceback (most recent call last):
+  File "/Users/sergunich/dev/repos/celery/.dev/.venv/lib/python3.13/site-packages/kombu/asynchronous/hub.py", line 205, in fire_timers
+    entry()
+    ~~~~~^^
+  File "/Users/sergunich/dev/repos/celery/.dev/.venv/lib/python3.13/site-packages/kombu/asynchronous/timer.py", line 70, in __call__
+    return self.fun(*self.args, **self.kwargs)
+           ~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/sergunich/dev/repos/celery/.dev/.venv/lib/python3.13/site-packages/kombu/asynchronous/timer.py", line 137, in _reschedules
+    return fun(*args, **kwargs)
+  File "/Users/sergunich/dev/repos/celery/.dev/.venv/lib/python3.13/site-packages/kombu/transport/redis.py", line 759, in maybe_restore_messages
+    return channel.qos.restore_visible(
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~^
+        num=channel.unacked_restore_limit,
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+        interval=channel.unacked_restore_throttle,
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "/Users/sergunich/dev/repos/celery/.dev/redis_visibility_probe.py", line 79, in scan
+    return _original_scan(self, *args, **kwargs)
+  File "/Users/sergunich/dev/repos/celery/.dev/.venv/lib/python3.13/site-packages/kombu/transport/redis.py", line 547, in restore_visible
+    self.restore_by_tag(tag, client)
+    ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^
+  File "/Users/sergunich/dev/repos/celery/.dev/redis_visibility_probe.py", line 64, in restore
+    emit("restore_attempt", tag=tag, visibility=self.visibility_timeout,
+    ~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+         scan=bool(getattr(self, "_probe_scanning", False)))
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/sergunich/dev/repos/celery/.dev/redis_visibility_probe.py", line 19, in emit
+    os.write(FD, (json.dumps(record) + "\n").encode())
+                  ~~~~~~~~~~^^^^^^^^
+  File "/Users/sergunich/.local/share/uv/python/cpython-3.13-macos-aarch64-none/lib/python3.13/json/__init__.py", line 231, in dumps
+    return _default_encoder.encode(obj)
+           ~~~~~~~~~~~~~~~~~~~~~~~^^^^^
+  File "/Users/sergunich/.local/share/uv/python/cpython-3.13-macos-aarch64-none/lib/python3.13/json/encoder.py", line 200, in encode
+    chunks = self.iterencode(o, _one_shot=True)
+  File "/Users/sergunich/.local/share/uv/python/cpython-3.13-macos-aarch64-none/lib/python3.13/json/encoder.py", line 261, in iterencode
+    return _iterencode(o, 0)
+  File "/Users/sergunich/.local/share/uv/python/cpython-3.13-macos-aarch64-none/lib/python3.13/json/encoder.py", line 180, in default
+    raise TypeError(f'Object of type {o.__class__.__name__} '
+                    f'is not JSON serializable')
+TypeError: Object of type bytes is not JSON serializable
+[2026-11-14 21:52:42,710: ERROR/MainProcess] Error in timer: TypeError('Object of type bytes is not JSON serializable')
+Traceback (most recent call last):
+  File "/Users/sergunich/dev/repos/celery/.dev/.venv/lib/python3.13/site-packages/kombu/asynchronous/hub.py", line 205, in fire_timers
+    entry()
+    ~~~~~^^
+  File "/Users/sergunich/dev/repos/celery/.dev/.venv/lib/python3.13/site-packages/kombu/asynchronous/timer.py", line 70, in __call__
+    return self.fun(*self.args, **self.kwargs)
+           ~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/sergunich/dev/repos/celery/.dev/.venv/lib/python3.13/site-packages/kombu/asynchronous/timer.py", line 137, in _reschedules
+    return fun(*args, **kwargs)
+  File "/Users/sergunich/dev/repos/celery/.dev/.venv/lib/python3.13/site-packages/kombu/transport/redis.py", line 759, in maybe_restore_messages
+    return channel.qos.restore_visible(
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~^
+        num=channel.unacked_restore_limit,
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+        interval=channel.unacked_restore_throttle,
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "/Users/sergunich/dev/repos/celery/.dev/redis_visibility_probe.py", line 79, in scan
+    return _original_scan(self, *args, **kwargs)
+  File "/Users/sergunich/dev/repos/celery/.dev/.venv/lib/python3.13/site-packages/kombu/transport/redis.py", line 547, in restore_visible
+    self.restore_by_tag(tag, client)
+    ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^
+  File "/Users/sergunich/dev/repos/celery/.dev/redis_visibility_probe.py", line 64, in restore
+    emit("restore_attempt", tag=tag, visibility=self.visibility_timeout,
+    ~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+         scan=bool(getattr(self, "_probe_scanning", False)))
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/sergunich/dev/repos/celery/.dev/redis_visibility_probe.py", line 19, in emit
+    os.write(FD, (json.dumps(record) + "\n").encode())
+                  ~~~~~~~~~~^^^^^^^^
+  File "/Users/sergunich/.local/share/uv/python/cpython-3.13-macos-aarch64-none/lib/python3.13/json/__init__.py", line 231, in dumps
+    return _default_encoder.encode(obj)
+           ~~~~~~~~~~~~~~~~~~~~~~~^^^^^
+  File "/Users/sergunich/.local/share/uv/python/cpython-3.13-macos-aarch64-none/lib/python3.13/json/encoder.py", line 200, in encode
+    chunks = self.iterencode(o, _one_shot=True)
+  File "/Users/sergunich/.local/share/uv/python/cpython-3.13-macos-aarch64-none/lib/python3.13/json/encoder.py", line 261, in iterencode
+    return _iterencode(o, 0)
+  File "/Users/sergunich/.local/share/uv/python/cpython-3.13-macos-aarch64-none/lib/python3.13/json/encoder.py", line 180, in default
+    raise TypeError(f'Object of type {o.__class__.__name__} '
+                    f'is not JSON serializable')
+TypeError: Object of type bytes is not JSON serializable
+[2026-11-14 21:52:42,964: ERROR/MainProcess] Error in timer: TypeError('Object of type bytes is not JSON serializable')
+Traceback (most recent call last):
+  File "/Users/sergunich/dev/repos/celery/.dev/.venv/lib/python3.13/site-packages/kombu/asynchronous/hub.py", line 205, in fire_timers
+    entry()
+    ~~~~~^^
+  File "/Users/sergunich/dev/repos/celery/.dev/.venv/lib/python3.13/site-packages/kombu/asynchronous/timer.py", line 70, in __call__
+    return self.fun(*self.args, **self.kwargs)
+           ~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/sergunich/dev/repos/celery/.dev/.venv/lib/python3.13/site-packages/kombu/asynchronous/timer.py", line 137, in _reschedules
+    return fun(*args, **kwargs)
+  File "/Users/sergunich/dev/repos/celery/.dev/.venv/lib/python3.13/site-packages/kombu/transport/redis.py", line 759, in maybe_restore_messages
+    return channel.qos.restore_visible(
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~^
+        num=channel.unacked_restore_limit,
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+        interval=channel.unacked_restore_throttle,
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "/Users/sergunich/dev/repos/celery/.dev/redis_visibility_probe.py", line 79, in scan
+    return _original_scan(self, *args, **kwargs)
+  File "/Users/sergunich/dev/repos/celery/.dev/.venv/lib/python3.13/site-packages/kombu/transport/redis.py", line 547, in restore_visible
+    self.restore_by_tag(tag, client)
+    ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^
+  File "/Users/sergunich/dev/repos/celery/.dev/redis_visibility_probe.py", line 64, in restore
+    emit("restore_attempt", tag=tag, visibility=self.visibility_timeout,
+    ~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+         scan=bool(getattr(self, "_probe_scanning", False)))
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/sergunich/dev/repos/celery/.dev/redis_visibility_probe.py", line 19, in emit
+    os.write(FD, (json.dumps(record) + "\n").encode())
+                  ~~~~~~~~~~^^^^^^^^
+  File "/Users/sergunich/.local/share/uv/python/cpython-3.13-macos-aarch64-none/lib/python3.13/json/__init__.py", line 231, in dumps
+    return _default_encoder.encode(obj)
+           ~~~~~~~~~~~~~~~~~~~~~~~^^^^^
+  File "/Users/sergunich/.local/share/uv/python/cpython-3.13-macos-aarch64-none/lib/python3.13/json/encoder.py", line 200, in encode
+    chunks = self.iterencode(o, _one_shot=True)
+  File "/Users/sergunich/.local/share/uv/python/cpython-3.13-macos-aarch64-none/lib/python3.13/json/encoder.py", line 261, in iterencode
+    return _iterencode(o, 0)
+  File "/Users/sergunich/.local/share/uv/python/cpython-3.13-macos-aarch64-none/lib/python3.13/json/encoder.py", line 180, in default
+    raise TypeError(f'Object of type {o.__class__.__name__} '
+                    f'is not JSON serializable')
+TypeError: Object of type bytes is not JSON serializable
+[2026-11-14 21:52:43,218: ERROR/MainProcess] Error in timer: TypeError('Object of type bytes is not JSON serializable')
+Traceback (most recent call last):
+  File "/Users/sergunich/dev/repos/celery/.dev/.venv/lib/python3.13/site-packages/kombu/asynchronous/hub.py", line 205, in fire_timers
+    entry()
+    ~~~~~^^
+  File "/Users/sergunich/dev/repos/celery/.dev/.venv/lib/python3.13/site-packages/kombu/asynchronous/timer.py", line 70, in __call__
+    return self.fun(*self.args, **self.kwargs)
+           ~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/sergunich/dev/repos/celery/.dev/.venv/lib/python3.13/site-packages/kombu/asynchronous/timer.py", line 137, in _reschedules
+    return fun(*args, **kwargs)
+  File "/Users/sergunich/dev/repos/celery/.dev/.venv/lib/python3.13/site-packages/kombu/transport/redis.py", line 759, in maybe_restore_messages
+    return channel.qos.restore_visible(
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~^
+        num=channel.unacked_restore_limit,
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+        interval=channel.unacked_restore_throttle,
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "/Users/sergunich/dev/repos/celery/.dev/redis_visibility_probe.py", line 79, in scan
+    return _original_scan(self, *args, **kwargs)
+  File "/Users/sergunich/dev/repos/celery/.dev/.venv/lib/python3.13/site-packages/kombu/transport/redis.py", line 547, in restore_visible
+    self.restore_by_tag(tag, client)
+    ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^
+  File "/Users/sergunich/dev/repos/celery/.dev/redis_visibility_probe.py", line 64, in restore
+    emit("restore_attempt", tag=tag, visibility=self.visibility_timeout,
+    ~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+         scan=bool(getattr(self, "_probe_scanning", False)))
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/sergunich/dev/repos/celery/.dev/redis_visibility_probe.py", line 19, in emit
+    os.write(FD, (json.dumps(record) + "\n").encode())
+                  ~~~~~~~~~~^^^^^^^^
+  File "/Users/sergunich/.local/share/uv/python/cpython-3.13-macos-aarch64-none/lib/python3.13/json/__init__.py", line 231, in dumps
+    return _default_encoder.encode(obj)
+           ~~~~~~~~~~~~~~~~~~~~~~~^^^^^
+  File "/Users/sergunich/.local/share/uv/python/cpython-3.13-macos-aarch64-none/lib/python3.13/json/encoder.py", line 200, in encode
+    chunks = self.iterencode(o, _one_shot=True)
+  File "/Users/sergunich/.local/share/uv/python/cpython-3.13-macos-aarch64-none/lib/python3.13/json/encoder.py", line 261, in iterencode
+    return _iterencode(o, 0)
+  File "/Users/sergunich/.local/share/uv/python/cpython-3.13-macos-aarch64-none/lib/python3.13/json/encoder.py", line 180, in default
+    raise TypeError(f'Object of type {o.__class__.__name__} '
+                    f'is not JSON serializable')
+TypeError: Object of type bytes is not JSON serializable
+[2026-11-14 21:52:43,471: ERROR/MainProcess] Error in timer: TypeError('Object of type bytes is not JSON serializable')
+Traceback (most recent call last):
+  File "/Users/sergunich/dev/repos/celery/.dev/.venv/lib/python3.13/site-packages/kombu/asynchronous/hub.py", line 205, in fire_timers
+    entry()
+    ~~~~~^^
+  File "/Users/sergunich/dev/repos/celery/.dev/.venv/lib/python3.13/site-packages/kombu/asynchronous/timer.py", line 70, in __call__
+    return self.fun(*self.args, **self.kwargs)
+           ~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/sergunich/dev/repos/celery/.dev/.venv/lib/python3.13/site-packages/kombu/asynchronous/timer.py", line 137, in _reschedules
+    return fun(*args, **kwargs)
+  File "/Users/sergunich/dev/repos/celery/.dev/.venv/lib/python3.13/site-packages/kombu/transport/redis.py", line 759, in maybe_restore_messages
+    return channel.qos.restore_visible(
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~^
+        num=channel.unacked_restore_limit,
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+        interval=channel.unacked_restore_throttle,
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "/Users/sergunich/dev/repos/celery/.dev/redis_visibility_probe.py", line 79, in scan
+    return _original_scan(self, *args, **kwargs)
+  File "/Users/sergunich/dev/repos/celery/.dev/.venv/lib/python3.13/site-packages/kombu/transport/redis.py", line 547, in restore_visible
+    self.restore_by_tag(tag, client)
+    ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^
+  File "/Users/sergunich/dev/repos/celery/.dev/redis_visibility_probe.py", line 64, in restore
+    emit("restore_attempt", tag=tag, visibility=self.visibility_timeout,
+    ~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+         scan=bool(getattr(self, "_probe_scanning", False)))
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/sergunich/dev/repos/celery/.dev/redis_visibility_probe.py", line 19, in emit
+    os.write(FD, (json.dumps(record) + "\n").encode())
+                  ~~~~~~~~~~^^^^^^^^
+  File "/Users/sergunich/.local/share/uv/python/cpython-3.13-macos-aarch64-none/lib/python3.13/json/__init__.py", line 231, in dumps
+    return _default_encoder.encode(obj)
+           ~~~~~~~~~~~~~~~~~~~~~~~^^^^^
+  File "/Users/sergunich/.local/share/uv/python/cpython-3.13-macos-aarch64-none/lib/python3.13/json/encoder.py", line 200, in encode
+    chunks = self.iterencode(o, _one_shot=True)
+  File "/Users/sergunich/.local/share/uv/python/cpython-3.13-macos-aarch64-none/lib/python3.13/json/encoder.py", line 261, in iterencode
+    return _iterencode(o, 0)
+  File "/Users/sergunich/.local/share/uv/python/cpython-3.13-macos-aarch64-none/lib/python3.13/json/encoder.py", line 180, in default
+    raise TypeError(f'Object of type {o.__class__.__name__} '
+                    f'is not JSON serializable')
+TypeError: Object of type bytes is not JSON serializable
+[2026-11-14 21:52:43,725: ERROR/MainProcess] Error in timer: TypeError('Object of type bytes is not JSON serializable')
+Traceback (most recent call last):
+  File "/Users/sergunich/dev/repos/celery/.dev/.venv/lib/python3.13/site-packages/kombu/asynchronous/hub.py", line 205, in fire_timers
+    entry()
+    ~~~~~^^
+  File "/Users/sergunich/dev/repos/celery/.dev/.venv/lib/python3.13/site-packages/kombu/asynchronous/timer.py", line 70, in __call__
+    return self.fun(*self.args, **self.kwargs)
+           ~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/sergunich/dev/repos/celery/.dev/.venv/lib/python3.13/site-packages/kombu/asynchronous/timer.py", line 137, in _reschedules
+    return fun(*args, **kwargs)
+  File "/Users/sergunich/dev/repos/celery/.dev/.venv/lib/python3.13/site-packages/kombu/transport/redis.py", line 759, in maybe_restore_messages
+    return channel.qos.restore_visible(
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~^
+        num=channel.unacked_restore_limit,
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+        interval=channel.unacked_restore_throttle,
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "/Users/sergunich/dev/repos/celery/.dev/redis_visibility_probe.py", line 79, in scan
+    return _original_scan(self, *args, **kwargs)
+  File "/Users/sergunich/dev/repos/celery/.dev/.venv/lib/python3.13/site-packages/kombu/transport/redis.py", line 547, in restore_visible
+    self.restore_by_tag(tag, client)
+    ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^
+  File "/Users/sergunich/dev/repos/celery/.dev/redis_visibility_probe.py", line 64, in restore
+    emit("restore_attempt", tag=tag, visibility=self.visibility_timeout,
+    ~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+         scan=bool(getattr(self, "_probe_scanning", False)))
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/sergunich/dev/repos/celery/.dev/redis_visibility_probe.py", line 19, in emit
+    os.write(FD, (json.dumps(record) + "\n").encode())
+                  ~~~~~~~~~~^^^^^^^^
+  File "/Users/sergunich/.local/share/uv/python/cpython-3.13-macos-aarch64-none/lib/python3.13/json/__init__.py", line 231, in dumps
+    return _default_encoder.encode(obj)
+           ~~~~~~~~~~~~~~~~~~~~~~~^^^^^
+  File "/Users/sergunich/.local/share/uv/python/cpython-3.13-macos-aarch64-none/lib/python3.13/json/encoder.py", line 200, in encode
+    chunks = self.iterencode(o, _one_shot=True)
+  File "/Users/sergunich/.local/share/uv/python/cpython-3.13-macos-aarch64-none/lib/python3.13/json/encoder.py", line 261, in iterencode
+    return _iterencode(o, 0)
+  File "/Users/sergunich/.local/share/uv/python/cpython-3.13-macos-aarch64-none/lib/python3.13/json/encoder.py", line 180, in default
+    raise TypeError(f'Object of type {o.__class__.__name__} '
+                    f'is not JSON serializable')
+TypeError: Object of type bytes is not JSON serializable
+[2026-11-14 21:52:43,979: ERROR/MainProcess] Error in timer: TypeError('Object of type bytes is not JSON serializable')
+Traceback (most recent call last):
+  File "/Users/sergunich/dev/repos/celery/.dev/.venv/lib/python3.13/site-packages/kombu/asynchronous/hub.py", line 205, in fire_timers
+    entry()
+    ~~~~~^^
+  File "/Users/sergunich/dev/repos/celery/.dev/.venv/lib/python3.13/site-packages/kombu/asynchronous/timer.py", line 70, in __call__
+    return self.fun(*self.args, **self.kwargs)
+           ~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/sergunich/dev/repos/celery/.dev/.venv/lib/python3.13/site-packages/kombu/asynchronous/timer.py", line 137, in _reschedules
+    return fun(*args, **kwargs)
+  File "/Users/sergunich/dev/repos/celery/.dev/.venv/lib/python3.13/site-packages/kombu/transport/redis.py", line 759, in maybe_restore_messages
+    return channel.qos.restore_visible(
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~^
+        num=channel.unacked_restore_limit,
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+        interval=channel.unacked_restore_throttle,
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "/Users/sergunich/dev/repos/celery/.dev/redis_visibility_probe.py", line 79, in scan
+    return _original_scan(self, *args, **kwargs)
+  File "/Users/sergunich/dev/repos/celery/.dev/.venv/lib/python3.13/site-packages/kombu/transport/redis.py", line 547, in restore_visible
+    self.restore_by_tag(tag, client)
+    ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^
+  File "/Users/sergunich/dev/repos/celery/.dev/redis_visibility_probe.py", line 64, in restore
+    emit("restore_attempt", tag=tag, visibility=self.visibility_timeout,
+    ~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+         scan=bool(getattr(self, "_probe_scanning", False)))
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/sergunich/dev/repos/celery/.dev/redis_visibility_probe.py", line 19, in emit
+    os.write(FD, (json.dumps(record) + "\n").encode())
+                  ~~~~~~~~~~^^^^^^^^
+  File "/Users/sergunich/.local/share/uv/python/cpython-3.13-macos-aarch64-none/lib/python3.13/json/__init__.py", line 231, in dumps
+    return _default_encoder.encode(obj)
+           ~~~~~~~~~~~~~~~~~~~~~~~^^^^^
+  File "/Users/sergunich/.local/share/uv/python/cpython-3.13-macos-aarch64-none/lib/python3.13/json/encoder.py", line 200, in encode
+    chunks = self.iterencode(o, _one_shot=True)
+  File "/Users/sergunich/.local/share/uv/python/cpython-3.13-macos-aarch64-none/lib/python3.13/json/encoder.py", line 261, in iterencode
+    return _iterencode(o, 0)
+  File "/Users/sergunich/.local/share/uv/python/cpython-3.13-macos-aarch64-none/lib/python3.13/json/encoder.py", line 180, in default
+    raise TypeError(f'Object of type {o.__class__.__name__} '
+                    f'is not JSON serializable')
+TypeError: Object of type bytes is not JSON serializable
+[2026-11-14 21:52:44,233: ERROR/MainProcess] Error in timer: TypeError('Object of type bytes is not JSON serializable')
+Traceback (most recent call last):
+  File "/Users/sergunich/dev/repos/celery/.dev/.venv/lib/python3.13/site-packages/kombu/asynchronous/hub.py", line 205, in fire_timers
+    entry()
+    ~~~~~^^
+  File "/Users/sergunich/dev/repos/celery/.dev/.venv/lib/python3.13/site-packages/kombu/asynchronous/timer.py", line 70, in __call__
+    return self.fun(*self.args, **self.kwargs)
+           ~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/sergunich/dev/repos/celery/.dev/.venv/lib/python3.13/site-packages/kombu/asynchronous/timer.py", line 137, in _reschedules
+    return fun(*args, **kwargs)
+  File "/Users/sergunich/dev/repos/celery/.dev/.venv/lib/python3.13/site-packages/kombu/transport/redis.py", line 759, in maybe_restore_messages
+    return channel.qos.restore_visible(
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~^
+        num=channel.unacked_restore_limit,
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+        interval=channel.unacked_restore_throttle,
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "/Users/sergunich/dev/repos/celery/.dev/redis_visibility_probe.py", line 79, in scan
+    return _original_scan(self, *args, **kwargs)
+  File "/Users/sergunich/dev/repos/celery/.dev/.venv/lib/python3.13/site-packages/kombu/transport/redis.py", line 547, in restore_visible
+    self.restore_by_tag(tag, client)
+    ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^
+  File "/Users/sergunich/dev/repos/celery/.dev/redis_visibility_probe.py", line 64, in restore
+    emit("restore_attempt", tag=tag, visibility=self.visibility_timeout,
+    ~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+         scan=bool(getattr(self, "_probe_scanning", False)))
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/sergunich/dev/repos/celery/.dev/redis_visibility_probe.py", line 19, in emit
+    os.write(FD, (json.dumps(record) + "\n").encode())
+                  ~~~~~~~~~~^^^^^^^^
+  File "/Users/sergunich/.local/share/uv/python/cpython-3.13-macos-aarch64-none/lib/python3.13/json/__init__.py", line 231, in dumps
+    return _default_encoder.encode(obj)
+           ~~~~~~~~~~~~~~~~~~~~~~~^^^^^
+  File "/Users/sergunich/.local/share/uv/python/cpython-3.13-macos-aarch64-none/lib/python3.13/json/encoder.py", line 200, in encode
+    chunks = self.iterencode(o, _one_shot=True)
+  File "/Users/sergunich/.local/share/uv/python/cpython-3.13-macos-aarch64-none/lib/python3.13/json/encoder.py", line 261, in iterencode
+    return _iterencode(o, 0)
+  File "/Users/sergunich/.local/share/uv/python/cpython-3.13-macos-aarch64-none/lib/python3.13/json/encoder.py", line 180, in default
+    raise TypeError(f'Object of type {o.__class__.__name__} '
+                    f'is not JSON serializable')
+TypeError: Object of type bytes is not JSON serializable
+[2026-11-14 21:52:44,326: INFO/SpawnPoolWorker-1] Task redis_visibility_probe.work[385e6519-66b8-4909-951b-981aa42c65ba] succeeded in 5.1708612910006195s: 'long'
+[2026-11-14 21:52:44,455: INFO/SpawnPoolWorker-1] Task redis_visibility_probe.work[c13abb32-1b52-4f87-ba0f-c639edc79927] succeeded in 0.12326366687193513s: 'reserved'
+
+worker: Warm shutdown (MainProcess)

@@ -782,3 +782,22 @@ suite did not toggle `broker_channel_error_retry`. Relevant source:
 
 These notes are maintained with the report and will not be overwritten by future
 experiment runs.
+
+### A7. Follow-up: which Redis visibility settings actually apply?
+
+The [Redis visibility report](redis-visibility-results.md) adds **27 runtime
+cases**. Only `broker_transport_options['visibility_timeout']` controls delivery
+recovery in this checkout. The similarly named backend and top-level values do
+not override it; all presence/absence combinations and conflicting values were
+tested explicitly.
+
+It also clarifies that the shortest value is not negotiated by Redis: a worker
+scans shared unacked records using its own timeout, even for another queue.
+A publisher alone does not install that minimum. Solo's deferred early ACK can
+still permit overlapping execution when another worker restores the message.
+
+Unlike the ETA reconnect cases above, visibility restoration does not clear old
+local ETA timers. One solo worker accumulated and executed multiple copies with
+healthy connections. Late-ACK successful-task deduplication skipped completed
+copies; the early-ACK control did not. The report separates these new measurements
+from reused shutdown, ETA/prefetch, and task-policy evidence.

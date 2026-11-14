@@ -1,0 +1,31 @@
+ 
+ -------------- worker-0@localhost v5.7.0 (collider)
+--- ***** ----- 
+-- ******* ---- macOS-15.8.1-arm64-arm-64bit-Mach-O 2026-11-14 22:04:59
+- *** --- * --- 
+- ** ---------- [config]
+- ** ---------- .> app:         visibility_probe:0x105a35010
+- ** ---------- .> transport:   redis+socket:///Users/sergunich/dev/repos/celery/.dev/shutdown-43692.sock
+- ** ---------- .> results:     socket:///Users/sergunich/dev/repos/celery/.dev/shutdown-43692.sock
+- *** --- * --- .> concurrency: 1 (solo)
+-- ******* ---- .> task events: OFF (enable -E to monitor tasks in this worker)
+--- ***** ----- 
+ -------------- [queues]
+                .> visibility-probe exchange=visibility-probe(direct) key=visibility-probe
+                
+
+[tasks]
+  . redis_visibility_probe.work
+
+[2026-11-14 22:04:59,118: INFO/MainProcess] Connected to redis+socket:///Users/sergunich/dev/repos/celery/.dev/shutdown-43692.sock
+[2026-11-14 22:04:59,121: INFO/MainProcess] worker-0@localhost ready.
+[2026-11-14 22:04:59,126: INFO/MainProcess] Task redis_visibility_probe.work[6aec2c85-5649-43a4-944d-e7243950a5db] received
+[2026-11-14 22:05:01,141: INFO/MainProcess] Task redis_visibility_probe.work[6aec2c85-5649-43a4-944d-e7243950a5db] received
+[2026-11-14 22:05:03,159: INFO/MainProcess] Task redis_visibility_probe.work[6aec2c85-5649-43a4-944d-e7243950a5db] received
+[2026-11-14 22:05:05,252: INFO/MainProcess] Task redis_visibility_probe.work[6aec2c85-5649-43a4-944d-e7243950a5db] succeeded in 0.12769554206170142s: 'eta'
+[2026-11-14 22:05:05,380: INFO/MainProcess] Task redis_visibility_probe.work[6aec2c85-5649-43a4-944d-e7243950a5db] succeeded in 0.12663287506438792s: 'eta'
+[2026-11-14 22:05:05,505: INFO/MainProcess] Task redis_visibility_probe.work[6aec2c85-5649-43a4-944d-e7243950a5db] succeeded in 0.12452279101125896s: 'eta'
+[2026-11-14 22:05:05,509: INFO/MainProcess] Task redis_visibility_probe.work[6aec2c85-5649-43a4-944d-e7243950a5db] received
+[2026-11-14 22:05:05,636: INFO/MainProcess] Task redis_visibility_probe.work[6aec2c85-5649-43a4-944d-e7243950a5db] succeeded in 0.12625783286057413s: 'eta'
+
+worker: Warm shutdown (MainProcess)

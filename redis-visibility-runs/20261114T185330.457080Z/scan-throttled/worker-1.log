@@ -1,0 +1,25 @@
+ 
+ -------------- worker-1@localhost v5.7.0 (collider)
+--- ***** ----- 
+-- ******* ---- macOS-15.8.1-arm64-arm-64bit-Mach-O 2026-11-14 21:53:38
+- *** --- * --- 
+- ** ---------- [config]
+- ** ---------- .> app:         visibility_probe:0x104e69010
+- ** ---------- .> transport:   redis+socket:///Users/sergunich/dev/repos/celery/.dev/shutdown-42908.sock
+- ** ---------- .> results:     socket:///Users/sergunich/dev/repos/celery/.dev/shutdown-42908.sock
+- *** --- * --- .> concurrency: 1 (solo)
+-- ******* ---- .> task events: OFF (enable -E to monitor tasks in this worker)
+--- ***** ----- 
+ -------------- [queues]
+                .> visibility-probe exchange=visibility-probe(direct) key=visibility-probe
+                
+
+[tasks]
+  . redis_visibility_probe.work
+
+[2026-11-14 21:53:38,368: INFO/MainProcess] Connected to redis+socket:///Users/sergunich/dev/repos/celery/.dev/shutdown-42908.sock
+[2026-11-14 21:53:38,370: INFO/MainProcess] worker-1@localhost ready.
+[2026-11-14 21:53:46,388: INFO/MainProcess] Task redis_visibility_probe.work[077ee8ef-17e1-4a46-9ecc-a0a0576020ce] received
+[2026-11-14 21:53:46,516: INFO/MainProcess] Task redis_visibility_probe.work[077ee8ef-17e1-4a46-9ecc-a0a0576020ce] succeeded in 0.12620570790022612s: 'abandoned'
+
+worker: Warm shutdown (MainProcess)
