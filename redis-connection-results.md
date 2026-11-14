@@ -659,3 +659,126 @@ Redis data loss, failover, TLS, packet-level TCP keepalive, distributed-clock ju
 production load, arbitrary application broker calls, or other dependency versions.
 RabbitMQ's protocol-heartbeat and channel-ACK behavior remains a separate future
 experiment, not an extrapolated Redis result.
+
+### A5. Can connection retries guarantee ACK of a completed solo task?
+
+**Consumer reconnection does not replay every failed ACK.** A surviving unacked
+record can later be restored and the task can execute again. In the measured solo
+outage path:
+
+```text
+Task stores SUCCESS
+  → Request schedules ACK and sets Request.acknowledged=True
+  → Redis ACK fails; ack_log_error logs the connection error
+  → consumer reconnects later
+  → that failed ACK is not automatically replayed
+```
+
+The following settings allow the **consumer** to retry connection establishment
+indefinitely; they do not create an ACK retry queue:
+
+```python
+broker_connection_retry_on_startup = True
+broker_connection_retry = True
+broker_connection_max_retries = None
+```
+
+There is no configuration-only guarantee in this checkout that a completed task's
+ACK will be retried until confirmed. Connection retries also cannot progress while
+an operation remains blocked without producing an error.
+
+#### Protecting against repeated execution after SUCCESS
+
+For the completed-task case, consider:
+
+```python
+task_acks_late = True
+worker_deduplicate_successful_tasks = True
+```
+
+With a persistent result backend retaining SUCCESS, Celery can receive the
+restored message, **skip its already-completed body, and ACK that delivery**.
+The `ack-before-commit-dedup` case demonstrated exactly this: **two receipts, one
+body execution**. This recovers through redelivery; it does not replay the original
+failed ACK callback.
+
+Requirements and limits:
+
+- The task ID must match, late acknowledgment must be enabled, and the message
+  must be marked redelivered.
+- SUCCESS must remain available when redelivery occurs. Result retention needs
+  to cover the possible recovery delay; a result backend that does not support
+  the required persistence is not equivalent.
+- Deduplication does not prevent overlapping executions before SUCCESS is stored.
+- It is not an exactly-once guarantee. Critical side effects still need
+  business-level idempotency—for example, an operation key recorded atomically
+  with the corresponding database changes where possible, or an external API's
+  idempotency-key mechanism.
+
+#### What ACK-specific retries would require
+
+ACK-specific retry behavior would require implementation work rather than merely
+turning on consumer retries. It must account for consumer restarts, shutdown,
+ambiguous ACK results, and intervening redelivery without blocking solo's event
+loop indefinitely.
+
+Blindly retrying the old Redis tag is problematic: restored deliveries retained
+that tag in these experiments, so an old request can affect bookkeeping for a
+redelivered copy. Manually deleting unacked records is not a safe substitute for
+a delivery-aware acknowledgment design.
+
+Even a correct retry mechanism cannot undo a duplicate that has already started.
+Task effects, backend result storage, and broker ACK are separate operations;
+retrying connections does not make them atomic.
+
+Relevant source: `celery/worker/request.py` (`acknowledge`),
+`celery/worker/consumer/consumer.py` (`call_soon_ack` and request ACK promises),
+and installed Kombu `message.py` (`ack_log_error`). The observed Redis connection
+error was logged/handled; not every exception type follows that exact path—for
+example, `BrokenPipeError` is explicitly re-raised by `ack_log_error`.
+
+### A6. What does `broker_channel_error_retry` change?
+
+This setting, disabled by default, widens the error classes handled by the
+**consumer's connection-recovery block**:
+
+```python
+# broker_channel_error_retry=False:
+recoverable_errors = connection_errors
+
+# broker_channel_error_retry=True:
+recoverable_errors = connection_errors + channel_errors
+```
+
+Although its documentation mentions AMQP, the shared consumer implementation also
+applies to Redis. In the installed Redis transport:
+
+| Error category | Examples | Does consumer recovery require enabling this setting? |
+| --- | --- | --- |
+| Connection errors | Redis `ConnectionError`, `TimeoutError` | **No**: already included in connection recovery |
+| Channel errors | Redis `ResponseError`, `InvalidResponse`, `DataError` | **Yes**, when the error propagates to this recovery block |
+
+For an established connection, recovery still requires
+`broker_connection_retry=True`. Initial connection handling uses the startup
+retry setting. An error already handled inside an ACK callback may never reach
+the consumer's recovery block at all.
+
+The setting does **not**:
+
+- Replay every failed ACK.
+- Turn consumer recovery into a task retry.
+- Detect failures while solo's event loop is blocked.
+- Fix a persistent error such as a Redis key having the wrong type; reconnecting
+  can simply encounter the same error again and lead to restart loops.
+
+Therefore enabling it does **not repair the failed ACK in the measured solo
+outage case**: that error was already a connection-error category, and reconnecting
+the consumer did not replay the ACK.
+
+This explanation is **source-verified, not a new runtime comparison**. The 47-case
+suite did not toggle `broker_channel_error_retry`. Relevant source:
+`celery/worker/consumer/consumer.py` (`Consumer.start`) and installed Kombu
+`transport/redis.py` (`get_redis_error_classes`).
+
+These notes are maintained with the report and will not be overwritten by future
+experiment runs.
