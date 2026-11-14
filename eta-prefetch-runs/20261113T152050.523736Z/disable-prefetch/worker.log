@@ -1,0 +1,33 @@
+ 
+ -------------- eta-probe@localhost v5.7.0 (collider)
+--- ***** ----- 
+-- ******* ---- macOS-15.8.1-arm64-arm-64bit-Mach-O 2026-11-13 18:21:19
+- *** --- * --- 
+- ** ---------- [config]
+- ** ---------- .> app:         shutdown_probe:0x104f6e7b0
+- ** ---------- .> transport:   redis+socket:///Users/sergunich/dev/repos/celery/.dev/shutdown-46816.sock
+- ** ---------- .> results:     socket:///Users/sergunich/dev/repos/celery/.dev/shutdown-46816.sock
+- *** --- * --- .> concurrency: 1 (prefork)
+-- ******* ---- .> task events: OFF (enable -E to monitor tasks in this worker)
+--- ***** ----- 
+ -------------- [queues]
+                .> eta-probe        exchange=eta-probe(direct) key=eta-probe
+                
+
+[tasks]
+  . eta_probe.work
+  . shutdown_probe.task
+
+[2026-11-13 18:21:19,913: INFO/MainProcess] Connected to redis+socket:///Users/sergunich/dev/repos/celery/.dev/shutdown-46816.sock
+[2026-11-13 18:21:19,918: INFO/MainProcess] eta-probe@localhost ready.
+[2026-11-13 18:21:19,924: INFO/MainProcess] Task eta_probe.work[a9aead5c-3c44-4b63-b668-83a99aaf014e] received
+[2026-11-13 18:21:19,925: INFO/MainProcess] Task eta_probe.work[550937d4-73f8-4cc9-af68-62d71980549c] received
+[2026-11-13 18:21:19,926: INFO/MainProcess] Task eta_probe.work[92bc5add-be13-4a44-8a5b-a67286dbd65f] received
+[2026-11-13 18:21:19,926: INFO/MainProcess] Task eta_probe.work[7ae192ca-a01f-4a60-9c47-7f7493eb5cad] received
+[2026-11-13 18:21:19,926: INFO/MainProcess] Task eta_probe.work[39021ba3-1cab-41d7-989c-41a37fbd55f6] received
+[2026-11-13 18:21:20,159: INFO/SpawnPoolWorker-1] child process 46905 calling self.run()
+[2026-11-13 18:21:20,537: INFO/MainProcess] Task eta_probe.work[c23dbf5a-c86e-491e-bda4-0c1345aa49c2] received
+[2026-11-13 18:21:20,964: INFO/SpawnPoolWorker-1] Task eta_probe.work[c23dbf5a-c86e-491e-bda4-0c1345aa49c2] succeeded in 0.4260802499484271s: 'immediate'
+
+worker: Warm shutdown (MainProcess)
+[2026-11-13 18:21:22,691: INFO/MainProcess] Restoring 5 unacknowledged message(s)

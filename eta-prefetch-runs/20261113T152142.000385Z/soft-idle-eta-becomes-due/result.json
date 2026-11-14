@@ -1,0 +1,200 @@
+{
+  "case": {
+    "name": "soft-idle-eta-becomes-due",
+    "pool": "prefork",
+    "kind": "future_shutdown",
+    "shutdown": "SIGQUIT",
+    "soft_timeout": 2.0,
+    "soft_on_idle": true,
+    "countdown": 1.2,
+    "observe": 0.3,
+    "future_count": 1
+  },
+  "tasks": {
+    "55ebef31-ceeb-4086-bccc-776067f08815": {
+      "role": "future-0",
+      "duration": 0.2,
+      "countdown": 1.2,
+      "absolute": false,
+      "published": 1697939.851775166,
+      "received": true,
+      "started": false,
+      "completed": false,
+      "acked": false,
+      "request_ack_on_accept": null,
+      "result": "PENDING",
+      "broker": {
+        "queued": [
+          {
+            "queue": "eta-probe",
+            "redelivered": true
+          }
+        ],
+        "unacked": []
+      }
+    }
+  },
+  "phases": {
+    "loaded": {
+      "time": 1697940.157192166,
+      "scheduler": {
+        "event": "scheduler_state",
+        "time": 1697940.147262041,
+        "pid": 47173,
+        "thread": 8539349760,
+        "scheduled": [
+          "55ebef31-ceeb-4086-bccc-776067f08815"
+        ],
+        "reserved": [],
+        "active": [],
+        "qos_value": 2,
+        "qos_applied": 2,
+        "channel_prefetch": 2
+      },
+      "received": [
+        "55ebef31-ceeb-4086-bccc-776067f08815"
+      ],
+      "running": [],
+      "completed": [],
+      "acked": [],
+      "broker": {
+        "55ebef31-ceeb-4086-bccc-776067f08815": {
+          "queued": [],
+          "unacked": [
+            {
+              "tag": "2885561f-21b3-4775-bf83-9c08642f82ff",
+              "exchange": "",
+              "routing_key": "eta-probe"
+            }
+          ]
+        }
+      }
+    }
+  },
+  "signals": [
+    {
+      "signal": "SIGQUIT",
+      "time": 1697940.15765875
+    }
+  ],
+  "timeline": [
+    {
+      "event": "worker_ready",
+      "time": 1697939.843176416,
+      "pid": 47173,
+      "thread": 8539349760,
+      "pool": "prefork",
+      "multiprocessing_start_method": "spawn"
+    },
+    {
+      "event": "scheduler_state",
+      "time": 1697939.843310666,
+      "pid": 47173,
+      "thread": 8539349760,
+      "scheduled": [],
+      "reserved": [],
+      "active": [],
+      "qos_value": 1,
+      "qos_applied": null,
+      "channel_prefetch": 1
+    },
+    {
+      "event": "eta_received",
+      "time": 1697939.855361083,
+      "pid": 47173,
+      "thread": 8539349760,
+      "task_id": "55ebef31-ceeb-4086-bccc-776067f08815",
+      "eta": "2026-11-13T15:23:34.163099+00:00",
+      "ack_requested": false
+    },
+    {
+      "event": "scheduler_state",
+      "time": 1697939.944565,
+      "pid": 47173,
+      "thread": 8539349760,
+      "scheduled": [
+        "55ebef31-ceeb-4086-bccc-776067f08815"
+      ],
+      "reserved": [],
+      "active": [],
+      "qos_value": 2,
+      "qos_applied": 2,
+      "channel_prefetch": 2
+    },
+    {
+      "event": "scheduler_state",
+      "time": 1697940.045861166,
+      "pid": 47173,
+      "thread": 8539349760,
+      "scheduled": [
+        "55ebef31-ceeb-4086-bccc-776067f08815"
+      ],
+      "reserved": [],
+      "active": [],
+      "qos_value": 2,
+      "qos_applied": 2,
+      "channel_prefetch": 2
+    },
+    {
+      "event": "scheduler_state",
+      "time": 1697940.147262041,
+      "pid": 47173,
+      "thread": 8539349760,
+      "scheduled": [
+        "55ebef31-ceeb-4086-bccc-776067f08815"
+      ],
+      "reserved": [],
+      "active": [],
+      "qos_value": 2,
+      "qos_applied": 2,
+      "channel_prefetch": 2
+    },
+    {
+      "event": "scheduler_state",
+      "time": 1697942.163794,
+      "pid": 47173,
+      "thread": 6139097088,
+      "scheduled": [
+        "55ebef31-ceeb-4086-bccc-776067f08815"
+      ],
+      "reserved": [],
+      "active": [],
+      "qos_value": 2,
+      "qos_applied": 2,
+      "channel_prefetch": 2
+    },
+    {
+      "event": "scheduler_state",
+      "time": 1697942.667235708,
+      "pid": 47173,
+      "thread": 6139097088,
+      "scheduled": [],
+      "reserved": [
+        "55ebef31-ceeb-4086-bccc-776067f08815"
+      ],
+      "active": [],
+      "qos_value": 1,
+      "qos_applied": 2,
+      "channel_prefetch": 2
+    },
+    {
+      "event": "worker_shutting_down",
+      "time": 1697943.171995625,
+      "pid": 47173,
+      "thread": 8539349760,
+      "signal": "SIGQUIT",
+      "how": "Cold"
+    }
+  ],
+  "returncode": 0,
+  "forced_kill": false,
+  "shutdown_elapsed": 3.12,
+  "elapsed": 4.157,
+  "fetched_after_exit": [
+    "55ebef31-ceeb-4086-bccc-776067f08815"
+  ],
+  "soft_logged": true,
+  "errors_logged": [],
+  "errors": [],
+  "passed": true
+}

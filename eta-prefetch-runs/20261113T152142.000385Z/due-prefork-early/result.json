@@ -1,0 +1,758 @@
+{
+  "case": {
+    "name": "due-prefork-early",
+    "pool": "prefork",
+    "kind": "due",
+    "acks_late": false
+  },
+  "tasks": {
+    "a7f7e1ce-c920-4500-a98c-f036862d527e": {
+      "role": "due",
+      "duration": 1.2,
+      "countdown": 1.0,
+      "absolute": false,
+      "published": 1697843.209141166,
+      "received": true,
+      "started": true,
+      "completed": true,
+      "acked": true,
+      "request_ack_on_accept": true,
+      "result": "SUCCESS",
+      "broker": {
+        "queued": [],
+        "unacked": []
+      }
+    }
+  },
+  "phases": {
+    "waiting": {
+      "time": 1697843.426890083,
+      "scheduler": {
+        "event": "scheduler_state",
+        "time": 1697843.403962583,
+        "pid": 46973,
+        "thread": 8539349760,
+        "scheduled": [
+          "a7f7e1ce-c920-4500-a98c-f036862d527e"
+        ],
+        "reserved": [],
+        "active": [],
+        "qos_value": 2,
+        "qos_applied": 2,
+        "channel_prefetch": 2
+      },
+      "received": [
+        "a7f7e1ce-c920-4500-a98c-f036862d527e"
+      ],
+      "running": [],
+      "completed": [],
+      "acked": [],
+      "broker": {
+        "a7f7e1ce-c920-4500-a98c-f036862d527e": {
+          "queued": [],
+          "unacked": [
+            {
+              "tag": "0214be30-4d63-4334-b6e0-161d743d4f70",
+              "exchange": "",
+              "routing_key": "eta-probe"
+            }
+          ]
+        }
+      }
+    },
+    "running": {
+      "time": 1697844.475567875,
+      "scheduler": {
+        "event": "scheduler_state",
+        "time": 1697844.417602208,
+        "pid": 46973,
+        "thread": 8539349760,
+        "scheduled": [],
+        "reserved": [
+          "a7f7e1ce-c920-4500-a98c-f036862d527e"
+        ],
+        "active": [
+          "a7f7e1ce-c920-4500-a98c-f036862d527e"
+        ],
+        "qos_value": 1,
+        "qos_applied": 1,
+        "channel_prefetch": 1
+      },
+      "received": [
+        "a7f7e1ce-c920-4500-a98c-f036862d527e"
+      ],
+      "running": [
+        "a7f7e1ce-c920-4500-a98c-f036862d527e"
+      ],
+      "completed": [],
+      "acked": [
+        "a7f7e1ce-c920-4500-a98c-f036862d527e"
+      ],
+      "broker": {
+        "a7f7e1ce-c920-4500-a98c-f036862d527e": {
+          "queued": [],
+          "unacked": []
+        }
+      }
+    },
+    "completed": {
+      "time": 1697845.706535916,
+      "scheduler": {
+        "event": "scheduler_state",
+        "time": 1697845.636911291,
+        "pid": 46973,
+        "thread": 8539349760,
+        "scheduled": [],
+        "reserved": [
+          "a7f7e1ce-c920-4500-a98c-f036862d527e"
+        ],
+        "active": [
+          "a7f7e1ce-c920-4500-a98c-f036862d527e"
+        ],
+        "qos_value": 1,
+        "qos_applied": 1,
+        "channel_prefetch": 1
+      },
+      "received": [
+        "a7f7e1ce-c920-4500-a98c-f036862d527e"
+      ],
+      "running": [],
+      "completed": [
+        "a7f7e1ce-c920-4500-a98c-f036862d527e"
+      ],
+      "acked": [
+        "a7f7e1ce-c920-4500-a98c-f036862d527e"
+      ],
+      "broker": {
+        "a7f7e1ce-c920-4500-a98c-f036862d527e": {
+          "queued": [],
+          "unacked": []
+        }
+      }
+    }
+  },
+  "signals": [
+    {
+      "signal": "SIGTERM",
+      "time": 1697845.706912
+    }
+  ],
+  "timeline": [
+    {
+      "event": "worker_ready",
+      "time": 1697843.199840333,
+      "pid": 46973,
+      "thread": 8539349760,
+      "pool": "prefork",
+      "multiprocessing_start_method": "spawn"
+    },
+    {
+      "event": "scheduler_state",
+      "time": 1697843.199996375,
+      "pid": 46973,
+      "thread": 8539349760,
+      "scheduled": [],
+      "reserved": [],
+      "active": [],
+      "qos_value": 1,
+      "qos_applied": null,
+      "channel_prefetch": 1
+    },
+    {
+      "event": "eta_received",
+      "time": 1697843.21272625,
+      "pid": 46973,
+      "thread": 8539349760,
+      "task_id": "a7f7e1ce-c920-4500-a98c-f036862d527e",
+      "eta": "2026-11-13T15:21:57.324449+00:00",
+      "ack_requested": false
+    },
+    {
+      "event": "scheduler_state",
+      "time": 1697843.301898708,
+      "pid": 46973,
+      "thread": 8539349760,
+      "scheduled": [
+        "a7f7e1ce-c920-4500-a98c-f036862d527e"
+      ],
+      "reserved": [],
+      "active": [],
+      "qos_value": 2,
+      "qos_applied": 2,
+      "channel_prefetch": 2
+    },
+    {
+      "event": "scheduler_state",
+      "time": 1697843.403962583,
+      "pid": 46973,
+      "thread": 8539349760,
+      "scheduled": [
+        "a7f7e1ce-c920-4500-a98c-f036862d527e"
+      ],
+      "reserved": [],
+      "active": [],
+      "qos_value": 2,
+      "qos_applied": 2,
+      "channel_prefetch": 2
+    },
+    {
+      "event": "scheduler_state",
+      "time": 1697843.505652166,
+      "pid": 46973,
+      "thread": 8539349760,
+      "scheduled": [
+        "a7f7e1ce-c920-4500-a98c-f036862d527e"
+      ],
+      "reserved": [],
+      "active": [],
+      "qos_value": 2,
+      "qos_applied": 2,
+      "channel_prefetch": 2
+    },
+    {
+      "event": "scheduler_state",
+      "time": 1697843.6062145,
+      "pid": 46973,
+      "thread": 8539349760,
+      "scheduled": [
+        "a7f7e1ce-c920-4500-a98c-f036862d527e"
+      ],
+      "reserved": [],
+      "active": [],
+      "qos_value": 2,
+      "qos_applied": 2,
+      "channel_prefetch": 2
+    },
+    {
+      "event": "scheduler_state",
+      "time": 1697843.708212208,
+      "pid": 46973,
+      "thread": 8539349760,
+      "scheduled": [
+        "a7f7e1ce-c920-4500-a98c-f036862d527e"
+      ],
+      "reserved": [],
+      "active": [],
+      "qos_value": 2,
+      "qos_applied": 2,
+      "channel_prefetch": 2
+    },
+    {
+      "event": "scheduler_state",
+      "time": 1697843.810333291,
+      "pid": 46973,
+      "thread": 8539349760,
+      "scheduled": [
+        "a7f7e1ce-c920-4500-a98c-f036862d527e"
+      ],
+      "reserved": [],
+      "active": [],
+      "qos_value": 2,
+      "qos_applied": 2,
+      "channel_prefetch": 2
+    },
+    {
+      "event": "scheduler_state",
+      "time": 1697843.911699291,
+      "pid": 46973,
+      "thread": 8539349760,
+      "scheduled": [
+        "a7f7e1ce-c920-4500-a98c-f036862d527e"
+      ],
+      "reserved": [],
+      "active": [],
+      "qos_value": 2,
+      "qos_applied": 2,
+      "channel_prefetch": 2
+    },
+    {
+      "event": "scheduler_state",
+      "time": 1697844.012486416,
+      "pid": 46973,
+      "thread": 8539349760,
+      "scheduled": [
+        "a7f7e1ce-c920-4500-a98c-f036862d527e"
+      ],
+      "reserved": [],
+      "active": [],
+      "qos_value": 2,
+      "qos_applied": 2,
+      "channel_prefetch": 2
+    },
+    {
+      "event": "scheduler_state",
+      "time": 1697844.113441416,
+      "pid": 46973,
+      "thread": 8539349760,
+      "scheduled": [
+        "a7f7e1ce-c920-4500-a98c-f036862d527e"
+      ],
+      "reserved": [],
+      "active": [],
+      "qos_value": 2,
+      "qos_applied": 2,
+      "channel_prefetch": 2
+    },
+    {
+      "event": "request_accepted",
+      "time": 1697844.212800833,
+      "pid": 46973,
+      "thread": 8539349760,
+      "task_id": "a7f7e1ce-c920-4500-a98c-f036862d527e",
+      "ack_requested": true
+    },
+    {
+      "event": "eta_started",
+      "time": 1697844.212996166,
+      "pid": 46977,
+      "thread": 8539349760,
+      "task_id": "a7f7e1ce-c920-4500-a98c-f036862d527e",
+      "role": "due",
+      "eta": "2026-11-13T15:21:57.324449+00:00"
+    },
+    {
+      "event": "message_ack",
+      "time": 1697844.213696333,
+      "pid": 46973,
+      "thread": 8539349760,
+      "task_id": "a7f7e1ce-c920-4500-a98c-f036862d527e",
+      "tag": "0214be30-4d63-4334-b6e0-161d743d4f70"
+    },
+    {
+      "event": "scheduler_state",
+      "time": 1697844.213799125,
+      "pid": 46973,
+      "thread": 8539349760,
+      "scheduled": [],
+      "reserved": [
+        "a7f7e1ce-c920-4500-a98c-f036862d527e"
+      ],
+      "active": [
+        "a7f7e1ce-c920-4500-a98c-f036862d527e"
+      ],
+      "qos_value": 1,
+      "qos_applied": 1,
+      "channel_prefetch": 1
+    },
+    {
+      "event": "eta_tick",
+      "time": 1697844.314583958,
+      "pid": 46977,
+      "thread": 8539349760,
+      "task_id": "a7f7e1ce-c920-4500-a98c-f036862d527e",
+      "role": "due",
+      "step": 0
+    },
+    {
+      "event": "scheduler_state",
+      "time": 1697844.315376833,
+      "pid": 46973,
+      "thread": 8539349760,
+      "scheduled": [],
+      "reserved": [
+        "a7f7e1ce-c920-4500-a98c-f036862d527e"
+      ],
+      "active": [
+        "a7f7e1ce-c920-4500-a98c-f036862d527e"
+      ],
+      "qos_value": 1,
+      "qos_applied": 1,
+      "channel_prefetch": 1
+    },
+    {
+      "event": "eta_tick",
+      "time": 1697844.417517625,
+      "pid": 46977,
+      "thread": 8539349760,
+      "task_id": "a7f7e1ce-c920-4500-a98c-f036862d527e",
+      "role": "due",
+      "step": 1
+    },
+    {
+      "event": "scheduler_state",
+      "time": 1697844.417602208,
+      "pid": 46973,
+      "thread": 8539349760,
+      "scheduled": [],
+      "reserved": [
+        "a7f7e1ce-c920-4500-a98c-f036862d527e"
+      ],
+      "active": [
+        "a7f7e1ce-c920-4500-a98c-f036862d527e"
+      ],
+      "qos_value": 1,
+      "qos_applied": 1,
+      "channel_prefetch": 1
+    },
+    {
+      "event": "scheduler_state",
+      "time": 1697844.5193605,
+      "pid": 46973,
+      "thread": 8539349760,
+      "scheduled": [],
+      "reserved": [
+        "a7f7e1ce-c920-4500-a98c-f036862d527e"
+      ],
+      "active": [
+        "a7f7e1ce-c920-4500-a98c-f036862d527e"
+      ],
+      "qos_value": 1,
+      "qos_applied": 1,
+      "channel_prefetch": 1
+    },
+    {
+      "event": "eta_tick",
+      "time": 1697844.522732833,
+      "pid": 46977,
+      "thread": 8539349760,
+      "task_id": "a7f7e1ce-c920-4500-a98c-f036862d527e",
+      "role": "due",
+      "step": 2
+    },
+    {
+      "event": "scheduler_state",
+      "time": 1697844.6216785,
+      "pid": 46973,
+      "thread": 8539349760,
+      "scheduled": [],
+      "reserved": [
+        "a7f7e1ce-c920-4500-a98c-f036862d527e"
+      ],
+      "active": [
+        "a7f7e1ce-c920-4500-a98c-f036862d527e"
+      ],
+      "qos_value": 1,
+      "qos_applied": 1,
+      "channel_prefetch": 1
+    },
+    {
+      "event": "eta_tick",
+      "time": 1697844.624374958,
+      "pid": 46977,
+      "thread": 8539349760,
+      "task_id": "a7f7e1ce-c920-4500-a98c-f036862d527e",
+      "role": "due",
+      "step": 3
+    },
+    {
+      "event": "scheduler_state",
+      "time": 1697844.723368125,
+      "pid": 46973,
+      "thread": 8539349760,
+      "scheduled": [],
+      "reserved": [
+        "a7f7e1ce-c920-4500-a98c-f036862d527e"
+      ],
+      "active": [
+        "a7f7e1ce-c920-4500-a98c-f036862d527e"
+      ],
+      "qos_value": 1,
+      "qos_applied": 1,
+      "channel_prefetch": 1
+    },
+    {
+      "event": "eta_tick",
+      "time": 1697844.729533375,
+      "pid": 46977,
+      "thread": 8539349760,
+      "task_id": "a7f7e1ce-c920-4500-a98c-f036862d527e",
+      "role": "due",
+      "step": 4
+    },
+    {
+      "event": "scheduler_state",
+      "time": 1697844.824894916,
+      "pid": 46973,
+      "thread": 8539349760,
+      "scheduled": [],
+      "reserved": [
+        "a7f7e1ce-c920-4500-a98c-f036862d527e"
+      ],
+      "active": [
+        "a7f7e1ce-c920-4500-a98c-f036862d527e"
+      ],
+      "qos_value": 1,
+      "qos_applied": 1,
+      "channel_prefetch": 1
+    },
+    {
+      "event": "eta_tick",
+      "time": 1697844.834672291,
+      "pid": 46977,
+      "thread": 8539349760,
+      "task_id": "a7f7e1ce-c920-4500-a98c-f036862d527e",
+      "role": "due",
+      "step": 5
+    },
+    {
+      "event": "scheduler_state",
+      "time": 1697844.926182,
+      "pid": 46973,
+      "thread": 8539349760,
+      "scheduled": [],
+      "reserved": [
+        "a7f7e1ce-c920-4500-a98c-f036862d527e"
+      ],
+      "active": [
+        "a7f7e1ce-c920-4500-a98c-f036862d527e"
+      ],
+      "qos_value": 1,
+      "qos_applied": 1,
+      "channel_prefetch": 1
+    },
+    {
+      "event": "eta_tick",
+      "time": 1697844.939810333,
+      "pid": 46977,
+      "thread": 8539349760,
+      "task_id": "a7f7e1ce-c920-4500-a98c-f036862d527e",
+      "role": "due",
+      "step": 6
+    },
+    {
+      "event": "scheduler_state",
+      "time": 1697845.028471833,
+      "pid": 46973,
+      "thread": 8539349760,
+      "scheduled": [],
+      "reserved": [
+        "a7f7e1ce-c920-4500-a98c-f036862d527e"
+      ],
+      "active": [
+        "a7f7e1ce-c920-4500-a98c-f036862d527e"
+      ],
+      "qos_value": 1,
+      "qos_applied": 1,
+      "channel_prefetch": 1
+    },
+    {
+      "event": "eta_tick",
+      "time": 1697845.0406885,
+      "pid": 46977,
+      "thread": 8539349760,
+      "task_id": "a7f7e1ce-c920-4500-a98c-f036862d527e",
+      "role": "due",
+      "step": 7
+    },
+    {
+      "event": "scheduler_state",
+      "time": 1697845.129809125,
+      "pid": 46973,
+      "thread": 8539349760,
+      "scheduled": [],
+      "reserved": [
+        "a7f7e1ce-c920-4500-a98c-f036862d527e"
+      ],
+      "active": [
+        "a7f7e1ce-c920-4500-a98c-f036862d527e"
+      ],
+      "qos_value": 1,
+      "qos_applied": 1,
+      "channel_prefetch": 1
+    },
+    {
+      "event": "eta_tick",
+      "time": 1697845.141500791,
+      "pid": 46977,
+      "thread": 8539349760,
+      "task_id": "a7f7e1ce-c920-4500-a98c-f036862d527e",
+      "role": "due",
+      "step": 8
+    },
+    {
+      "event": "scheduler_state",
+      "time": 1697845.231395208,
+      "pid": 46973,
+      "thread": 8539349760,
+      "scheduled": [],
+      "reserved": [
+        "a7f7e1ce-c920-4500-a98c-f036862d527e"
+      ],
+      "active": [
+        "a7f7e1ce-c920-4500-a98c-f036862d527e"
+      ],
+      "qos_value": 1,
+      "qos_applied": 1,
+      "channel_prefetch": 1
+    },
+    {
+      "event": "eta_tick",
+      "time": 1697845.24549625,
+      "pid": 46977,
+      "thread": 8539349760,
+      "task_id": "a7f7e1ce-c920-4500-a98c-f036862d527e",
+      "role": "due",
+      "step": 9
+    },
+    {
+      "event": "scheduler_state",
+      "time": 1697845.333229916,
+      "pid": 46973,
+      "thread": 8539349760,
+      "scheduled": [],
+      "reserved": [
+        "a7f7e1ce-c920-4500-a98c-f036862d527e"
+      ],
+      "active": [
+        "a7f7e1ce-c920-4500-a98c-f036862d527e"
+      ],
+      "qos_value": 1,
+      "qos_applied": 1,
+      "channel_prefetch": 1
+    },
+    {
+      "event": "eta_tick",
+      "time": 1697845.3463865,
+      "pid": 46977,
+      "thread": 8539349760,
+      "task_id": "a7f7e1ce-c920-4500-a98c-f036862d527e",
+      "role": "due",
+      "step": 10
+    },
+    {
+      "event": "scheduler_state",
+      "time": 1697845.435294666,
+      "pid": 46973,
+      "thread": 8539349760,
+      "scheduled": [],
+      "reserved": [
+        "a7f7e1ce-c920-4500-a98c-f036862d527e"
+      ],
+      "active": [
+        "a7f7e1ce-c920-4500-a98c-f036862d527e"
+      ],
+      "qos_value": 1,
+      "qos_applied": 1,
+      "channel_prefetch": 1
+    },
+    {
+      "event": "eta_tick",
+      "time": 1697845.447541666,
+      "pid": 46977,
+      "thread": 8539349760,
+      "task_id": "a7f7e1ce-c920-4500-a98c-f036862d527e",
+      "role": "due",
+      "step": 11
+    },
+    {
+      "event": "eta_completed",
+      "time": 1697845.447657666,
+      "pid": 46977,
+      "thread": 8539349760,
+      "task_id": "a7f7e1ce-c920-4500-a98c-f036862d527e",
+      "role": "due"
+    },
+    {
+      "event": "eta_finally",
+      "time": 1697845.447693416,
+      "pid": 46977,
+      "thread": 8539349760,
+      "task_id": "a7f7e1ce-c920-4500-a98c-f036862d527e",
+      "role": "due"
+    },
+    {
+      "event": "scheduler_state",
+      "time": 1697845.53602675,
+      "pid": 46973,
+      "thread": 8539349760,
+      "scheduled": [],
+      "reserved": [
+        "a7f7e1ce-c920-4500-a98c-f036862d527e"
+      ],
+      "active": [
+        "a7f7e1ce-c920-4500-a98c-f036862d527e"
+      ],
+      "qos_value": 1,
+      "qos_applied": 1,
+      "channel_prefetch": 1
+    },
+    {
+      "event": "scheduler_state",
+      "time": 1697845.636911291,
+      "pid": 46973,
+      "thread": 8539349760,
+      "scheduled": [],
+      "reserved": [
+        "a7f7e1ce-c920-4500-a98c-f036862d527e"
+      ],
+      "active": [
+        "a7f7e1ce-c920-4500-a98c-f036862d527e"
+      ],
+      "qos_value": 1,
+      "qos_applied": 1,
+      "channel_prefetch": 1
+    },
+    {
+      "event": "task_success",
+      "time": 1697845.670127833,
+      "pid": 46977,
+      "thread": 8539349760
+    },
+    {
+      "event": "task_postrun",
+      "time": 1697845.670260666,
+      "pid": 46977,
+      "thread": 8539349760,
+      "state": "SUCCESS"
+    },
+    {
+      "event": "worker_shutting_down",
+      "time": 1697845.707014708,
+      "pid": 46973,
+      "thread": 8539349760,
+      "signal": "SIGTERM",
+      "how": "Warm"
+    },
+    {
+      "event": "scheduler_state",
+      "time": 1697845.740401041,
+      "pid": 46973,
+      "thread": 6147518464,
+      "scheduled": [],
+      "reserved": [],
+      "active": [],
+      "qos_value": 1,
+      "qos_applied": 1,
+      "channel_prefetch": 1
+    },
+    {
+      "event": "scheduler_state",
+      "time": 1697846.245648791,
+      "pid": 46973,
+      "thread": 6147518464,
+      "scheduled": [],
+      "reserved": [],
+      "active": [],
+      "qos_value": 1,
+      "qos_applied": 1,
+      "channel_prefetch": 1
+    },
+    {
+      "event": "scheduler_state",
+      "time": 1697846.747136583,
+      "pid": 46973,
+      "thread": 6147518464,
+      "scheduled": [],
+      "reserved": [],
+      "active": [],
+      "qos_value": 1,
+      "qos_applied": 1,
+      "channel_prefetch": 1
+    },
+    {
+      "event": "worker_shutdown",
+      "time": 1697847.253410958,
+      "pid": 46973,
+      "thread": 8539349760
+    }
+  ],
+  "returncode": 0,
+  "forced_kill": false,
+  "shutdown_elapsed": 1.621,
+  "elapsed": 4.866,
+  "fetched_after_exit": [],
+  "soft_logged": false,
+  "errors_logged": [],
+  "errors": [],
+  "passed": true
+}

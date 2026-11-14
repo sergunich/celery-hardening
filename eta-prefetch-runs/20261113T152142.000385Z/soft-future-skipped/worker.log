@@ -1,0 +1,31 @@
+ 
+ -------------- eta-probe@localhost v5.7.0 (collider)
+--- ***** ----- 
+-- ******* ---- macOS-15.8.1-arm64-arm-64bit-Mach-O 2026-11-13 18:23:23
+- *** --- * --- 
+- ** ---------- [config]
+- ** ---------- .> app:         shutdown_probe:0x1055fe7b0
+- ** ---------- .> transport:   redis+socket:///Users/sergunich/dev/repos/celery/.dev/shutdown-46932.sock
+- ** ---------- .> results:     socket:///Users/sergunich/dev/repos/celery/.dev/shutdown-46932.sock
+- *** --- * --- .> concurrency: 1 (prefork)
+-- ******* ---- .> task events: OFF (enable -E to monitor tasks in this worker)
+--- ***** ----- 
+ -------------- [queues]
+                .> eta-probe        exchange=eta-probe(direct) key=eta-probe
+                
+
+[tasks]
+  . eta_probe.work
+  . shutdown_probe.task
+
+[2026-11-13 18:23:24,018: INFO/MainProcess] Connected to redis+socket:///Users/sergunich/dev/repos/celery/.dev/shutdown-46932.sock
+[2026-11-13 18:23:24,023: INFO/MainProcess] eta-probe@localhost ready.
+[2026-11-13 18:23:24,028: INFO/MainProcess] Task eta_probe.work[eff1708f-3baa-4fb7-a839-3dd060e46733] received
+[2026-11-13 18:23:24,028: INFO/MainProcess] Task eta_probe.work[ee80eca6-5a98-48e7-9d7e-4a79dc4813eb] received
+[2026-11-13 18:23:24,029: INFO/MainProcess] Task eta_probe.work[75a97186-4c77-40eb-97f6-e5d56823aaae] received
+[2026-11-13 18:23:24,258: INFO/SpawnPoolWorker-1] child process 47162 calling self.run()
+
+worker: Hitting Ctrl+C again will terminate all running tasks!
+
+worker: Cold shutdown (MainProcess)
+[2026-11-13 18:23:25,656: INFO/MainProcess] Restoring 3 unacknowledged message(s)

@@ -1,0 +1,33 @@
+ 
+ -------------- eta-probe@localhost v5.7.0 (collider)
+--- ***** ----- 
+-- ******* ---- macOS-15.8.1-arm64-arm-64bit-Mach-O 2026-11-13 18:24:34
+- *** --- * --- 
+- ** ---------- [config]
+- ** ---------- .> app:         shutdown_probe:0x103c2a7b0
+- ** ---------- .> transport:   redis+socket:///Users/sergunich/dev/repos/celery/.dev/shutdown-47255.sock
+- ** ---------- .> results:     socket:///Users/sergunich/dev/repos/celery/.dev/shutdown-47255.sock
+- *** --- * --- .> concurrency: 1 (prefork)
+-- ******* ---- .> task events: OFF (enable -E to monitor tasks in this worker)
+--- ***** ----- 
+ -------------- [queues]
+                .> eta-probe        exchange=eta-probe(direct) key=eta-probe
+                
+
+[tasks]
+  . eta_probe.work
+  . shutdown_probe.task
+
+[2026-11-13 18:24:34,279: INFO/MainProcess] Connected to redis+socket:///Users/sergunich/dev/repos/celery/.dev/shutdown-47255.sock
+[2026-11-13 18:24:34,284: INFO/MainProcess] eta-probe@localhost ready.
+[2026-11-13 18:24:34,292: INFO/MainProcess] Task eta_probe.work[bf0bc8e2-9b22-4433-9106-683f6cf9b9c1] received
+[2026-11-13 18:24:34,293: INFO/MainProcess] Task eta_probe.work[0b197214-f3c7-4df3-8d55-8e819c0783e7] received
+[2026-11-13 18:24:34,293: INFO/MainProcess] Task eta_probe.work[c834920d-5925-4a25-9d36-88ba728546e9] received
+[2026-11-13 18:24:34,514: INFO/SpawnPoolWorker-1] child process 47279 calling self.run()
+[2026-11-13 18:24:36,748: INFO/SpawnPoolWorker-1] Task eta_probe.work[bf0bc8e2-9b22-4433-9106-683f6cf9b9c1] succeeded in 0.45646720798686147s: 'future-0'
+[2026-11-13 18:24:36,956: INFO/SpawnPoolWorker-1] Task eta_probe.work[0b197214-f3c7-4df3-8d55-8e819c0783e7] succeeded in 0.20730258314870298s: 'future-1'
+[2026-11-13 18:24:37,164: INFO/SpawnPoolWorker-1] Task eta_probe.work[c834920d-5925-4a25-9d36-88ba728546e9] succeeded in 0.20616154209710658s: 'future-2'
+[2026-11-13 18:24:37,166: INFO/MainProcess] Task eta_probe.work[f663864a-47d8-4ff6-a6cc-4540cafbed2c] received
+[2026-11-13 18:24:37,378: INFO/SpawnPoolWorker-1] Task eta_probe.work[f663864a-47d8-4ff6-a6cc-4540cafbed2c] succeeded in 0.2114204578101635s: 'immediate'
+
+worker: Warm shutdown (MainProcess)

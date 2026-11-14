@@ -1,0 +1,30 @@
+ 
+ -------------- eta-probe@localhost v5.7.0 (collider)
+--- ***** ----- 
+-- ******* ---- macOS-15.8.1-arm64-arm-64bit-Mach-O 2026-11-13 18:27:59
+- *** --- * --- 
+- ** ---------- [config]
+- ** ---------- .> app:         shutdown_probe:0x102b2e120
+- ** ---------- .> transport:   redis+socket:///Users/sergunich/dev/repos/celery/.dev/shutdown-47397.sock
+- ** ---------- .> results:     socket:///Users/sergunich/dev/repos/celery/.dev/shutdown-47397.sock
+- *** --- * --- .> concurrency: 1 (solo)
+-- ******* ---- .> task events: OFF (enable -E to monitor tasks in this worker)
+--- ***** ----- 
+ -------------- [queues]
+                .> eta-probe        exchange=eta-probe(direct) key=eta-probe
+                
+
+[tasks]
+  . eta_probe.work
+  . shutdown_probe.task
+
+[2026-11-13 18:27:59,542: INFO/MainProcess] Connected to redis+socket:///Users/sergunich/dev/repos/celery/.dev/shutdown-47397.sock
+[2026-11-13 18:27:59,546: INFO/MainProcess] eta-probe@localhost ready.
+[2026-11-13 18:27:59,558: INFO/MainProcess] Task eta_probe.work[60f55162-30cd-4dbf-bb53-7263b2b917d9] received
+[2026-11-13 18:27:59,559: INFO/MainProcess] Task eta_probe.work[bc20f780-f919-4c29-9aad-ff28101744cc] received
+[2026-11-13 18:27:59,559: INFO/MainProcess] Task eta_probe.work[e8b3e03f-b952-4f6e-8bd6-4009179f47dc] received
+
+worker: Hitting Ctrl+C again will terminate all running tasks!
+
+worker: Cold shutdown (MainProcess)
+[2026-11-13 18:28:00,200: INFO/MainProcess] Restoring 3 unacknowledged message(s)

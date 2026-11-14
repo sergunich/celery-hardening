@@ -96,6 +96,16 @@ def probe():
                 completed += 1
                 emit("task_tick", step=completed)
             except BaseException as exc:
+                if catch == "requeue":
+                    from celery.exceptions import Reject
+                    from celery.worker import state
+                    # Experiment-only, version-specific recognition of the
+                    # unsupported solo cancellation path; not a public API.
+                    terminating = state.should_terminate is not None and state.should_terminate is not False
+                    if isinstance(exc, NotImplementedError) and terminating and "does not implement kill_job" in str(exc):
+                        emit("task_requeue_requested", exception=type(exc).__name__)
+                        raise Reject("solo worker shutting down", requeue=True) from exc
+                    raise
                 if catch == "base" or (catch == "exception" and isinstance(exc, Exception)):
                     emit("task_caught", exception=type(exc).__name__, message=str(exc))
                 else:

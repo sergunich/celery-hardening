@@ -1,0 +1,30 @@
+ 
+ -------------- eta-probe@localhost v5.7.0 (collider)
+--- ***** ----- 
+-- ******* ---- macOS-15.8.1-arm64-arm-64bit-Mach-O 2026-11-13 18:28:13
+- *** --- * --- 
+- ** ---------- [config]
+- ** ---------- .> app:         shutdown_probe:0x106f567b0
+- ** ---------- .> transport:   redis+socket:///Users/sergunich/dev/repos/celery/.dev/shutdown-47397.sock
+- ** ---------- .> results:     socket:///Users/sergunich/dev/repos/celery/.dev/shutdown-47397.sock
+- *** --- * --- .> concurrency: 1 (prefork)
+-- ******* ---- .> task events: OFF (enable -E to monitor tasks in this worker)
+--- ***** ----- 
+ -------------- [queues]
+                .> eta-probe        exchange=eta-probe(direct) key=eta-probe
+                
+
+[tasks]
+  . eta_probe.work
+  . shutdown_probe.task
+
+[2026-11-13 18:28:13,327: INFO/MainProcess] Connected to redis+socket:///Users/sergunich/dev/repos/celery/.dev/shutdown-47397.sock
+[2026-11-13 18:28:13,332: INFO/MainProcess] eta-probe@localhost ready.
+[2026-11-13 18:28:13,342: INFO/MainProcess] Task eta_probe.work[2ddf23fb-6b81-4dc9-8310-de856979f332] received
+[2026-11-13 18:28:13,567: INFO/SpawnPoolWorker-1] child process 47635 calling self.run()
+
+worker: Hitting Ctrl+C again will terminate all running tasks!
+[2026-11-13 18:28:13,644: WARNING/MainProcess] Initiating Soft Shutdown, terminating in 2.0 seconds
+
+worker: Cold shutdown (MainProcess)
+[2026-11-13 18:28:17,166: INFO/MainProcess] Restoring 1 unacknowledged message(s)

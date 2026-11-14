@@ -1,0 +1,548 @@
+{
+  "case": {
+    "name": "cold-mixed-prefork",
+    "pool": "prefork",
+    "kind": "mixed_cold",
+    "shutdown": "SIGQUIT",
+    "acks_late": true
+  },
+  "tasks": {
+    "a72dff19-5bd2-4eb4-a469-026ae863815a": {
+      "role": "future-0",
+      "duration": 0.2,
+      "countdown": 60.0,
+      "absolute": false,
+      "published": 1698228.574188875,
+      "received": true,
+      "started": false,
+      "completed": false,
+      "acked": false,
+      "request_ack_on_accept": null,
+      "result": "PENDING",
+      "broker": {
+        "queued": [
+          {
+            "queue": "eta-probe",
+            "redelivered": true
+          }
+        ],
+        "unacked": []
+      }
+    },
+    "afd339d9-5485-4e97-b440-8a920bfdc99f": {
+      "role": "future-1",
+      "duration": 0.2,
+      "countdown": 60.0,
+      "absolute": true,
+      "published": 1698228.577269625,
+      "received": true,
+      "started": false,
+      "completed": false,
+      "acked": false,
+      "request_ack_on_accept": null,
+      "result": "PENDING",
+      "broker": {
+        "queued": [
+          {
+            "queue": "eta-probe",
+            "redelivered": true
+          }
+        ],
+        "unacked": []
+      }
+    },
+    "b1c9cfad-e647-417b-bf69-7fb781709567": {
+      "role": "future-2",
+      "duration": 0.2,
+      "countdown": 60.0,
+      "absolute": false,
+      "published": 1698228.577643166,
+      "received": true,
+      "started": false,
+      "completed": false,
+      "acked": false,
+      "request_ack_on_accept": null,
+      "result": "PENDING",
+      "broker": {
+        "queued": [
+          {
+            "queue": "eta-probe",
+            "redelivered": true
+          }
+        ],
+        "unacked": []
+      }
+    },
+    "6b98dd24-6717-4dca-8c56-a3066ea269b3": {
+      "role": "active",
+      "duration": 3.0,
+      "countdown": null,
+      "absolute": false,
+      "published": 1698229.187762833,
+      "received": true,
+      "started": true,
+      "completed": false,
+      "acked": false,
+      "request_ack_on_accept": false,
+      "result": "PENDING",
+      "broker": {
+        "queued": [
+          {
+            "queue": "eta-probe",
+            "redelivered": true
+          }
+        ],
+        "unacked": []
+      }
+    }
+  },
+  "phases": {
+    "loaded": {
+      "time": 1698229.183534,
+      "scheduler": {
+        "event": "scheduler_state",
+        "time": 1698229.176785375,
+        "pid": 47644,
+        "thread": 8539349760,
+        "scheduled": [
+          "a72dff19-5bd2-4eb4-a469-026ae863815a",
+          "afd339d9-5485-4e97-b440-8a920bfdc99f",
+          "b1c9cfad-e647-417b-bf69-7fb781709567"
+        ],
+        "reserved": [],
+        "active": [],
+        "qos_value": 4,
+        "qos_applied": 4,
+        "channel_prefetch": 4
+      },
+      "received": [
+        "a72dff19-5bd2-4eb4-a469-026ae863815a",
+        "afd339d9-5485-4e97-b440-8a920bfdc99f",
+        "b1c9cfad-e647-417b-bf69-7fb781709567"
+      ],
+      "running": [],
+      "completed": [],
+      "acked": [],
+      "broker": {
+        "a72dff19-5bd2-4eb4-a469-026ae863815a": {
+          "queued": [],
+          "unacked": [
+            {
+              "tag": "3cf7ded5-4e05-44f2-9b41-87b5d69f8914",
+              "exchange": "",
+              "routing_key": "eta-probe"
+            }
+          ]
+        },
+        "afd339d9-5485-4e97-b440-8a920bfdc99f": {
+          "queued": [],
+          "unacked": [
+            {
+              "tag": "5e8547e0-6fa8-4680-ad4a-eadc9b016ffa",
+              "exchange": "",
+              "routing_key": "eta-probe"
+            }
+          ]
+        },
+        "b1c9cfad-e647-417b-bf69-7fb781709567": {
+          "queued": [],
+          "unacked": [
+            {
+              "tag": "91c5f27b-12a4-48c9-802a-4a7e2e3aefd1",
+              "exchange": "",
+              "routing_key": "eta-probe"
+            }
+          ]
+        }
+      }
+    },
+    "mixed_running": {
+      "time": 1698229.404681041,
+      "scheduler": {
+        "event": "scheduler_state",
+        "time": 1698229.379596,
+        "pid": 47644,
+        "thread": 8539349760,
+        "scheduled": [
+          "a72dff19-5bd2-4eb4-a469-026ae863815a",
+          "afd339d9-5485-4e97-b440-8a920bfdc99f",
+          "b1c9cfad-e647-417b-bf69-7fb781709567"
+        ],
+        "reserved": [
+          "6b98dd24-6717-4dca-8c56-a3066ea269b3"
+        ],
+        "active": [
+          "6b98dd24-6717-4dca-8c56-a3066ea269b3"
+        ],
+        "qos_value": 4,
+        "qos_applied": 4,
+        "channel_prefetch": 4
+      },
+      "received": [
+        "a72dff19-5bd2-4eb4-a469-026ae863815a",
+        "afd339d9-5485-4e97-b440-8a920bfdc99f",
+        "b1c9cfad-e647-417b-bf69-7fb781709567",
+        "6b98dd24-6717-4dca-8c56-a3066ea269b3"
+      ],
+      "running": [
+        "6b98dd24-6717-4dca-8c56-a3066ea269b3"
+      ],
+      "completed": [],
+      "acked": [],
+      "broker": {
+        "a72dff19-5bd2-4eb4-a469-026ae863815a": {
+          "queued": [],
+          "unacked": [
+            {
+              "tag": "3cf7ded5-4e05-44f2-9b41-87b5d69f8914",
+              "exchange": "",
+              "routing_key": "eta-probe"
+            }
+          ]
+        },
+        "afd339d9-5485-4e97-b440-8a920bfdc99f": {
+          "queued": [],
+          "unacked": [
+            {
+              "tag": "5e8547e0-6fa8-4680-ad4a-eadc9b016ffa",
+              "exchange": "",
+              "routing_key": "eta-probe"
+            }
+          ]
+        },
+        "b1c9cfad-e647-417b-bf69-7fb781709567": {
+          "queued": [],
+          "unacked": [
+            {
+              "tag": "91c5f27b-12a4-48c9-802a-4a7e2e3aefd1",
+              "exchange": "",
+              "routing_key": "eta-probe"
+            }
+          ]
+        },
+        "6b98dd24-6717-4dca-8c56-a3066ea269b3": {
+          "queued": [],
+          "unacked": [
+            {
+              "tag": "888fbd30-8331-409d-9534-9e7bcbb81a12",
+              "exchange": "",
+              "routing_key": "eta-probe"
+            }
+          ]
+        }
+      }
+    }
+  },
+  "signals": [
+    {
+      "signal": "SIGQUIT",
+      "time": 1698229.408856583
+    }
+  ],
+  "timeline": [
+    {
+      "event": "worker_ready",
+      "time": 1698228.567143208,
+      "pid": 47644,
+      "thread": 8539349760,
+      "pool": "prefork",
+      "multiprocessing_start_method": "spawn"
+    },
+    {
+      "event": "scheduler_state",
+      "time": 1698228.567278791,
+      "pid": 47644,
+      "thread": 8539349760,
+      "scheduled": [],
+      "reserved": [],
+      "active": [],
+      "qos_value": 1,
+      "qos_applied": null,
+      "channel_prefetch": 1
+    },
+    {
+      "event": "eta_received",
+      "time": 1698228.577801416,
+      "pid": 47644,
+      "thread": 8539349760,
+      "task_id": "a72dff19-5bd2-4eb4-a469-026ae863815a",
+      "eta": "2026-11-13T15:29:21.674866+00:00",
+      "ack_requested": false
+    },
+    {
+      "event": "eta_received",
+      "time": 1698228.578258916,
+      "pid": 47644,
+      "thread": 8539349760,
+      "task_id": "afd339d9-5485-4e97-b440-8a920bfdc99f",
+      "eta": "2026-11-13T15:29:21.677051+00:00",
+      "ack_requested": false
+    },
+    {
+      "event": "eta_received",
+      "time": 1698228.578606833,
+      "pid": 47644,
+      "thread": 8539349760,
+      "task_id": "b1c9cfad-e647-417b-bf69-7fb781709567",
+      "eta": "2026-11-13T15:29:21.677447+00:00",
+      "ack_requested": false
+    },
+    {
+      "event": "scheduler_state",
+      "time": 1698228.668831583,
+      "pid": 47644,
+      "thread": 8539349760,
+      "scheduled": [
+        "a72dff19-5bd2-4eb4-a469-026ae863815a",
+        "afd339d9-5485-4e97-b440-8a920bfdc99f",
+        "b1c9cfad-e647-417b-bf69-7fb781709567"
+      ],
+      "reserved": [],
+      "active": [],
+      "qos_value": 4,
+      "qos_applied": 4,
+      "channel_prefetch": 4
+    },
+    {
+      "event": "scheduler_state",
+      "time": 1698228.769522166,
+      "pid": 47644,
+      "thread": 8539349760,
+      "scheduled": [
+        "a72dff19-5bd2-4eb4-a469-026ae863815a",
+        "afd339d9-5485-4e97-b440-8a920bfdc99f",
+        "b1c9cfad-e647-417b-bf69-7fb781709567"
+      ],
+      "reserved": [],
+      "active": [],
+      "qos_value": 4,
+      "qos_applied": 4,
+      "channel_prefetch": 4
+    },
+    {
+      "event": "scheduler_state",
+      "time": 1698228.871334625,
+      "pid": 47644,
+      "thread": 8539349760,
+      "scheduled": [
+        "a72dff19-5bd2-4eb4-a469-026ae863815a",
+        "afd339d9-5485-4e97-b440-8a920bfdc99f",
+        "b1c9cfad-e647-417b-bf69-7fb781709567"
+      ],
+      "reserved": [],
+      "active": [],
+      "qos_value": 4,
+      "qos_applied": 4,
+      "channel_prefetch": 4
+    },
+    {
+      "event": "scheduler_state",
+      "time": 1698228.973218875,
+      "pid": 47644,
+      "thread": 8539349760,
+      "scheduled": [
+        "a72dff19-5bd2-4eb4-a469-026ae863815a",
+        "afd339d9-5485-4e97-b440-8a920bfdc99f",
+        "b1c9cfad-e647-417b-bf69-7fb781709567"
+      ],
+      "reserved": [],
+      "active": [],
+      "qos_value": 4,
+      "qos_applied": 4,
+      "channel_prefetch": 4
+    },
+    {
+      "event": "scheduler_state",
+      "time": 1698229.075440541,
+      "pid": 47644,
+      "thread": 8539349760,
+      "scheduled": [
+        "a72dff19-5bd2-4eb4-a469-026ae863815a",
+        "afd339d9-5485-4e97-b440-8a920bfdc99f",
+        "b1c9cfad-e647-417b-bf69-7fb781709567"
+      ],
+      "reserved": [],
+      "active": [],
+      "qos_value": 4,
+      "qos_applied": 4,
+      "channel_prefetch": 4
+    },
+    {
+      "event": "scheduler_state",
+      "time": 1698229.176785375,
+      "pid": 47644,
+      "thread": 8539349760,
+      "scheduled": [
+        "a72dff19-5bd2-4eb4-a469-026ae863815a",
+        "afd339d9-5485-4e97-b440-8a920bfdc99f",
+        "b1c9cfad-e647-417b-bf69-7fb781709567"
+      ],
+      "reserved": [],
+      "active": [],
+      "qos_value": 4,
+      "qos_applied": 4,
+      "channel_prefetch": 4
+    },
+    {
+      "event": "eta_received",
+      "time": 1698229.189614791,
+      "pid": 47644,
+      "thread": 8539349760,
+      "task_id": "6b98dd24-6717-4dca-8c56-a3066ea269b3",
+      "eta": null,
+      "ack_requested": false
+    },
+    {
+      "event": "request_accepted",
+      "time": 1698229.190238208,
+      "pid": 47644,
+      "thread": 8539349760,
+      "task_id": "6b98dd24-6717-4dca-8c56-a3066ea269b3",
+      "ack_requested": false
+    },
+    {
+      "event": "eta_started",
+      "time": 1698229.190365333,
+      "pid": 47648,
+      "thread": 8539349760,
+      "task_id": "6b98dd24-6717-4dca-8c56-a3066ea269b3",
+      "role": "active",
+      "eta": null
+    },
+    {
+      "event": "scheduler_state",
+      "time": 1698229.278054166,
+      "pid": 47644,
+      "thread": 8539349760,
+      "scheduled": [
+        "a72dff19-5bd2-4eb4-a469-026ae863815a",
+        "afd339d9-5485-4e97-b440-8a920bfdc99f",
+        "b1c9cfad-e647-417b-bf69-7fb781709567"
+      ],
+      "reserved": [
+        "6b98dd24-6717-4dca-8c56-a3066ea269b3"
+      ],
+      "active": [
+        "6b98dd24-6717-4dca-8c56-a3066ea269b3"
+      ],
+      "qos_value": 4,
+      "qos_applied": 4,
+      "channel_prefetch": 4
+    },
+    {
+      "event": "eta_tick",
+      "time": 1698229.295496375,
+      "pid": 47648,
+      "thread": 8539349760,
+      "task_id": "6b98dd24-6717-4dca-8c56-a3066ea269b3",
+      "role": "active",
+      "step": 0
+    },
+    {
+      "event": "scheduler_state",
+      "time": 1698229.379596,
+      "pid": 47644,
+      "thread": 8539349760,
+      "scheduled": [
+        "a72dff19-5bd2-4eb4-a469-026ae863815a",
+        "afd339d9-5485-4e97-b440-8a920bfdc99f",
+        "b1c9cfad-e647-417b-bf69-7fb781709567"
+      ],
+      "reserved": [
+        "6b98dd24-6717-4dca-8c56-a3066ea269b3"
+      ],
+      "active": [
+        "6b98dd24-6717-4dca-8c56-a3066ea269b3"
+      ],
+      "qos_value": 4,
+      "qos_applied": 4,
+      "channel_prefetch": 4
+    },
+    {
+      "event": "eta_tick",
+      "time": 1698229.400062875,
+      "pid": 47648,
+      "thread": 8539349760,
+      "task_id": "6b98dd24-6717-4dca-8c56-a3066ea269b3",
+      "role": "active",
+      "step": 1
+    },
+    {
+      "event": "eta_interrupted",
+      "time": 1698229.409473291,
+      "pid": 47648,
+      "thread": 8539349760,
+      "task_id": "6b98dd24-6717-4dca-8c56-a3066ea269b3",
+      "exception": "SystemExit"
+    },
+    {
+      "event": "eta_finally",
+      "time": 1698229.409544541,
+      "pid": 47648,
+      "thread": 8539349760,
+      "task_id": "6b98dd24-6717-4dca-8c56-a3066ea269b3",
+      "role": "active"
+    },
+    {
+      "event": "task_postrun",
+      "time": 1698229.409643,
+      "pid": 47648,
+      "thread": 8539349760,
+      "state": null
+    },
+    {
+      "event": "scheduler_state",
+      "time": 1698229.914676916,
+      "pid": 47644,
+      "thread": 6145159168,
+      "scheduled": [
+        "a72dff19-5bd2-4eb4-a469-026ae863815a",
+        "afd339d9-5485-4e97-b440-8a920bfdc99f",
+        "b1c9cfad-e647-417b-bf69-7fb781709567"
+      ],
+      "reserved": [],
+      "active": [],
+      "qos_value": 4,
+      "qos_applied": 4,
+      "channel_prefetch": 4
+    },
+    {
+      "event": "scheduler_state",
+      "time": 1698230.421327416,
+      "pid": 47644,
+      "thread": 6145159168,
+      "scheduled": [
+        "a72dff19-5bd2-4eb4-a469-026ae863815a",
+        "afd339d9-5485-4e97-b440-8a920bfdc99f",
+        "b1c9cfad-e647-417b-bf69-7fb781709567"
+      ],
+      "reserved": [],
+      "active": [],
+      "qos_value": 4,
+      "qos_applied": 4,
+      "channel_prefetch": 4
+    },
+    {
+      "event": "worker_shutting_down",
+      "time": 1698230.923281958,
+      "pid": 47644,
+      "thread": 8539349760,
+      "signal": "SIGQUIT",
+      "how": "Cold"
+    }
+  ],
+  "returncode": 0,
+  "forced_kill": false,
+  "shutdown_elapsed": 1.626,
+  "elapsed": 3.224,
+  "fetched_after_exit": [
+    "6b98dd24-6717-4dca-8c56-a3066ea269b3",
+    "b1c9cfad-e647-417b-bf69-7fb781709567",
+    "afd339d9-5485-4e97-b440-8a920bfdc99f",
+    "a72dff19-5bd2-4eb4-a469-026ae863815a"
+  ],
+  "soft_logged": false,
+  "errors_logged": [],
+  "errors": [],
+  "passed": true
+}

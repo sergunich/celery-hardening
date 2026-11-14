@@ -1,0 +1,56 @@
+ 
+ -------------- eta-probe@localhost v5.7.0 (collider)
+--- ***** ----- 
+-- ******* ---- macOS-15.8.1-arm64-arm-64bit-Mach-O 2026-11-13 18:23:38
+- *** --- * --- 
+- ** ---------- [config]
+- ** ---------- .> app:         shutdown_probe:0x10767a120
+- ** ---------- .> transport:   redis+socket:///Users/sergunich/dev/repos/celery/.dev/shutdown-46932.sock
+- ** ---------- .> results:     socket:///Users/sergunich/dev/repos/celery/.dev/shutdown-46932.sock
+- *** --- * --- .> concurrency: 1 (solo)
+-- ******* ---- .> task events: OFF (enable -E to monitor tasks in this worker)
+--- ***** ----- 
+ -------------- [queues]
+                .> eta-probe        exchange=eta-probe(direct) key=eta-probe
+                
+
+[tasks]
+  . eta_probe.work
+  . shutdown_probe.task
+
+[2026-11-13 18:23:38,798: INFO/MainProcess] Connected to redis+socket:///Users/sergunich/dev/repos/celery/.dev/shutdown-46932.sock
+[2026-11-13 18:23:38,802: INFO/MainProcess] eta-probe@localhost ready.
+[2026-11-13 18:23:38,816: INFO/MainProcess] Task eta_probe.work[4eeb8ec5-14f3-480e-824e-7e02f81b090f] received
+[2026-11-13 18:23:38,816: INFO/MainProcess] Task eta_probe.work[29d863b7-74ed-4d05-88d3-05e10a0dbb92] received
+[2026-11-13 18:23:38,817: INFO/MainProcess] Task eta_probe.work[cea6ca3f-249e-4d45-b8aa-de0756b83beb] received
+[2026-11-13 18:23:39,431: INFO/MainProcess] Task eta_probe.work[6f662361-8baf-4291-987d-c29cba770138] received
+
+worker: Hitting Ctrl+C again will terminate all running tasks!
+[2026-11-13 18:23:39,660: ERROR/MainProcess] Task eta_probe.work[6f662361-8baf-4291-987d-c29cba770138] raised unexpected: NotImplementedError("<class 'celery.concurrency.solo.TaskPool'> does not implement kill_job")
+Traceback (most recent call last):
+  File "/Users/sergunich/dev/repos/celery/celery/app/trace.py", line 564, in trace_task
+    R = retval = fun(*args, **kwargs)
+                 ~~~^^^^^^^^^^^^^^^^^
+  File "/Users/sergunich/dev/repos/celery/celery/app/trace.py", line 883, in __protected_call__
+    return self.run(*args, **kwargs)
+           ~~~~~~~~^^^^^^^^^^^^^^^^^
+  File "/Users/sergunich/dev/repos/celery/.dev/eta_probe.py", line 29, in work
+    time.sleep(duration / steps)
+    ~~~~~~~~~~^^^^^^^^^^^^^^^^^^
+  File "/Users/sergunich/dev/repos/celery/celery/apps/worker.py", line 343, in _handle_request
+    callback(worker)
+    ~~~~~~~~^^^^^^^^
+  File "/Users/sergunich/dev/repos/celery/celery/apps/worker.py", line 479, in on_cold_shutdown
+    worker.consumer.cancel_active_requests()
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^
+  File "/Users/sergunich/dev/repos/celery/celery/worker/consumer/consumer.py", line 929, in cancel_active_requests
+    request.cancel(self.pool, emit_retry=emit_retry)
+    ~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/sergunich/dev/repos/celery/celery/worker/request.py", line 438, in cancel
+    pool.terminate_job(self.worker_pid, signal)
+    ~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/sergunich/dev/repos/celery/celery/concurrency/base.py", line 113, in terminate_job
+    raise NotImplementedError(
+        f'{type(self)} does not implement kill_job')
+NotImplementedError: <class 'celery.concurrency.solo.TaskPool'> does not implement kill_job
+[2026-11-13 18:23:39,663: INFO/MainProcess] Restoring 3 unacknowledged message(s)

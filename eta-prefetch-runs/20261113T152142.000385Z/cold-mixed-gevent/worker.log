@@ -1,0 +1,138 @@
+ 
+ -------------- eta-probe@localhost v5.7.0 (collider)
+--- ***** ----- 
+-- ******* ---- macOS-15.8.1-arm64-arm-64bit-Mach-O 2026-11-13 18:23:44
+- *** --- * --- 
+- ** ---------- [config]
+- ** ---------- .> app:         shutdown_probe:0x1056a8690
+- ** ---------- .> transport:   redis+socket:///Users/sergunich/dev/repos/celery/.dev/shutdown-46932.sock
+- ** ---------- .> results:     socket:///Users/sergunich/dev/repos/celery/.dev/shutdown-46932.sock
+- *** --- * --- .> concurrency: 1 (gevent)
+-- ******* ---- .> task events: OFF (enable -E to monitor tasks in this worker)
+--- ***** ----- 
+ -------------- [queues]
+                .> eta-probe        exchange=eta-probe(direct) key=eta-probe
+                
+
+[tasks]
+  . eta_probe.work
+  . shutdown_probe.task
+
+[2026-11-13 18:23:44,069: INFO/MainProcess] Connected to redis+socket:///Users/sergunich/dev/repos/celery/.dev/shutdown-46932.sock
+[2026-11-13 18:23:44,072: INFO/MainProcess] eta-probe@localhost ready.
+[2026-11-13 18:23:44,073: INFO/MainProcess] pidbox: Connected to redis+socket:///Users/sergunich/dev/repos/celery/.dev/shutdown-46932.sock.
+[2026-11-13 18:23:44,084: INFO/MainProcess] Task eta_probe.work[4a89d9c4-2c85-4ecf-a8e1-9c205030a12f] received
+[2026-11-13 18:23:44,084: INFO/MainProcess] Task eta_probe.work[f238fb5f-1be1-44f0-862c-806b2c7e3ff7] received
+[2026-11-13 18:23:44,085: INFO/MainProcess] Task eta_probe.work[ab98ed6e-67be-49e1-9aaa-1738493051f9] received
+[2026-11-13 18:23:44,796: INFO/MainProcess] Task eta_probe.work[abbcef5e-9f5d-46d9-bcc4-3b409395472b] received
+
+worker: Hitting Ctrl+C again will terminate all running tasks!
+Traceback (most recent call last):
+  File "/Users/sergunich/dev/repos/celery/celery/apps/worker.py", line 343, in _handle_request
+    callback(worker)
+    ~~~~~~~~^^^^^^^^
+  File "/Users/sergunich/dev/repos/celery/celery/apps/worker.py", line 486, in on_cold_shutdown
+    worker.consumer.pool.stop()
+    ~~~~~~~~~~~~~~~~~~~~~~~~~^^
+  File "/Users/sergunich/dev/repos/celery/celery/concurrency/base.py", line 121, in stop
+    self.on_stop()
+    ~~~~~~~~~~~~^^
+  File "/Users/sergunich/dev/repos/celery/celery/concurrency/gevent.py", line 114, in on_stop
+    self._pool.join()
+    ~~~~~~~~~~~~~~~^^
+  File "/Users/sergunich/dev/repos/celery/.dev/.venv/lib/python3.13/site-packages/gevent/pool.py", line 430, in join
+    result = self._empty_event.wait(timeout=timeout)
+  File "src/gevent/event.py", line 165, in gevent._gevent_cevent.Event.wait
+  File "src/gevent/_abstract_linkable.py", line 586, in gevent._gevent_c_abstract_linkable.AbstractLinkable._wait
+  File "src/gevent/_abstract_linkable.py", line 552, in gevent._gevent_c_abstract_linkable.AbstractLinkable._wait_core
+  File "src/gevent/_abstract_linkable.py", line 555, in gevent._gevent_c_abstract_linkable.AbstractLinkable._wait_core
+  File "src/gevent/_abstract_linkable.py", line 507, in gevent._gevent_c_abstract_linkable.AbstractLinkable._AbstractLinkable__wait_to_be_notified
+  File "src/gevent/_abstract_linkable.py", line 516, in gevent._gevent_c_abstract_linkable.AbstractLinkable._switch_to_hub
+  File "src/gevent/_greenlet_primitives.py", line 61, in gevent._gevent_c_greenlet_primitives.SwitchOutGreenletWithLoop.switch
+  File "src/gevent/_greenlet_primitives.py", line 64, in gevent._gevent_c_greenlet_primitives.SwitchOutGreenletWithLoop.switch
+  File "src/gevent/_greenlet_primitives.py", line 67, in gevent._gevent_c_greenlet_primitives.SwitchOutGreenletWithLoop.switch_out
+  File "src/gevent/_greenlet_primitives.py", line 68, in gevent._gevent_c_greenlet_primitives.SwitchOutGreenletWithLoop.switch_out
+gevent.exceptions.BlockingSwitchOutError: Impossible to call blocking function in the event loop callback
+2026-11-13T15:23:45Z
+[2026-11-13 18:23:45,018: CRITICAL/MainProcess] Unrecoverable error: BlockingSwitchOutError('Impossible to call blocking function in the event loop callback')
+Traceback (most recent call last):
+  File "/Users/sergunich/dev/repos/celery/celery/worker/worker.py", line 271, in start
+    self.blueprint.start(self)
+    ~~~~~~~~~~~~~~~~~~~~^^^^^^
+  File "/Users/sergunich/dev/repos/celery/celery/bootsteps.py", line 116, in start
+    step.start(parent)
+    ~~~~~~~~~~^^^^^^^^
+  File "/Users/sergunich/dev/repos/celery/celery/bootsteps.py", line 365, in start
+    return self.obj.start()
+           ~~~~~~~~~~~~~~^^
+  File "/Users/sergunich/dev/repos/celery/celery/worker/consumer/consumer.py", line 406, in start
+    blueprint.start(self)
+    ~~~~~~~~~~~~~~~^^^^^^
+  File "/Users/sergunich/dev/repos/celery/celery/bootsteps.py", line 116, in start
+    step.start(parent)
+    ~~~~~~~~~~^^^^^^^^
+  File "/Users/sergunich/dev/repos/celery/celery/worker/consumer/consumer.py", line 944, in start
+    c.loop(*c.loop_args())
+    ~~~~~~^^^^^^^^^^^^^^^^
+  File "/Users/sergunich/dev/repos/celery/celery/worker/loops.py", line 213, in synloop
+    _loop_cycle()
+    ~~~~~~~~~~~^^
+  File "/Users/sergunich/dev/repos/celery/celery/worker/loops.py", line 192, in _loop_cycle
+    connection.drain_events(timeout=2.0)
+    ~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^
+  File "/Users/sergunich/dev/repos/celery/.dev/.venv/lib/python3.13/site-packages/kombu/connection.py", line 399, in drain_events
+    return self.transport.drain_events(self.connection, **kwargs)
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/sergunich/dev/repos/celery/.dev/.venv/lib/python3.13/site-packages/kombu/transport/virtual/base.py", line 1007, in drain_events
+    get(self._deliver, timeout=timeout)
+    ~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/sergunich/dev/repos/celery/.dev/.venv/lib/python3.13/site-packages/kombu/transport/redis.py", line 899, in get
+    events = self.poller.poll(timeout)
+  File "/Users/sergunich/dev/repos/celery/.dev/.venv/lib/python3.13/site-packages/kombu/utils/eventio.py", line 281, in poll
+    read, write, error = _selectf(
+                         ~~~~~~~~^
+        self._rfd, self._wfd, self._efd, timeout,
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "/Users/sergunich/dev/repos/celery/.dev/.venv/lib/python3.13/site-packages/gevent/select.py", line 203, in select
+    return result.select(rlist, wlist, timeout)
+           ~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/sergunich/dev/repos/celery/.dev/.venv/lib/python3.13/site-packages/gevent/select.py", line 139, in select
+    event.wait(timeout=timeout)
+    ~~~~~~~~~~^^^^^^^^^^^^^^^^^
+  File "src/gevent/event.py", line 165, in gevent._gevent_cevent.Event.wait
+  File "src/gevent/_abstract_linkable.py", line 586, in gevent._gevent_c_abstract_linkable.AbstractLinkable._wait
+  File "src/gevent/_abstract_linkable.py", line 552, in gevent._gevent_c_abstract_linkable.AbstractLinkable._wait_core
+  File "src/gevent/_abstract_linkable.py", line 555, in gevent._gevent_c_abstract_linkable.AbstractLinkable._wait_core
+  File "src/gevent/_abstract_linkable.py", line 507, in gevent._gevent_c_abstract_linkable.AbstractLinkable._AbstractLinkable__wait_to_be_notified
+  File "src/gevent/_abstract_linkable.py", line 516, in gevent._gevent_c_abstract_linkable.AbstractLinkable._switch_to_hub
+  File "src/gevent/_greenlet_primitives.py", line 61, in gevent._gevent_c_greenlet_primitives.SwitchOutGreenletWithLoop.switch
+  File "src/gevent/_greenlet_primitives.py", line 65, in gevent._gevent_c_greenlet_primitives.SwitchOutGreenletWithLoop.switch
+  File "src/gevent/_gevent_c_greenlet_primitives.pxd", line 35, in gevent._gevent_c_greenlet_primitives._greenlet_switch
+  File "/Users/sergunich/dev/repos/celery/celery/apps/worker.py", line 343, in _handle_request
+    callback(worker)
+    ~~~~~~~~^^^^^^^^
+  File "/Users/sergunich/dev/repos/celery/celery/apps/worker.py", line 486, in on_cold_shutdown
+    worker.consumer.pool.stop()
+    ~~~~~~~~~~~~~~~~~~~~~~~~~^^
+  File "/Users/sergunich/dev/repos/celery/celery/concurrency/base.py", line 121, in stop
+    self.on_stop()
+    ~~~~~~~~~~~~^^
+  File "/Users/sergunich/dev/repos/celery/celery/concurrency/gevent.py", line 114, in on_stop
+    self._pool.join()
+    ~~~~~~~~~~~~~~~^^
+  File "/Users/sergunich/dev/repos/celery/.dev/.venv/lib/python3.13/site-packages/gevent/pool.py", line 430, in join
+    result = self._empty_event.wait(timeout=timeout)
+  File "src/gevent/event.py", line 165, in gevent._gevent_cevent.Event.wait
+  File "src/gevent/_abstract_linkable.py", line 586, in gevent._gevent_c_abstract_linkable.AbstractLinkable._wait
+  File "src/gevent/_abstract_linkable.py", line 552, in gevent._gevent_c_abstract_linkable.AbstractLinkable._wait_core
+  File "src/gevent/_abstract_linkable.py", line 555, in gevent._gevent_c_abstract_linkable.AbstractLinkable._wait_core
+  File "src/gevent/_abstract_linkable.py", line 507, in gevent._gevent_c_abstract_linkable.AbstractLinkable._AbstractLinkable__wait_to_be_notified
+  File "src/gevent/_abstract_linkable.py", line 516, in gevent._gevent_c_abstract_linkable.AbstractLinkable._switch_to_hub
+  File "src/gevent/_greenlet_primitives.py", line 61, in gevent._gevent_c_greenlet_primitives.SwitchOutGreenletWithLoop.switch
+  File "src/gevent/_greenlet_primitives.py", line 64, in gevent._gevent_c_greenlet_primitives.SwitchOutGreenletWithLoop.switch
+  File "src/gevent/_greenlet_primitives.py", line 67, in gevent._gevent_c_greenlet_primitives.SwitchOutGreenletWithLoop.switch_out
+  File "src/gevent/_greenlet_primitives.py", line 68, in gevent._gevent_c_greenlet_primitives.SwitchOutGreenletWithLoop.switch_out
+gevent.exceptions.BlockingSwitchOutError: Impossible to call blocking function in the event loop callback
+[2026-11-13 18:23:45,085: INFO/MainProcess] Restoring 3 unacknowledged message(s)

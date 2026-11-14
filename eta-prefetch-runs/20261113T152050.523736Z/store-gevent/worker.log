@@ -1,0 +1,33 @@
+ 
+ -------------- eta-probe@localhost v5.7.0 (collider)
+--- ***** ----- 
+-- ******* ---- macOS-15.8.1-arm64-arm-64bit-Mach-O 2026-11-13 18:21:06
+- *** --- * --- 
+- ** ---------- [config]
+- ** ---------- .> app:         shutdown_probe:0x107438690
+- ** ---------- .> transport:   redis+socket:///Users/sergunich/dev/repos/celery/.dev/shutdown-46816.sock
+- ** ---------- .> results:     socket:///Users/sergunich/dev/repos/celery/.dev/shutdown-46816.sock
+- *** --- * --- .> concurrency: 1 (gevent)
+-- ******* ---- .> task events: OFF (enable -E to monitor tasks in this worker)
+--- ***** ----- 
+ -------------- [queues]
+                .> eta-probe        exchange=eta-probe(direct) key=eta-probe
+                
+
+[tasks]
+  . eta_probe.work
+  . shutdown_probe.task
+
+[2026-11-13 18:21:06,133: INFO/MainProcess] Connected to redis+socket:///Users/sergunich/dev/repos/celery/.dev/shutdown-46816.sock
+[2026-11-13 18:21:06,136: INFO/MainProcess] eta-probe@localhost ready.
+[2026-11-13 18:21:06,137: INFO/MainProcess] pidbox: Connected to redis+socket:///Users/sergunich/dev/repos/celery/.dev/shutdown-46816.sock.
+[2026-11-13 18:21:06,147: INFO/MainProcess] Task eta_probe.work[137a78ca-5d08-459f-8dcc-399f70cfb885] received
+[2026-11-13 18:21:06,147: INFO/MainProcess] Task eta_probe.work[07675f77-11c6-4c1e-8747-422094dad7ca] received
+[2026-11-13 18:21:06,148: INFO/MainProcess] Task eta_probe.work[0a78ebaa-e23b-4604-8195-039128d5b79c] received
+[2026-11-13 18:21:06,148: INFO/MainProcess] Task eta_probe.work[b0690925-d9be-4671-aeed-2658f012f4a9] received
+[2026-11-13 18:21:06,148: INFO/MainProcess] Task eta_probe.work[5ead93f1-b765-4ee0-a376-de49962bfbc5] received
+[2026-11-13 18:21:06,762: INFO/MainProcess] Task eta_probe.work[e653ef99-e222-41fa-999c-d9e5e1c8ab3b] received
+[2026-11-13 18:21:06,970: INFO/MainProcess] Task eta_probe.work[e653ef99-e222-41fa-999c-d9e5e1c8ab3b] succeeded in 0.2066829171963036s: 'immediate'
+
+worker: Warm shutdown (MainProcess)
+[2026-11-13 18:21:11,169: INFO/MainProcess] Restoring 5 unacknowledged message(s)

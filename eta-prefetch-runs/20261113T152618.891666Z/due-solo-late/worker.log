@@ -1,0 +1,26 @@
+ 
+ -------------- eta-probe@localhost v5.7.0 (collider)
+--- ***** ----- 
+-- ******* ---- macOS-15.8.1-arm64-arm-64bit-Mach-O 2026-11-13 18:26:25
+- *** --- * --- 
+- ** ---------- [config]
+- ** ---------- .> app:         shutdown_probe:0x102ac6120
+- ** ---------- .> transport:   redis+socket:///Users/sergunich/dev/repos/celery/.dev/shutdown-47397.sock
+- ** ---------- .> results:     socket:///Users/sergunich/dev/repos/celery/.dev/shutdown-47397.sock
+- *** --- * --- .> concurrency: 1 (solo)
+-- ******* ---- .> task events: OFF (enable -E to monitor tasks in this worker)
+--- ***** ----- 
+ -------------- [queues]
+                .> eta-probe        exchange=eta-probe(direct) key=eta-probe
+                
+
+[tasks]
+  . eta_probe.work
+  . shutdown_probe.task
+
+[2026-11-13 18:26:25,706: INFO/MainProcess] Connected to redis+socket:///Users/sergunich/dev/repos/celery/.dev/shutdown-47397.sock
+[2026-11-13 18:26:25,709: INFO/MainProcess] eta-probe@localhost ready.
+[2026-11-13 18:26:25,725: INFO/MainProcess] Task eta_probe.work[426c0d9a-4cf3-4bd0-a6b9-389c9c89bdf6] received
+[2026-11-13 18:26:27,967: INFO/MainProcess] Task eta_probe.work[426c0d9a-4cf3-4bd0-a6b9-389c9c89bdf6] succeeded in 1.2419755838345736s: 'due'
+
+worker: Warm shutdown (MainProcess)

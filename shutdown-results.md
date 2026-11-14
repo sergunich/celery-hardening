@@ -748,3 +748,143 @@ when handlers get a chance to run.
 **Practical consequence:** do not implement an external shutdown deadline by
 rapidly sending several Ctrl+C signals. Use explicit shutdown stages and an
 independently enforced final SIGKILL deadline.
+
+### A7. Follow-up: ETA/countdown, prefetch, and delivery limits
+
+The [focused ETA/prefetch report](eta-prefetch-results.md) adds **31 selected
+runtime cases**, including the prefetched-backlog coverage absent from the
+original 96-case shutdown comparison. It separates measured results from
+source-based extrapolations and explains why the reduced matrix was chosen.
+
+Key findings: waiting ETA tasks occupy memory/timer entries, not execution slots,
+and remain unacked even with early ACK configured. Ordinary prefetch expands
+as ETA tasks are scheduled; `worker_eta_task_limit` is the intended bound, but
+its interaction with zero/oversized initial prefetch and subsequent decrements
+has limitations in the tested Kombu version. Waiting ETA messages and running
+tasks can have different ACK/recovery outcomes during the same shutdown.
+
+That follow-up is separately maintained; experiment runs do not overwrite its
+explanations or this appendix.
+
+### A8. Requeueing a running solo task after the QUIT `kill_job` error
+
+**There is no configuration-only guarantee.** For the specific unsupported
+cancellation failure in this checkout, a task-level workaround is:
+
+1. Enable **late acknowledgment**.
+2. Catch the shutdown-induced exception inside the task.
+3. Raise **`Reject(requeue=True)`**, rather than letting Celery classify the
+   exception as an ordinary task failure.
+
+#### Runtime verification
+
+The same Redis-backed harness was used for two focused cases. QUIT was sent
+while the task was executing inside the guarded work block.
+
+| Configuration | Task body finished? | Backend result | ACK sent? | Reject sent? | Original message after exit |
+| --- | --- | --- | --- | --- | --- |
+| Late ACK + `Reject(requeue=True)` | No | PENDING | No | Yes, requeue enabled | **Restored; fetched again with the original task ID** |
+| Early ACK + `Reject(requeue=True)` | No | PENDING | Yes | No | Absent; not restored |
+
+Both workers exited with code 0 without a safety-deadline kill. Both targeted
+checks passed. The late-ack outcome demonstrates successful requeueing of the
+original delivery, not successful completion of its work or an exactly-once
+execution guarantee.
+
+#### Version-specific workaround
+
+```python
+from celery.exceptions import Reject
+from celery.worker import state
+
+
+@app.task(acks_late=True)
+def my_task(payload):
+    try:
+        return do_work(payload)
+    except NotImplementedError as exc:
+        cold_requested = (
+            state.should_terminate is not None
+            and state.should_terminate is not False
+        )
+        unsupported_cancellation = (
+            "does not implement kill_job" in str(exc)
+        )
+
+        if not (cold_requested and unsupported_cancellation):
+            raise
+
+        raise Reject(
+            "Solo worker shutting down",
+            requeue=True,
+        ) from exc
+```
+
+This changes the outcome from:
+
+```text
+NotImplementedError → ordinary FAILURE → ACK
+```
+
+to:
+
+```text
+NotImplementedError → Reject(requeue=True) → original delivery requeued
+```
+
+Unlike `self.retry()`, this requests requeueing of the **original message**,
+rather than publishing another attempt. It is intentionally narrow: do not
+turn unrelated `NotImplementedError` exceptions into shutdown retries.
+
+#### Why late acknowledgment is required
+
+`Request.reject()` does nothing once `Request.acknowledged` is true. With early
+ACK, that flag can already be true even while the actual Redis ACK is still
+queued. In the early-ack control test, rejection was ignored and the queued ACK
+subsequently executed. An already acknowledged message cannot be recovered by
+rejecting it later.
+
+These configuration settings alone are not substitutes:
+
+- `task_acks_on_failure=False`: ordinary failures are rejected **without requeue**
+  in this checkout.
+- `task_reject_on_worker_lost=True`: the unsupported-cancellation exception is
+  not a `WorkerLostError`.
+
+#### Limits and recommendation
+
+**This is a workaround for the current implementation, not a stable shutdown
+API.** It relies on private worker state and the exception text. The tests only
+establish the path where the exception reaches the guarded task code.
+
+It cannot guarantee recovery when:
+
+- The signal interrupts code outside the `try` block.
+- Inner application code catches or transforms the exception first.
+- Broker communication or shutdown cleanup fails.
+- Further signals interrupt rejection processing.
+
+Requeueing **does not undo completed side effects**. The task must tolerate
+execution again. If an abrupt exit leaves the delivery unacked rather than
+explicitly requeued, Redis recovery may depend on visibility-timeout processing;
+that is not immediate restoration.
+
+Prefer **TERM for solo**. If QUIT-based cancellation and recovery are operational
+requirements, use prefork or fix the worker cancellation path rather than relying
+permanently on this task-level workaround.
+
+#### Reproduce and inspect
+
+```bash
+.dev/.venv/bin/python .dev/verify-solo-requeue.py
+```
+
+The experiment-only `catch="requeue"` branch in `.dev/shutdown_probe.py` handles
+the recognized error and raises `Reject`; no Celery production code is patched.
+The runner checks actual ACK/reject calls, final Redis message state, and whether
+the restored original task ID can be fetched.
+
+Artifacts: [two-case summary](solo-requeue-runs/20261114T090428.875791Z/summary.json),
+with per-case worker logs and event timelines under the same run directory.
+This explanation is part of the maintained appendix source and survives future
+shutdown-report regeneration.
