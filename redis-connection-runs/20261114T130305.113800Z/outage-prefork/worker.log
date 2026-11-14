@@ -1,0 +1,48 @@
+ 
+ -------------- net-0@localhost v5.7.0 (collider)
+--- ***** ----- 
+-- ******* ---- macOS-15.8.1-arm64-arm-64bit-Mach-O 2026-11-14 16:05:52
+- *** --- * --- 
+- ** ---------- [config]
+- ** ---------- .> app:         shutdown_probe:0x1066827b0
+- ** ---------- .> transport:   redis://:**@127.0.0.1:61906/0
+- ** ---------- .> results:     socket:///Users/sergunich/dev/repos/celery/.dev/shutdown-22009.sock
+- *** --- * --- .> concurrency: 1 (prefork)
+-- ******* ---- .> task events: OFF (enable -E to monitor tasks in this worker)
+--- ***** ----- 
+ -------------- [queues]
+                .> net-probe        exchange=net-probe(direct) key=net-probe
+                
+
+[tasks]
+  . redis_connection_probe.work
+  . shutdown_probe.task
+
+[2026-11-14 16:05:52,557: INFO/MainProcess] Connected to redis://:**@127.0.0.1:61906/0
+[2026-11-14 16:05:52,565: INFO/MainProcess] net-0@localhost ready.
+[2026-11-14 16:05:52,579: INFO/MainProcess] Task redis_connection_probe.work[e6a25b12-b875-48b3-a8d3-181a11e3279c] received
+[2026-11-14 16:05:52,786: INFO/SpawnPoolWorker-1] child process 22270 calling self.run()
+[2026-11-14 16:05:53,360: WARNING/MainProcess] consumer: Connection to broker lost. Trying to re-establish the connection... (network:ConnectionError)
+[2026-11-14 16:05:53,361: INFO/MainProcess] Restoring 1 unacknowledged message(s)
+[2026-11-14 16:05:53,366: WARNING/MainProcess] /Users/sergunich/dev/repos/celery/.dev/redis_connection_probe.py:56: CPendingDeprecationWarning: 
+In Celery 5.1 we introduced an optional breaking change which
+on connection loss cancels all currently executed tasks with late acknowledgement enabled.
+These tasks cannot be acknowledged as the connection is gone, and the tasks are automatically redelivered
+back to the queue. You can enable this behavior using the worker_cancel_long_running_tasks_on_connection_loss
+setting. In Celery 5.1 it is set to False by default. The setting will be set to True by default in Celery 6.0.
+
+  result = _original_error(self, exc)
+
+[2026-11-14 16:05:53,366: INFO/MainProcess] Skipping prefetch count reduction after connection restart because per-consumer QoS (apply_global=False) is in effect and broker-side prefetch updates would not reach the running consumer.
+[2026-11-14 16:05:53,369: ERROR/MainProcess] consumer: Cannot connect to redis://:**@127.0.0.1:61906/0: Error while reading from 127.0.0.1:61906 : (54, 'Connection reset by peer').
+Trying again in 2.00 seconds... (1/4)
+
+[2026-11-14 16:05:55,031: INFO/SpawnPoolWorker-1] Task redis_connection_probe.work[e6a25b12-b875-48b3-a8d3-181a11e3279c] succeeded in 2.215460249921307s: 'work'
+[2026-11-14 16:05:55,386: ERROR/MainProcess] consumer: Cannot connect to redis://:**@127.0.0.1:61906/0: Error while reading from 127.0.0.1:61906 : (54, 'Connection reset by peer').
+Trying again in 4.00 seconds... (2/4)
+
+[2026-11-14 16:05:59,425: INFO/MainProcess] Connected to redis://:**@127.0.0.1:61906/0
+[2026-11-14 16:06:02,410: INFO/MainProcess] Task redis_connection_probe.work[5132c68e-1dc2-4f1e-88c9-76ea7d951912] received
+[2026-11-14 16:06:02,592: INFO/SpawnPoolWorker-1] Task redis_connection_probe.work[5132c68e-1dc2-4f1e-88c9-76ea7d951912] succeeded in 0.18057033303193748s: 'ping'
+
+worker: Warm shutdown (MainProcess)

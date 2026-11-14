@@ -1,0 +1,29 @@
+ 
+ -------------- net-0@localhost v5.7.0 (collider)
+--- ***** ----- 
+-- ******* ---- macOS-15.8.1-arm64-arm-64bit-Mach-O 2026-11-14 16:00:40
+- *** --- * --- 
+- ** ---------- [config]
+- ** ---------- .> app:         shutdown_probe:0x105246900
+- ** ---------- .> transport:   redis://:**@127.0.0.1:61477/0
+- ** ---------- .> results:     socket:///Users/sergunich/dev/repos/celery/.dev/shutdown-21179.sock
+- *** --- * --- .> concurrency: 1 (solo)
+-- ******* ---- .> task events: OFF (enable -E to monitor tasks in this worker)
+--- ***** ----- 
+ -------------- [queues]
+                .> net-probe        exchange=net-probe(direct) key=net-probe
+                
+
+[tasks]
+  . redis_connection_probe.work
+  . shutdown_probe.task
+
+[2026-11-14 16:00:40,477: ERROR/MainProcess] consumer: Cannot connect to redis://:**@127.0.0.1:61477/0: Error while reading from 127.0.0.1:61477 : (54, 'Connection reset by peer').
+Trying again in 2.00 seconds... (1/4)
+
+[2026-11-14 16:00:42,498: INFO/MainProcess] Connected to redis://:**@127.0.0.1:61477/0
+[2026-11-14 16:00:42,513: INFO/MainProcess] net-0@localhost ready.
+[2026-11-14 16:00:42,549: INFO/MainProcess] Task redis_connection_probe.work[7f528d25-c8d4-4073-b144-2f45da9e38af] received
+[2026-11-14 16:00:42,709: INFO/MainProcess] Task redis_connection_probe.work[7f528d25-c8d4-4073-b144-2f45da9e38af] succeeded in 0.15940208407118917s: 'ping'
+
+worker: Warm shutdown (MainProcess)

@@ -1,0 +1,16 @@
+PASS active-prefork-cancel                start/done/ACK=2/1/1 state=SUCCESS broker={'queued': [], 'unacked': []} exit=[0] 9.197s
+PASS active-threads-cancel                start/done/ACK=2/2/2 state=SUCCESS broker={'queued': [], 'unacked': []} exit=[0] 7.576s
+PASS active-gevent-cancel                 start/done/ACK=2/1/2 state=SUCCESS broker={'queued': [], 'unacked': []} exit=[0] 11.733s
+PASS active-solo-early                    start/done/ACK=1/1/1 state=SUCCESS broker={'queued': [], 'unacked': []} exit=[0] 7.658s
+PASS halfopen-brpop-gevent                start/done/ACK=1/1/1 state=SUCCESS broker={'queued': [], 'unacked': []} exit=[0] 9.35s
+PASS halfopen-brpop-no-health             start/done/ACK=1/1/1 state=SUCCESS broker={'queued': [], 'unacked': []} exit=[0] 7.866s
+PASS halfopen-monitor-unbounded           start/done/ACK=1/1/1 state=SUCCESS broker={'queued': [], 'unacked': []} exit=[0] 8.997s
+PASS halfopen-monitor-bounded             start/done/ACK=1/1/1 state=SUCCESS broker={'queued': [], 'unacked': []} exit=[0] 8.331s
+PASS ack-reply-lost                       start/done/ACK=1/1/0 state=SUCCESS broker={'queued': [], 'unacked': []} exit=[0] 13.003s
+PASS visibility-crash-short               start/done/ACK=2/1/1 state=SUCCESS broker={'queued': [], 'unacked': []} exit=[-9, 0] 7.143s
+PASS visibility-crash-default             start/done/ACK=1/0/0 state=PENDING broker={'queued': [], 'unacked': [{'tag': 'abd821e4-0c71-488f-b953-46ecaf8d8725', 'exchange': '', 'routing_key': 'net-probe'}]} exit=[-9, 0] 7.089s
+PASS visibility-overlap-prefork           start/done/ACK=2/2/2 state=SUCCESS broker={'queued': [], 'unacked': []} exit=[0] 8.481s
+PASS visibility-solo-other-worker         start/done/ACK=2/2/2 state=SUCCESS broker={'queued': [], 'unacked': []} exit=[0, 0] 7.544s
+PASS eta-reconnect-gevent                 start/done/ACK=1/1/1 state=SUCCESS broker={'queued': [], 'unacked': []} exit=[0] 12.509s
+PASS warm-outage-prefork                  start/done/ACK=1/1/1 state=SUCCESS broker={'queued': [], 'unacked': []} exit=[0] 7.4s
+Artifacts: /Users/sergunich/dev/repos/celery/.dev/redis-connection-runs/20261114T123946.117052Z

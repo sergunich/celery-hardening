@@ -1,0 +1,23 @@
+ 
+ -------------- net-0@localhost v5.7.0 (collider)
+--- ***** ----- 
+-- ******* ---- macOS-15.8.1-arm64-arm-64bit-Mach-O 2026-11-14 15:45:37
+- *** --- * --- 
+- ** ---------- [config]
+- ** ---------- .> app:         shutdown_probe:0x1073c2900
+- ** ---------- .> transport:   redis://:**@127.0.0.1:60620/0
+- ** ---------- .> results:     socket:///Users/sergunich/dev/repos/celery/.dev/shutdown-20049.sock
+- *** --- * --- .> concurrency: 1 (solo)
+-- ******* ---- .> task events: OFF (enable -E to monitor tasks in this worker)
+--- ***** ----- 
+ -------------- [queues]
+                .> net-probe        exchange=net-probe(direct) key=net-probe
+                
+
+[tasks]
+  . redis_connection_probe.work
+  . shutdown_probe.task
+
+[2026-11-14 15:45:37,997: INFO/MainProcess] Connected to redis://:**@127.0.0.1:60620/0
+[2026-11-14 15:45:38,004: INFO/MainProcess] net-0@localhost ready.
+[2026-11-14 15:45:38,026: CRITICAL/MainProcess] Retrying to re-establish a connection to the message broker after a connection loss has been disabled (app.conf.broker_connection_retry=False). Shutting down...

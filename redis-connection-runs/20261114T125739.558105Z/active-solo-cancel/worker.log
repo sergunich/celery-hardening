@@ -1,0 +1,31 @@
+ 
+ -------------- net-0@localhost v5.7.0 (collider)
+--- ***** ----- 
+-- ******* ---- macOS-15.8.1-arm64-arm-64bit-Mach-O 2026-11-14 15:58:55
+- *** --- * --- 
+- ** ---------- [config]
+- ** ---------- .> app:         shutdown_probe:0x10337a900
+- ** ---------- .> transport:   redis://:**@127.0.0.1:61279/0
+- ** ---------- .> results:     socket:///Users/sergunich/dev/repos/celery/.dev/shutdown-21179.sock
+- *** --- * --- .> concurrency: 1 (solo)
+-- ******* ---- .> task events: OFF (enable -E to monitor tasks in this worker)
+--- ***** ----- 
+ -------------- [queues]
+                .> net-probe        exchange=net-probe(direct) key=net-probe
+                
+
+[tasks]
+  . redis_connection_probe.work
+  . shutdown_probe.task
+
+[2026-11-14 15:58:55,853: INFO/MainProcess] Connected to redis://:**@127.0.0.1:61279/0
+[2026-11-14 15:58:55,860: INFO/MainProcess] net-0@localhost ready.
+[2026-11-14 15:58:55,873: INFO/MainProcess] Task redis_connection_probe.work[6fb55fc1-b092-45d6-97a1-f10b2a1f6773] received
+[2026-11-14 15:58:59,893: INFO/MainProcess] Task redis_connection_probe.work[6fb55fc1-b092-45d6-97a1-f10b2a1f6773] succeeded in 4.020163459004834s: 'work'
+[2026-11-14 15:58:59,904: WARNING/MainProcess] consumer: Connection to broker lost. Trying to re-establish the connection... (network:ConnectionError)
+[2026-11-14 15:58:59,908: INFO/MainProcess] Skipping prefetch count reduction after connection restart because per-consumer QoS (apply_global=False) is in effect and broker-side prefetch updates would not reach the running consumer.
+[2026-11-14 15:58:59,916: INFO/MainProcess] Connected to redis://:**@127.0.0.1:61279/0
+[2026-11-14 15:59:01,200: INFO/MainProcess] Task redis_connection_probe.work[616cbc61-8e4d-46cf-8dc4-32a137345b65] received
+[2026-11-14 15:59:01,357: INFO/MainProcess] Task redis_connection_probe.work[616cbc61-8e4d-46cf-8dc4-32a137345b65] succeeded in 0.1568422089330852s: 'ping'
+
+worker: Warm shutdown (MainProcess)

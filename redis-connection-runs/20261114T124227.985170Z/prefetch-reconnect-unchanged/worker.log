@@ -1,0 +1,44 @@
+ 
+ -------------- net-0@localhost v5.7.0 (collider)
+--- ***** ----- 
+-- ******* ---- macOS-15.8.1-arm64-arm-64bit-Mach-O 2026-11-14 15:48:30
+- *** --- * --- 
+- ** ---------- [config]
+- ** ---------- .> app:         shutdown_probe:0x105cba7b0
+- ** ---------- .> transport:   redis://:**@127.0.0.1:60858/0
+- ** ---------- .> results:     socket:///Users/sergunich/dev/repos/celery/.dev/shutdown-20049.sock
+- *** --- * --- .> concurrency: 2 (prefork)
+-- ******* ---- .> task events: OFF (enable -E to monitor tasks in this worker)
+--- ***** ----- 
+ -------------- [queues]
+                .> net-probe        exchange=net-probe(direct) key=net-probe
+                
+
+[tasks]
+  . redis_connection_probe.work
+  . shutdown_probe.task
+
+[2026-11-14 15:48:30,685: INFO/MainProcess] Connected to redis://:**@127.0.0.1:60858/0
+[2026-11-14 15:48:30,693: INFO/MainProcess] net-0@localhost ready.
+[2026-11-14 15:48:30,702: INFO/MainProcess] Task redis_connection_probe.work[8a92657d-0e61-4f89-95f5-64e722d33cd5] received
+[2026-11-14 15:48:30,912: INFO/SpawnPoolWorker-1] child process 20583 calling self.run()
+[2026-11-14 15:48:30,927: INFO/SpawnPoolWorker-2] child process 20584 calling self.run()
+[2026-11-14 15:48:31,431: WARNING/MainProcess] consumer: Connection to broker lost. Trying to re-establish the connection... (network:ConnectionError)
+[2026-11-14 15:48:31,431: INFO/MainProcess] Restoring 1 unacknowledged message(s)
+[2026-11-14 15:48:31,442: WARNING/MainProcess] /Users/sergunich/dev/repos/celery/.dev/redis_connection_probe.py:56: CPendingDeprecationWarning: 
+In Celery 5.1 we introduced an optional breaking change which
+on connection loss cancels all currently executed tasks with late acknowledgement enabled.
+These tasks cannot be acknowledged as the connection is gone, and the tasks are automatically redelivered
+back to the queue. You can enable this behavior using the worker_cancel_long_running_tasks_on_connection_loss
+setting. In Celery 5.1 it is set to False by default. The setting will be set to True by default in Celery 6.0.
+
+  result = _original_error(self, exc)
+
+[2026-11-14 15:48:31,450: INFO/MainProcess] Connected to redis://:**@127.0.0.1:60858/0
+[2026-11-14 15:48:31,461: INFO/MainProcess] Task redis_connection_probe.work[8a92657d-0e61-4f89-95f5-64e722d33cd5] received
+[2026-11-14 15:48:31,857: INFO/SpawnPoolWorker-2] Task redis_connection_probe.work[8a92657d-0e61-4f89-95f5-64e722d33cd5] succeeded in 0.39500154205597937s: 'work'
+[2026-11-14 15:48:35,174: INFO/SpawnPoolWorker-1] Task redis_connection_probe.work[8a92657d-0e61-4f89-95f5-64e722d33cd5] succeeded in 4.23160095885396s: 'work'
+[2026-11-14 15:48:36,449: INFO/MainProcess] Task redis_connection_probe.work[43aa64fd-734c-4c04-9e1e-b97d5e8acc31] received
+[2026-11-14 15:48:36,628: INFO/SpawnPoolWorker-2] Task redis_connection_probe.work[43aa64fd-734c-4c04-9e1e-b97d5e8acc31] succeeded in 0.1780409999191761s: 'ping'
+
+worker: Warm shutdown (MainProcess)

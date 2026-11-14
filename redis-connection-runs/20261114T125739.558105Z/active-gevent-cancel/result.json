@@ -1,0 +1,2612 @@
+{
+  "case": {
+    "name": "active-gevent-cancel",
+    "pool": "gevent",
+    "kind": "active_cut",
+    "cancel": true
+  },
+  "tasks": {
+    "51aa1c08-9118-489e-a047-0db62d150ed8": {
+      "role": "work",
+      "duration": 4,
+      "countdown": null,
+      "published": 1771376.449009958,
+      "received": [
+        {
+          "event": "net_received",
+          "time": 1771376.452755541,
+          "pid": 21762,
+          "thread": 4379804544,
+          "task_id": "51aa1c08-9118-489e-a047-0db62d150ed8",
+          "tag": "05aba6ca-c1f5-4e95-9f40-67bed69b4f6b",
+          "retries": 0,
+          "redelivered": false,
+          "eta": null
+        },
+        {
+          "event": "net_received",
+          "time": 1771376.785686041,
+          "pid": 21762,
+          "thread": 4379804544,
+          "task_id": "51aa1c08-9118-489e-a047-0db62d150ed8",
+          "tag": "05aba6ca-c1f5-4e95-9f40-67bed69b4f6b",
+          "retries": 0,
+          "redelivered": true,
+          "eta": null
+        }
+      ],
+      "starts": [
+        {
+          "event": "net_started",
+          "time": 1771376.4540655,
+          "pid": 21762,
+          "thread": 4421585472,
+          "task_id": "51aa1c08-9118-489e-a047-0db62d150ed8",
+          "role": "work",
+          "attempt": 1,
+          "redelivered": false,
+          "retries": 0
+        },
+        {
+          "event": "net_started",
+          "time": 1771376.787877,
+          "pid": 21762,
+          "thread": 4421513152,
+          "task_id": "51aa1c08-9118-489e-a047-0db62d150ed8",
+          "role": "work",
+          "attempt": 2,
+          "redelivered": true,
+          "retries": 0
+        }
+      ],
+      "completed": [
+        {
+          "event": "net_completed",
+          "time": 1771376.965847291,
+          "pid": 21762,
+          "thread": 4421513152,
+          "task_id": "51aa1c08-9118-489e-a047-0db62d150ed8",
+          "role": "work",
+          "attempt": 2
+        }
+      ],
+      "acks": [
+        {
+          "event": "message_ack",
+          "time": 1771376.766833291,
+          "pid": 21762,
+          "thread": 4421585472,
+          "task_id": "51aa1c08-9118-489e-a047-0db62d150ed8",
+          "tag": "05aba6ca-c1f5-4e95-9f40-67bed69b4f6b"
+        },
+        {
+          "event": "message_ack",
+          "time": 1771376.96982225,
+          "pid": 21762,
+          "thread": 4421513152,
+          "task_id": "51aa1c08-9118-489e-a047-0db62d150ed8",
+          "tag": "05aba6ca-c1f5-4e95-9f40-67bed69b4f6b"
+        }
+      ],
+      "rejects": [],
+      "ack_errors": [],
+      "result": "SUCCESS",
+      "broker": {
+        "queued": [],
+        "unacked": []
+      }
+    },
+    "9364bbdb-3a50-4da1-8098-b5335b711741": {
+      "role": "ping",
+      "duration": 0.15,
+      "countdown": null,
+      "published": 1771381.78684,
+      "received": [
+        {
+          "event": "net_received",
+          "time": 1771381.790404958,
+          "pid": 21762,
+          "thread": 4379804544,
+          "task_id": "9364bbdb-3a50-4da1-8098-b5335b711741",
+          "tag": "ca96d1d4-6b3e-4f14-a42b-e614e9f5ea6e",
+          "retries": 0,
+          "redelivered": false,
+          "eta": null
+        }
+      ],
+      "starts": [
+        {
+          "event": "net_started",
+          "time": 1771381.792787833,
+          "pid": 21762,
+          "thread": 4421514592,
+          "task_id": "9364bbdb-3a50-4da1-8098-b5335b711741",
+          "role": "ping",
+          "attempt": 1,
+          "redelivered": false,
+          "retries": 0
+        }
+      ],
+      "completed": [
+        {
+          "event": "net_completed",
+          "time": 1771381.960594416,
+          "pid": 21762,
+          "thread": 4421514592,
+          "task_id": "9364bbdb-3a50-4da1-8098-b5335b711741",
+          "role": "ping",
+          "attempt": 1
+        }
+      ],
+      "acks": [
+        {
+          "event": "message_ack",
+          "time": 1771381.964205666,
+          "pid": 21762,
+          "thread": 4421514592,
+          "task_id": "9364bbdb-3a50-4da1-8098-b5335b711741",
+          "tag": "ca96d1d4-6b3e-4f14-a42b-e614e9f5ea6e"
+        }
+      ],
+      "rejects": [],
+      "ack_errors": [],
+      "result": "SUCCESS",
+      "broker": {
+        "queued": [],
+        "unacked": []
+      }
+    }
+  },
+  "main_task": "51aa1c08-9118-489e-a047-0db62d150ed8",
+  "phases": {
+    "before_fault": {
+      "time": 1771376.748996958,
+      "alive": [
+        true
+      ],
+      "broker": {
+        "51aa1c08-9118-489e-a047-0db62d150ed8": {
+          "queued": [],
+          "unacked": [
+            {
+              "tag": "05aba6ca-c1f5-4e95-9f40-67bed69b4f6b",
+              "exchange": "",
+              "routing_key": "net-probe"
+            }
+          ]
+        }
+      },
+      "states": {
+        "51aa1c08-9118-489e-a047-0db62d150ed8": "PENDING"
+      },
+      "received": {
+        "51aa1c08-9118-489e-a047-0db62d150ed8": 1
+      },
+      "starts": {
+        "51aa1c08-9118-489e-a047-0db62d150ed8": 1
+      },
+      "completed": {
+        "51aa1c08-9118-489e-a047-0db62d150ed8": 0
+      },
+      "acked": {
+        "51aa1c08-9118-489e-a047-0db62d150ed8": 0
+      },
+      "scheduler": {
+        "event": "net_state",
+        "time": 1771376.624096375,
+        "pid": 21762,
+        "thread": 4421597312,
+        "active": [
+          "51aa1c08-9118-489e-a047-0db62d150ed8"
+        ],
+        "scheduled": [],
+        "reserved": [
+          "51aa1c08-9118-489e-a047-0db62d150ed8"
+        ],
+        "qos": 2,
+        "prefetch_restored": true
+      }
+    },
+    "recovery": {
+      "time": 1771381.782628,
+      "alive": [
+        true
+      ],
+      "broker": {
+        "51aa1c08-9118-489e-a047-0db62d150ed8": {
+          "queued": [],
+          "unacked": []
+        }
+      },
+      "states": {
+        "51aa1c08-9118-489e-a047-0db62d150ed8": "SUCCESS"
+      },
+      "received": {
+        "51aa1c08-9118-489e-a047-0db62d150ed8": 2
+      },
+      "starts": {
+        "51aa1c08-9118-489e-a047-0db62d150ed8": 2
+      },
+      "completed": {
+        "51aa1c08-9118-489e-a047-0db62d150ed8": 1
+      },
+      "acked": {
+        "51aa1c08-9118-489e-a047-0db62d150ed8": 2
+      },
+      "scheduler": {
+        "event": "net_state",
+        "time": 1771381.582124208,
+        "pid": 21762,
+        "thread": 4421503872,
+        "active": [],
+        "scheduled": [],
+        "reserved": [],
+        "qos": 2,
+        "prefetch_restored": true
+      }
+    },
+    "before_exit": {
+      "time": 1771382.240061791,
+      "alive": [
+        true
+      ],
+      "broker": {
+        "51aa1c08-9118-489e-a047-0db62d150ed8": {
+          "queued": [],
+          "unacked": []
+        },
+        "9364bbdb-3a50-4da1-8098-b5335b711741": {
+          "queued": [],
+          "unacked": []
+        }
+      },
+      "states": {
+        "51aa1c08-9118-489e-a047-0db62d150ed8": "SUCCESS",
+        "9364bbdb-3a50-4da1-8098-b5335b711741": "SUCCESS"
+      },
+      "received": {
+        "51aa1c08-9118-489e-a047-0db62d150ed8": 2,
+        "9364bbdb-3a50-4da1-8098-b5335b711741": 1
+      },
+      "starts": {
+        "51aa1c08-9118-489e-a047-0db62d150ed8": 2,
+        "9364bbdb-3a50-4da1-8098-b5335b711741": 1
+      },
+      "completed": {
+        "51aa1c08-9118-489e-a047-0db62d150ed8": 1,
+        "9364bbdb-3a50-4da1-8098-b5335b711741": 1
+      },
+      "acked": {
+        "51aa1c08-9118-489e-a047-0db62d150ed8": 2,
+        "9364bbdb-3a50-4da1-8098-b5335b711741": 1
+      },
+      "scheduler": {
+        "event": "net_state",
+        "time": 1771382.200312083,
+        "pid": 21762,
+        "thread": 4376280448,
+        "active": [],
+        "scheduled": [],
+        "reserved": [],
+        "qos": 2,
+        "prefetch_restored": true
+      }
+    },
+    "after_exit": {
+      "time": 1771387.206486083,
+      "alive": [
+        false
+      ],
+      "broker": {
+        "51aa1c08-9118-489e-a047-0db62d150ed8": {
+          "queued": [],
+          "unacked": []
+        },
+        "9364bbdb-3a50-4da1-8098-b5335b711741": {
+          "queued": [],
+          "unacked": []
+        }
+      },
+      "states": {
+        "51aa1c08-9118-489e-a047-0db62d150ed8": "SUCCESS",
+        "9364bbdb-3a50-4da1-8098-b5335b711741": "SUCCESS"
+      },
+      "received": {
+        "51aa1c08-9118-489e-a047-0db62d150ed8": 2,
+        "9364bbdb-3a50-4da1-8098-b5335b711741": 1
+      },
+      "starts": {
+        "51aa1c08-9118-489e-a047-0db62d150ed8": 2,
+        "9364bbdb-3a50-4da1-8098-b5335b711741": 1
+      },
+      "completed": {
+        "51aa1c08-9118-489e-a047-0db62d150ed8": 1,
+        "9364bbdb-3a50-4da1-8098-b5335b711741": 1
+      },
+      "acked": {
+        "51aa1c08-9118-489e-a047-0db62d150ed8": 2,
+        "9364bbdb-3a50-4da1-8098-b5335b711741": 1
+      },
+      "scheduler": {
+        "event": "net_state",
+        "time": 1771386.742198291,
+        "pid": 21762,
+        "thread": 4421598912,
+        "active": [],
+        "scheduled": [],
+        "reserved": [],
+        "qos": 2,
+        "prefetch_restored": true
+      }
+    }
+  },
+  "timeline": [
+    {
+      "event": "net_connect_attempt",
+      "time": 1771376.403973541,
+      "pid": 21762,
+      "thread": 4379804544,
+      "generation": 0
+    },
+    {
+      "event": "net_connected",
+      "time": 1771376.417567541,
+      "pid": 21762,
+      "thread": 4379804544,
+      "generation": 0,
+      "supports_heartbeats": false,
+      "negotiated_heartbeat": 0,
+      "configured_heartbeat": 2,
+      "eventloop": false
+    },
+    {
+      "event": "net_consumer_started",
+      "time": 1771376.42351025,
+      "pid": 21762,
+      "thread": 4379804544,
+      "generation": 0,
+      "prefetch": 2,
+      "qos_global": false
+    },
+    {
+      "event": "worker_ready",
+      "time": 1771376.42359825,
+      "pid": 21762,
+      "thread": 4379804544,
+      "pool": "gevent",
+      "multiprocessing_start_method": "spawn"
+    },
+    {
+      "event": "net_state",
+      "time": 1771376.423653875,
+      "pid": 21762,
+      "thread": 4379804544,
+      "active": [],
+      "scheduled": [],
+      "reserved": [],
+      "qos": 2,
+      "prefetch_restored": true
+    },
+    {
+      "event": "net_received",
+      "time": 1771376.452755541,
+      "pid": 21762,
+      "thread": 4379804544,
+      "task_id": "51aa1c08-9118-489e-a047-0db62d150ed8",
+      "tag": "05aba6ca-c1f5-4e95-9f40-67bed69b4f6b",
+      "retries": 0,
+      "redelivered": false,
+      "eta": null
+    },
+    {
+      "event": "net_accepted",
+      "time": 1771376.452921916,
+      "pid": 21762,
+      "thread": 4421585472,
+      "task_id": "51aa1c08-9118-489e-a047-0db62d150ed8",
+      "tag": "05aba6ca-c1f5-4e95-9f40-67bed69b4f6b",
+      "executor_pid": 4421585472,
+      "ack_requested": false
+    },
+    {
+      "event": "net_started",
+      "time": 1771376.4540655,
+      "pid": 21762,
+      "thread": 4421585472,
+      "task_id": "51aa1c08-9118-489e-a047-0db62d150ed8",
+      "role": "work",
+      "attempt": 1,
+      "redelivered": false,
+      "retries": 0
+    },
+    {
+      "event": "net_state",
+      "time": 1771376.624096375,
+      "pid": 21762,
+      "thread": 4421597312,
+      "active": [
+        "51aa1c08-9118-489e-a047-0db62d150ed8"
+      ],
+      "scheduled": [],
+      "reserved": [
+        "51aa1c08-9118-489e-a047-0db62d150ed8"
+      ],
+      "qos": 2,
+      "prefetch_restored": true
+    },
+    {
+      "event": "net_connection_error",
+      "time": 1771376.757396833,
+      "pid": 21762,
+      "thread": 4379804544,
+      "exception": "ConnectionError",
+      "message": "Connection closed by server.",
+      "active": [
+        {
+          "task_id": "51aa1c08-9118-489e-a047-0db62d150ed8",
+          "acknowledged": false
+        }
+      ]
+    },
+    {
+      "event": "net_cancel_attempt",
+      "time": 1771376.764740541,
+      "pid": 21762,
+      "thread": 4379804544,
+      "task_id": "51aa1c08-9118-489e-a047-0db62d150ed8"
+    },
+    {
+      "event": "net_interrupted",
+      "time": 1771376.765882833,
+      "pid": 21762,
+      "thread": 4421585472,
+      "task_id": "51aa1c08-9118-489e-a047-0db62d150ed8",
+      "role": "work",
+      "exception": "GreenletExit"
+    },
+    {
+      "event": "net_finally",
+      "time": 1771376.765922916,
+      "pid": 21762,
+      "thread": 4421585472,
+      "task_id": "51aa1c08-9118-489e-a047-0db62d150ed8",
+      "role": "work",
+      "attempt": 1
+    },
+    {
+      "event": "task_postrun",
+      "time": 1771376.765990666,
+      "pid": 21762,
+      "thread": 4421585472,
+      "state": null
+    },
+    {
+      "event": "message_ack",
+      "time": 1771376.766833291,
+      "pid": 21762,
+      "thread": 4421585472,
+      "task_id": "51aa1c08-9118-489e-a047-0db62d150ed8",
+      "tag": "05aba6ca-c1f5-4e95-9f40-67bed69b4f6b"
+    },
+    {
+      "event": "task_retry",
+      "time": 1771376.767549875,
+      "pid": 21762,
+      "thread": 4379804544,
+      "reason": "None"
+    },
+    {
+      "event": "net_cancel_returned",
+      "time": 1771376.767581833,
+      "pid": 21762,
+      "thread": 4379804544,
+      "task_id": "51aa1c08-9118-489e-a047-0db62d150ed8"
+    },
+    {
+      "event": "net_error_handled",
+      "time": 1771376.767721125,
+      "pid": 21762,
+      "thread": 4379804544,
+      "initial_prefetch": 2,
+      "active": []
+    },
+    {
+      "event": "net_connect_attempt",
+      "time": 1771376.774474,
+      "pid": 21762,
+      "thread": 4379804544,
+      "generation": 1
+    },
+    {
+      "event": "net_connected",
+      "time": 1771376.778270791,
+      "pid": 21762,
+      "thread": 4379804544,
+      "generation": 1,
+      "supports_heartbeats": false,
+      "negotiated_heartbeat": 0,
+      "configured_heartbeat": 2,
+      "eventloop": false
+    },
+    {
+      "event": "net_consumer_started",
+      "time": 1771376.7829675,
+      "pid": 21762,
+      "thread": 4379804544,
+      "generation": 1,
+      "prefetch": 2,
+      "qos_global": false
+    },
+    {
+      "event": "net_received",
+      "time": 1771376.785686041,
+      "pid": 21762,
+      "thread": 4379804544,
+      "task_id": "51aa1c08-9118-489e-a047-0db62d150ed8",
+      "tag": "05aba6ca-c1f5-4e95-9f40-67bed69b4f6b",
+      "retries": 0,
+      "redelivered": true,
+      "eta": null
+    },
+    {
+      "event": "net_accepted",
+      "time": 1771376.785964208,
+      "pid": 21762,
+      "thread": 4421513152,
+      "task_id": "51aa1c08-9118-489e-a047-0db62d150ed8",
+      "tag": "05aba6ca-c1f5-4e95-9f40-67bed69b4f6b",
+      "executor_pid": 4421513152,
+      "ack_requested": false
+    },
+    {
+      "event": "net_started",
+      "time": 1771376.787877,
+      "pid": 21762,
+      "thread": 4421513152,
+      "task_id": "51aa1c08-9118-489e-a047-0db62d150ed8",
+      "role": "work",
+      "attempt": 2,
+      "redelivered": true,
+      "retries": 0
+    },
+    {
+      "event": "net_state",
+      "time": 1771376.825524791,
+      "pid": 21762,
+      "thread": 4421503872,
+      "active": [
+        "51aa1c08-9118-489e-a047-0db62d150ed8"
+      ],
+      "scheduled": [],
+      "reserved": [
+        "51aa1c08-9118-489e-a047-0db62d150ed8"
+      ],
+      "qos": 2,
+      "prefetch_restored": true
+    },
+    {
+      "event": "net_completed",
+      "time": 1771376.965847291,
+      "pid": 21762,
+      "thread": 4421513152,
+      "task_id": "51aa1c08-9118-489e-a047-0db62d150ed8",
+      "role": "work",
+      "attempt": 2
+    },
+    {
+      "event": "net_finally",
+      "time": 1771376.965975625,
+      "pid": 21762,
+      "thread": 4421513152,
+      "task_id": "51aa1c08-9118-489e-a047-0db62d150ed8",
+      "role": "work",
+      "attempt": 2
+    },
+    {
+      "event": "task_success",
+      "time": 1771376.96808175,
+      "pid": 21762,
+      "thread": 4421513152
+    },
+    {
+      "event": "task_postrun",
+      "time": 1771376.968494791,
+      "pid": 21762,
+      "thread": 4421513152,
+      "state": "SUCCESS"
+    },
+    {
+      "event": "message_ack",
+      "time": 1771376.96982225,
+      "pid": 21762,
+      "thread": 4421513152,
+      "task_id": "51aa1c08-9118-489e-a047-0db62d150ed8",
+      "tag": "05aba6ca-c1f5-4e95-9f40-67bed69b4f6b"
+    },
+    {
+      "event": "net_state",
+      "time": 1771377.0341425,
+      "pid": 21762,
+      "thread": 4420387360,
+      "active": [],
+      "scheduled": [],
+      "reserved": [],
+      "qos": 2,
+      "prefetch_restored": true
+    },
+    {
+      "event": "net_state",
+      "time": 1771377.244289208,
+      "pid": 21762,
+      "thread": 4421513312,
+      "active": [],
+      "scheduled": [],
+      "reserved": [],
+      "qos": 2,
+      "prefetch_restored": true
+    },
+    {
+      "event": "net_state",
+      "time": 1771377.447744,
+      "pid": 21762,
+      "thread": 4421503872,
+      "active": [],
+      "scheduled": [],
+      "reserved": [],
+      "qos": 2,
+      "prefetch_restored": true
+    },
+    {
+      "event": "net_state",
+      "time": 1771377.656466291,
+      "pid": 21762,
+      "thread": 4421514592,
+      "active": [],
+      "scheduled": [],
+      "reserved": [],
+      "qos": 2,
+      "prefetch_restored": true
+    },
+    {
+      "event": "net_state",
+      "time": 1771377.8659275,
+      "pid": 21762,
+      "thread": 4421513312,
+      "active": [],
+      "scheduled": [],
+      "reserved": [],
+      "qos": 2,
+      "prefetch_restored": true
+    },
+    {
+      "event": "net_state",
+      "time": 1771378.07573325,
+      "pid": 21762,
+      "thread": 4421503872,
+      "active": [],
+      "scheduled": [],
+      "reserved": [],
+      "qos": 2,
+      "prefetch_restored": true
+    },
+    {
+      "event": "net_state",
+      "time": 1771378.28203775,
+      "pid": 21762,
+      "thread": 4421515072,
+      "active": [],
+      "scheduled": [],
+      "reserved": [],
+      "qos": 2,
+      "prefetch_restored": true
+    },
+    {
+      "event": "net_state",
+      "time": 1771378.484271833,
+      "pid": 21762,
+      "thread": 4421513312,
+      "active": [],
+      "scheduled": [],
+      "reserved": [],
+      "qos": 2,
+      "prefetch_restored": true
+    },
+    {
+      "event": "net_state",
+      "time": 1771378.693981833,
+      "pid": 21762,
+      "thread": 4421503872,
+      "active": [],
+      "scheduled": [],
+      "reserved": [],
+      "qos": 2,
+      "prefetch_restored": true
+    },
+    {
+      "event": "net_state",
+      "time": 1771378.903387583,
+      "pid": 21762,
+      "thread": 4421515072,
+      "active": [],
+      "scheduled": [],
+      "reserved": [],
+      "qos": 2,
+      "prefetch_restored": true
+    },
+    {
+      "event": "net_state",
+      "time": 1771379.104584625,
+      "pid": 21762,
+      "thread": 4421513312,
+      "active": [],
+      "scheduled": [],
+      "reserved": [],
+      "qos": 2,
+      "prefetch_restored": true
+    },
+    {
+      "event": "net_state",
+      "time": 1771379.309101458,
+      "pid": 21762,
+      "thread": 4421514592,
+      "active": [],
+      "scheduled": [],
+      "reserved": [],
+      "qos": 2,
+      "prefetch_restored": true
+    },
+    {
+      "event": "net_state",
+      "time": 1771379.516440875,
+      "pid": 21762,
+      "thread": 4421515072,
+      "active": [],
+      "scheduled": [],
+      "reserved": [],
+      "qos": 2,
+      "prefetch_restored": true
+    },
+    {
+      "event": "net_state",
+      "time": 1771379.716440208,
+      "pid": 21762,
+      "thread": 4421513312,
+      "active": [],
+      "scheduled": [],
+      "reserved": [],
+      "qos": 2,
+      "prefetch_restored": true
+    },
+    {
+      "event": "net_state",
+      "time": 1771379.925907,
+      "pid": 21762,
+      "thread": 4421514592,
+      "active": [],
+      "scheduled": [],
+      "reserved": [],
+      "qos": 2,
+      "prefetch_restored": true
+    },
+    {
+      "event": "net_state",
+      "time": 1771380.132697041,
+      "pid": 21762,
+      "thread": 4421515072,
+      "active": [],
+      "scheduled": [],
+      "reserved": [],
+      "qos": 2,
+      "prefetch_restored": true
+    },
+    {
+      "event": "net_state",
+      "time": 1771380.342453833,
+      "pid": 21762,
+      "thread": 4421503872,
+      "active": [],
+      "scheduled": [],
+      "reserved": [],
+      "qos": 2,
+      "prefetch_restored": true
+    },
+    {
+      "event": "net_state",
+      "time": 1771380.543411083,
+      "pid": 21762,
+      "thread": 4421514592,
+      "active": [],
+      "scheduled": [],
+      "reserved": [],
+      "qos": 2,
+      "prefetch_restored": true
+    },
+    {
+      "event": "net_state",
+      "time": 1771380.752455416,
+      "pid": 21762,
+      "thread": 4421515072,
+      "active": [],
+      "scheduled": [],
+      "reserved": [],
+      "qos": 2,
+      "prefetch_restored": true
+    },
+    {
+      "event": "net_state",
+      "time": 1771380.961333375,
+      "pid": 21762,
+      "thread": 4421503872,
+      "active": [],
+      "scheduled": [],
+      "reserved": [],
+      "qos": 2,
+      "prefetch_restored": true
+    },
+    {
+      "event": "net_state",
+      "time": 1771381.168850708,
+      "pid": 21762,
+      "thread": 4421514592,
+      "active": [],
+      "scheduled": [],
+      "reserved": [],
+      "qos": 2,
+      "prefetch_restored": true
+    },
+    {
+      "event": "net_state",
+      "time": 1771381.375849916,
+      "pid": 21762,
+      "thread": 4421513312,
+      "active": [],
+      "scheduled": [],
+      "reserved": [],
+      "qos": 2,
+      "prefetch_restored": true
+    },
+    {
+      "event": "net_state",
+      "time": 1771381.582124208,
+      "pid": 21762,
+      "thread": 4421503872,
+      "active": [],
+      "scheduled": [],
+      "reserved": [],
+      "qos": 2,
+      "prefetch_restored": true
+    },
+    {
+      "event": "net_state",
+      "time": 1771381.786041416,
+      "pid": 21762,
+      "thread": 4421514592,
+      "active": [],
+      "scheduled": [],
+      "reserved": [],
+      "qos": 2,
+      "prefetch_restored": true
+    },
+    {
+      "event": "net_received",
+      "time": 1771381.790404958,
+      "pid": 21762,
+      "thread": 4379804544,
+      "task_id": "9364bbdb-3a50-4da1-8098-b5335b711741",
+      "tag": "ca96d1d4-6b3e-4f14-a42b-e614e9f5ea6e",
+      "retries": 0,
+      "redelivered": false,
+      "eta": null
+    },
+    {
+      "event": "net_accepted",
+      "time": 1771381.790686958,
+      "pid": 21762,
+      "thread": 4421514592,
+      "task_id": "9364bbdb-3a50-4da1-8098-b5335b711741",
+      "tag": "ca96d1d4-6b3e-4f14-a42b-e614e9f5ea6e",
+      "executor_pid": 4421514592,
+      "ack_requested": false
+    },
+    {
+      "event": "net_started",
+      "time": 1771381.792787833,
+      "pid": 21762,
+      "thread": 4421514592,
+      "task_id": "9364bbdb-3a50-4da1-8098-b5335b711741",
+      "role": "ping",
+      "attempt": 1,
+      "redelivered": false,
+      "retries": 0
+    },
+    {
+      "event": "net_completed",
+      "time": 1771381.960594416,
+      "pid": 21762,
+      "thread": 4421514592,
+      "task_id": "9364bbdb-3a50-4da1-8098-b5335b711741",
+      "role": "ping",
+      "attempt": 1
+    },
+    {
+      "event": "net_finally",
+      "time": 1771381.960775875,
+      "pid": 21762,
+      "thread": 4421514592,
+      "task_id": "9364bbdb-3a50-4da1-8098-b5335b711741",
+      "role": "ping",
+      "attempt": 1
+    },
+    {
+      "event": "task_success",
+      "time": 1771381.962345875,
+      "pid": 21762,
+      "thread": 4421514592
+    },
+    {
+      "event": "task_postrun",
+      "time": 1771381.962716291,
+      "pid": 21762,
+      "thread": 4421514592,
+      "state": "SUCCESS"
+    },
+    {
+      "event": "message_ack",
+      "time": 1771381.964205666,
+      "pid": 21762,
+      "thread": 4421514592,
+      "task_id": "9364bbdb-3a50-4da1-8098-b5335b711741",
+      "tag": "ca96d1d4-6b3e-4f14-a42b-e614e9f5ea6e"
+    },
+    {
+      "event": "net_state",
+      "time": 1771381.993183291,
+      "pid": 21762,
+      "thread": 4421513312,
+      "active": [],
+      "scheduled": [],
+      "reserved": [],
+      "qos": 2,
+      "prefetch_restored": true
+    },
+    {
+      "event": "net_state",
+      "time": 1771382.200312083,
+      "pid": 21762,
+      "thread": 4376280448,
+      "active": [],
+      "scheduled": [],
+      "reserved": [],
+      "qos": 2,
+      "prefetch_restored": true
+    },
+    {
+      "event": "worker_shutting_down",
+      "time": 1771382.266414291,
+      "pid": 21762,
+      "thread": 4421762512,
+      "signal": "SIGTERM",
+      "how": "Warm"
+    },
+    {
+      "event": "net_state",
+      "time": 1771382.407183291,
+      "pid": 21762,
+      "thread": 4421515232,
+      "active": [],
+      "scheduled": [],
+      "reserved": [],
+      "qos": 2,
+      "prefetch_restored": true
+    },
+    {
+      "event": "net_state",
+      "time": 1771382.615472083,
+      "pid": 21762,
+      "thread": 4376280448,
+      "active": [],
+      "scheduled": [],
+      "reserved": [],
+      "qos": 2,
+      "prefetch_restored": true
+    },
+    {
+      "event": "net_state",
+      "time": 1771382.818897958,
+      "pid": 21762,
+      "thread": 4421513312,
+      "active": [],
+      "scheduled": [],
+      "reserved": [],
+      "qos": 2,
+      "prefetch_restored": true
+    },
+    {
+      "event": "net_state",
+      "time": 1771383.025088166,
+      "pid": 21762,
+      "thread": 4421515392,
+      "active": [],
+      "scheduled": [],
+      "reserved": [],
+      "qos": 2,
+      "prefetch_restored": true
+    },
+    {
+      "event": "net_state",
+      "time": 1771383.234872166,
+      "pid": 21762,
+      "thread": 4421515232,
+      "active": [],
+      "scheduled": [],
+      "reserved": [],
+      "qos": 2,
+      "prefetch_restored": true
+    },
+    {
+      "event": "net_state",
+      "time": 1771383.443993208,
+      "pid": 21762,
+      "thread": 4421503872,
+      "active": [],
+      "scheduled": [],
+      "reserved": [],
+      "qos": 2,
+      "prefetch_restored": true
+    },
+    {
+      "event": "net_state",
+      "time": 1771383.652567583,
+      "pid": 21762,
+      "thread": 4421515392,
+      "active": [],
+      "scheduled": [],
+      "reserved": [],
+      "qos": 2,
+      "prefetch_restored": true
+    },
+    {
+      "event": "net_state",
+      "time": 1771383.859981375,
+      "pid": 21762,
+      "thread": 4421515232,
+      "active": [],
+      "scheduled": [],
+      "reserved": [],
+      "qos": 2,
+      "prefetch_restored": true
+    },
+    {
+      "event": "net_state",
+      "time": 1771384.06638625,
+      "pid": 21762,
+      "thread": 4421503872,
+      "active": [],
+      "scheduled": [],
+      "reserved": [],
+      "qos": 2,
+      "prefetch_restored": true
+    },
+    {
+      "event": "net_state",
+      "time": 1771384.267963625,
+      "pid": 21762,
+      "thread": 4421513312,
+      "active": [],
+      "scheduled": [],
+      "reserved": [],
+      "qos": 2,
+      "prefetch_restored": true
+    },
+    {
+      "event": "net_state",
+      "time": 1771384.476718,
+      "pid": 21762,
+      "thread": 4421515232,
+      "active": [],
+      "scheduled": [],
+      "reserved": [],
+      "qos": 2,
+      "prefetch_restored": true
+    },
+    {
+      "event": "net_state",
+      "time": 1771384.684703541,
+      "pid": 21762,
+      "thread": 4421503872,
+      "active": [],
+      "scheduled": [],
+      "reserved": [],
+      "qos": 2,
+      "prefetch_restored": true
+    },
+    {
+      "event": "net_state",
+      "time": 1771384.885427291,
+      "pid": 21762,
+      "thread": 4421513312,
+      "active": [],
+      "scheduled": [],
+      "reserved": [],
+      "qos": 2,
+      "prefetch_restored": true
+    },
+    {
+      "event": "net_state",
+      "time": 1771385.087091875,
+      "pid": 21762,
+      "thread": 4421515232,
+      "active": [],
+      "scheduled": [],
+      "reserved": [],
+      "qos": 2,
+      "prefetch_restored": true
+    },
+    {
+      "event": "net_state",
+      "time": 1771385.291170208,
+      "pid": 21762,
+      "thread": 4421515392,
+      "active": [],
+      "scheduled": [],
+      "reserved": [],
+      "qos": 2,
+      "prefetch_restored": true
+    },
+    {
+      "event": "net_state",
+      "time": 1771385.492988958,
+      "pid": 21762,
+      "thread": 4421513312,
+      "active": [],
+      "scheduled": [],
+      "reserved": [],
+      "qos": 2,
+      "prefetch_restored": true
+    },
+    {
+      "event": "net_state",
+      "time": 1771385.702728166,
+      "pid": 21762,
+      "thread": 4421515232,
+      "active": [],
+      "scheduled": [],
+      "reserved": [],
+      "qos": 2,
+      "prefetch_restored": true
+    },
+    {
+      "event": "net_state",
+      "time": 1771385.910707916,
+      "pid": 21762,
+      "thread": 4421515392,
+      "active": [],
+      "scheduled": [],
+      "reserved": [],
+      "qos": 2,
+      "prefetch_restored": true
+    },
+    {
+      "event": "net_state",
+      "time": 1771386.118213916,
+      "pid": 21762,
+      "thread": 4421598912,
+      "active": [],
+      "scheduled": [],
+      "reserved": [],
+      "qos": 2,
+      "prefetch_restored": true
+    },
+    {
+      "event": "net_state",
+      "time": 1771386.328288708,
+      "pid": 21762,
+      "thread": 4376280448,
+      "active": [],
+      "scheduled": [],
+      "reserved": [],
+      "qos": 2,
+      "prefetch_restored": true
+    },
+    {
+      "event": "net_state",
+      "time": 1771386.536568833,
+      "pid": 21762,
+      "thread": 4422008672,
+      "active": [],
+      "scheduled": [],
+      "reserved": [],
+      "qos": 2,
+      "prefetch_restored": true
+    },
+    {
+      "event": "net_state",
+      "time": 1771386.742198291,
+      "pid": 21762,
+      "thread": 4421598912,
+      "active": [],
+      "scheduled": [],
+      "reserved": [],
+      "qos": 2,
+      "prefetch_restored": true
+    },
+    {
+      "event": "worker_shutdown",
+      "time": 1771386.861731416,
+      "pid": 21762,
+      "thread": 4379804544
+    }
+  ],
+  "proxy": [
+    {
+      "event": "proxy_opened",
+      "time": 1771376.416359291,
+      "connection": 1
+    },
+    {
+      "event": "redis_command",
+      "time": 1771376.416461041,
+      "connection": 1,
+      "command": "PING",
+      "dropped": false
+    },
+    {
+      "event": "redis_command",
+      "time": 1771376.416661541,
+      "connection": 1,
+      "command": "HELLO",
+      "dropped": false
+    },
+    {
+      "event": "redis_command",
+      "time": 1771376.416915166,
+      "connection": 1,
+      "command": "CLIENT",
+      "dropped": false
+    },
+    {
+      "event": "redis_command",
+      "time": 1771376.417106875,
+      "connection": 1,
+      "command": "CLIENT",
+      "dropped": false
+    },
+    {
+      "event": "redis_command",
+      "time": 1771376.41725275,
+      "connection": 1,
+      "command": "CLIENT",
+      "dropped": false
+    },
+    {
+      "event": "redis_command",
+      "time": 1771376.417414041,
+      "connection": 1,
+      "command": "PING",
+      "dropped": false
+    },
+    {
+      "event": "proxy_opened",
+      "time": 1771376.422153833,
+      "connection": 2
+    },
+    {
+      "event": "redis_command",
+      "time": 1771376.42219325,
+      "connection": 2,
+      "command": "PING",
+      "dropped": false
+    },
+    {
+      "event": "redis_command",
+      "time": 1771376.422343375,
+      "connection": 2,
+      "command": "HELLO",
+      "dropped": false
+    },
+    {
+      "event": "redis_command",
+      "time": 1771376.422527458,
+      "connection": 2,
+      "command": "CLIENT",
+      "dropped": false
+    },
+    {
+      "event": "redis_command",
+      "time": 1771376.422690708,
+      "connection": 2,
+      "command": "CLIENT",
+      "dropped": false
+    },
+    {
+      "event": "redis_command",
+      "time": 1771376.4228335,
+      "connection": 2,
+      "command": "CLIENT",
+      "dropped": false
+    },
+    {
+      "event": "redis_command",
+      "time": 1771376.423000666,
+      "connection": 2,
+      "command": "MULTI",
+      "dropped": false
+    },
+    {
+      "event": "redis_command",
+      "time": 1771376.4230155,
+      "connection": 2,
+      "command": "LLEN",
+      "dropped": false
+    },
+    {
+      "event": "redis_command",
+      "time": 1771376.423024875,
+      "connection": 2,
+      "command": "LLEN",
+      "dropped": false
+    },
+    {
+      "event": "redis_command",
+      "time": 1771376.423032375,
+      "connection": 2,
+      "command": "LLEN",
+      "dropped": false
+    },
+    {
+      "event": "redis_command",
+      "time": 1771376.423039583,
+      "connection": 2,
+      "command": "LLEN",
+      "dropped": false
+    },
+    {
+      "event": "redis_command",
+      "time": 1771376.423046208,
+      "connection": 2,
+      "command": "EXEC",
+      "dropped": false
+    },
+    {
+      "event": "redis_command",
+      "time": 1771376.423347166,
+      "connection": 2,
+      "command": "MULTI",
+      "dropped": false
+    },
+    {
+      "event": "redis_command",
+      "time": 1771376.423363333,
+      "connection": 2,
+      "command": "SADD",
+      "dropped": false
+    },
+    {
+      "event": "redis_command",
+      "time": 1771376.423372083,
+      "connection": 2,
+      "command": "SADD",
+      "dropped": false
+    },
+    {
+      "event": "redis_command",
+      "time": 1771376.423379,
+      "connection": 2,
+      "command": "EXEC",
+      "dropped": false
+    },
+    {
+      "event": "redis_command",
+      "time": 1771376.423866208,
+      "connection": 1,
+      "command": "BRPOP",
+      "dropped": false
+    },
+    {
+      "event": "proxy_opened",
+      "time": 1771376.424711208,
+      "connection": 3
+    },
+    {
+      "event": "redis_command",
+      "time": 1771376.424730375,
+      "connection": 3,
+      "command": "PING",
+      "dropped": false
+    },
+    {
+      "event": "redis_command",
+      "time": 1771376.424876458,
+      "connection": 3,
+      "command": "HELLO",
+      "dropped": false
+    },
+    {
+      "event": "redis_command",
+      "time": 1771376.425054333,
+      "connection": 3,
+      "command": "CLIENT",
+      "dropped": false
+    },
+    {
+      "event": "redis_command",
+      "time": 1771376.425206041,
+      "connection": 3,
+      "command": "CLIENT",
+      "dropped": false
+    },
+    {
+      "event": "redis_command",
+      "time": 1771376.4253375,
+      "connection": 3,
+      "command": "CLIENT",
+      "dropped": false
+    },
+    {
+      "event": "redis_command",
+      "time": 1771376.425486416,
+      "connection": 3,
+      "command": "PING",
+      "dropped": false
+    },
+    {
+      "event": "proxy_opened",
+      "time": 1771376.426441666,
+      "connection": 4
+    },
+    {
+      "event": "redis_command",
+      "time": 1771376.426461708,
+      "connection": 4,
+      "command": "PING",
+      "dropped": false
+    },
+    {
+      "event": "redis_command",
+      "time": 1771376.426596333,
+      "connection": 4,
+      "command": "HELLO",
+      "dropped": false
+    },
+    {
+      "event": "redis_command",
+      "time": 1771376.426768875,
+      "connection": 4,
+      "command": "CLIENT",
+      "dropped": false
+    },
+    {
+      "event": "redis_command",
+      "time": 1771376.426920833,
+      "connection": 4,
+      "command": "CLIENT",
+      "dropped": false
+    },
+    {
+      "event": "redis_command",
+      "time": 1771376.427052875,
+      "connection": 4,
+      "command": "CLIENT",
+      "dropped": false
+    },
+    {
+      "event": "redis_command",
+      "time": 1771376.427214,
+      "connection": 4,
+      "command": "MULTI",
+      "dropped": false
+    },
+    {
+      "event": "redis_command",
+      "time": 1771376.427228458,
+      "connection": 4,
+      "command": "LLEN",
+      "dropped": false
+    },
+    {
+      "event": "redis_command",
+      "time": 1771376.427236875,
+      "connection": 4,
+      "command": "LLEN",
+      "dropped": false
+    },
+    {
+      "event": "redis_command",
+      "time": 1771376.427253208,
+      "connection": 4,
+      "command": "LLEN",
+      "dropped": false
+    },
+    {
+      "event": "redis_command",
+      "time": 1771376.427259958,
+      "connection": 4,
+      "command": "LLEN",
+      "dropped": false
+    },
+    {
+      "event": "redis_command",
+      "time": 1771376.427270125,
+      "connection": 4,
+      "command": "EXEC",
+      "dropped": false
+    },
+    {
+      "event": "redis_command",
+      "time": 1771376.427631291,
+      "connection": 4,
+      "command": "EVALSHA",
+      "dropped": false
+    },
+    {
+      "event": "redis_command",
+      "time": 1771376.427891041,
+      "connection": 4,
+      "command": "SCRIPT",
+      "dropped": false
+    },
+    {
+      "event": "redis_command",
+      "time": 1771376.428028625,
+      "connection": 4,
+      "command": "MULTI",
+      "dropped": false
+    },
+    {
+      "event": "redis_command",
+      "time": 1771376.428044041,
+      "connection": 4,
+      "command": "EVALSHA",
+      "dropped": false
+    },
+    {
+      "event": "redis_command",
+      "time": 1771376.428050833,
+      "connection": 4,
+      "command": "EXEC",
+      "dropped": false
+    },
+    {
+      "event": "redis_command",
+      "time": 1771376.428293458,
+      "connection": 4,
+      "command": "EVALSHA",
+      "dropped": false
+    },
+    {
+      "event": "redis_command",
+      "time": 1771376.42855375,
+      "connection": 3,
+      "command": "PSUBSCRIBE",
+      "dropped": false
+    },
+    {
+      "event": "redis_command",
+      "time": 1771376.452382083,
+      "connection": 2,
+      "command": "MULTI",
+      "dropped": false
+    },
+    {
+      "event": "redis_command",
+      "time": 1771376.452419458,
+      "connection": 2,
+      "command": "ZADD",
+      "dropped": false
+    },
+    {
+      "event": "redis_command",
+      "time": 1771376.452434875,
+      "connection": 2,
+      "command": "HSET",
+      "dropped": false
+    },
+    {
+      "event": "redis_command",
+      "time": 1771376.452444375,
+      "connection": 2,
+      "command": "EXEC",
+      "dropped": false
+    },
+    {
+      "event": "redis_command",
+      "time": 1771376.452927791,
+      "connection": 1,
+      "command": "BRPOP",
+      "dropped": false
+    },
+    {
+      "event": "proxy_closed",
+      "time": 1771376.756886833,
+      "connection": 1,
+      "reason": "cut"
+    },
+    {
+      "event": "proxy_closed",
+      "time": 1771376.757005791,
+      "connection": 2,
+      "reason": "cut"
+    },
+    {
+      "event": "proxy_closed",
+      "time": 1771376.75703175,
+      "connection": 3,
+      "reason": "cut"
+    },
+    {
+      "event": "proxy_closed",
+      "time": 1771376.75705325,
+      "connection": 4,
+      "reason": "cut"
+    },
+    {
+      "event": "proxy_action",
+      "time": 1771376.757079666,
+      "action": "cut",
+      "sessions": [
+        1,
+        2,
+        3,
+        4
+      ]
+    },
+    {
+      "event": "proxy_opened",
+      "time": 1771376.759233416,
+      "connection": 5
+    },
+    {
+      "event": "proxy_opened",
+      "time": 1771376.759363208,
+      "connection": 6
+    },
+    {
+      "event": "redis_command",
+      "time": 1771376.759429,
+      "connection": 5,
+      "command": "PING",
+      "dropped": false
+    },
+    {
+      "event": "redis_command",
+      "time": 1771376.7595175,
+      "connection": 6,
+      "command": "HELLO",
+      "dropped": false
+    },
+    {
+      "event": "redis_command",
+      "time": 1771376.759885375,
+      "connection": 5,
+      "command": "HELLO",
+      "dropped": false
+    },
+    {
+      "event": "redis_command",
+      "time": 1771376.76012525,
+      "connection": 6,
+      "command": "CLIENT",
+      "dropped": false
+    },
+    {
+      "event": "redis_command",
+      "time": 1771376.76058175,
+      "connection": 5,
+      "command": "CLIENT",
+      "dropped": false
+    },
+    {
+      "event": "redis_command",
+      "time": 1771376.760794583,
+      "connection": 6,
+      "command": "CLIENT",
+      "dropped": false
+    },
+    {
+      "event": "redis_command",
+      "time": 1771376.76108125,
+      "connection": 5,
+      "command": "CLIENT",
+      "dropped": false
+    },
+    {
+      "event": "redis_command",
+      "time": 1771376.761156083,
+      "connection": 6,
+      "command": "CLIENT",
+      "dropped": false
+    },
+    {
+      "event": "redis_command",
+      "time": 1771376.761465416,
+      "connection": 5,
+      "command": "CLIENT",
+      "dropped": false
+    },
+    {
+      "event": "redis_command",
+      "time": 1771376.763246416,
+      "connection": 5,
+      "command": "WATCH",
+      "dropped": false
+    },
+    {
+      "event": "proxy_opened",
+      "time": 1771376.763592,
+      "connection": 7
+    },
+    {
+      "event": "redis_command",
+      "time": 1771376.763634666,
+      "connection": 5,
+      "command": "HGET",
+      "dropped": false
+    },
+    {
+      "event": "redis_command",
+      "time": 1771376.763716125,
+      "connection": 7,
+      "command": "PING",
+      "dropped": false
+    },
+    {
+      "event": "redis_command",
+      "time": 1771376.764133625,
+      "connection": 5,
+      "command": "MULTI",
+      "dropped": false
+    },
+    {
+      "event": "redis_command",
+      "time": 1771376.764163208,
+      "connection": 5,
+      "command": "ZREM",
+      "dropped": false
+    },
+    {
+      "event": "redis_command",
+      "time": 1771376.764181208,
+      "connection": 5,
+      "command": "HDEL",
+      "dropped": false
+    },
+    {
+      "event": "redis_command",
+      "time": 1771376.764198458,
+      "connection": 5,
+      "command": "RPUSH",
+      "dropped": false
+    },
+    {
+      "event": "redis_command",
+      "time": 1771376.764228375,
+      "connection": 5,
+      "command": "EXEC",
+      "dropped": false
+    },
+    {
+      "event": "redis_command",
+      "time": 1771376.764273625,
+      "connection": 7,
+      "command": "HELLO",
+      "dropped": false
+    },
+    {
+      "event": "redis_command",
+      "time": 1771376.765616833,
+      "connection": 7,
+      "command": "CLIENT",
+      "dropped": false
+    },
+    {
+      "event": "redis_command",
+      "time": 1771376.76646925,
+      "connection": 5,
+      "command": "MULTI",
+      "dropped": false
+    },
+    {
+      "event": "redis_command",
+      "time": 1771376.766512041,
+      "connection": 5,
+      "command": "ZREM",
+      "dropped": false
+    },
+    {
+      "event": "redis_command",
+      "time": 1771376.766538,
+      "connection": 5,
+      "command": "HDEL",
+      "dropped": false
+    },
+    {
+      "event": "redis_command",
+      "time": 1771376.7665585,
+      "connection": 5,
+      "command": "EXEC",
+      "dropped": false
+    },
+    {
+      "event": "redis_command",
+      "time": 1771376.766610583,
+      "connection": 7,
+      "command": "CLIENT",
+      "dropped": false
+    },
+    {
+      "event": "redis_command",
+      "time": 1771376.767004833,
+      "connection": 7,
+      "command": "CLIENT",
+      "dropped": false
+    },
+    {
+      "event": "redis_command",
+      "time": 1771376.76761225,
+      "connection": 7,
+      "command": "SREM",
+      "dropped": false
+    },
+    {
+      "event": "redis_command",
+      "time": 1771376.768040125,
+      "connection": 7,
+      "command": "SREM",
+      "dropped": false
+    },
+    {
+      "event": "redis_command",
+      "time": 1771376.7685145,
+      "connection": 7,
+      "command": "MULTI",
+      "dropped": false
+    },
+    {
+      "event": "redis_command",
+      "time": 1771376.768547375,
+      "connection": 7,
+      "command": "DEL",
+      "dropped": false
+    },
+    {
+      "event": "redis_command",
+      "time": 1771376.768563875,
+      "connection": 7,
+      "command": "DEL",
+      "dropped": false
+    },
+    {
+      "event": "redis_command",
+      "time": 1771376.768578291,
+      "connection": 7,
+      "command": "DEL",
+      "dropped": false
+    },
+    {
+      "event": "redis_command",
+      "time": 1771376.768591375,
+      "connection": 7,
+      "command": "DEL",
+      "dropped": false
+    },
+    {
+      "event": "redis_command",
+      "time": 1771376.768603166,
+      "connection": 7,
+      "command": "EXEC",
+      "dropped": false
+    },
+    {
+      "event": "proxy_closed",
+      "time": 1771376.768968333,
+      "connection": 7,
+      "reason": "EOF-0"
+    },
+    {
+      "event": "proxy_closed",
+      "time": 1771376.769016708,
+      "connection": 6,
+      "reason": "EOF-0"
+    },
+    {
+      "event": "proxy_opened",
+      "time": 1771376.776372333,
+      "connection": 8
+    },
+    {
+      "event": "redis_command",
+      "time": 1771376.776416625,
+      "connection": 8,
+      "command": "PING",
+      "dropped": false
+    },
+    {
+      "event": "redis_command",
+      "time": 1771376.77671225,
+      "connection": 8,
+      "command": "HELLO",
+      "dropped": false
+    },
+    {
+      "event": "redis_command",
+      "time": 1771376.777087208,
+      "connection": 8,
+      "command": "CLIENT",
+      "dropped": false
+    },
+    {
+      "event": "redis_command",
+      "time": 1771376.777408,
+      "connection": 8,
+      "command": "CLIENT",
+      "dropped": false
+    },
+    {
+      "event": "redis_command",
+      "time": 1771376.777703833,
+      "connection": 8,
+      "command": "CLIENT",
+      "dropped": false
+    },
+    {
+      "event": "redis_command",
+      "time": 1771376.778018166,
+      "connection": 8,
+      "command": "PING",
+      "dropped": false
+    },
+    {
+      "event": "proxy_opened",
+      "time": 1771376.780471583,
+      "connection": 9
+    },
+    {
+      "event": "redis_command",
+      "time": 1771376.780527458,
+      "connection": 9,
+      "command": "PING",
+      "dropped": false
+    },
+    {
+      "event": "redis_command",
+      "time": 1771376.780802,
+      "connection": 9,
+      "command": "HELLO",
+      "dropped": false
+    },
+    {
+      "event": "redis_command",
+      "time": 1771376.7811155,
+      "connection": 9,
+      "command": "CLIENT",
+      "dropped": false
+    },
+    {
+      "event": "redis_command",
+      "time": 1771376.78139575,
+      "connection": 9,
+      "command": "CLIENT",
+      "dropped": false
+    },
+    {
+      "event": "redis_command",
+      "time": 1771376.781676041,
+      "connection": 9,
+      "command": "CLIENT",
+      "dropped": false
+    },
+    {
+      "event": "redis_command",
+      "time": 1771376.782014,
+      "connection": 9,
+      "command": "MULTI",
+      "dropped": false
+    },
+    {
+      "event": "redis_command",
+      "time": 1771376.782048,
+      "connection": 9,
+      "command": "LLEN",
+      "dropped": false
+    },
+    {
+      "event": "redis_command",
+      "time": 1771376.782065833,
+      "connection": 9,
+      "command": "LLEN",
+      "dropped": false
+    },
+    {
+      "event": "redis_command",
+      "time": 1771376.782080041,
+      "connection": 9,
+      "command": "LLEN",
+      "dropped": false
+    },
+    {
+      "event": "redis_command",
+      "time": 1771376.782096541,
+      "connection": 9,
+      "command": "LLEN",
+      "dropped": false
+    },
+    {
+      "event": "redis_command",
+      "time": 1771376.782109541,
+      "connection": 9,
+      "command": "EXEC",
+      "dropped": false
+    },
+    {
+      "event": "redis_command",
+      "time": 1771376.782645333,
+      "connection": 9,
+      "command": "MULTI",
+      "dropped": false
+    },
+    {
+      "event": "redis_command",
+      "time": 1771376.782693791,
+      "connection": 9,
+      "command": "SADD",
+      "dropped": false
+    },
+    {
+      "event": "redis_command",
+      "time": 1771376.782711458,
+      "connection": 9,
+      "command": "SADD",
+      "dropped": false
+    },
+    {
+      "event": "redis_command",
+      "time": 1771376.782724916,
+      "connection": 9,
+      "command": "EXEC",
+      "dropped": false
+    },
+    {
+      "event": "redis_command",
+      "time": 1771376.783262958,
+      "connection": 8,
+      "command": "BRPOP",
+      "dropped": false
+    },
+    {
+      "event": "redis_command",
+      "time": 1771376.785048791,
+      "connection": 9,
+      "command": "MULTI",
+      "dropped": false
+    },
+    {
+      "event": "redis_command",
+      "time": 1771376.785095625,
+      "connection": 9,
+      "command": "ZADD",
+      "dropped": false
+    },
+    {
+      "event": "redis_command",
+      "time": 1771376.785117458,
+      "connection": 9,
+      "command": "HSET",
+      "dropped": false
+    },
+    {
+      "event": "redis_command",
+      "time": 1771376.785132875,
+      "connection": 9,
+      "command": "EXEC",
+      "dropped": false
+    },
+    {
+      "event": "proxy_opened",
+      "time": 1771376.785318666,
+      "connection": 10
+    },
+    {
+      "event": "redis_command",
+      "time": 1771376.7853765,
+      "connection": 10,
+      "command": "PING",
+      "dropped": false
+    },
+    {
+      "event": "redis_command",
+      "time": 1771376.785969125,
+      "connection": 8,
+      "command": "BRPOP",
+      "dropped": false
+    },
+    {
+      "event": "redis_command",
+      "time": 1771376.787529666,
+      "connection": 10,
+      "command": "HELLO",
+      "dropped": false
+    },
+    {
+      "event": "redis_command",
+      "time": 1771376.787813166,
+      "connection": 10,
+      "command": "CLIENT",
+      "dropped": false
+    },
+    {
+      "event": "redis_command",
+      "time": 1771376.788045375,
+      "connection": 10,
+      "command": "CLIENT",
+      "dropped": false
+    },
+    {
+      "event": "redis_command",
+      "time": 1771376.788299875,
+      "connection": 10,
+      "command": "CLIENT",
+      "dropped": false
+    },
+    {
+      "event": "redis_command",
+      "time": 1771376.788545583,
+      "connection": 10,
+      "command": "PING",
+      "dropped": false
+    },
+    {
+      "event": "proxy_opened",
+      "time": 1771376.790169083,
+      "connection": 11
+    },
+    {
+      "event": "redis_command",
+      "time": 1771376.79020125,
+      "connection": 11,
+      "command": "PING",
+      "dropped": false
+    },
+    {
+      "event": "redis_command",
+      "time": 1771376.790432791,
+      "connection": 11,
+      "command": "HELLO",
+      "dropped": false
+    },
+    {
+      "event": "redis_command",
+      "time": 1771376.790726708,
+      "connection": 11,
+      "command": "CLIENT",
+      "dropped": false
+    },
+    {
+      "event": "redis_command",
+      "time": 1771376.790979958,
+      "connection": 11,
+      "command": "CLIENT",
+      "dropped": false
+    },
+    {
+      "event": "redis_command",
+      "time": 1771376.791205625,
+      "connection": 11,
+      "command": "CLIENT",
+      "dropped": false
+    },
+    {
+      "event": "redis_command",
+      "time": 1771376.791476458,
+      "connection": 11,
+      "command": "MULTI",
+      "dropped": false
+    },
+    {
+      "event": "redis_command",
+      "time": 1771376.791503958,
+      "connection": 11,
+      "command": "LLEN",
+      "dropped": false
+    },
+    {
+      "event": "redis_command",
+      "time": 1771376.791518416,
+      "connection": 11,
+      "command": "LLEN",
+      "dropped": false
+    },
+    {
+      "event": "redis_command",
+      "time": 1771376.7915305,
+      "connection": 11,
+      "command": "LLEN",
+      "dropped": false
+    },
+    {
+      "event": "redis_command",
+      "time": 1771376.79154225,
+      "connection": 11,
+      "command": "LLEN",
+      "dropped": false
+    },
+    {
+      "event": "redis_command",
+      "time": 1771376.791557458,
+      "connection": 11,
+      "command": "EXEC",
+      "dropped": false
+    },
+    {
+      "event": "redis_command",
+      "time": 1771376.792128125,
+      "connection": 11,
+      "command": "EVALSHA",
+      "dropped": false
+    },
+    {
+      "event": "redis_command",
+      "time": 1771376.792602791,
+      "connection": 11,
+      "command": "SCRIPT",
+      "dropped": false
+    },
+    {
+      "event": "redis_command",
+      "time": 1771376.792877416,
+      "connection": 11,
+      "command": "MULTI",
+      "dropped": false
+    },
+    {
+      "event": "redis_command",
+      "time": 1771376.792911375,
+      "connection": 11,
+      "command": "EVALSHA",
+      "dropped": false
+    },
+    {
+      "event": "redis_command",
+      "time": 1771376.792924333,
+      "connection": 11,
+      "command": "EXEC",
+      "dropped": false
+    },
+    {
+      "event": "redis_command",
+      "time": 1771376.793411791,
+      "connection": 11,
+      "command": "EVALSHA",
+      "dropped": false
+    },
+    {
+      "event": "redis_command",
+      "time": 1771376.793856916,
+      "connection": 10,
+      "command": "PSUBSCRIBE",
+      "dropped": false
+    },
+    {
+      "event": "redis_command",
+      "time": 1771376.969206,
+      "connection": 9,
+      "command": "MULTI",
+      "dropped": false
+    },
+    {
+      "event": "redis_command",
+      "time": 1771376.969330208,
+      "connection": 9,
+      "command": "ZREM",
+      "dropped": false
+    },
+    {
+      "event": "redis_command",
+      "time": 1771376.969374916,
+      "connection": 9,
+      "command": "HDEL",
+      "dropped": false
+    },
+    {
+      "event": "redis_command",
+      "time": 1771376.969447375,
+      "connection": 9,
+      "command": "EXEC",
+      "dropped": false
+    },
+    {
+      "event": "redis_command",
+      "time": 1771377.8299005,
+      "connection": 8,
+      "command": "BRPOP",
+      "dropped": false
+    },
+    {
+      "event": "redis_command",
+      "time": 1771378.848390791,
+      "connection": 8,
+      "command": "BRPOP",
+      "dropped": false
+    },
+    {
+      "event": "redis_command",
+      "time": 1771379.862155833,
+      "connection": 8,
+      "command": "BRPOP",
+      "dropped": false
+    },
+    {
+      "event": "redis_command",
+      "time": 1771380.877087708,
+      "connection": 8,
+      "command": "BRPOP",
+      "dropped": false
+    },
+    {
+      "event": "redis_command",
+      "time": 1771381.78932675,
+      "connection": 9,
+      "command": "PING",
+      "dropped": false
+    },
+    {
+      "event": "redis_command",
+      "time": 1771381.789761916,
+      "connection": 9,
+      "command": "MULTI",
+      "dropped": false
+    },
+    {
+      "event": "redis_command",
+      "time": 1771381.789826,
+      "connection": 9,
+      "command": "ZADD",
+      "dropped": false
+    },
+    {
+      "event": "redis_command",
+      "time": 1771381.7898565,
+      "connection": 9,
+      "command": "HSET",
+      "dropped": false
+    },
+    {
+      "event": "redis_command",
+      "time": 1771381.789874916,
+      "connection": 9,
+      "command": "EXEC",
+      "dropped": false
+    },
+    {
+      "event": "redis_command",
+      "time": 1771381.790683041,
+      "connection": 8,
+      "command": "BRPOP",
+      "dropped": false
+    },
+    {
+      "event": "redis_command",
+      "time": 1771381.96357175,
+      "connection": 9,
+      "command": "MULTI",
+      "dropped": false
+    },
+    {
+      "event": "redis_command",
+      "time": 1771381.963720625,
+      "connection": 9,
+      "command": "ZREM",
+      "dropped": false
+    },
+    {
+      "event": "redis_command",
+      "time": 1771381.96377175,
+      "connection": 9,
+      "command": "HDEL",
+      "dropped": false
+    },
+    {
+      "event": "redis_command",
+      "time": 1771381.963812083,
+      "connection": 9,
+      "command": "EXEC",
+      "dropped": false
+    },
+    {
+      "event": "proxy_action",
+      "time": 1771382.265817583,
+      "action": "up",
+      "sessions": []
+    },
+    {
+      "event": "redis_command",
+      "time": 1771382.806687791,
+      "connection": 8,
+      "command": "BRPOP",
+      "dropped": false
+    },
+    {
+      "event": "redis_command",
+      "time": 1771383.826958916,
+      "connection": 8,
+      "command": "BRPOP",
+      "dropped": false
+    },
+    {
+      "event": "redis_command",
+      "time": 1771384.842131291,
+      "connection": 8,
+      "command": "BRPOP",
+      "dropped": false
+    },
+    {
+      "event": "proxy_opened",
+      "time": 1771386.85678,
+      "connection": 12
+    },
+    {
+      "event": "redis_command",
+      "time": 1771386.8569405,
+      "connection": 12,
+      "command": "PING",
+      "dropped": false
+    },
+    {
+      "event": "redis_command",
+      "time": 1771386.857288458,
+      "connection": 12,
+      "command": "HELLO",
+      "dropped": false
+    },
+    {
+      "event": "redis_command",
+      "time": 1771386.857753791,
+      "connection": 12,
+      "command": "CLIENT",
+      "dropped": false
+    },
+    {
+      "event": "redis_command",
+      "time": 1771386.858360791,
+      "connection": 12,
+      "command": "CLIENT",
+      "dropped": false
+    },
+    {
+      "event": "redis_command",
+      "time": 1771386.858956625,
+      "connection": 12,
+      "command": "CLIENT",
+      "dropped": false
+    },
+    {
+      "event": "redis_command",
+      "time": 1771386.859393125,
+      "connection": 12,
+      "command": "SREM",
+      "dropped": false
+    },
+    {
+      "event": "redis_command",
+      "time": 1771386.859932333,
+      "connection": 12,
+      "command": "SREM",
+      "dropped": false
+    },
+    {
+      "event": "redis_command",
+      "time": 1771386.860462833,
+      "connection": 12,
+      "command": "MULTI",
+      "dropped": false
+    },
+    {
+      "event": "redis_command",
+      "time": 1771386.860519916,
+      "connection": 12,
+      "command": "DEL",
+      "dropped": false
+    },
+    {
+      "event": "redis_command",
+      "time": 1771386.860559583,
+      "connection": 12,
+      "command": "DEL",
+      "dropped": false
+    },
+    {
+      "event": "redis_command",
+      "time": 1771386.860589541,
+      "connection": 12,
+      "command": "DEL",
+      "dropped": false
+    },
+    {
+      "event": "redis_command",
+      "time": 1771386.860617166,
+      "connection": 12,
+      "command": "DEL",
+      "dropped": false
+    },
+    {
+      "event": "redis_command",
+      "time": 1771386.86064275,
+      "connection": 12,
+      "command": "EXEC",
+      "dropped": false
+    },
+    {
+      "event": "proxy_closed",
+      "time": 1771386.861098083,
+      "connection": 11,
+      "reason": "EOF-0"
+    },
+    {
+      "event": "proxy_closed",
+      "time": 1771386.861200208,
+      "connection": 12,
+      "reason": "EOF-0"
+    },
+    {
+      "event": "proxy_closed",
+      "time": 1771386.861264875,
+      "connection": 10,
+      "reason": "EOF-0"
+    },
+    {
+      "event": "proxy_closed",
+      "time": 1771386.861642458,
+      "connection": 9,
+      "reason": "EOF-0"
+    },
+    {
+      "event": "proxy_closed",
+      "time": 1771386.861709083,
+      "connection": 8,
+      "reason": "EOF-0"
+    },
+    {
+      "event": "proxy_closed",
+      "time": 1771386.886516875,
+      "connection": 5,
+      "reason": "EOF-0"
+    },
+    {
+      "event": "proxy_action",
+      "time": 1771386.9740155,
+      "action": "stop",
+      "sessions": []
+    }
+  ],
+  "monitoring": [],
+  "actions": [
+    {
+      "time": 1771376.757089791,
+      "action": "cut",
+      "sessions": [
+        1,
+        2,
+        3,
+        4
+      ]
+    },
+    {
+      "time": 1771382.266061833,
+      "action": "up",
+      "sessions": []
+    },
+    {
+      "action": "SIGTERM",
+      "time": 1771382.266129416,
+      "pid": 21762,
+      "reason": "harness cleanup"
+    }
+  ],
+  "returncodes": [
+    0
+  ],
+  "forced_kills": [],
+  "fetched_after_exit": [],
+  "errors": [],
+  "elapsed": 11.589,
+  "passed": true
+}

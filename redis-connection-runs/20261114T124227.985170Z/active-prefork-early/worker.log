@@ -1,0 +1,32 @@
+ 
+ -------------- net-0@localhost v5.7.0 (collider)
+--- ***** ----- 
+-- ******* ---- macOS-15.8.1-arm64-arm-64bit-Mach-O 2026-11-14 15:45:06
+- *** --- * --- 
+- ** ---------- [config]
+- ** ---------- .> app:         shutdown_probe:0x10479a7b0
+- ** ---------- .> transport:   redis://:**@127.0.0.1:60573/0
+- ** ---------- .> results:     socket:///Users/sergunich/dev/repos/celery/.dev/shutdown-20049.sock
+- *** --- * --- .> concurrency: 1 (prefork)
+-- ******* ---- .> task events: OFF (enable -E to monitor tasks in this worker)
+--- ***** ----- 
+ -------------- [queues]
+                .> net-probe        exchange=net-probe(direct) key=net-probe
+                
+
+[tasks]
+  . redis_connection_probe.work
+  . shutdown_probe.task
+
+[2026-11-14 15:45:06,175: INFO/MainProcess] Connected to redis://:**@127.0.0.1:60573/0
+[2026-11-14 15:45:06,182: INFO/MainProcess] net-0@localhost ready.
+[2026-11-14 15:45:06,201: INFO/MainProcess] Task redis_connection_probe.work[3037c2a3-9e83-4a79-8431-41ecf8e5da36] received
+[2026-11-14 15:45:06,408: INFO/SpawnPoolWorker-1] child process 20296 calling self.run()
+[2026-11-14 15:45:06,959: WARNING/MainProcess] consumer: Connection to broker lost. Trying to re-establish the connection... (network:ConnectionError)
+[2026-11-14 15:45:06,966: INFO/MainProcess] Skipping prefetch count reduction after connection restart because per-consumer QoS (apply_global=False) is in effect and broker-side prefetch updates would not reach the running consumer.
+[2026-11-14 15:45:06,979: INFO/MainProcess] Connected to redis://:**@127.0.0.1:60573/0
+[2026-11-14 15:45:10,669: INFO/SpawnPoolWorker-1] Task redis_connection_probe.work[3037c2a3-9e83-4a79-8431-41ecf8e5da36] succeeded in 4.231454957975075s: 'work'
+[2026-11-14 15:45:12,000: INFO/MainProcess] Task redis_connection_probe.work[b213cf4f-d73a-45cb-97b3-15e23724a786] received
+[2026-11-14 15:45:12,190: INFO/SpawnPoolWorker-1] Task redis_connection_probe.work[b213cf4f-d73a-45cb-97b3-15e23724a786] succeeded in 0.18829004210419953s: 'ping'
+
+worker: Warm shutdown (MainProcess)

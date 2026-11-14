@@ -1,0 +1,202 @@
+ 
+ -------------- net-0@localhost v5.7.0 (collider)
+--- ***** ----- 
+-- ******* ---- macOS-15.8.1-arm64-arm-64bit-Mach-O 2026-11-14 16:00:47
+- *** --- * --- 
+- ** ---------- [config]
+- ** ---------- .> app:         shutdown_probe:0x106cca900
+- ** ---------- .> transport:   redis://:**@127.0.0.1:61487/0
+- ** ---------- .> results:     socket:///Users/sergunich/dev/repos/celery/.dev/shutdown-21179.sock
+- *** --- * --- .> concurrency: 1 (solo)
+-- ******* ---- .> task events: OFF (enable -E to monitor tasks in this worker)
+--- ***** ----- 
+ -------------- [queues]
+                .> net-probe        exchange=net-probe(direct) key=net-probe
+                
+
+[tasks]
+  . redis_connection_probe.work
+  . shutdown_probe.task
+
+[2026-11-14 16:00:47,922: ERROR/MainProcess] consumer: Cannot connect to redis://:**@127.0.0.1:61487/0: Error while reading from 127.0.0.1:61487 : (54, 'Connection reset by peer').
+Trying again in 2.00 seconds... (1/1)
+
+[2026-11-14 16:00:49,942: CRITICAL/MainProcess] Unrecoverable error: OperationalError("Error while reading from 127.0.0.1:61487 : (54, 'Connection reset by peer')")
+Traceback (most recent call last):
+  File "/Users/sergunich/dev/repos/celery/.dev/.venv/lib/python3.13/site-packages/kombu/transport/virtual/base.py", line 961, in create_channel
+    return self._avail_channels.pop()
+           ~~~~~~~~~~~~~~~~~~~~~~~~^^
+IndexError: pop from empty list
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/Users/sergunich/dev/repos/celery/.dev/.venv/lib/python3.13/site-packages/redis/connection.py", line 1407, in read_response
+    response = self._parser.read_response(
+        disable_decoding=disable_decoding,
+        push_request=push_request,
+        timeout=timeout,
+    )
+  File "/Users/sergunich/dev/repos/celery/.dev/.venv/lib/python3.13/site-packages/redis/_parsers/resp3.py", line 40, in read_response
+    result = self._read_response(
+        disable_decoding=disable_decoding,
+        push_request=push_request,
+        timeout=timeout,
+    )
+  File "/Users/sergunich/dev/repos/celery/.dev/.venv/lib/python3.13/site-packages/redis/_parsers/resp3.py", line 65, in _read_response
+    raw = self._buffer.readline(timeout=timeout)
+  File "/Users/sergunich/dev/repos/celery/.dev/.venv/lib/python3.13/site-packages/redis/_parsers/socket.py", line 117, in readline
+    self._read_from_socket(timeout=timeout)
+    ~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^
+  File "/Users/sergunich/dev/repos/celery/.dev/.venv/lib/python3.13/site-packages/redis/_parsers/socket.py", line 64, in _read_from_socket
+    data = sock.recv(socket_read_size)
+ConnectionResetError: [Errno 54] Connection reset by peer
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/Users/sergunich/dev/repos/celery/.dev/.venv/lib/python3.13/site-packages/kombu/connection.py", line 535, in _reraise_as_library_errors
+    yield
+  File "/Users/sergunich/dev/repos/celery/.dev/.venv/lib/python3.13/site-packages/kombu/connection.py", line 522, in _ensure_connection
+    return retry_over_time(
+        self._connection_factory, self.recoverable_connection_errors,
+    ...<2 lines>...
+        callback, timeout=timeout
+    )
+  File "/Users/sergunich/dev/repos/celery/.dev/.venv/lib/python3.13/site-packages/kombu/utils/functional.py", line 331, in retry_over_time
+    return fun(*args, **kwargs)
+  File "/Users/sergunich/dev/repos/celery/.dev/.venv/lib/python3.13/site-packages/kombu/connection.py", line 1034, in _connection_factory
+    self._connection = self._establish_connection()
+                       ~~~~~~~~~~~~~~~~~~~~~~~~~~^^
+  File "/Users/sergunich/dev/repos/celery/.dev/.venv/lib/python3.13/site-packages/kombu/connection.py", line 956, in _establish_connection
+    conn = self.transport.establish_connection()
+  File "/Users/sergunich/dev/repos/celery/.dev/.venv/lib/python3.13/site-packages/kombu/transport/virtual/base.py", line 985, in establish_connection
+    self._avail_channels.append(self.create_channel(self))
+                                ~~~~~~~~~~~~~~~~~~~^^^^^^
+  File "/Users/sergunich/dev/repos/celery/.dev/.venv/lib/python3.13/site-packages/kombu/transport/virtual/base.py", line 963, in create_channel
+    channel = self.Channel(connection)
+  File "/Users/sergunich/dev/repos/celery/.dev/.venv/lib/python3.13/site-packages/kombu/transport/redis.py", line 1201, in __init__
+    self.client.ping()
+    ~~~~~~~~~~~~~~~~^^
+  File "/Users/sergunich/dev/repos/celery/.dev/.venv/lib/python3.13/site-packages/redis/commands/core.py", line 2037, in ping
+    return self.execute_command("PING", **kwargs)
+           ~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^
+  File "/Users/sergunich/dev/repos/celery/.dev/.venv/lib/python3.13/site-packages/redis/client.py", line 867, in execute_command
+    return self._execute_command(*args, **options)
+           ~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^
+  File "/Users/sergunich/dev/repos/celery/.dev/.venv/lib/python3.13/site-packages/redis/client.py", line 873, in _execute_command
+    conn = self.connection or pool.get_connection()
+                              ~~~~~~~~~~~~~~~~~~~^^
+  File "/Users/sergunich/dev/repos/celery/.dev/.venv/lib/python3.13/site-packages/redis/utils.py", line 258, in wrapper
+    return func(*args, **kwargs)
+  File "/Users/sergunich/dev/repos/celery/.dev/.venv/lib/python3.13/site-packages/redis/connection.py", line 3273, in get_connection
+    connection.connect()
+    ~~~~~~~~~~~~~~~~~~^^
+  File "/Users/sergunich/dev/repos/celery/.dev/.venv/lib/python3.13/site-packages/redis/connection.py", line 1028, in connect
+    self.retry.call_with_retry(
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~^
+        lambda: self.connect_check_health(
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    ...<2 lines>...
+        lambda error: self.disconnect(error),
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "/Users/sergunich/dev/repos/celery/.dev/.venv/lib/python3.13/site-packages/redis/retry.py", line 132, in call_with_retry
+    raise error
+  File "/Users/sergunich/dev/repos/celery/.dev/.venv/lib/python3.13/site-packages/redis/retry.py", line 120, in call_with_retry
+    return do()
+  File "/Users/sergunich/dev/repos/celery/.dev/.venv/lib/python3.13/site-packages/redis/connection.py", line 1029, in <lambda>
+    lambda: self.connect_check_health(
+            ~~~~~~~~~~~~~~~~~~~~~~~~~^
+        check_health=True, retry_socket_connect=False
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    ),
+    ^
+  File "/Users/sergunich/dev/repos/celery/.dev/.venv/lib/python3.13/site-packages/redis/connection.py", line 1083, in connect_check_health
+    self.on_connect_check_health(check_health=check_health)
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/sergunich/dev/repos/celery/.dev/.venv/lib/python3.13/site-packages/redis/connection.py", line 1185, in on_connect_check_health
+    self.send_command("HELLO", self.protocol, check_health=check_health)
+    ~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/sergunich/dev/repos/celery/.dev/.venv/lib/python3.13/site-packages/redis/connection.py", line 1371, in send_command
+    self.send_packed_command(
+    ~~~~~~~~~~~~~~~~~~~~~~~~^
+        self._command_packer.pack(*args),
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+        check_health=kwargs.get("check_health", True),
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "/Users/sergunich/dev/repos/celery/.dev/.venv/lib/python3.13/site-packages/redis/connection.py", line 1344, in send_packed_command
+    self.check_health()
+    ~~~~~~~~~~~~~~~~~^^
+  File "/Users/sergunich/dev/repos/celery/.dev/.venv/lib/python3.13/site-packages/redis/connection.py", line 1332, in check_health
+    self.retry.call_with_retry(
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~^
+        self._send_ping,
+        ^^^^^^^^^^^^^^^^
+        self._ping_failed,
+        ^^^^^^^^^^^^^^^^^^
+        with_failure_count=True,
+        ^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "/Users/sergunich/dev/repos/celery/.dev/.venv/lib/python3.13/site-packages/redis/retry.py", line 132, in call_with_retry
+    raise error
+  File "/Users/sergunich/dev/repos/celery/.dev/.venv/lib/python3.13/site-packages/redis/retry.py", line 120, in call_with_retry
+    return do()
+  File "/Users/sergunich/dev/repos/celery/.dev/.venv/lib/python3.13/site-packages/redis/connection.py", line 1320, in _send_ping
+    if str_if_bytes(self.read_response()) != "PONG":
+                    ~~~~~~~~~~~~~~~~~~^^
+  File "/Users/sergunich/dev/repos/celery/.dev/.venv/lib/python3.13/site-packages/redis/connection.py", line 1423, in read_response
+    raise ConnectionError(f"Error while reading from {host_error} : {e.args}")
+redis.exceptions.ConnectionError: Error while reading from 127.0.0.1:61487 : (54, 'Connection reset by peer')
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/Users/sergunich/dev/repos/celery/celery/worker/worker.py", line 271, in start
+    self.blueprint.start(self)
+    ~~~~~~~~~~~~~~~~~~~~^^^^^^
+  File "/Users/sergunich/dev/repos/celery/celery/bootsteps.py", line 116, in start
+    step.start(parent)
+    ~~~~~~~~~~^^^^^^^^
+  File "/Users/sergunich/dev/repos/celery/celery/bootsteps.py", line 365, in start
+    return self.obj.start()
+           ~~~~~~~~~~~~~~^^
+  File "/Users/sergunich/dev/repos/celery/celery/worker/consumer/consumer.py", line 406, in start
+    blueprint.start(self)
+    ~~~~~~~~~~~~~~~^^^^^^
+  File "/Users/sergunich/dev/repos/celery/celery/bootsteps.py", line 116, in start
+    step.start(parent)
+    ~~~~~~~~~~^^^^^^^^
+  File "/Users/sergunich/dev/repos/celery/celery/worker/consumer/connection.py", line 22, in start
+    c.connection = c.connect()
+                   ~~~~~~~~~^^
+  File "/Users/sergunich/dev/repos/celery/.dev/redis_connection_probe.py", line 46, in observe_connect
+    conn = _original_connect(self)
+  File "/Users/sergunich/dev/repos/celery/celery/worker/consumer/consumer.py", line 629, in connect
+    conn = self.connection_for_read(heartbeat=self.amqheartbeat)
+  File "/Users/sergunich/dev/repos/celery/celery/worker/consumer/consumer.py", line 635, in connection_for_read
+    return self.ensure_connected(
+           ~~~~~~~~~~~~~~~~~~~~~^
+        self.app.connection_for_read(heartbeat=heartbeat))
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/sergunich/dev/repos/celery/celery/worker/consumer/consumer.py", line 690, in ensure_connected
+    conn = conn.ensure_connection(
+        _error_handler, self.app.conf.broker_connection_max_retries,
+        callback=maybe_shutdown,
+    )
+  File "/Users/sergunich/dev/repos/celery/.dev/.venv/lib/python3.13/site-packages/kombu/connection.py", line 464, in ensure_connection
+    self._ensure_connection(*args, **kwargs)
+    ~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^
+  File "/Users/sergunich/dev/repos/celery/.dev/.venv/lib/python3.13/site-packages/kombu/connection.py", line 521, in _ensure_connection
+    with ctx():
+         ~~~^^
+  File "/Users/sergunich/.local/share/uv/python/cpython-3.13-macos-aarch64-none/lib/python3.13/contextlib.py", line 162, in __exit__
+    self.gen.throw(value)
+    ~~~~~~~~~~~~~~^^^^^^^
+  File "/Users/sergunich/dev/repos/celery/.dev/.venv/lib/python3.13/site-packages/kombu/connection.py", line 539, in _reraise_as_library_errors
+    raise ConnectionError(str(exc)) from exc
+kombu.exceptions.OperationalError: Error while reading from 127.0.0.1:61487 : (54, 'Connection reset by peer')

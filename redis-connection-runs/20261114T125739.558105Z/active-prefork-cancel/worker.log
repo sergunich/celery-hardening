@@ -1,0 +1,38 @@
+ 
+ -------------- net-0@localhost v5.7.0 (collider)
+--- ***** ----- 
+-- ******* ---- macOS-15.8.1-arm64-arm-64bit-Mach-O 2026-11-14 15:59:12
+- *** --- * --- 
+- ** ---------- [config]
+- ** ---------- .> app:         shutdown_probe:0x10668a7b0
+- ** ---------- .> transport:   redis://:**@127.0.0.1:61305/0
+- ** ---------- .> results:     socket:///Users/sergunich/dev/repos/celery/.dev/shutdown-21179.sock
+- *** --- * --- .> concurrency: 1 (prefork)
+-- ******* ---- .> task events: OFF (enable -E to monitor tasks in this worker)
+--- ***** ----- 
+ -------------- [queues]
+                .> net-probe        exchange=net-probe(direct) key=net-probe
+                
+
+[tasks]
+  . redis_connection_probe.work
+  . shutdown_probe.task
+
+[2026-11-14 15:59:12,148: INFO/MainProcess] Connected to redis://:**@127.0.0.1:61305/0
+[2026-11-14 15:59:12,155: INFO/MainProcess] net-0@localhost ready.
+[2026-11-14 15:59:12,182: INFO/MainProcess] Task redis_connection_probe.work[d0ea7923-a1fd-4cc2-b643-32d041e3672d] received
+[2026-11-14 15:59:12,376: INFO/SpawnPoolWorker-1] child process 21701 calling self.run()
+[2026-11-14 15:59:12,913: WARNING/MainProcess] consumer: Connection to broker lost. Trying to re-establish the connection... (network:ConnectionError)
+[2026-11-14 15:59:12,913: INFO/MainProcess] Restoring 1 unacknowledged message(s)
+[2026-11-14 15:59:12,921: WARNING/MainProcess] Task redis_connection_probe.work[d0ea7923-a1fd-4cc2-b643-32d041e3672d] cannot be acknowledged after a connection loss since late acknowledgement is enabled for it.
+Terminating it instead.
+
+[2026-11-14 15:59:12,923: INFO/MainProcess] Skipping prefetch count reduction after connection restart because per-consumer QoS (apply_global=False) is in effect and broker-side prefetch updates would not reach the running consumer.
+[2026-11-14 15:59:12,932: INFO/MainProcess] Connected to redis://:**@127.0.0.1:61305/0
+[2026-11-14 15:59:12,942: INFO/MainProcess] Task redis_connection_probe.work[d0ea7923-a1fd-4cc2-b643-32d041e3672d] received
+[2026-11-14 15:59:17,923: INFO/MainProcess] Task redis_connection_probe.work[0ab5c3a1-7ef0-492c-bf53-e0fe2ceb316d] received
+[2026-11-14 15:59:18,242: INFO/SpawnPoolWorker-2] child process 21702 calling self.run()
+[2026-11-14 15:59:18,659: INFO/SpawnPoolWorker-2] Task redis_connection_probe.work[d0ea7923-a1fd-4cc2-b643-32d041e3672d] succeeded in 0.38793633389286697s: 'work'
+[2026-11-14 15:59:18,832: INFO/SpawnPoolWorker-2] Task redis_connection_probe.work[0ab5c3a1-7ef0-492c-bf53-e0fe2ceb316d] succeeded in 0.17141616600565612s: 'ping'
+
+worker: Warm shutdown (MainProcess)

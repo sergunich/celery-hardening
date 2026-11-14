@@ -1,0 +1,102 @@
+ 
+ -------------- net-0@localhost v5.7.0 (collider)
+--- ***** ----- 
+-- ******* ---- macOS-15.8.1-arm64-arm-64bit-Mach-O 2026-11-14 15:44:16
+- *** --- * --- 
+- ** ---------- [config]
+- ** ---------- .> app:         shutdown_probe:0x10703a7b0
+- ** ---------- .> transport:   redis://:**@127.0.0.1:60491/0
+- ** ---------- .> results:     socket:///Users/sergunich/dev/repos/celery/.dev/shutdown-20049.sock
+- *** --- * --- .> concurrency: 1 (thread)
+-- ******* ---- .> task events: OFF (enable -E to monitor tasks in this worker)
+--- ***** ----- 
+ -------------- [queues]
+                .> net-probe        exchange=net-probe(direct) key=net-probe
+                
+
+[tasks]
+  . redis_connection_probe.work
+  . shutdown_probe.task
+
+[2026-11-14 15:44:16,792: INFO/MainProcess] Connected to redis://:**@127.0.0.1:60491/0
+[2026-11-14 15:44:16,799: INFO/MainProcess] net-0@localhost ready.
+[2026-11-14 15:44:16,819: INFO/MainProcess] Task redis_connection_probe.work[128adebc-0de1-4772-bb67-4a0b525d1323] received
+[2026-11-14 15:44:17,135: WARNING/MainProcess] consumer: Connection to broker lost. Trying to re-establish the connection... (network:ConnectionError)
+[2026-11-14 15:44:17,136: INFO/MainProcess] Restoring 1 unacknowledged message(s)
+[2026-11-14 15:44:17,148: WARNING/MainProcess] Task redis_connection_probe.work[128adebc-0de1-4772-bb67-4a0b525d1323] cannot be acknowledged after a connection loss since late acknowledgement is enabled for it.
+Terminating it instead.
+
+[2026-11-14 15:44:17,149: WARNING/MainProcess] Failed to cancel active request <Request: redis_connection_probe.work[128adebc-0de1-4772-bb67-4a0b525d1323] ['work', 4, False] {}> after connection loss
+Traceback (most recent call last):
+  File "/Users/sergunich/dev/repos/celery/celery/worker/consumer/consumer.py", line 406, in start
+    blueprint.start(self)
+    ~~~~~~~~~~~~~~~^^^^^^
+  File "/Users/sergunich/dev/repos/celery/celery/bootsteps.py", line 116, in start
+    step.start(parent)
+    ~~~~~~~~~~^^^^^^^^
+  File "/Users/sergunich/dev/repos/celery/celery/worker/consumer/consumer.py", line 944, in start
+    c.loop(*c.loop_args())
+    ~~~~~~^^^^^^^^^^^^^^^^
+  File "/Users/sergunich/dev/repos/celery/celery/worker/loops.py", line 130, in asynloop
+    next(loop)
+    ~~~~^^^^^^
+  File "/Users/sergunich/dev/repos/celery/.dev/.venv/lib/python3.13/site-packages/kombu/asynchronous/hub.py", line 465, in create_loop
+    cb(*cbargs)
+    ~~^^^^^^^^^
+  File "/Users/sergunich/dev/repos/celery/.dev/.venv/lib/python3.13/site-packages/kombu/transport/redis.py", line 2250, in on_readable
+    self.cycle.on_readable(fileno)
+    ~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^
+  File "/Users/sergunich/dev/repos/celery/.dev/.venv/lib/python3.13/site-packages/kombu/transport/redis.py", line 863, in on_readable
+    chan.handlers[type]()
+    ~~~~~~~~~~~~~~~~~~~^^
+  File "/Users/sergunich/dev/repos/celery/.dev/.venv/lib/python3.13/site-packages/kombu/transport/redis.py", line 1479, in _brpop_read
+    dest__item = self.client.parse_response(self.client.connection,
+                                            'BRPOP',
+                                            **options)
+  File "/Users/sergunich/dev/repos/celery/.dev/.venv/lib/python3.13/site-packages/redis/client.py", line 935, in parse_response
+    response = connection.read_response()
+  File "/Users/sergunich/dev/repos/celery/.dev/.venv/lib/python3.13/site-packages/redis/connection.py", line 1407, in read_response
+    response = self._parser.read_response(
+        disable_decoding=disable_decoding,
+        push_request=push_request,
+        timeout=timeout,
+    )
+  File "/Users/sergunich/dev/repos/celery/.dev/.venv/lib/python3.13/site-packages/redis/_parsers/resp3.py", line 40, in read_response
+    result = self._read_response(
+        disable_decoding=disable_decoding,
+        push_request=push_request,
+        timeout=timeout,
+    )
+  File "/Users/sergunich/dev/repos/celery/.dev/.venv/lib/python3.13/site-packages/redis/_parsers/resp3.py", line 65, in _read_response
+    raw = self._buffer.readline(timeout=timeout)
+  File "/Users/sergunich/dev/repos/celery/.dev/.venv/lib/python3.13/site-packages/redis/_parsers/socket.py", line 117, in readline
+    self._read_from_socket(timeout=timeout)
+    ~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^
+  File "/Users/sergunich/dev/repos/celery/.dev/.venv/lib/python3.13/site-packages/redis/_parsers/socket.py", line 67, in _read_from_socket
+    raise ConnectionError(SERVER_CLOSED_CONNECTION_ERROR)
+redis.exceptions.ConnectionError: Connection closed by server.
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/Users/sergunich/dev/repos/celery/celery/worker/consumer/consumer.py", line 495, in on_connection_error_after_connected
+    request.cancel(self.pool)
+    ~~~~~~~~~~~~~~^^^^^^^^^^^
+  File "/Users/sergunich/dev/repos/celery/.dev/redis_connection_probe.py", line 93, in cancel
+    result = super().cancel(*args, **kwargs)
+  File "/Users/sergunich/dev/repos/celery/celery/worker/request.py", line 438, in cancel
+    pool.terminate_job(self.worker_pid, signal)
+    ~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/sergunich/dev/repos/celery/celery/concurrency/base.py", line 113, in terminate_job
+    raise NotImplementedError(
+        f'{type(self)} does not implement kill_job')
+NotImplementedError: <class 'celery.concurrency.thread.TaskPool'> does not implement kill_job
+[2026-11-14 15:44:17,155: INFO/MainProcess] Skipping prefetch count reduction after connection restart because per-consumer QoS (apply_global=False) is in effect and broker-side prefetch updates would not reach the running consumer.
+[2026-11-14 15:44:17,162: INFO/MainProcess] Connected to redis://:**@127.0.0.1:60491/0
+[2026-11-14 15:44:17,172: INFO/MainProcess] Task redis_connection_probe.work[128adebc-0de1-4772-bb67-4a0b525d1323] received
+[2026-11-14 15:44:20,842: INFO/MainProcess] Task redis_connection_probe.work[128adebc-0de1-4772-bb67-4a0b525d1323] succeeded in 4.023007166106254s: 'work'
+[2026-11-14 15:44:20,999: INFO/MainProcess] Task redis_connection_probe.work[128adebc-0de1-4772-bb67-4a0b525d1323] succeeded in 0.15581608284264803s: 'work'
+[2026-11-14 15:44:22,157: INFO/MainProcess] Task redis_connection_probe.work[6e5b4863-de03-4a90-b5e9-afb5bc685a25] received
+[2026-11-14 15:44:22,346: INFO/MainProcess] Task redis_connection_probe.work[6e5b4863-de03-4a90-b5e9-afb5bc685a25] succeeded in 0.1876154171768576s: 'ping'
+
+worker: Warm shutdown (MainProcess)

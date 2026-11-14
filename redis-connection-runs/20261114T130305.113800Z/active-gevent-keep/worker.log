@@ -1,0 +1,113 @@
+ 
+ -------------- net-0@localhost v5.7.0 (collider)
+--- ***** ----- 
+-- ******* ---- macOS-15.8.1-arm64-arm-64bit-Mach-O 2026-11-14 16:05:01
+- *** --- * --- 
+- ** ---------- [config]
+- ** ---------- .> app:         shutdown_probe:0x103aa9090
+- ** ---------- .> transport:   redis://:**@127.0.0.1:61827/0
+- ** ---------- .> results:     socket:///Users/sergunich/dev/repos/celery/.dev/shutdown-22009.sock
+- *** --- * --- .> concurrency: 1 (gevent)
+-- ******* ---- .> task events: OFF (enable -E to monitor tasks in this worker)
+--- ***** ----- 
+ -------------- [queues]
+                .> net-probe        exchange=net-probe(direct) key=net-probe
+                
+
+[tasks]
+  . redis_connection_probe.work
+  . shutdown_probe.task
+
+[2026-11-14 16:05:01,435: INFO/MainProcess] Connected to redis://:**@127.0.0.1:61827/0
+[2026-11-14 16:05:01,441: INFO/MainProcess] net-0@localhost ready.
+[2026-11-14 16:05:01,443: INFO/MainProcess] pidbox: Connected to redis://:**@127.0.0.1:61827/0.
+[2026-11-14 16:05:01,471: INFO/MainProcess] Task redis_connection_probe.work[9fbb5ae4-3124-4247-b8fb-21d181f842e8] received
+[2026-11-14 16:05:01,812: WARNING/MainProcess] consumer: Connection to broker lost. Trying to re-establish the connection... (network:ConnectionError)
+[2026-11-14 16:05:01,812: INFO/MainProcess] Restoring 1 unacknowledged message(s)
+[2026-11-14 16:05:01,822: WARNING/MainProcess] /Users/sergunich/dev/repos/celery/.dev/redis_connection_probe.py:56: CPendingDeprecationWarning: 
+In Celery 5.1 we introduced an optional breaking change which
+on connection loss cancels all currently executed tasks with late acknowledgement enabled.
+These tasks cannot be acknowledged as the connection is gone, and the tasks are automatically redelivered
+back to the queue. You can enable this behavior using the worker_cancel_long_running_tasks_on_connection_loss
+setting. In Celery 5.1 it is set to False by default. The setting will be set to True by default in Celery 6.0.
+
+  result = _original_error(self, exc)
+
+[2026-11-14 16:05:01,823: INFO/MainProcess] Skipping prefetch count reduction after connection restart because per-consumer QoS (apply_global=False) is in effect and broker-side prefetch updates would not reach the running consumer.
+Traceback (most recent call last):
+  File "src/gevent/_waiter.py", line 122, in gevent._gevent_c_waiter.Waiter.switch
+  File "/Users/sergunich/dev/repos/celery/celery/worker/pidbox.py", line 122, in loop
+    connection.drain_events(timeout=1.0)
+    ~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^
+  File "/Users/sergunich/dev/repos/celery/.dev/.venv/lib/python3.13/site-packages/kombu/connection.py", line 399, in drain_events
+    return self.transport.drain_events(self.connection, **kwargs)
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/sergunich/dev/repos/celery/.dev/.venv/lib/python3.13/site-packages/kombu/transport/virtual/base.py", line 1007, in drain_events
+    get(self._deliver, timeout=timeout)
+    ~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/sergunich/dev/repos/celery/.dev/.venv/lib/python3.13/site-packages/kombu/transport/redis.py", line 902, in get
+    ret = self.handle_event(fileno, event)
+  File "/Users/sergunich/dev/repos/celery/.dev/.venv/lib/python3.13/site-packages/kombu/transport/redis.py", line 880, in handle_event
+    return self.on_readable(fileno), self
+           ~~~~~~~~~~~~~~~~^^^^^^^^
+  File "/Users/sergunich/dev/repos/celery/.dev/.venv/lib/python3.13/site-packages/kombu/transport/redis.py", line 863, in on_readable
+    chan.handlers[type]()
+    ~~~~~~~~~~~~~~~~~~~^^
+  File "/Users/sergunich/dev/repos/celery/.dev/.venv/lib/python3.13/site-packages/kombu/transport/redis.py", line 1421, in _receive
+    ret.append(self._receive_one(c))
+               ~~~~~~~~~~~~~~~~~^^^
+  File "/Users/sergunich/dev/repos/celery/.dev/.venv/lib/python3.13/site-packages/kombu/transport/redis.py", line 1431, in _receive_one
+    response = c.parse_response()
+  File "/Users/sergunich/dev/repos/celery/.dev/.venv/lib/python3.13/site-packages/redis/client.py", line 1399, in parse_response
+    response = self._execute(conn, try_read)
+  File "/Users/sergunich/dev/repos/celery/.dev/.venv/lib/python3.13/site-packages/redis/client.py", line 1307, in _execute
+    response = conn.retry.call_with_retry(
+        lambda: command(*args, **kwargs),
+        failure_callback,
+        with_failure_count=True,
+    )
+  File "/Users/sergunich/dev/repos/celery/.dev/.venv/lib/python3.13/site-packages/redis/retry.py", line 132, in call_with_retry
+    raise error
+  File "/Users/sergunich/dev/repos/celery/.dev/.venv/lib/python3.13/site-packages/redis/retry.py", line 120, in call_with_retry
+    return do()
+  File "/Users/sergunich/dev/repos/celery/.dev/.venv/lib/python3.13/site-packages/redis/client.py", line 1308, in <lambda>
+    lambda: command(*args, **kwargs),
+            ~~~~~~~^^^^^^^^^^^^^^^^^
+  File "/Users/sergunich/dev/repos/celery/.dev/.venv/lib/python3.13/site-packages/redis/client.py", line 1395, in try_read
+    return conn.read_response(
+           ~~~~~~~~~~~~~~~~~~^
+        disconnect_on_error=False, push_request=True, timeout=read_timeout
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "/Users/sergunich/dev/repos/celery/.dev/.venv/lib/python3.13/site-packages/redis/connection.py", line 1407, in read_response
+    response = self._parser.read_response(
+        disable_decoding=disable_decoding,
+        push_request=push_request,
+        timeout=timeout,
+    )
+  File "/Users/sergunich/dev/repos/celery/.dev/.venv/lib/python3.13/site-packages/redis/_parsers/resp3.py", line 40, in read_response
+    result = self._read_response(
+        disable_decoding=disable_decoding,
+        push_request=push_request,
+        timeout=timeout,
+    )
+  File "/Users/sergunich/dev/repos/celery/.dev/.venv/lib/python3.13/site-packages/redis/_parsers/resp3.py", line 65, in _read_response
+    raw = self._buffer.readline(timeout=timeout)
+  File "/Users/sergunich/dev/repos/celery/.dev/.venv/lib/python3.13/site-packages/redis/_parsers/socket.py", line 117, in readline
+    self._read_from_socket(timeout=timeout)
+    ~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^
+  File "/Users/sergunich/dev/repos/celery/.dev/.venv/lib/python3.13/site-packages/redis/_parsers/socket.py", line 67, in _read_from_socket
+    raise ConnectionError(SERVER_CLOSED_CONNECTION_ERROR)
+redis.exceptions.ConnectionError: Connection closed by server.
+2026-11-14T13:05:01Z <built-in method switch of gevent._gevent_c_greenlet_primitives.TrackedRawGreenlet object at 0x103d87c40> failed with ConnectionError
+
+[2026-11-14 16:05:01,834: INFO/MainProcess] Connected to redis://:**@127.0.0.1:61827/0
+[2026-11-14 16:05:01,841: INFO/MainProcess] Task redis_connection_probe.work[9fbb5ae4-3124-4247-b8fb-21d181f842e8] received
+[2026-11-14 16:05:01,843: INFO/MainProcess] pidbox: Connected to redis://:**@127.0.0.1:61827/0.
+[2026-11-14 16:05:05,482: INFO/MainProcess] Task redis_connection_probe.work[9fbb5ae4-3124-4247-b8fb-21d181f842e8] succeeded in 4.010727582965046s: 'work'
+[2026-11-14 16:05:05,670: INFO/MainProcess] Task redis_connection_probe.work[9fbb5ae4-3124-4247-b8fb-21d181f842e8] succeeded in 0.1862448330502957s: 'work'
+[2026-11-14 16:05:06,847: INFO/MainProcess] Task redis_connection_probe.work[0b2846fa-ce27-49f7-b300-402b915b6f9b] received
+[2026-11-14 16:05:07,028: INFO/MainProcess] Task redis_connection_probe.work[0b2846fa-ce27-49f7-b300-402b915b6f9b] succeeded in 0.17956204083748162s: 'ping'
+
+worker: Warm shutdown (MainProcess)

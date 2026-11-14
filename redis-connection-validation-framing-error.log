@@ -1,0 +1,39 @@
+PASS monitor-solo                         start/done/ACK=1/1/1 state=SUCCESS broker={'queued': [], 'unacked': []} exit=[0] 7.517s
+PASS monitor-prefork                      start/done/ACK=1/1/1 state=SUCCESS broker={'queued': [], 'unacked': []} exit=[0] 8.245s
+PASS monitor-threads                      start/done/ACK=1/1/1 state=SUCCESS broker={'queued': [], 'unacked': []} exit=[0] 7.592s
+PASS monitor-gevent                       start/done/ACK=1/1/1 state=SUCCESS broker={'queued': [], 'unacked': []} exit=[0] 11.289s
+PASS monitor-solo-disabled                start/done/ACK=1/1/1 state=SUCCESS broker={'queued': [], 'unacked': []} exit=[0] 7.406s
+PASS monitor-gevent-busy                  start/done/ACK=1/1/1 state=SUCCESS broker={'queued': [], 'unacked': []} exit=[0] 10.363s
+PASS idle-reconnect-solo                  start/done/ACK=0/0/0 state=None broker=None exit=[0] 2.888s
+PASS idle-reconnect-prefork               start/done/ACK=0/0/0 state=None broker=None exit=[0] 3.716s
+PASS idle-reconnect-threads               start/done/ACK=0/0/0 state=None broker=None exit=[0] 2.3s
+PASS idle-reconnect-gevent                start/done/ACK=0/0/0 state=None broker=None exit=[0] 6.317s
+PASS active-solo-keep                     start/done/ACK=1/1/1 state=SUCCESS broker={'queued': [], 'unacked': []} exit=[0] 7.734s
+PASS active-solo-cancel                   start/done/ACK=1/1/1 state=SUCCESS broker={'queued': [], 'unacked': []} exit=[0] 7.701s
+PASS active-prefork-keep                  start/done/ACK=2/2/2 state=SUCCESS broker={'queued': [], 'unacked': []} exit=[0] 8.527s
+PASS active-prefork-cancel                start/done/ACK=2/1/1 state=SUCCESS broker={'queued': [], 'unacked': []} exit=[0] 9.237s
+PASS active-threads-keep                  start/done/ACK=2/2/2 state=SUCCESS broker={'queued': [], 'unacked': []} exit=[0] 7.565s
+PASS active-threads-cancel                start/done/ACK=2/2/2 state=SUCCESS broker={'queued': [], 'unacked': []} exit=[0] 7.532s
+PASS active-gevent-keep                   start/done/ACK=2/2/2 state=SUCCESS broker={'queued': [], 'unacked': []} exit=[0] 11.609s
+PASS active-gevent-cancel                 start/done/ACK=2/1/2 state=SUCCESS broker={'queued': [], 'unacked': []} exit=[0] 11.589s
+PASS active-solo-early                    start/done/ACK=1/1/1 state=SUCCESS broker={'queued': [], 'unacked': []} exit=[0] 7.738s
+PASS outage-solo                          start/done/ACK=1/1/0 state=SUCCESS broker={'queued': [], 'unacked': [{'tag': 'f827c3f4-398d-420a-95b2-6d157d98c614', 'exchange': '', 'routing_key': 'net-probe'}]} exit=[0] 11.852s
+PASS active-prefork-early                 start/done/ACK=1/1/1 state=SUCCESS broker={'queued': [], 'unacked': []} exit=[0] 8.579s
+PASS outage-prefork                       start/done/ACK=1/1/1 state=SUCCESS broker={'queued': [], 'unacked': []} exit=[0] 12.504s
+PASS startup-retry-solo                   start/done/ACK=1/1/1 state=SUCCESS broker={'queued': [], 'unacked': []} exit=[0] 4.351s
+PASS startup-no-retry-solo                start/done/ACK=0/0/0 state=None broker=None exit=[1] 3.097s
+PASS startup-max-retries-solo             start/done/ACK=0/0/0 state=None broker=None exit=[1] 3.131s
+PASS runtime-no-retry-solo                start/done/ACK=0/0/0 state=None broker=None exit=[1] 1.406s
+Traceback (most recent call last):
+  File "/Users/sergunich/dev/repos/celery/.dev/verify-redis-connections.py", line 563, in <module>
+    raise SystemExit(main())
+                     ~~~~^^
+  File "/Users/sergunich/dev/repos/celery/.dev/verify-redis-connections.py", line 556, in main
+    summary["outcomes"].append(run_case(case, run_dir, client, broker, backend))
+                               ~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/sergunich/dev/repos/celery/.dev/verify-redis-connections.py", line 389, in run_case
+    sleep(0.15)
+    ~~~~~^^^^^^
+  File "/Users/sergunich/dev/repos/celery/.dev/verify-redis-connections.py", line 163, in sleep
+    raise RuntimeError(proxy.error)
+RuntimeError: ValueError("Unexpected RESP prefix: b'_'")

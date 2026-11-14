@@ -1,0 +1,27 @@
+ 
+ -------------- net-0@localhost v5.7.0 (collider)
+--- ***** ----- 
+-- ******* ---- macOS-15.8.1-arm64-arm-64bit-Mach-O 2026-11-14 15:42:36
+- *** --- * --- 
+- ** ---------- [config]
+- ** ---------- .> app:         shutdown_probe:0x1060067b0
+- ** ---------- .> transport:   redis://:**@127.0.0.1:60260/0
+- ** ---------- .> results:     socket:///Users/sergunich/dev/repos/celery/.dev/shutdown-20049.sock
+- *** --- * --- .> concurrency: 1 (prefork)
+-- ******* ---- .> task events: OFF (enable -E to monitor tasks in this worker)
+--- ***** ----- 
+ -------------- [queues]
+                .> net-probe        exchange=net-probe(direct) key=net-probe
+                
+
+[tasks]
+  . redis_connection_probe.work
+  . shutdown_probe.task
+
+[2026-11-14 15:42:36,227: INFO/MainProcess] Connected to redis://:**@127.0.0.1:60260/0
+[2026-11-14 15:42:36,238: INFO/MainProcess] net-0@localhost ready.
+[2026-11-14 15:42:36,467: INFO/SpawnPoolWorker-1] child process 20102 calling self.run()
+[2026-11-14 15:42:37,580: INFO/MainProcess] Task redis_connection_probe.work[97493cb6-9ac4-4dc1-a12a-e46763b525e5] received
+[2026-11-14 15:42:40,620: INFO/SpawnPoolWorker-1] Task redis_connection_probe.work[97493cb6-9ac4-4dc1-a12a-e46763b525e5] succeeded in 3.038740332936868s: 'work'
+
+worker: Warm shutdown (MainProcess)

@@ -1,0 +1,47 @@
+PASS monitor-solo                         start/done/ACK=1/1/1 state=SUCCESS broker={'queued': [], 'unacked': []} exit=[0] 7.363s
+PASS monitor-prefork                      start/done/ACK=1/1/1 state=SUCCESS broker={'queued': [], 'unacked': []} exit=[0] 8.65s
+PASS monitor-threads                      start/done/ACK=1/1/1 state=SUCCESS broker={'queued': [], 'unacked': []} exit=[0] 7.553s
+PASS monitor-gevent                       start/done/ACK=1/1/1 state=SUCCESS broker={'queued': [], 'unacked': []} exit=[0] 11.304s
+PASS monitor-solo-disabled                start/done/ACK=1/1/1 state=SUCCESS broker={'queued': [], 'unacked': []} exit=[0] 7.255s
+PASS monitor-gevent-busy                  start/done/ACK=1/1/1 state=SUCCESS broker={'queued': [], 'unacked': []} exit=[0] 10.372s
+PASS idle-reconnect-solo                  start/done/ACK=0/0/0 state=None broker=None exit=[0] 2.88s
+PASS idle-reconnect-prefork               start/done/ACK=0/0/0 state=None broker=None exit=[0] 3.524s
+PASS idle-reconnect-threads               start/done/ACK=0/0/0 state=None broker=None exit=[0] 2.229s
+PASS idle-reconnect-gevent                start/done/ACK=0/0/0 state=None broker=None exit=[0] 6.261s
+PASS active-solo-keep                     start/done/ACK=1/1/1 state=SUCCESS broker={'queued': [], 'unacked': []} exit=[0] 7.624s
+PASS active-solo-cancel                   start/done/ACK=1/1/1 state=SUCCESS broker={'queued': [], 'unacked': []} exit=[0] 7.703s
+PASS active-prefork-keep                  start/done/ACK=2/2/2 state=SUCCESS broker={'queued': [], 'unacked': []} exit=[0] 8.376s
+PASS active-prefork-cancel                start/done/ACK=2/1/1 state=SUCCESS broker={'queued': [], 'unacked': []} exit=[0] 9.228s
+PASS active-threads-keep                  start/done/ACK=2/2/2 state=SUCCESS broker={'queued': [], 'unacked': []} exit=[0] 7.542s
+PASS active-threads-cancel                start/done/ACK=2/2/2 state=SUCCESS broker={'queued': [], 'unacked': []} exit=[0] 7.531s
+PASS active-gevent-keep                   start/done/ACK=2/2/2 state=SUCCESS broker={'queued': [], 'unacked': []} exit=[0] 10.633s
+PASS active-gevent-cancel                 start/done/ACK=2/1/2 state=SUCCESS broker={'queued': [], 'unacked': []} exit=[0] 11.62s
+PASS active-solo-early                    start/done/ACK=1/1/1 state=SUCCESS broker={'queued': [], 'unacked': []} exit=[0] 7.729s
+PASS outage-solo                          start/done/ACK=1/1/0 state=SUCCESS broker={'queued': [], 'unacked': [{'tag': 'a7015ab0-3bb2-4392-8b52-08e7b188f04e', 'exchange': '', 'routing_key': 'net-probe'}]} exit=[0] 11.668s
+PASS active-prefork-early                 start/done/ACK=1/1/1 state=SUCCESS broker={'queued': [], 'unacked': []} exit=[0] 8.553s
+PASS outage-prefork                       start/done/ACK=1/1/1 state=SUCCESS broker={'queued': [], 'unacked': []} exit=[0] 12.487s
+PASS startup-retry-solo                   start/done/ACK=1/1/1 state=SUCCESS broker={'queued': [], 'unacked': []} exit=[0] 4.458s
+PASS startup-no-retry-solo                start/done/ACK=0/0/0 state=None broker=None exit=[1] 3.232s
+PASS startup-max-retries-solo             start/done/ACK=0/0/0 state=None broker=None exit=[1] 3.128s
+PASS runtime-no-retry-solo                start/done/ACK=0/0/0 state=None broker=None exit=[1] 1.408s
+PASS halfopen-brpop-solo                  start/done/ACK=1/1/1 state=SUCCESS broker={'queued': [], 'unacked': []} exit=[0] 7.336s
+PASS halfopen-brpop-prefork               start/done/ACK=1/1/1 state=SUCCESS broker={'queued': [], 'unacked': []} exit=[0] 8.002s
+PASS halfopen-brpop-gevent                start/done/ACK=1/1/1 state=SUCCESS broker={'queued': [], 'unacked': []} exit=[0] 9.42s
+PASS halfopen-brpop-no-health             start/done/ACK=1/1/1 state=SUCCESS broker={'queued': [], 'unacked': []} exit=[0] 7.882s
+PASS halfopen-monitor-unbounded           start/done/ACK=1/1/1 state=SUCCESS broker={'queued': [], 'unacked': []} exit=[0] 9.07s
+PASS halfopen-monitor-bounded             start/done/ACK=1/1/1 state=SUCCESS broker={'queued': [], 'unacked': []} exit=[0] 8.436s
+PASS ack-before-commit-repeat             start/done/ACK=2/2/1 state=SUCCESS broker={'queued': [], 'unacked': []} exit=[0] 12.97s
+PASS ack-before-commit-dedup              start/done/ACK=1/1/1 state=SUCCESS broker={'queued': [], 'unacked': []} exit=[0] 13.079s
+PASS ack-reply-lost                       start/done/ACK=1/1/0 state=SUCCESS broker={'queued': [], 'unacked': []} exit=[0] 12.994s
+PASS visibility-crash-short               start/done/ACK=2/1/1 state=SUCCESS broker={'queued': [], 'unacked': []} exit=[-9, 0] 7.144s
+PASS visibility-crash-default             start/done/ACK=1/0/0 state=PENDING broker={'queued': [], 'unacked': [{'tag': '0528e5b7-ada2-436a-8320-1618a59b6c17', 'exchange': '', 'routing_key': 'net-probe'}]} exit=[-9, 0] 7.047s
+PASS visibility-overlap-prefork           start/done/ACK=2/2/2 state=SUCCESS broker={'queued': [], 'unacked': []} exit=[0] 8.537s
+PASS visibility-solo-other-worker         start/done/ACK=2/2/2 state=SUCCESS broker={'queued': [], 'unacked': []} exit=[0, 0] 7.562s
+PASS eta-reconnect-solo                   start/done/ACK=1/1/1 state=SUCCESS broker={'queued': [], 'unacked': []} exit=[0] 8.664s
+PASS eta-reconnect-gevent                 start/done/ACK=1/1/1 state=SUCCESS broker={'queued': [], 'unacked': []} exit=[0] 12.564s
+PASS warm-healthy-prefork                 start/done/ACK=1/1/1 state=SUCCESS broker={'queued': [], 'unacked': []} exit=[0] 7.76s
+PASS warm-outage-solo                     start/done/ACK=1/1/0 state=SUCCESS broker={'queued': [], 'unacked': [{'tag': '89041e0e-ef7f-4c85-8380-af95471fb783', 'exchange': '', 'routing_key': 'net-probe'}]} exit=[0] 6.558s
+PASS warm-outage-prefork                  start/done/ACK=1/1/1 state=SUCCESS broker={'queued': [], 'unacked': []} exit=[0] 7.323s
+PASS prefetch-reconnect-reduce            start/done/ACK=2/2/2 state=SUCCESS broker={'queued': [], 'unacked': []} exit=[0] 8.421s
+PASS prefetch-reconnect-unchanged         start/done/ACK=2/2/2 state=SUCCESS broker={'queued': [], 'unacked': []} exit=[0] 8.403s
+Artifacts: /Users/sergunich/dev/repos/celery/.dev/redis-connection-runs/20261114T124227.985170Z

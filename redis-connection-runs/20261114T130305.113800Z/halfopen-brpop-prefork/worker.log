@@ -1,0 +1,28 @@
+ 
+ -------------- net-0@localhost v5.7.0 (collider)
+--- ***** ----- 
+-- ******* ---- macOS-15.8.1-arm64-arm-64bit-Mach-O 2026-11-14 16:06:24
+- *** --- * --- 
+- ** ---------- [config]
+- ** ---------- .> app:         shutdown_probe:0x106c267b0
+- ** ---------- .> transport:   redis://:**@127.0.0.1:61955/0
+- ** ---------- .> results:     socket:///Users/sergunich/dev/repos/celery/.dev/shutdown-22009.sock
+- *** --- * --- .> concurrency: 1 (prefork)
+-- ******* ---- .> task events: OFF (enable -E to monitor tasks in this worker)
+--- ***** ----- 
+ -------------- [queues]
+                .> net-probe        exchange=net-probe(direct) key=net-probe
+                
+
+[tasks]
+  . redis_connection_probe.work
+  . shutdown_probe.task
+
+[2026-11-14 16:06:24,562: INFO/MainProcess] Connected to redis://:**@127.0.0.1:61955/0
+[2026-11-14 16:06:24,565: INFO/MainProcess] net-0@localhost ready.
+[2026-11-14 16:06:24,798: INFO/SpawnPoolWorker-1] child process 22299 calling self.run()
+[2026-11-14 16:06:26,567: WARNING/MainProcess] Redis BRPOP got no reply for 2 seconds; dropping stale connection
+[2026-11-14 16:06:26,574: INFO/MainProcess] Task redis_connection_probe.work[2a0b2bdd-b6cd-437a-b3ad-bb7ddb9dcf2a] received
+[2026-11-14 16:06:26,972: INFO/SpawnPoolWorker-1] Task redis_connection_probe.work[2a0b2bdd-b6cd-437a-b3ad-bb7ddb9dcf2a] succeeded in 0.3970758328214288s: 'ping'
+
+worker: Warm shutdown (MainProcess)

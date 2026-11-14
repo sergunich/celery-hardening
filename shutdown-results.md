@@ -905,3 +905,22 @@ using failure rather than timeout ACK policy, a non-prefork `SystemExit`
 callback defect, and gevent requeueing after a non-yielding task body has already
 completed. It explicitly separates synthetic exception tests from actual
 process-loss recovery, with measured ACK/reject/result/redelivery outcomes.
+
+### A10. Follow-up: Redis connections, heartbeats, and recovery
+
+The [Redis connection report](redis-connection-results.md) adds **47 selected
+runtime cases**, including warm shutdown with a broker-path outage while the
+result backend remains reachable. It distinguishes Celery monitoring events
+(`--without-heartbeat`) from broker-protocol heartbeats, which Redis does not use.
+
+Solo pauses monitoring and consumer-loop loss detection during inline execution.
+Bodies can finish and store SUCCESS while delivery settlement fails. Redis socket
+reconnect, consumer restart, broker redelivery, and task retry are distinct events.
+The report measures supported/unsupported cancellation, actual visibility expiry,
+concurrent duplicates, ETA cleanup, and Redis-specific ACK behavior.
+
+It also refines the earlier ACK observations: an ACK can commit in Redis while
+its reply is lost, so no successful `Message.ack()` return does not prove the
+message remains unacked. Conversely, a BRPOP reply lost before unacked registration
+leaves no record for visibility-timeout recovery. These are measured wire-level
+boundaries, not assumptions imported from AMQP. RabbitMQ remains untested.
