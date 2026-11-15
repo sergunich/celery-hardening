@@ -1,0 +1,21 @@
+{
+  "name": "failure-gevent-ack",
+  "pool": "gevent",
+  "kind": "fail",
+  "ack_failure": true,
+  "ack_timeout": false,
+  "expected": {
+    "starts": 1,
+    "completed": 0,
+    "acks": 1,
+    "rejects": [],
+    "state": "FAILURE",
+    "publications": 0,
+    "timeouts": [],
+    "failure": "ValueError"
+  },
+  "broker": "redis+socket:///Users/sergunich/dev/repos/celery/.dev/shutdown-4439.sock?virtual_host=0",
+  "backend": "redis+socket:///Users/sergunich/dev/repos/celery/.dev/shutdown-4439.sock?virtual_host=1",
+  "events": "/Users/sergunich/dev/repos/celery/.dev/task-policy/task-policy-runs/20261115T100605.792191Z/failure-gevent-ack/events.jsonl",
+  "queue": "policy-probe"
+}

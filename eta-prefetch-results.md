@@ -326,25 +326,25 @@ Relevant implementation:
 
 ```bash
 # Uses the existing uv environment and mise-managed private Redis server:
-bash .dev/setup-shutdown-env.sh
-PYTHONDONTWRITEBYTECODE=1 .dev/.venv/bin/python .dev/verify-eta-prefetch.py
+bash .dev/environment/setup-shutdown-env.sh
+PYTHONDONTWRITEBYTECODE=1 .dev/.venv/bin/python .dev/eta-prefetch/verify-eta-prefetch.py
 
 # Focused checks:
-.dev/.venv/bin/python .dev/verify-eta-prefetch.py \
+.dev/.venv/bin/python .dev/eta-prefetch/verify-eta-prefetch.py \
   --case cap-three --case cap-with-zero-prefetch \
   --case due-solo-early --case cold-mixed-gevent
 ```
 
-- Worker module: `.dev/eta_probe.py`. Reuses the existing app and ACK observer
-  from `shutdown_probe.py`; adds ETA-aware task markers, pool-acceptance markers,
+- Worker module: `.dev/eta-prefetch/eta_probe.py`. Reuses the existing app and ACK observer
+  from `shutdown/shutdown_probe.py`; adds ETA-aware task markers, pool-acceptance markers,
   and periodic scheduler-state observations.
-- Runner: `.dev/verify-eta-prefetch.py`. Reuses isolated Redis/process helpers
+- Runner: `.dev/eta-prefetch/verify-eta-prefetch.py`. Reuses isolated Redis/process helpers
   from the shutdown suite. Broker snapshots come from outside the worker, so
   solo's blocked consumer does not block observation.
-- Final [31-case summary](eta-prefetch-runs/20261113T152618.891666Z/summary.json).
+- Final [31-case summary](eta-prefetch/eta-prefetch-runs/20261113T152618.891666Z/summary.json).
 - Each case directory contains `config.json`, `worker.log`, `events.jsonl`, and
   `result.json`, including phase snapshots and per-message ACK/result/location.
-- Console summary: `.dev/eta-validation-console-final.log`.
+- Console summary: `.dev/eta-prefetch/eta-validation-console-final.log`.
 
 Exploratory runs are retained. An initial mixed-cap assertion expected two ETA
 messages behind an active late-ack task with prefetch 1, but correctly observed

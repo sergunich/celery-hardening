@@ -424,24 +424,24 @@ recovery/deduplication, subject to application retention requirements.
 ## Reproduce and inspect
 
 ```bash
-bash .dev/setup-shutdown-env.sh
-PYTHONDONTWRITEBYTECODE=1 .dev/.venv/bin/python .dev/test-redis-visibility-probe.py
-PYTHONDONTWRITEBYTECODE=1 .dev/.venv/bin/python .dev/verify-redis-visibility.py
+bash .dev/environment/setup-shutdown-env.sh
+PYTHONDONTWRITEBYTECODE=1 .dev/.venv/bin/python .dev/redis-visibility/test-redis-visibility-probe.py
+PYTHONDONTWRITEBYTECODE=1 .dev/.venv/bin/python .dev/redis-visibility/verify-redis-visibility.py
 
 # Focused configuration and solo checks:
-PYTHONDONTWRITEBYTECODE=1 .dev/.venv/bin/python .dev/verify-redis-visibility.py \
+PYTHONDONTWRITEBYTECODE=1 .dev/.venv/bin/python .dev/redis-visibility/verify-redis-visibility.py \
   --case config-B --case config-RT --case config-B12-R2-T2 \
   --case solo-short-other-queue --case solo-early-short-same-queue \
   --case solo-eta-short-dedup
 ```
 
-- Worker module: `.dev/redis_visibility_probe.py`.
-- Runner: `.dev/verify-redis-visibility.py`.
-- Observation tests: `.dev/test-redis-visibility-probe.py`.
-- Final [27-case summary](redis-visibility-runs/20261114T190223.192003Z/summary.json).
+- Worker module: `.dev/redis-visibility/redis_visibility_probe.py`.
+- Runner: `.dev/redis-visibility/verify-redis-visibility.py`.
+- Observation tests: `.dev/redis-visibility/test-redis-visibility-probe.py`.
+- Final [27-case summary](redis-visibility/redis-visibility-runs/20261114T190223.192003Z/summary.json).
 - Each case contains per-worker configuration/log files, `events.jsonl`, and
   `result.json` with phase snapshots, execution events, assertions, and exits.
-- Final console: `.dev/redis-visibility-validation-final.log`.
+- Final console: `.dev/redis-visibility/redis-visibility-validation-final.log`.
 
 Exploratory and earlier validation runs remain available. The first exploration
 exposed an **instrumentation bug**, not a Redis recovery failure: scanned tags
@@ -703,7 +703,7 @@ core support.
 
 #### Additional verification and retained evidence
 
-[`.dev/test-visibility-config-wiring.py`](test-visibility-config-wiring.py) adds
+[`.dev/redis-visibility/test-visibility-config-wiring.py`](redis-visibility/test-visibility-config-wiring.py) adds
 **nine passing source-path tests**, separate from the 27 real-worker cases:
 
 - All eight presence combinations, using distinct B/R/T values, and explicit
@@ -718,12 +718,12 @@ core support.
 - Aliased dictionary mutation and explicit application forwarding.
 
 ```bash
-PYTHONDONTWRITEBYTECODE=1 .dev/.venv/bin/python .dev/test-visibility-config-wiring.py
+PYTHONDONTWRITEBYTECODE=1 .dev/.venv/bin/python .dev/redis-visibility/test-visibility-config-wiring.py
 ```
 
-Audit artifacts under `.dev/redis-visibility-audit/` include
-[git evidence](redis-visibility-audit/git-evidence.txt),
-[source hashes and search inventory](redis-visibility-audit/manifest.json),
-[test output](redis-visibility-audit/config-wiring-tests.log), and public GitHub
+Audit artifacts under `.dev/redis-visibility/redis-visibility-audit/` include
+[git evidence](redis-visibility/redis-visibility-audit/git-evidence.txt),
+[source hashes and search inventory](redis-visibility/redis-visibility-audit/manifest.json),
+[test output](redis-visibility/redis-visibility-audit/config-wiring-tests.log), and public GitHub
 issue/PR JSON snapshots. No production files, broker services, or historical
 checkout environments were changed by this audit.

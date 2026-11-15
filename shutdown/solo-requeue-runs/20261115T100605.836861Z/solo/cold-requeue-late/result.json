@@ -1,0 +1,140 @@
+{
+  "pool": "solo",
+  "case": {
+    "name": "cold-requeue-late",
+    "group": "requeue",
+    "signals": [
+      [
+        0.3,
+        "SIGQUIT"
+      ]
+    ],
+    "catch": "requeue",
+    "acks_late": true,
+    "description": "Catch this checkout's solo kill_job error inside task work and raise Reject(requeue=True)."
+  },
+  "published": true,
+  "task_id": "3257825c-4b62-4038-b65e-03215f21875d",
+  "returncode": 0,
+  "forced_kill": false,
+  "orphan_cleanup": false,
+  "elapsed": 0.376,
+  "result_state": "PENDING",
+  "result_detail": "None",
+  "completed": false,
+  "task_finally": true,
+  "hard_entered": false,
+  "shutdown_errors": [
+    "NotImplementedError"
+  ],
+  "ack_observed": false,
+  "rejects": [
+    {
+      "event": "message_reject",
+      "time": 1847359.093792666,
+      "pid": 4484,
+      "thread": 8539349760,
+      "task_id": "3257825c-4b62-4038-b65e-03215f21875d",
+      "requeue": true
+    }
+  ],
+  "broker_at_start": {
+    "queued": [],
+    "unacked": [
+      {
+        "tag": "e563f3c6-40b7-4183-b3af-093868325584",
+        "exchange": "",
+        "routing_key": "shutdown-probe"
+      }
+    ]
+  },
+  "broker": {
+    "queued": [
+      {
+        "queue": "shutdown-probe",
+        "redelivered": true
+      }
+    ],
+    "unacked": []
+  },
+  "restored_delivery": {
+    "task_id": "3257825c-4b62-4038-b65e-03215f21875d",
+    "redelivered": true
+  },
+  "signals": [
+    {
+      "signal": "SIGQUIT",
+      "time": 1847359.088846708,
+      "relative": 0.302
+    }
+  ],
+  "timeline": [
+    {
+      "event": "worker_ready",
+      "time": 1847358.6749235,
+      "pid": 4484,
+      "thread": 8539349760,
+      "pool": "solo",
+      "multiprocessing_start_method": "spawn",
+      "relative": -0.112
+    },
+    {
+      "event": "task_started",
+      "time": 1847358.786613125,
+      "pid": 4484,
+      "thread": 8539349760,
+      "multiprocessing_start_method": "spawn",
+      "relative": 0.0
+    },
+    {
+      "event": "task_tick",
+      "time": 1847358.890877875,
+      "pid": 4484,
+      "thread": 8539349760,
+      "step": 1,
+      "relative": 0.104
+    },
+    {
+      "event": "task_tick",
+      "time": 1847358.991203208,
+      "pid": 4484,
+      "thread": 8539349760,
+      "step": 2,
+      "relative": 0.205
+    },
+    {
+      "event": "task_requeue_requested",
+      "time": 1847359.08905225,
+      "pid": 4484,
+      "thread": 8539349760,
+      "exception": "NotImplementedError",
+      "relative": 0.302
+    },
+    {
+      "event": "task_finally",
+      "time": 1847359.089083,
+      "pid": 4484,
+      "thread": 8539349760,
+      "relative": 0.302
+    },
+    {
+      "event": "task_postrun",
+      "time": 1847359.092387541,
+      "pid": 4484,
+      "thread": 8539349760,
+      "state": "REJECTED",
+      "relative": 0.306
+    },
+    {
+      "event": "message_reject",
+      "time": 1847359.093792666,
+      "pid": 4484,
+      "thread": 8539349760,
+      "task_id": "3257825c-4b62-4038-b65e-03215f21875d",
+      "requeue": true,
+      "relative": 0.307
+    }
+  ],
+  "errors": [],
+  "passed": true
+}

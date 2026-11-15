@@ -1,0 +1,66 @@
+ 
+ -------------- net-0@localhost v5.7.0 (collider)
+--- ***** ----- 
+-- ******* ---- macOS-15.8.1-arm64-arm-64bit-Mach-O 2026-11-15 13:06:07
+- *** --- * --- 
+- ** ---------- [config]
+- ** ---------- .> app:         shutdown_probe:0x102ad2900
+- ** ---------- .> transport:   redis://:**@127.0.0.1:56205/0
+- ** ---------- .> results:     socket:///Users/sergunich/dev/repos/celery/.dev/shutdown-4438.sock
+- *** --- * --- .> concurrency: 1 (solo)
+-- ******* ---- .> task events: OFF (enable -E to monitor tasks in this worker)
+--- ***** ----- 
+ -------------- [queues]
+                .> net-probe        exchange=net-probe(direct) key=net-probe
+                
+
+[tasks]
+  . redis_connection_probe.work
+  . shutdown_probe.task
+
+[2026-11-15 13:06:07,406: INFO/MainProcess] Connected to redis://:**@127.0.0.1:56205/0
+[2026-11-15 13:06:07,417: INFO/MainProcess] net-0@localhost ready.
+[2026-11-15 13:06:07,460: WARNING/MainProcess] consumer: Connection to broker lost. Trying to re-establish the connection... (network:ConnectionError)
+[2026-11-15 13:06:07,463: WARNING/MainProcess] /Users/sergunich/dev/repos/celery/.dev/redis-connection/redis_connection_probe.py:56: CPendingDeprecationWarning: 
+In Celery 5.1 we introduced an optional breaking change which
+on connection loss cancels all currently executed tasks with late acknowledgement enabled.
+These tasks cannot be acknowledged as the connection is gone, and the tasks are automatically redelivered
+back to the queue. You can enable this behavior using the worker_cancel_long_running_tasks_on_connection_loss
+setting. In Celery 5.1 it is set to False by default. The setting will be set to True by default in Celery 6.0.
+
+  result = _original_error(self, exc)
+
+[2026-11-15 13:06:07,463: INFO/MainProcess] Skipping prefetch count reduction after connection restart because per-consumer QoS (apply_global=False) is in effect and broker-side prefetch updates would not reach the running consumer.
+[2026-11-15 13:06:07,468: INFO/MainProcess] Connected to redis://:**@127.0.0.1:56205/0
+[2026-11-15 13:06:07,544: INFO/MainProcess] Task redis_connection_probe.work[65f84ddb-449b-4a8b-bcbc-7c5cb32c812b] received
+[2026-11-15 13:06:07,714: INFO/MainProcess] Task redis_connection_probe.work[65f84ddb-449b-4a8b-bcbc-7c5cb32c812b] succeeded in 0.17022658395580947s: 'ping-0'
+[2026-11-15 13:06:07,737: WARNING/MainProcess] consumer: Connection to broker lost. Trying to re-establish the connection... (network:ConnectionError)
+[2026-11-15 13:06:07,740: WARNING/MainProcess] /Users/sergunich/dev/repos/celery/.dev/redis-connection/redis_connection_probe.py:56: CPendingDeprecationWarning: 
+In Celery 5.1 we introduced an optional breaking change which
+on connection loss cancels all currently executed tasks with late acknowledgement enabled.
+These tasks cannot be acknowledged as the connection is gone, and the tasks are automatically redelivered
+back to the queue. You can enable this behavior using the worker_cancel_long_running_tasks_on_connection_loss
+setting. In Celery 5.1 it is set to False by default. The setting will be set to True by default in Celery 6.0.
+
+  result = _original_error(self, exc)
+
+[2026-11-15 13:06:07,740: INFO/MainProcess] Skipping prefetch count reduction after connection restart because per-consumer QoS (apply_global=False) is in effect and broker-side prefetch updates would not reach the running consumer.
+[2026-11-15 13:06:07,745: INFO/MainProcess] Connected to redis://:**@127.0.0.1:56205/0
+[2026-11-15 13:06:07,771: INFO/MainProcess] Task redis_connection_probe.work[ef32db5f-1f90-488f-8e26-1f569fba0d3b] received
+[2026-11-15 13:06:07,940: INFO/MainProcess] Task redis_connection_probe.work[ef32db5f-1f90-488f-8e26-1f569fba0d3b] succeeded in 0.16929937480017543s: 'ping-1'
+[2026-11-15 13:06:07,962: WARNING/MainProcess] consumer: Connection to broker lost. Trying to re-establish the connection... (network:ConnectionError)
+[2026-11-15 13:06:07,965: WARNING/MainProcess] /Users/sergunich/dev/repos/celery/.dev/redis-connection/redis_connection_probe.py:56: CPendingDeprecationWarning: 
+In Celery 5.1 we introduced an optional breaking change which
+on connection loss cancels all currently executed tasks with late acknowledgement enabled.
+These tasks cannot be acknowledged as the connection is gone, and the tasks are automatically redelivered
+back to the queue. You can enable this behavior using the worker_cancel_long_running_tasks_on_connection_loss
+setting. In Celery 5.1 it is set to False by default. The setting will be set to True by default in Celery 6.0.
+
+  result = _original_error(self, exc)
+
+[2026-11-15 13:06:07,965: INFO/MainProcess] Skipping prefetch count reduction after connection restart because per-consumer QoS (apply_global=False) is in effect and broker-side prefetch updates would not reach the running consumer.
+[2026-11-15 13:06:07,969: INFO/MainProcess] Connected to redis://:**@127.0.0.1:56205/0
+[2026-11-15 13:06:07,999: INFO/MainProcess] Task redis_connection_probe.work[e5891192-d681-4553-85a0-b8cff09b6b10] received
+[2026-11-15 13:06:08,159: INFO/MainProcess] Task redis_connection_probe.work[e5891192-d681-4553-85a0-b8cff09b6b10] succeeded in 0.16024245810694993s: 'ping-2'
+
+worker: Warm shutdown (MainProcess)

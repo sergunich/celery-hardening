@@ -1,0 +1,19 @@
+{
+  "name": "cold-requeue-late",
+  "group": "requeue",
+  "signals": [
+    [
+      0.3,
+      "SIGQUIT"
+    ]
+  ],
+  "catch": "requeue",
+  "acks_late": true,
+  "description": "Catch this checkout's solo kill_job error inside task work and raise Reject(requeue=True).",
+  "pool": "solo",
+  "queue": "shutdown-probe",
+  "broker": "redis+socket:///Users/sergunich/dev/repos/celery/.dev/shutdown-4434.sock?virtual_host=0",
+  "backend": "redis+socket:///Users/sergunich/dev/repos/celery/.dev/shutdown-4434.sock?virtual_host=1",
+  "events": "/Users/sergunich/dev/repos/celery/.dev/shutdown/solo-requeue-runs/20261115T100605.836861Z/solo/cold-requeue-late/events.jsonl",
+  "native_iterations": 0
+}

@@ -366,7 +366,7 @@ not certify this exact deployment.
 | [Task-policy report](task-policy-results.md) | No enforced solo time limits; failure ACK/discard; explicit retry; lost-worker limitations and SystemExit defect |
 | [Redis connection report](redis-connection-results.md) | Monitoring vs health checks; bounded socket operations; ACK ambiguity; deduplication; loss window and backend-outage scope |
 | [Redis visibility report](redis-visibility-results.md) | Effective B-only configuration; scanner scope; solo early-ACK duplicates; repeated ETA execution; result TTL vs visibility |
-| Visibility report A5–A7 and [wiring tests](test-visibility-config-wiring.py) | Other backend options remain meaningful; no independent R/T visibility timer; dictionary aliasing and explicit forwarding |
+| Visibility report A5–A7 and [wiring tests](redis-visibility/test-visibility-config-wiring.py) | Other backend options remain meaningful; no independent R/T visibility timer; dictionary aliasing and explicit forwarding |
 
 Source checks additionally cover `celery/concurrency/solo.py`, RedisBackend's
 retry policy/`ensure`, and the configuration reference for backend socket settings.

@@ -538,24 +538,24 @@ consumption or to repair every old delivery before exit.
 
 ```bash
 # Existing uv environment and mise-managed private Redis; no new dependencies:
-bash .dev/setup-shutdown-env.sh
-PYTHONDONTWRITEBYTECODE=1 .dev/.venv/bin/python .dev/test-redis-fault-proxy.py
-PYTHONDONTWRITEBYTECODE=1 .dev/.venv/bin/python .dev/verify-redis-connections.py
+bash .dev/environment/setup-shutdown-env.sh
+PYTHONDONTWRITEBYTECODE=1 .dev/.venv/bin/python .dev/redis-connection/test-redis-fault-proxy.py
+PYTHONDONTWRITEBYTECODE=1 .dev/.venv/bin/python .dev/redis-connection/verify-redis-connections.py
 
 # Focused solo/settlement checks:
-.dev/.venv/bin/python .dev/verify-redis-connections.py \
+.dev/.venv/bin/python .dev/redis-connection/verify-redis-connections.py \
   --case monitor-solo --case active-solo-cancel --case outage-solo \
   --case ack-before-commit-dedup --case ack-reply-lost \
   --case delivery-reply-lost
 ```
 
-- Worker module: `.dev/redis_connection_probe.py`.
-- Socket fault injector: `.dev/redis_fault_proxy.py`.
-- Runner: `.dev/verify-redis-connections.py`.
-- Final [47-case summary](redis-connection-runs/20261114T130305.113800Z/summary.json).
+- Worker module: `.dev/redis-connection/redis_connection_probe.py`.
+- Socket fault injector: `.dev/redis-connection/redis_fault_proxy.py`.
+- Runner: `.dev/redis-connection/verify-redis-connections.py`.
+- Final [47-case summary](redis-connection/redis-connection-runs/20261114T130305.113800Z/summary.json).
 - Each case contains `config.json`, worker logs, `events.jsonl`, `proxy.jsonl`,
   `monitor.jsonl`, and `result.json` with phase snapshots and assertions.
-- Final console: `.dev/redis-connection-validation-final.log`.
+- Final console: `.dev/redis-connection/redis-connection-validation-final.log`.
 - Five framing tests pass; no safety-deadline kills were needed. The two planned
   SIGKILLs are the explicit crash/replacement cases.
 

@@ -403,24 +403,24 @@ strategy. Increasing prefetch does not repair the stranded delivery. Do not use
 
 ```bash
 # Existing uv environment and mise-managed Redis, no new dependencies:
-bash .dev/setup-shutdown-env.sh
-PYTHONDONTWRITEBYTECODE=1 .dev/.venv/bin/python .dev/verify-task-policies.py
+bash .dev/environment/setup-shutdown-env.sh
+PYTHONDONTWRITEBYTECODE=1 .dev/.venv/bin/python .dev/task-policy/verify-task-policies.py
 
 # Solo-focused subset:
-.dev/.venv/bin/python .dev/verify-task-policies.py \
+.dev/.venv/bin/python .dev/task-policy/verify-task-policies.py \
   --case soft-solo --case hard-solo \
   --case failure-solo-discard --case lost-solo-whole-process \
   --case quit-solo-discard --case system-exit-solo
 ```
 
-- Worker module: `.dev/policy_probe.py`.
-- Runner: `.dev/verify-task-policies.py`.
-- Final [47-case summary](task-policy-runs/20261114T094306.436639Z/summary.json).
-- Focused [gevent/SystemExit confirmation](task-policy-runs/20261114T093326.106995Z/summary.json).
+- Worker module: `.dev/task-policy/policy_probe.py`.
+- Runner: `.dev/task-policy/verify-task-policies.py`.
+- Final [47-case summary](task-policy/task-policy-runs/20261114T094306.436639Z/summary.json).
+- Focused [gevent/SystemExit confirmation](task-policy/task-policy-runs/20261114T093326.106995Z/summary.json).
 - Per-case `config.json`, `events.jsonl`, `worker.log`, and `result.json` contain
   resolved settings, ACK/reject events, retry publications, task attempts,
   backend history, broker snapshots, worker exit, and assertions.
-- Console: `.dev/task-policy-validation-final.log`.
+- Console: `.dev/task-policy/task-policy-validation-final.log`.
 
 Exploratory/intermediate runs are retained. The initial expectation that gevent
 busy work would produce no timeout callback was corrected after observing the

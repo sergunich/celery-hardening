@@ -402,15 +402,15 @@ permanently on this task-level workaround.
 #### Reproduce and inspect
 
 ```bash
-.dev/.venv/bin/python .dev/verify-solo-requeue.py
+.dev/.venv/bin/python .dev/shutdown/verify-solo-requeue.py
 ```
 
-The experiment-only `catch="requeue"` branch in `.dev/shutdown_probe.py` handles
+The experiment-only `catch="requeue"` branch in `.dev/shutdown/shutdown_probe.py` handles
 the recognized error and raises `Reject`; no Celery production code is patched.
 The runner checks actual ACK/reject calls, final Redis message state, and whether
 the restored original task ID can be fetched.
 
-Artifacts: [two-case summary](solo-requeue-runs/20261114T090428.875791Z/summary.json),
+Artifacts: [two-case summary](shutdown/solo-requeue-runs/20261114T090428.875791Z/summary.json),
 with per-case worker logs and event timelines under the same run directory.
 This explanation is part of the maintained appendix source and survives future
 shutdown-report regeneration.

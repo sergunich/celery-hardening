@@ -410,11 +410,11 @@ and neither process exit codes nor result-backend states prove delivery safety.
 ## Reproduce and inspect
 
 ```bash
-bash .dev/setup-shutdown-env.sh
-PYTHONDONTWRITEBYTECODE=1 .dev/.venv/bin/python .dev/verify-pool-shutdown.py
+bash .dev/environment/setup-shutdown-env.sh
+PYTHONDONTWRITEBYTECODE=1 .dev/.venv/bin/python .dev/shutdown/verify-pool-shutdown.py
 
 # Selected pools/cases (flags are repeatable):
-.dev/.venv/bin/python .dev/verify-pool-shutdown.py \
+.dev/.venv/bin/python .dev/shutdown/verify-pool-shutdown.py \
   --pool prefork --pool threads --pool gevent \
   --case soft-short-late --case soft-long-late --case cold-late
 ```
@@ -425,30 +425,30 @@ connects to an existing Redis instance. Each case uses a fresh worker process,
 and the runner cleans up its workers, child processes, and Redis instance.
 The temporary Redis databases are reset only inside that private server.
 
-- `.dev/setup-shutdown-env.sh`: uv environment, pinned Python dependencies,
+- `.dev/environment/setup-shutdown-env.sh`: uv environment, pinned Python dependencies,
   Redis 8.2.3 installed through mise (no global/project activation).
-- `.dev/verify-pool-shutdown.py`: sends signals, inspects Redis, checks behavior,
+- `.dev/shutdown/verify-pool-shutdown.py`: sends signals, inspects Redis, checks behavior,
   and writes per-case artifacts; returns nonzero on check failure.
-- `.dev/shutdown_probe.py`: task definitions and observation-only hooks. Actual
+- `.dev/shutdown/shutdown_probe.py`: task definitions and observation-only hooks. Actual
   workers run through `python -m celery ... --pool ...`; gevent receives Celery's
   normal early monkey-patching. Shutdown implementations are not replaced.
   ACK/reject methods and the hard handler are wrapped only to record calls,
   then delegate to their original implementations without swallowing exceptions.
-- `.dev/render-shutdown-report.py`: regenerates experiment sections from a complete
+- `.dev/shutdown/render-shutdown-report.py`: regenerates experiment sections from a complete
   run's `summary.json`, optionally comparing it with a previous run, then includes
   the maintained `.dev/shutdown-appendix.md`. Refuses to overwrite this report if
   that source is missing or empty; experiment runs never write the appendix source.
-- `.dev/test-render-shutdown-report.py`: verifies appendix preservation across
+- `.dev/shutdown/test-render-shutdown-report.py`: verifies appendix preservation across
   regeneration and that missing/empty appendix sources leave the report untouched.
 
-**Results used here:** [pool-shutdown-runs/20261113T081413.844718Z/summary.json](pool-shutdown-runs/20261113T081413.844718Z/summary.json).
+**Results used here:** [shutdown/pool-shutdown-runs/20261113T081413.844718Z/summary.json](shutdown/pool-shutdown-runs/20261113T081413.844718Z/summary.json).
 Each `<pool>/<case>/` directory contains `config.json`, `events.jsonl`,
 `worker.log`, and `result.json`. Signals and events use monotonic timestamps;
 all planned and actually delivered signals are retained.
 
 ```bash
-.dev/.venv/bin/python .dev/render-shutdown-report.py \
-  .dev/pool-shutdown-runs/20261113T081413.844718Z/summary.json
+.dev/.venv/bin/python .dev/shutdown/render-shutdown-report.py \
+  .dev/shutdown/pool-shutdown-runs/20261113T081413.844718Z/summary.json
 ```
 
 ## Environment and boundaries
@@ -876,15 +876,15 @@ permanently on this task-level workaround.
 #### Reproduce and inspect
 
 ```bash
-.dev/.venv/bin/python .dev/verify-solo-requeue.py
+.dev/.venv/bin/python .dev/shutdown/verify-solo-requeue.py
 ```
 
-The experiment-only `catch="requeue"` branch in `.dev/shutdown_probe.py` handles
+The experiment-only `catch="requeue"` branch in `.dev/shutdown/shutdown_probe.py` handles
 the recognized error and raises `Reject`; no Celery production code is patched.
 The runner checks actual ACK/reject calls, final Redis message state, and whether
 the restored original task ID can be fetched.
 
-Artifacts: [two-case summary](solo-requeue-runs/20261114T090428.875791Z/summary.json),
+Artifacts: [two-case summary](shutdown/solo-requeue-runs/20261114T090428.875791Z/summary.json),
 with per-case worker logs and event timelines under the same run directory.
 This explanation is part of the maintained appendix source and survives future
 shutdown-report regeneration.
