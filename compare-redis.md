@@ -1,9 +1,9 @@
 # Compare recommended Redis worker setups
 
-Comparison of the maintained [solo](solo-redis-recommended-setup.md),
-[prefork](prefork-redis-recommended-setup.md),
-[threads](threads-redis-recommended-setup.md), and
-[gevent](gevent-redis-recommended-setup.md) profiles.
+Comparison of the maintained [solo](solo-redis.md),
+[prefork](prefork-redis.md),
+[threads](threads-redis.md), and
+[gevent](gevent-redis.md) profiles.
 
 These recommendations target our recorded **Celery 5.7.0 / Kombu 5.7.0** sources,
 not every release. Runtime evidence used macOS ARM64, mostly concurrency 1;
@@ -263,9 +263,9 @@ scan cadence follows a different drain-events path, not the async timer cadence.
   timeout behavior, signal regressions, hub lag, and both cancellation policies.
 
 The full profiles contain configuration templates and acceptance checklists.
-Underlying evidence: [shutdown](shutdown-results.md),
-[ETA/prefetch](eta-prefetch-results.md), [task policies](task-policy-results.md),
-[Redis connections](redis-connection-results.md), and
-[visibility/source-history audit](redis-visibility-results.md).
+Underlying evidence: [shutdown](shutdown.md),
+[ETA/prefetch](eta-prefetch.md), [task policies](task-policy.md),
+[Redis connections](redis-connection.md), and
+[visibility/source-history audit](redis-visibility.md).
 Maintain this comparison with those profiles; do not treat it as certification of
 a new combined setup or a high-concurrency production benchmark.

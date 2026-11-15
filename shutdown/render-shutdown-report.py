@@ -5,10 +5,25 @@ Never generate or overwrite shutdown-appendix.md from experiment output.
 """
 import argparse
 import json
+import os
 from pathlib import Path
+import re
+from urllib.parse import urlsplit
 
 DEV = Path(__file__).resolve().parent.parent
 POOLS = ["solo", "prefork", "threads", "gevent"]
+
+
+def rebase_appendix_links(appendix, source_dir, output_dir):
+    """Rebase simple inline Markdown URLs; never rewrite the maintained source."""
+    def replace(match):
+        url = urlsplit(match.group(1))
+        if url.scheme or url.netloc or not url.path or url.path.startswith("/"):
+            return match.group(0)
+        relative = Path(os.path.relpath(source_dir / url.path, output_dir)).as_posix()
+        return "](" + url._replace(path=relative).geturl() + ")"
+
+    return re.sub(r"\]\(([^)\s]+)\)", replace, appendix)
 
 
 def main():
@@ -16,7 +31,7 @@ def main():
     parser.add_argument("summary", type=Path)
     parser.add_argument("--previous", type=Path)
     args = parser.parse_args()
-    appendix_path = DEV / "shutdown-appendix.md"
+    appendix_path = DEV / "shutdown/shutdown-appendix.md"
     try:
         appendix = appendix_path.read_text(encoding="utf-8")
     except OSError as exc:
@@ -53,7 +68,7 @@ def main():
     parts = [f"""# Celery shutdowns: solo, prefork, threads, and gevent
 
 > Experiment sections are generated. The explanatory appendix is maintained in
-> [shutdown-appendix.md](shutdown-appendix.md) and included on every regeneration.
+> [shutdown/shutdown-appendix.md](shutdown/shutdown-appendix.md) and included on every regeneration.
 > Edit that source file to update the appendix; do not edit its rendered copy here.
 
 ## Bottom line
@@ -407,7 +422,7 @@ The temporary Redis databases are reset only inside that private server.
   then delegate to their original implementations without swallowing exceptions.
 - `.dev/shutdown/render-shutdown-report.py`: regenerates experiment sections from a complete
   run's `summary.json`, optionally comparing it with a previous run, then includes
-  the maintained `.dev/shutdown-appendix.md`. Refuses to overwrite this report if
+  the maintained `.dev/shutdown/shutdown-appendix.md`. Refuses to overwrite this report if
   that source is missing or empty; experiment runs never write the appendix source.
 - `.dev/shutdown/test-render-shutdown-report.py`: verifies appendix preservation across
   regeneration and that missing/empty appendix sources leave the report untouched.
@@ -444,8 +459,8 @@ all planned and actually delivered signals are retained.
 All scripts, logs, and this report remain under locally ignored `.dev/`
 (`/.dev/` in `.git/info/exclude`). No production code or shared ignore file was changed.
 """)
-    parts.append("\n" + appendix)
-    output = DEV / "shutdown-results.md"
+    parts.append("\n" + rebase_appendix_links(appendix, appendix_path.parent, DEV))
+    output = DEV / "shutdown.md"
     output.write_text("".join(parts), encoding="utf-8")
     print(f"Wrote {output}: {len(outcomes)} rows")
 

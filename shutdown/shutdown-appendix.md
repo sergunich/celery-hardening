@@ -1,9 +1,9 @@
 ## Appendix: shutdown, acknowledgment, and signal semantics
 
 > **Maintained explanation, not generated experiment output.** Edit
-> `.dev/shutdown-appendix.md`, not this appendix's rendered copy in
-> `.dev/shutdown-results.md`. The report generator includes this file unchanged
-> on every run and refuses to overwrite the report if it is missing or empty.
+> `.dev/shutdown/shutdown-appendix.md`, not this appendix's rendered copy in
+> `.dev/shutdown.md`. The renderer includes this text, rebasing relative links
+> for the root report; missing or empty source files still prevent regeneration.
 > These explanations describe the tested checkout; review them explicitly if
 > a future version changes the implementation.
 
@@ -277,7 +277,7 @@ independently enforced final SIGKILL deadline.
 
 ### A7. Follow-up: ETA/countdown, prefetch, and delivery limits
 
-The [focused ETA/prefetch report](eta-prefetch-results.md) adds **31 selected
+The [focused ETA/prefetch report](../eta-prefetch.md) adds **31 selected
 runtime cases**, including the prefetched-backlog coverage absent from the
 original 96-case shutdown comparison. It separates measured results from
 source-based extrapolations and explains why the reduced matrix was chosen.
@@ -410,14 +410,14 @@ the recognized error and raises `Reject`; no Celery production code is patched.
 The runner checks actual ACK/reject calls, final Redis message state, and whether
 the restored original task ID can be fetched.
 
-Artifacts: [two-case summary](shutdown/solo-requeue-runs/20261114T090428.875791Z/summary.json),
+Artifacts: [two-case summary](solo-requeue-runs/20261114T090428.875791Z/summary.json),
 with per-case worker logs and event timelines under the same run directory.
 This explanation is part of the maintained appendix source and survives future
 shutdown-report regeneration.
 
 ### A9. Follow-up: task time limits, failure ACKs, and worker-loss policies
 
-The [task-policy report](task-policy-results.md) adds **47 selected runtime
+The [task-policy report](../task-policy.md) adds **47 selected runtime
 cases**, distinguishing pool deadline enforcement, failure disposition, and
 whether a surviving controller can detect executor loss.
 
@@ -434,7 +434,7 @@ process-loss recovery, with measured ACK/reject/result/redelivery outcomes.
 
 ### A10. Follow-up: Redis connections, heartbeats, and recovery
 
-The [Redis connection report](redis-connection-results.md) adds **47 selected
+The [Redis connection report](../redis-connection.md) adds **47 selected
 runtime cases**, including warm shutdown with a broker-path outage while the
 result backend remains reachable. It distinguishes Celery monitoring events
 (`--without-heartbeat`) from broker-protocol heartbeats, which Redis does not use.

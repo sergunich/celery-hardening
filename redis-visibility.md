@@ -4,9 +4,9 @@
 > execution. PASS means the asserted behavior was observed, not that the tested
 > configuration is safe. Five observation-wrapper tests also pass.
 >
-> Companion reports: [shutdown](shutdown-results.md),
-> [ETA/prefetch](eta-prefetch-results.md), [task policies](task-policy-results.md),
-> and [Redis connections](redis-connection-results.md).
+> Companion reports: [shutdown](shutdown.md),
+> [ETA/prefetch](eta-prefetch.md), [task policies](task-policy.md),
+> and [Redis connections](redis-connection.md).
 >
 > This report and its appendix are **maintained text**. The runner writes only
 > timestamped raw artifacts and never regenerates this explanation.

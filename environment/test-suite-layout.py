@@ -31,8 +31,11 @@ class SuiteLayoutTests(unittest.TestCase):
                 with self.subTest(script=script.name):
                     ast.parse(script.read_text(), filename=str(script))
 
-    def test_root_report_links_and_explicit_dev_paths_resolve(self):
-        for report in DEV.glob("*.md"):
+    def test_maintained_markdown_links_and_explicit_dev_paths_resolve(self):
+        reports = list(DEV.glob("*.md"))
+        for directory in (*SUITES, "environment"):
+            reports.extend((DEV / directory).glob("*.md"))
+        for report in reports:
             content = report.read_text()
             for target in re.findall(r"\]\(([^)]+)\)", content):
                 url = urlsplit(target)

@@ -1,6 +1,6 @@
 # ETA/countdown tasks: concurrency, prefetch, ACKs, and shutdown
 
-> Maintained follow-up to [the shutdown comparison](shutdown-results.md).
+> Maintained follow-up to [the shutdown comparison](shutdown.md).
 > Experiment scripts write timestamped raw artifacts, **not this report**.
 > Conclusions are scoped to the tested checkout and dependencies.
 

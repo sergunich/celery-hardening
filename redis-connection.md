@@ -1,7 +1,7 @@
 # Redis worker connections, heartbeats, reconnects, and delivery recovery
 
-> Redis-only follow-up to [shutdown](shutdown-results.md),
-> [ETA/prefetch](eta-prefetch-results.md), and [task policies](task-policy-results.md).
+> Redis-only follow-up to [shutdown](shutdown.md),
+> [ETA/prefetch](eta-prefetch.md), and [task policies](task-policy.md).
 > **47/47 selected runtime cases passed**, including reproduced limitations and
 > a delivery-loss window. PASS means the asserted behavior was observed, not that
 > every failure preserves work. No RabbitMQ experiments or Docker startup occurred.
@@ -785,7 +785,7 @@ experiment runs.
 
 ### A7. Follow-up: which Redis visibility settings actually apply?
 
-The [Redis visibility report](redis-visibility-results.md) adds **27 runtime
+The [Redis visibility report](redis-visibility.md) adds **27 runtime
 cases**. Only `broker_transport_options['visibility_timeout']` controls delivery
 recovery in this checkout. The similarly named backend and top-level values do
 not override it; all presence/absence combinations and conflicting values were

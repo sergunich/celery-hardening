@@ -1,7 +1,7 @@
 # Task time limits, failure ACKs, and worker-loss policies across pools
 
-> Maintained follow-up to [shutdown behavior](shutdown-results.md),
-> [ETA/prefetch behavior](eta-prefetch-results.md), and shutdown appendix A8's
+> Maintained follow-up to [shutdown behavior](shutdown.md),
+> [ETA/prefetch behavior](eta-prefetch.md), and shutdown appendix A8's
 > solo `Reject(requeue=True)` workaround. Experiment runs write timestamped raw
 > artifacts; **they do not regenerate or overwrite this report or its appendix**.
 
@@ -336,7 +336,7 @@ timeout ACK, does **not** fix the previously observed solo QUIT recovery problem
 Disabling failure ACK changes ACK to discard, not to restoration.
 
 The separately tested, version-specific task-level `Reject(requeue=True)`
-workaround remains in [shutdown appendix A8](shutdown-results.md). Its guarded
+workaround remains in [shutdown appendix A8](shutdown.md). Its guarded
 exception handling, late-ACK requirement, and non-guarantees still apply.
 
 ## 6. `SystemExit` is a distinct failure path—and exposes a defect

@@ -6,8 +6,8 @@
 > Signal-context cancellation and delayed-timeout defects were reproduced in this
 > checkout. The combined configuration and production concurrency need validation.
 >
-> Other profiles: [solo](solo-redis-recommended-setup.md),
-> [prefork](prefork-redis-recommended-setup.md), [threads](threads-redis-recommended-setup.md).
+> Other profiles: [solo](solo-redis.md),
+> [prefork](prefork-redis.md), [threads](threads-redis.md).
 
 ## 1. Workload suitability is the first configuration decision
 
@@ -356,14 +356,14 @@ or process-local lock does not provide cross-worker exactly-once effects.
 
 ## Evidence and maintenance
 
-- [Shutdown report](shutdown-results.md): cooperative warm drain, signal-context
+- [Shutdown report](shutdown.md): cooperative warm drain, signal-context
   errors, and ACK of incomplete gevent work.
-- [Task-policy report](task-policy-results.md): unenforced soft limits, cooperative
+- [Task-policy report](task-policy.md): unenforced soft limits, cooperative
   hard limits, late timeout after SUCCESS, requeue duplication, and SystemExit defect.
-- [Connection report](redis-connection-results.md): cooperative vs busy monitoring,
+- [Connection report](redis-connection.md): cooperative vs busy monitoring,
   gevent BRPOP health recovery, cancellation comparison, ACK ambiguity, and delivery gap.
-- [ETA/prefetch report](eta-prefetch-results.md): shared scheduled-message/credit behavior.
-- [Visibility report](redis-visibility-results.md): source wiring and common recovery
+- [ETA/prefetch report](eta-prefetch.md): shared scheduled-message/credit behavior.
+- [Visibility report](redis-visibility.md): source wiring and common recovery
   mechanism; exact solo visibility duplicate counts are not new gevent measurements.
 
 Source checks include `celery/__init__.py` early patching,

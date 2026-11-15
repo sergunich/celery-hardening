@@ -1,7 +1,7 @@
 # Celery shutdowns: solo, prefork, threads, and gevent
 
 > Experiment sections are generated. The explanatory appendix is maintained in
-> [shutdown-appendix.md](shutdown-appendix.md) and included on every regeneration.
+> [shutdown/shutdown-appendix.md](shutdown/shutdown-appendix.md) and included on every regeneration.
 > Edit that source file to update the appendix; do not edit its rendered copy here.
 
 ## Bottom line
@@ -436,7 +436,7 @@ The temporary Redis databases are reset only inside that private server.
   then delegate to their original implementations without swallowing exceptions.
 - `.dev/shutdown/render-shutdown-report.py`: regenerates experiment sections from a complete
   run's `summary.json`, optionally comparing it with a previous run, then includes
-  the maintained `.dev/shutdown-appendix.md`. Refuses to overwrite this report if
+  the maintained `.dev/shutdown/shutdown-appendix.md`. Refuses to overwrite this report if
   that source is missing or empty; experiment runs never write the appendix source.
 - `.dev/shutdown/test-render-shutdown-report.py`: verifies appendix preservation across
   regeneration and that missing/empty appendix sources leave the report untouched.
@@ -475,9 +475,9 @@ All scripts, logs, and this report remain under locally ignored `.dev/`
 ## Appendix: shutdown, acknowledgment, and signal semantics
 
 > **Maintained explanation, not generated experiment output.** Edit
-> `.dev/shutdown-appendix.md`, not this appendix's rendered copy in
-> `.dev/shutdown-results.md`. The report generator includes this file unchanged
-> on every run and refuses to overwrite the report if it is missing or empty.
+> `.dev/shutdown/shutdown-appendix.md`, not this appendix's rendered copy in
+> `.dev/shutdown.md`. The renderer includes this text, rebasing relative links
+> for the root report; missing or empty source files still prevent regeneration.
 > These explanations describe the tested checkout; review them explicitly if
 > a future version changes the implementation.
 
@@ -751,7 +751,7 @@ independently enforced final SIGKILL deadline.
 
 ### A7. Follow-up: ETA/countdown, prefetch, and delivery limits
 
-The [focused ETA/prefetch report](eta-prefetch-results.md) adds **31 selected
+The [focused ETA/prefetch report](eta-prefetch.md) adds **31 selected
 runtime cases**, including the prefetched-backlog coverage absent from the
 original 96-case shutdown comparison. It separates measured results from
 source-based extrapolations and explains why the reduced matrix was chosen.
@@ -891,7 +891,7 @@ shutdown-report regeneration.
 
 ### A9. Follow-up: task time limits, failure ACKs, and worker-loss policies
 
-The [task-policy report](task-policy-results.md) adds **47 selected runtime
+The [task-policy report](task-policy.md) adds **47 selected runtime
 cases**, distinguishing pool deadline enforcement, failure disposition, and
 whether a surviving controller can detect executor loss.
 
@@ -908,7 +908,7 @@ process-loss recovery, with measured ACK/reject/result/redelivery outcomes.
 
 ### A10. Follow-up: Redis connections, heartbeats, and recovery
 
-The [Redis connection report](redis-connection-results.md) adds **47 selected
+The [Redis connection report](redis-connection.md) adds **47 selected
 runtime cases**, including warm shutdown with a broker-path outage while the
 result backend remains reachable. It distinguishes Celery monitoring events
 (`--without-heartbeat`) from broker-protocol heartbeats, which Redis does not use.

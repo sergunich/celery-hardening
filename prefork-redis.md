@@ -6,8 +6,8 @@
 > production concurrency, failover, and the complete configuration below require
 > deployment tests. Several settings here are specific to the tested 5.7 code.
 >
-> Other profiles: [solo](solo-redis-recommended-setup.md),
-> [threads](threads-redis-recommended-setup.md), [gevent](gevent-redis-recommended-setup.md).
+> Other profiles: [solo](solo-redis.md),
+> [threads](threads-redis.md), [gevent](gevent-redis.md).
 > These are alternative worker profiles, not settings to combine on one worker.
 
 ## 1. Recommended design and assumptions
@@ -300,13 +300,13 @@ the normal TERM profile. An idle grace did not execute newly due ETA work in our
 
 ## Evidence and maintenance
 
-- [Shutdown report](shutdown-results.md): warm/soft/cold/hard behavior and platform scope.
-- [Task-policy report](task-policy-results.md): prefork deadline enforcement,
+- [Shutdown report](shutdown.md): warm/soft/cold/hard behavior and platform scope.
+- [Task-policy report](task-policy.md): prefork deadline enforcement,
   bounded loss retries, raw requeue, exhaustion, and success-before-loss guard.
-- [ETA/prefetch report](eta-prefetch-results.md): waiting work, credit limits, and cap caveats.
-- [Connection report](redis-connection-results.md): cancel-on-loss comparison,
+- [ETA/prefetch report](eta-prefetch.md): waiting work, credit limits, and cap caveats.
+- [Connection report](redis-connection.md): cancel-on-loss comparison,
   ACK ambiguity, delivery gap, prefetch reduction, and warm-outage observations.
-- [Visibility report](redis-visibility-results.md): shared scanners, reserved work
+- [Visibility report](redis-visibility.md): shared scanners, reserved work
   expiry, repeated execution, option wiring, and result TTL.
 
 Maintain this guide separately from generated results. The configuration template

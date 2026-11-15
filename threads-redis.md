@@ -6,8 +6,8 @@
 > concurrent application safety and production sizing require separate tests.
 >
 > The CLI pool name is **`threads`**, not `threaded`.
-> Other profiles: [solo](solo-redis-recommended-setup.md),
-> [prefork](prefork-redis-recommended-setup.md), [gevent](gevent-redis-recommended-setup.md).
+> Other profiles: [solo](solo-redis.md),
+> [prefork](prefork-redis.md), [gevent](gevent-redis.md).
 
 ## 1. When this pool is appropriate
 
@@ -305,14 +305,14 @@ as an automatic execution lock.
 
 ## Evidence and maintenance
 
-- [Shutdown report](shutdown-results.md): successful finite warm drain, unsupported
+- [Shutdown report](shutdown.md): successful finite warm drain, unsupported
   cold cancellation, hard-shutdown hangs, and SUCCESS with restored threaded work.
-- [Task-policy report](task-policy-results.md): no thread time-limit enforcement,
+- [Task-policy report](task-policy.md): no thread time-limit enforcement,
   ordinary failure disposition, and SystemExit/Future/credit defect.
-- [Connection report](redis-connection-results.md): monitoring during work, reconnect
+- [Connection report](redis-connection.md): monitoring during work, reconnect
   duplicates, attempted-but-unsupported cancellation, ACK ambiguity, and delivery loss.
-- [ETA/prefetch report](eta-prefetch-results.md): shared scheduled-work and QoS behavior.
-- [Visibility report](redis-visibility-results.md): option wiring, shared scanning,
+- [ETA/prefetch report](eta-prefetch.md): shared scheduled-work and QoS behavior.
+- [Visibility report](redis-visibility.md): option wiring, shared scanning,
   age threshold, result retention, and limits of extrapolation to other pools.
 
 Source checks include `celery/concurrency/thread.py`, `celery/app/base.py` backend

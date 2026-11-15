@@ -1,20 +1,20 @@
 # Celery Redis experiments
 
-Maintained reports and setup recommendations stay at this directory's root.
-Each experiment suite owns its scripts, probes, console logs, and timestamped runs.
+Main reports and setup recommendations stay at this directory's root.
+Suites own their scripts, probes, logs, runs, and supporting documents (including the shutdown appendix).
 
-| Suite directory | Root report | Contents |
+| Suite directory | Report / documentation | Contents |
 | --- | --- | --- |
-| [shutdown/](shutdown/) | [Shutdown comparison](shutdown-results.md), [maintained appendix](shutdown-appendix.md) | Four-pool shutdown runner/probe, renderer/tests, native confirmation, solo requeue verification, both run archives |
-| [eta-prefetch/](eta-prefetch/) | [ETA/prefetch](eta-prefetch-results.md) | ETA probe/runner, runs and console logs |
-| [task-policy/](task-policy/) | [Task policies](task-policy-results.md) | Policy probe/runner, runs and console logs |
-| [redis-connection/](redis-connection/) | [Redis connections](redis-connection-results.md) | Connection probe/runner, fault proxy/tests, runs and console logs |
-| [redis-visibility/](redis-visibility/) | [Redis visibility](redis-visibility-results.md) | Visibility probe/runner, observation/wiring tests, runs, source/history audit, console logs |
-| [environment/](environment/) | This index | Shared environment setup/lock, relocation map and regression checks |
+| [shutdown/](shutdown/) | [Shutdown comparison](shutdown.md), [maintained appendix](shutdown/shutdown-appendix.md) | Four-pool shutdown runner/probe, renderer/tests, native confirmation, solo requeue verification, both run archives |
+| [eta-prefetch/](eta-prefetch/) | [ETA/prefetch](eta-prefetch.md) | ETA probe/runner, runs and console logs |
+| [task-policy/](task-policy/) | [Task policies](task-policy.md) | Policy probe/runner, runs and console logs |
+| [redis-connection/](redis-connection/) | [Redis connections](redis-connection.md) | Connection probe/runner, fault proxy/tests, runs and console logs |
+| [redis-visibility/](redis-visibility/) | [Redis visibility](redis-visibility.md) | Visibility probe/runner, observation/wiring tests, runs, source/history audit, console logs |
+| [environment/](environment/) | This index | Shared environment setup/lock, relocation map, validation notes and regression checks |
 
-Setup recommendations: [comparison](compare-redis-recommended-setup.md),
-[solo](solo-redis-recommended-setup.md), [prefork](prefork-redis-recommended-setup.md),
-[threads](threads-redis-recommended-setup.md), [gevent](gevent-redis-recommended-setup.md).
+Setup recommendations: [comparison](compare-redis.md),
+[solo](solo-redis.md), [prefork](prefork-redis.md),
+[threads](threads-redis.md), [gevent](gevent-redis.md).
 
 ## Environment and cross-suite dependencies
 
@@ -68,8 +68,8 @@ PYTHONDONTWRITEBYTECODE=1 .dev/.venv/bin/python .dev/redis-visibility/test-visib
   --previous .dev/shutdown/pool-shutdown-runs/20261113T080741.135372Z/summary.json
 ```
 
-Only the renderer writes `shutdown-results.md`; it requires a complete 96-case
-summary and includes root `shutdown-appendix.md` unchanged. Edit the appendix source,
+Only the renderer writes `shutdown.md`; it requires a complete 96-case
+summary and includes `shutdown/shutdown-appendix.md`, rebasing its links. Edit the appendix source,
 not its rendered copy. Partial smoke runs must not replace full-suite report data.
 Other reports are maintained manually.
 
@@ -90,5 +90,5 @@ old manifests must not be rewritten to pretend they captured the relocated scrip
 
 All maintained report links, runnable examples, renderer output, source-hash input
 paths, and cross-suite imports use the new layout. There are no old-root compatibility
-copies/symlinks. See [layout validation](layout-validation.md) for the relocation
+copies/symlinks. See [layout validation](environment/layout-validation.md) for the relocation
 checks and targeted runtime evidence, distinct from the full historical matrices.
