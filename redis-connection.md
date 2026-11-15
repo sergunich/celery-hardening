@@ -801,3 +801,71 @@ local ETA timers. One solo worker accumulated and executed multiple copies with
 healthy connections. Late-ACK successful-task deduplication skipped completed
 copies; the early-ACK control did not. The report separates these new measurements
 from reused shutdown, ETA/prefetch, and task-policy evidence.
+
+### A8. Why broker and backend socket settings use inconsistent configuration paths
+
+The broker and result backend use **separate Redis client stacks**, even when
+configured with the same Redis server or URL. Kombu implements the broker transport;
+Celery's `RedisBackend` implements result storage. Their configuration interfaces
+are not symmetrical:
+
+| Purpose | Broker: key inside `broker_transport_options` | Result backend: top-level Celery setting |
+| --- | --- | --- |
+| Connect timeout | `socket_connect_timeout` | `redis_socket_connect_timeout` |
+| Socket operation timeout | `socket_timeout` | `redis_socket_timeout` |
+| Health-check interval | `health_check_interval` | `redis_backend_health_check_interval` |
+| TCP keepalive | `socket_keepalive` | `redis_socket_keepalive` |
+
+Thus the two groups in the [solo setup](solo-redis.md) are **not duplicate settings
+for one connection**. Neither group inherits these values from the other. Matching
+values are an illustrative starting point, not a requirement: broker and backend
+budgets can differ. They do not configure Redis clients created by application task
+code, and a matching health interval does not imply identical scheduling/detection
+behavior in the broker loop and backend client.
+
+#### Why not put everything in `result_backend_transport_options`?
+
+Despite its name and the broad documentation description, this dictionary is **not
+a general pass-through of redis-py connection arguments**. In this checkout,
+`RedisBackend.__init__` explicitly reads the four top-level settings above and
+constructs its connection parameters. It does not merge the entire backend transport
+options dictionary into those parameters.
+
+Putting `socket_connect_timeout`, `socket_timeout`, `health_check_interval`, or
+`socket_keepalive` inside `result_backend_transport_options` therefore does **not**
+configure those backend connection parameters. If the top-level settings are omitted,
+their configured defaults remain applicable; moving the keys into the dictionary
+is not an equivalent configuration.
+
+The dictionary does have selectively implemented options, including:
+
+- `retry_policy`: RedisBackend's retry-helper policy, not a socket timeout or an
+  unconditional retry wrapper around every backend operation.
+- `global_keyprefix`: result-key prefix, distinct from the broker transport's prefix.
+- `result_chord_ordered`: chord result ordering.
+- `additional_connection_errors`: additional backend connection-error classification.
+- Sentinel-specific `master_name`, `min_other_sentinels`, and `sentinel_kwargs`.
+
+These supported keys do not imply that arbitrary Redis client keys are supported.
+Likewise, a backend `visibility_timeout` entry does not configure broker recovery;
+see A7 and the [visibility/source audit](redis-visibility.md).
+
+**Placement rule:** use `broker_transport_options` for supported Kombu broker
+options, the dedicated top-level `redis_*` settings for backend socket/health
+configuration, and `result_backend_transport_options` only for options explicitly
+consumed by the selected backend. Configure before backend initialization. Redis
+backend URL query parameters are another supported input path and can override
+constructed connection parameters, so inspect the URL too when diagnosing effective
+settings.
+
+This appendix is **source-backed and configuration-checked, not a new network-fault
+experiment**. A connection-free check used distinct broker and backend values and
+confirmed that conflicting socket/health entries in the backend transport dictionary
+left `app.backend.connparams` unchanged, while its `retry_policy` did take effect.
+The original 47-case suite was not rerun for this explanation.
+
+Relevant source: [RedisBackend](../celery/backends/redis.py)
+(`__init__`, `_params_from_url`, `retry_policy`, `_transport_options`, Sentinel helpers),
+[base key/value backend](../celery/backends/base.py) (result-key prefix), and installed
+Kombu `transport/redis.py` (broker transport options). These are implementation-specific
+configuration paths, not interchangeable names inferred from the word “transport”.
