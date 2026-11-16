@@ -1,0 +1,69 @@
+=== solo-redis-hardening/test-solo-hardening.py ===
+test_exact_solo_cold_error_requests_requeue (__main__.GuardTests.test_exact_solo_cold_error_requests_requeue) ... ok
+test_no_cold_request_does_not_convert_error (__main__.GuardTests.test_no_cold_request_does_not_convert_error) ... ok
+test_plain_system_exit_is_ordinary_failure (__main__.GuardTests.test_plain_system_exit_is_ordinary_failure) ... ok
+test_reject_exclusion_prevents_broad_autoretry_from_consuming_guard (__main__.GuardTests.test_reject_exclusion_prevents_broad_autoretry_from_consuming_guard) ... ok
+test_success_preserves_metadata_and_result (__main__.GuardTests.test_success_preserves_metadata_and_result) ... ok
+test_unrelated_errors_are_unchanged_even_during_cold_shutdown (__main__.GuardTests.test_unrelated_errors_are_unchanged_even_during_cold_shutdown) ... ok
+test_worker_exit_and_other_base_exceptions_escape (__main__.GuardTests.test_worker_exit_and_other_base_exceptions_escape) ... ok
+test_default_retry_delay_must_be_zero (__main__.PublicationTests.test_default_retry_delay_must_be_zero) ... ok
+test_delayed_retry_becomes_reject_without_requeue_in_stock_retry (__main__.PublicationTests.test_delayed_retry_becomes_reject_without_requeue_in_stock_retry) ... ok
+test_explicit_immediate_retry_publishes_without_eta (__main__.PublicationTests.test_explicit_immediate_retry_publishes_without_eta) ... ok
+test_immediate_send_task_delay_signature_and_group_publish (__main__.PublicationTests.test_immediate_send_task_delay_signature_and_group_publish) ... ok
+test_other_apps_can_bypass_policy (__main__.PublicationTests.test_other_apps_can_bypass_policy) ... ok
+test_scheduling_rejected_before_publication (__main__.PublicationTests.test_scheduling_rejected_before_publication) ... ok
+test_task_signature_group_and_positional_arguments_cannot_schedule (__main__.PublicationTests.test_task_signature_group_and_positional_arguments_cannot_schedule) ... ok
+
+----------------------------------------------------------------------
+Ran 14 tests in 0.040s
+
+OK
+=== shutdown/test-render-shutdown-report.py ===
+test_changed_experiment_preserves_appendix_source_and_rendered_content (__main__.ReportAppendixTests.test_changed_experiment_preserves_appendix_source_and_rendered_content) ... ok
+test_empty_appendix_leaves_existing_report_untouched (__main__.ReportAppendixTests.test_empty_appendix_leaves_existing_report_untouched) ... ok
+test_explicit_appendix_edit_is_included_in_next_render (__main__.ReportAppendixTests.test_explicit_appendix_edit_is_included_in_next_render) ... ok
+test_missing_appendix_leaves_existing_report_untouched (__main__.ReportAppendixTests.test_missing_appendix_leaves_existing_report_untouched) ... ok
+test_relative_links_rebase_without_changing_source_or_external_urls (__main__.ReportAppendixTests.test_relative_links_rebase_without_changing_source_or_external_urls) ... ok
+
+----------------------------------------------------------------------
+Ran 5 tests in 0.338s
+
+OK
+=== redis-connection/test-redis-fault-proxy.py ===
+.....
+----------------------------------------------------------------------
+Ran 5 tests in 0.000s
+
+OK
+=== redis-visibility/test-redis-visibility-probe.py ===
+.....
+----------------------------------------------------------------------
+Ran 5 tests in 0.008s
+
+OK
+=== redis-visibility/test-visibility-config-wiring.py ===
+test_aliased_dictionaries_can_indirectly_change_broker_value (__main__.WiringTests.test_aliased_dictionaries_can_indirectly_change_broker_value) ... ok
+test_all_presence_combinations_use_only_broker_options (__main__.WiringTests.test_all_presence_combinations_use_only_broker_options) ... ok
+test_application_can_explicitly_forward_top_level_value (__main__.WiringTests.test_application_can_explicitly_forward_top_level_value) ... ok
+test_broker_construction_is_not_backend_transport_dependent (__main__.WiringTests.test_broker_construction_is_not_backend_transport_dependent) ... ok
+test_explicit_per_connection_options_override_broker_config (__main__.WiringTests.test_explicit_per_connection_options_override_broker_config) ... ok
+test_other_key_value_backend_uses_result_key_prefix (__main__.WiringTests.test_other_key_value_backend_uses_result_key_prefix) ... ok
+test_redis_backend_uses_supported_options_not_visibility (__main__.WiringTests.test_redis_backend_uses_supported_options_not_visibility) ... ok
+test_rpc_consumer_uses_app_broker_connection (__main__.WiringTests.test_rpc_consumer_uses_app_broker_connection) ... ok
+test_sentinel_backend_uses_sentinel_options_not_visibility (__main__.WiringTests.test_sentinel_backend_uses_sentinel_options_not_visibility) ... ok
+
+----------------------------------------------------------------------
+Ran 9 tests in 0.060s
+
+OK
+=== environment/test-suite-layout.py ===
+test_maintained_markdown_links_and_explicit_dev_paths_resolve (__main__.SuiteLayoutTests.test_maintained_markdown_links_and_explicit_dev_paths_resolve) ... ok
+test_mapped_files_exist_without_legacy_root_copies (__main__.SuiteLayoutTests.test_mapped_files_exist_without_legacy_root_copies) ... ok
+test_runner_help_from_unrelated_working_directory (__main__.SuiteLayoutTests.test_runner_help_from_unrelated_working_directory) ... ok
+test_scripts_parse_without_importing_probe_side_effects (__main__.SuiteLayoutTests.test_scripts_parse_without_importing_probe_side_effects) ... ok
+test_setup_uses_checkout_and_shared_lock_from_unrelated_cwd (__main__.SuiteLayoutTests.test_setup_uses_checkout_and_shared_lock_from_unrelated_cwd) ... ok
+
+----------------------------------------------------------------------
+Ran 5 tests in 3.372s
+
+OK

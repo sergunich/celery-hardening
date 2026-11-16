@@ -1,0 +1,255 @@
+{
+  "source_sha256": {
+    ".dev/solo-redis-hardening/solo_hardening.py": "80198d138051cf0e48728bf2c6bfd173e3c15931cfad365469ee061be453a91b",
+    ".dev/solo-redis-hardening/hardening_probe.py": "8bf205f2215f3a8c6987c8e7b4838a2be11ef31477e0952cebb7838c260f4dbf",
+    ".dev/solo-redis-hardening/verify-solo-hardening.py": "324cbdb787204c802b46100a3ea1cbe4e0cf48c86ab4548115f18310b2f0ea8b",
+    ".dev/solo-redis-hardening/test-solo-hardening.py": "deaf6d651d1045d71a9ac1cb821319a80c8290e0658305ddaa2147a35beb3968"
+  },
+  "outcomes": [
+    {
+      "case": {
+        "name": "warm-late",
+        "shutdown": "SIGTERM"
+      },
+      "passed": true,
+      "errors": [],
+      "task_id": "952cf1d6-3ce3-4c53-bb75-cca188738a20",
+      "future_ids": [],
+      "starts": 1,
+      "completed": 1,
+      "acks": 1,
+      "rejects": [],
+      "state": "SUCCESS",
+      "broker": {
+        "queued": [],
+        "unacked": []
+      },
+      "future_broker": {},
+      "returncode": 0,
+      "forced_kill": false,
+      "actions": [
+        {
+          "signal": "SIGTERM",
+          "time": 1919816.979732791
+        }
+      ]
+    },
+    {
+      "case": {
+        "name": "cold-late",
+        "shutdown": "SIGQUIT"
+      },
+      "passed": true,
+      "errors": [],
+      "task_id": "5030bf0d-bdd8-4e67-8f07-1015598910b6",
+      "future_ids": [],
+      "starts": 1,
+      "completed": 0,
+      "acks": 0,
+      "rejects": [
+        true
+      ],
+      "state": "PENDING",
+      "broker": {
+        "queued": [
+          {
+            "queue": "hardening-probe",
+            "redelivered": true
+          }
+        ],
+        "unacked": []
+      },
+      "future_broker": {},
+      "returncode": 0,
+      "forced_kill": false,
+      "actions": [
+        {
+          "signal": "SIGQUIT",
+          "time": 1919818.084865125
+        }
+      ]
+    },
+    {
+      "case": {
+        "name": "cold-early-negative-control",
+        "shutdown": "SIGQUIT",
+        "late": false
+      },
+      "passed": true,
+      "errors": [],
+      "task_id": "d34acb90-397d-4009-a18c-901d9b788117",
+      "future_ids": [],
+      "starts": 1,
+      "completed": 0,
+      "acks": 1,
+      "rejects": [],
+      "state": "PENDING",
+      "broker": {
+        "queued": [],
+        "unacked": []
+      },
+      "future_broker": {},
+      "returncode": 0,
+      "forced_kill": false,
+      "actions": [
+        {
+          "signal": "SIGQUIT",
+          "time": 1919818.980515875
+        }
+      ]
+    },
+    {
+      "case": {
+        "name": "cold-mixed-legacy-eta",
+        "shutdown": "SIGQUIT",
+        "future": 3
+      },
+      "passed": true,
+      "errors": [],
+      "task_id": "204f48ba-9790-48e5-90a0-a5fb4fad48f7",
+      "future_ids": [
+        "b0b87ce1-067e-43e9-9d09-4c3b9c603d4e",
+        "d334f0c2-7f8e-408b-83dd-857ae3a13184",
+        "800b2a51-f383-48cc-91ff-08aad2b13e7d"
+      ],
+      "starts": 1,
+      "completed": 0,
+      "acks": 0,
+      "rejects": [
+        true
+      ],
+      "state": "PENDING",
+      "broker": {
+        "queued": [
+          {
+            "queue": "hardening-probe",
+            "redelivered": true
+          }
+        ],
+        "unacked": []
+      },
+      "future_broker": {
+        "b0b87ce1-067e-43e9-9d09-4c3b9c603d4e": {
+          "queued": [
+            {
+              "queue": "hardening-probe",
+              "redelivered": true
+            }
+          ],
+          "unacked": []
+        },
+        "d334f0c2-7f8e-408b-83dd-857ae3a13184": {
+          "queued": [
+            {
+              "queue": "hardening-probe",
+              "redelivered": true
+            }
+          ],
+          "unacked": []
+        },
+        "800b2a51-f383-48cc-91ff-08aad2b13e7d": {
+          "queued": [
+            {
+              "queue": "hardening-probe",
+              "redelivered": true
+            }
+          ],
+          "unacked": []
+        }
+      },
+      "returncode": 0,
+      "forced_kill": false,
+      "actions": [
+        {
+          "signal": "SIGQUIT",
+          "time": 1919819.88772675
+        }
+      ]
+    },
+    {
+      "case": {
+        "name": "unrelated-error",
+        "mode": "unrelated_error"
+      },
+      "passed": true,
+      "errors": [],
+      "task_id": "597672fa-9932-49a1-a514-ed2688f2bfcd",
+      "future_ids": [],
+      "starts": 1,
+      "completed": 0,
+      "acks": 1,
+      "rejects": [],
+      "state": "FAILURE",
+      "broker": {
+        "queued": [],
+        "unacked": []
+      },
+      "future_broker": {},
+      "returncode": 0,
+      "forced_kill": false,
+      "actions": [
+        {
+          "signal": "SIGTERM",
+          "time": 1919820.956466375
+        }
+      ]
+    },
+    {
+      "case": {
+        "name": "guarded-system-exit",
+        "mode": "system_exit"
+      },
+      "passed": true,
+      "errors": [],
+      "task_id": "9f8fe16a-f22c-43f7-88fb-601d3cfcf29d",
+      "future_ids": [],
+      "starts": 1,
+      "completed": 0,
+      "acks": 1,
+      "rejects": [],
+      "state": "FAILURE",
+      "broker": {
+        "queued": [],
+        "unacked": []
+      },
+      "future_broker": {},
+      "returncode": 0,
+      "forced_kill": false,
+      "actions": [
+        {
+          "signal": "SIGTERM",
+          "time": 1919822.797110666
+        }
+      ]
+    },
+    {
+      "case": {
+        "name": "immediate-retry",
+        "mode": "retry"
+      },
+      "passed": true,
+      "errors": [],
+      "task_id": "ee49192c-f1b9-4fc7-b302-407467b98f42",
+      "future_ids": [],
+      "starts": 2,
+      "completed": 1,
+      "acks": 2,
+      "rejects": [],
+      "state": "SUCCESS",
+      "broker": {
+        "queued": [],
+        "unacked": []
+      },
+      "future_broker": {},
+      "returncode": 0,
+      "forced_kill": false,
+      "actions": [
+        {
+          "signal": "SIGTERM",
+          "time": 1919825.097997958
+        }
+      ]
+    }
+  ],
+  "redis_server": "8.2.3"
+}

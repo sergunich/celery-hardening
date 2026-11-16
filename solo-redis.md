@@ -10,6 +10,11 @@
 > budgets below before deploying. This guide does not change an application,
 > service, Redis instance, or supervisor configuration.
 
+For opt-in wrappers and stricter publication policy, see
+[solo hardening without source changes](solo-redis-hardening.md). It adds best-effort
+cold handling, immediate-only publication, and application recovery patterns—not
+an unconditional ACK or delivery guarantee.
+
 ## 1. The recommended design
 
 1. **One execution per solo worker process.** Use multiple separately supervised

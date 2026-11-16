@@ -1,0 +1,48 @@
+ 
+ -------------- hardening-probe@localhost v5.7.0 (collider)
+--- ***** ----- 
+-- ******* ---- macOS-15.8.1-arm64-arm-64bit-Mach-O 2026-11-16 10:57:45
+- *** --- * --- 
+- ** ---------- [config]
+- ** ---------- .> app:         hardening_probe:0x10765acf0
+- ** ---------- .> transport:   redis+socket:///Users/sergunich/dev/repos/celery/.dev/shutdown-75277.sock
+- ** ---------- .> results:     socket:///Users/sergunich/dev/repos/celery/.dev/shutdown-75277.sock
+- *** --- * --- .> concurrency: 1 (solo)
+-- ******* ---- .> task events: OFF (enable -E to monitor tasks in this worker)
+--- ***** ----- 
+ -------------- [queues]
+                .> hardening-probe  exchange=hardening-probe(direct) key=hardening-probe
+                
+
+[tasks]
+  . hardening_probe.ping
+  . hardening_probe.work
+  . shutdown_probe.task
+
+[2026-11-16 10:57:46,019: INFO/MainProcess] Connected to redis+socket:///Users/sergunich/dev/repos/celery/.dev/shutdown-75277.sock
+[2026-11-16 10:57:46,022: INFO/MainProcess] hardening-probe@localhost ready.
+[2026-11-16 10:57:46,035: INFO/MainProcess] Task hardening_probe.work[9f8fe16a-f22c-43f7-88fb-601d3cfcf29d] received
+[2026-11-16 10:57:46,038: ERROR/MainProcess] Task hardening_probe.work[9f8fe16a-f22c-43f7-88fb-601d3cfcf29d] raised unexpected: TaskProcessExit('Task attempted SystemExit(23)')
+Traceback (most recent call last):
+  File "/Users/sergunich/dev/repos/celery/.dev/solo-redis-hardening/solo_hardening.py", line 30, in guarded
+    return fun(*args, **kwargs)
+  File "/Users/sergunich/dev/repos/celery/.dev/solo-redis-hardening/hardening_probe.py", line 35, in work
+    raise SystemExit(23)
+SystemExit: 23
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/Users/sergunich/dev/repos/celery/celery/app/trace.py", line 564, in trace_task
+    R = retval = fun(*args, **kwargs)
+                 ~~~^^^^^^^^^^^^^^^^^
+  File "/Users/sergunich/dev/repos/celery/celery/app/trace.py", line 883, in __protected_call__
+    return self.run(*args, **kwargs)
+           ~~~~~~~~^^^^^^^^^^^^^^^^^
+  File "/Users/sergunich/dev/repos/celery/.dev/solo-redis-hardening/solo_hardening.py", line 44, in guarded
+    raise TaskProcessExit(f"Task attempted SystemExit({exc.code!r})") from exc
+solo_hardening.TaskProcessExit: Task attempted SystemExit(23)
+[2026-11-16 10:57:46,060: INFO/MainProcess] Task hardening_probe.ping[327a73af-db3c-460a-9f18-cc6f1ab07474] received
+[2026-11-16 10:57:46,061: INFO/MainProcess] Task hardening_probe.ping[327a73af-db3c-460a-9f18-cc6f1ab07474] succeeded in 0.00027254200540483s: 'alive'
+
+worker: Warm shutdown (MainProcess)

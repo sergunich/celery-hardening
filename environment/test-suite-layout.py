@@ -13,7 +13,8 @@ from urllib.parse import unquote, urlsplit
 
 DEV = Path(__file__).resolve().parents[1]
 ROOT = DEV.parent
-SUITES = ("shutdown", "eta-prefetch", "task-policy", "redis-connection", "redis-visibility")
+SUITES = ("shutdown", "eta-prefetch", "task-policy", "redis-connection", "redis-visibility",
+          "solo-redis-hardening")
 
 
 class SuiteLayoutTests(unittest.TestCase):
@@ -56,6 +57,7 @@ class SuiteLayoutTests(unittest.TestCase):
             "task-policy/verify-task-policies.py",
             "redis-connection/verify-redis-connections.py",
             "redis-visibility/verify-redis-visibility.py",
+            "solo-redis-hardening/verify-solo-hardening.py",
         )
         env = dict(os.environ, PYTHONDONTWRITEBYTECODE="1")
         env.pop("PYTHONPATH", None)

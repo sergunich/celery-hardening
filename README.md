@@ -10,11 +10,13 @@ Suites own their scripts, probes, logs, runs, and supporting documents (includin
 | [task-policy/](task-policy/) | [Task policies](task-policy.md) | Policy probe/runner, runs and console logs |
 | [redis-connection/](redis-connection/) | [Redis connections](redis-connection.md) | Connection probe/runner, fault proxy/tests, runs and console logs |
 | [redis-visibility/](redis-visibility/) | [Redis visibility](redis-visibility.md) | Visibility probe/runner, observation/wiring tests, runs, source/history audit, console logs |
+| [solo-redis-hardening/](solo-redis-hardening/) | [Solo hardening](solo-redis-hardening.md) | Opt-in application examples, unit/worker checks, runs, and upstream PR snapshots |
 | [environment/](environment/) | This index | Shared environment setup/lock, relocation map, validation notes and regression checks |
 
 Setup recommendations: [comparison](compare-redis.md),
 [solo](solo-redis.md), [prefork](prefork-redis.md),
 [threads](threads-redis.md), [gevent](gevent-redis.md).
+Best-effort extensions: [solo hardening without source changes](solo-redis-hardening.md).
 
 ## Environment and cross-suite dependencies
 
@@ -30,7 +32,8 @@ shared by every suite; no per-suite environments or production code changes are 
 
 The shutdown suite remains the owner of the shared private-Redis/process helpers
 and `shutdown_probe` instrumentation. ETA, policy, and connection workers reuse that
-probe; the visibility probe is independent. Connection/visibility runners also reuse
+probe; the visibility probe is independent. The hardening suite also reuses shutdown
+observers/private Redis and policy cleanup. Connection/visibility runners also reuse
 policy cleanup helpers. Runners resolve these paths from their own locations and
 supply explicit worker `PYTHONPATH` entries, including for prefork spawn. They do not
 require the caller's current directory to be the checkout root.

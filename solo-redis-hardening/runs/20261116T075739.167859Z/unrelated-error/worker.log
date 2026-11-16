@@ -1,0 +1,41 @@
+ 
+ -------------- hardening-probe@localhost v5.7.0 (collider)
+--- ***** ----- 
+-- ******* ---- macOS-15.8.1-arm64-arm-64bit-Mach-O 2026-11-16 10:57:44
+- *** --- * --- 
+- ** ---------- [config]
+- ** ---------- .> app:         hardening_probe:0x102eb2cf0
+- ** ---------- .> transport:   redis+socket:///Users/sergunich/dev/repos/celery/.dev/shutdown-75277.sock
+- ** ---------- .> results:     socket:///Users/sergunich/dev/repos/celery/.dev/shutdown-75277.sock
+- *** --- * --- .> concurrency: 1 (solo)
+-- ******* ---- .> task events: OFF (enable -E to monitor tasks in this worker)
+--- ***** ----- 
+ -------------- [queues]
+                .> hardening-probe  exchange=hardening-probe(direct) key=hardening-probe
+                
+
+[tasks]
+  . hardening_probe.ping
+  . hardening_probe.work
+  . shutdown_probe.task
+
+[2026-11-16 10:57:44,170: INFO/MainProcess] Connected to redis+socket:///Users/sergunich/dev/repos/celery/.dev/shutdown-75277.sock
+[2026-11-16 10:57:44,175: INFO/MainProcess] hardening-probe@localhost ready.
+[2026-11-16 10:57:44,193: INFO/MainProcess] Task hardening_probe.work[597672fa-9932-49a1-a514-ed2688f2bfcd] received
+[2026-11-16 10:57:44,195: ERROR/MainProcess] Task hardening_probe.work[597672fa-9932-49a1-a514-ed2688f2bfcd] raised unexpected: NotImplementedError('ordinary application error')
+Traceback (most recent call last):
+  File "/Users/sergunich/dev/repos/celery/celery/app/trace.py", line 564, in trace_task
+    R = retval = fun(*args, **kwargs)
+                 ~~~^^^^^^^^^^^^^^^^^
+  File "/Users/sergunich/dev/repos/celery/celery/app/trace.py", line 883, in __protected_call__
+    return self.run(*args, **kwargs)
+           ~~~~~~~~^^^^^^^^^^^^^^^^^
+  File "/Users/sergunich/dev/repos/celery/.dev/solo-redis-hardening/solo_hardening.py", line 30, in guarded
+    return fun(*args, **kwargs)
+  File "/Users/sergunich/dev/repos/celery/.dev/solo-redis-hardening/hardening_probe.py", line 37, in work
+    raise NotImplementedError('ordinary application error')
+NotImplementedError: ordinary application error
+[2026-11-16 10:57:44,219: INFO/MainProcess] Task hardening_probe.ping[41a4c76d-b43b-4ba0-9f1b-5e42ec17aaca] received
+[2026-11-16 10:57:44,219: INFO/MainProcess] Task hardening_probe.ping[41a4c76d-b43b-4ba0-9f1b-5e42ec17aaca] succeeded in 0.00030737509950995445s: 'alive'
+
+worker: Warm shutdown (MainProcess)
