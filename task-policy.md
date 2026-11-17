@@ -131,6 +131,11 @@ resolved task attributes to verify the configuration actually bound to the task.
 
 ## 1. Ordinary task failure: policy works in every pool
 
+**With the tested Redis transport, both failure-ACK settings remove the original
+failed delivery without automatically running it again.** True sends an ACK;
+False sends a rejection without requeue. This is an ACK-versus-reject choice,
+not a retry-versus-discard choice.
+
 Raise `ValueError` from the task. `acks_on_timeout` is deliberately set to the
 opposite of `acks_on_failure`, confirming which setting controls this path.
 
@@ -140,12 +145,31 @@ opposite of `acks_on_failure`, confirming which setting controls this path.
 | `failure-<pool>-discard` (4) | All four | False | No | FAILURE | No | `requeue=False` | **None; delivery absent** | 0 |
 | `failure-solo-early` | solo, early ACK | False | No | FAILURE | **Yes** | None | None, even with both lost flags enabled | 0 |
 
-**Disabling failure ACK is not automatic retry.** With late ACK and an ordinary
-failure, Celery explicitly sends `reject(requeue=False)` rather than leaving the
-delivery unsettled. The Redis transport removes its unacked records without
-returning it to the queue: the delivery is discarded, and visibility-timeout
-recovery has nothing left to restore. A broker with dead-letter routing may route
-a non-requeued rejection elsewhere, but that was not tested here. See appendix A4.
+**False does not mean “leave the message unacknowledged for recovery.”** With late
+ACK and an ordinary failure, `task_acks_on_failure=False` explicitly sends
+`reject(requeue=False)`. Redis removes the unacked records without returning the
+message to the queue, leaving nothing for visibility recovery. True also removes
+the delivery, through ACK. Both settings recorded backend FAILURE in these tests;
+acknowledgment does not mean the task succeeded.
+
+**Why distinguish ACK from rejection?** Some brokers can handle them differently.
+RabbitMQ, for example, can route a non-requeued rejection to a configured dead-letter
+exchange, whereas an ACK settles the delivery without dead-lettering it. Without
+applicable dead-letter routing, that rejection also discards the message. This is
+broker semantics, not a RabbitMQ experiment performed here. The tested Redis
+transport has no equivalent dead-letter handling on this path, so the two settings
+have the same delivery-recovery outcome. See appendix A4.
+
+To request another execution, choose an explicit policy instead:
+
+- `self.retry()` or targeted autoretry publishes another attempt and supports a
+  finite retry budget.
+- `Reject(requeue=True)` requests redelivery of the original message. It does not
+  increment Celery's retry counter, so `max_retries` does not bound that loop.
+
+These are different recovery mechanisms, not effects of disabling failure ACK.
+Retry publication and settlement of the original delivery are separate operations,
+not an exactly-once transaction.
 
 **In every pool, failure ACK policy only applies with late acknowledgment.**
 Early ACK (`task_acks_late=False`) is requested on pool acceptance; later failure

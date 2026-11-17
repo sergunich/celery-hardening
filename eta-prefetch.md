@@ -164,6 +164,18 @@ the pool are not early-ACKed just because they entered the worker.
 
 ## 4. ETA limits and prefetch interact
 
+There are **two separate issues**, not one:
+
+1. **While the ETA limit is full, immediate work can be blocked.** Waiting ETA
+   tasks consume the worker's delivery allowance even though they occupy no execution
+   slots. The worker can therefore be idle while immediate jobs remain in Redis.
+2. **After scheduled work drains, the prefetch allowance can remain too low.**
+   An accounting bug can leave it below its configured starting value.
+
+The first is a fairness limitation of sharing delivery credit between scheduled
+and immediate work. The second is a bookkeeping defect. **Fixing the bookkeeping
+would not prevent a full ETA limit from blocking immediate work.**
+
 These cases use prefork to isolate the shared consumer/QoS behavior. All scheduled
 future messages shown below had **zero ACKs** at the observation point.
 
@@ -182,6 +194,48 @@ unfetched ones queued. The running task in mixed-cap cases finished and ACKed.
 In the initial-prefetch-above-cap case, the running task finished/ACKed and five
 unaccepted tasks were restored without ACK.
 
+### Issue 1: waiting ETA tasks exhaust delivery credit
+
+**Execution capacity and delivery allowance are different limits.** Execution
+capacity controls how many tasks can run; delivery allowance (QoS/prefetch credit)
+controls whether the worker may fetch another message. Waiting ETA tasks use no
+execution slots, but they remain unacknowledged and consume that delivery allowance.
+
+In `cap-three`, initial prefetch was **1** and the ETA limit was **3**. Receiving
+ETAs increased the allowance from **1 → 2 → 3**, but the next increase was capped:
+after the third ETA arrived, three unacknowledged deliveries filled an allowance
+of three. The worker ran nothing, while two more future tasks and an immediate
+task remained queued. It could not fetch more messages because delivery credit,
+not execution capacity, was exhausted.
+
+Configured prefetch was therefore used, but **as the starting value of the same
+QoS counter—not as separately reserved credit for immediate work**. The ETA limit
+caps increases of that counter at 3; it does not grant “3 ETA deliveries plus
+prefetch 1” for a total of 4. Enough scheduled work must release credit before
+fetching resumes.
+
+This happens **when the cap is saturated**, not merely because the setting is enabled.
+Active late-ACK tasks also share the allowance, and delayed retries use the ETA
+mechanism too. With positive initial prefetch no greater than the cap, this is an
+outstanding-delivery ceiling, not “N ETA tasks plus ordinary prefetch.” Separate
+worker capacity or publication only when due can avoid this competition; simply
+raising the cap postpones saturation rather than guaranteeing responsiveness.
+
+### Issue 2: draining scheduled work lowers the prefetch baseline
+
+Each received ETA normally increases delivery credit, **but only while that increase
+is permitted by the configured cap**. Below the cap, this compensates for holding
+an unacknowledged scheduled task and allows the worker to fetch other work. When
+scheduled work becomes due, removing the credit that was actually added should
+leave the worker's original prefetch baseline intact.
+
+At saturation, however, some increments are discarded while later decrements still
+happen. In `cap-release`, the allowance started at **2**, reached the cap of **3**,
+and ended at **1** after all work completed and ACKed. The worker was left with less
+prefetch credit than configured, rather than returning to 2. This is a separate
+accounting bug—not the temporary blocking caused by a full cap, and not a measured
+throughput result.
+
 ### What the limit implementation actually does
 
 `worker_eta_task_limit` is passed to Kombu `QoS(max_prefetch=...)`. In this
@@ -197,14 +251,11 @@ installed Kombu version:
    not remember the increments it discarded; subsequent decrements can therefore
    lower QoS below the original baseline (measured as 2 → 3 → 1).
 
-These are **implementation/documentation discrepancies in this checkout and
-Kombu version**, not recommended configuration tricks. The documentation's
-claim of an unconditional overall unacked-message cap is too strong here.
-
-With a positive starting prefetch no greater than the cap, the tested cap works
-as an **overall outstanding-delivery ceiling**, shared by scheduled ETA tasks,
-active late-ack work, and other unacked reservations. It is not an independent
-quota of “N ETA tasks plus ordinary prefetch.”
+The zero-prefetch bypass, unclamped initial window, and baseline drift are
+**implementation/documentation discrepancies in this checkout and Kombu version**,
+not recommended configuration tricks. They also make the documented unconditional
+overall unacked-message cap too strong. These defects are distinct from the
+shared-cap fairness limitation explained in issue 1.
 
 ## 5. Shutdown while all work is still scheduled
 
