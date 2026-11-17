@@ -40,6 +40,20 @@ Proof categories:
   example, check whether a setting reaches `app.backend.connparams`. This verifies
   configuration wiring, not network-failure behavior.
 
+## An opinionated shortlist
+
+My picks of particularly concerning findings for solo workers with late-ACK tasks and Redis
+as the broker:
+
+- [A1 - Solo QUIT can ACK interrupted work](#a1---solo-quit-can-ack-interrupted-work)
+- [B1 - Solo early ACK can happen after the body](#b1---solo-early-ack-can-happen-after-the-body)
+- [B2 - Reconnect does not replay every failed completion ACK](#b2---reconnect-does-not-replay-every-failed-completion-ack)
+- [B4 - Transport gap: a task can disappear between BRPOP and unacked registration](#b4---transport-gap-a-task-can-disappear-between-brpop-and-unacked-registration)
+- [C3 - `worker_eta_task_limit` saturation can starve immediate work with idle capacity](#c3---worker_eta_task_limit-saturation-can-starve-immediate-work-with-idle-capacity)
+- [D1 - ETA/countdown longer than visibility can execute repeatedly on one healthy worker](#d1---etacountdown-longer-than-visibility-can-execute-repeatedly-on-one-healthy-worker)
+- [E1 - Failure ACK False discards ordinary failures rather than retrying them](#e1---failure-ack-false-discards-ordinary-failures-rather-than-retrying-them)
+- [G1 - The three documented visibility settings are not three effective timers](#g1---the-three-documented-visibility-settings-are-not-three-effective-timers)
+
 ### A - Shutdown and cancellation
 
 #### A1 - Solo QUIT can ACK interrupted work
