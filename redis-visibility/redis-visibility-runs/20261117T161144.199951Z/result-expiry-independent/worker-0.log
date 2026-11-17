@@ -1,0 +1,25 @@
+ 
+ -------------- worker-0@localhost v5.7.0 (collider)
+--- ***** ----- 
+-- ******* ---- macOS-15.8.1-arm64-arm-64bit-Mach-O 2026-11-17 19:12:01
+- *** --- * --- 
+- ** ---------- [config]
+- ** ---------- .> app:         visibility_probe:0x1039bf380
+- ** ---------- .> transport:   redis+socket:///Users/sergunich/dev/my/celery-hardening/redis-84358.sock
+- ** ---------- .> results:     socket:///Users/sergunich/dev/my/celery-hardening/redis-84358.sock
+- *** --- * --- .> concurrency: 1 (solo)
+-- ******* ---- .> task events: OFF (enable -E to monitor tasks in this worker)
+--- ***** ----- 
+ -------------- [queues]
+                .> visibility-probe exchange=visibility-probe(direct) key=visibility-probe
+                
+
+[tasks]
+  . redis_visibility_probe.work
+
+[2026-11-17 19:12:01,384: INFO/MainProcess] Connected to redis+socket:///Users/sergunich/dev/my/celery-hardening/redis-84358.sock
+[2026-11-17 19:12:01,387: INFO/MainProcess] worker-0@localhost ready.
+[2026-11-17 19:12:01,400: INFO/MainProcess] Task redis_visibility_probe.work[a80108a6-4cad-4833-b235-0d4381ec91a8] received
+[2026-11-17 19:12:01,524: INFO/MainProcess] Task redis_visibility_probe.work[a80108a6-4cad-4833-b235-0d4381ec91a8] succeeded in 0.12334895902313292s: 'result-ttl'
+
+worker: Warm shutdown (MainProcess)

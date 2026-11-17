@@ -1,0 +1,21 @@
+{
+  "name": "failure-prefork-ack",
+  "pool": "prefork",
+  "kind": "fail",
+  "ack_failure": true,
+  "ack_timeout": false,
+  "expected": {
+    "starts": 1,
+    "completed": 0,
+    "acks": 1,
+    "rejects": [],
+    "state": "FAILURE",
+    "publications": 0,
+    "timeouts": [],
+    "failure": "ValueError"
+  },
+  "broker": "redis+socket:///Users/sergunich/dev/my/celery-hardening/redis-84243.sock?virtual_host=0",
+  "backend": "redis+socket:///Users/sergunich/dev/my/celery-hardening/redis-84243.sock?virtual_host=1",
+  "events": "task-policy/task-policy-runs/20261117T161054.378086Z/failure-prefork-ack/events.jsonl",
+  "queue": "policy-probe"
+}

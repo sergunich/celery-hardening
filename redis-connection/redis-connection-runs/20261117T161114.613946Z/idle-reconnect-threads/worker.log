@@ -1,0 +1,38 @@
+ 
+ -------------- net-0@localhost v5.7.0 (collider)
+--- ***** ----- 
+-- ******* ---- macOS-15.8.1-arm64-arm-64bit-Mach-O 2026-11-17 19:11:22
+- *** --- * --- 
+- ** ---------- [config]
+- ** ---------- .> app:         shutdown_probe:0x104e4ba10
+- ** ---------- .> transport:   redis://:**@127.0.0.1:60770/0
+- ** ---------- .> results:     socket:///Users/sergunich/dev/my/celery-hardening/redis-84278.sock
+- *** --- * --- .> concurrency: 1 (thread)
+-- ******* ---- .> task events: OFF (enable -E to monitor tasks in this worker)
+--- ***** ----- 
+ -------------- [queues]
+                .> net-probe        exchange=net-probe(direct) key=net-probe
+                
+
+[tasks]
+  . redis_connection_probe.work
+  . shutdown_probe.task
+
+[2026-11-17 19:11:22,481: INFO/MainProcess] Connected to redis://:**@127.0.0.1:60770/0
+[2026-11-17 19:11:22,487: INFO/MainProcess] net-0@localhost ready.
+[2026-11-17 19:11:22,530: WARNING/MainProcess] consumer: Connection to broker lost. Trying to re-establish the connection... (network:ConnectionError)
+[2026-11-17 19:11:22,533: WARNING/MainProcess] /Users/sergunich/dev/my/celery-hardening/redis-connection/redis_connection_probe.py:56: CPendingDeprecationWarning: 
+In Celery 5.1 we introduced an optional breaking change which
+on connection loss cancels all currently executed tasks with late acknowledgement enabled.
+These tasks cannot be acknowledged as the connection is gone, and the tasks are automatically redelivered
+back to the queue. You can enable this behavior using the worker_cancel_long_running_tasks_on_connection_loss
+setting. In Celery 5.1 it is set to False by default. The setting will be set to True by default in Celery 6.0.
+
+  result = _original_error(self, exc)
+
+[2026-11-17 19:11:22,533: INFO/MainProcess] Skipping prefetch count reduction after connection restart because per-consumer QoS (apply_global=False) is in effect and broker-side prefetch updates would not reach the running consumer.
+[2026-11-17 19:11:22,538: INFO/MainProcess] Connected to redis://:**@127.0.0.1:60770/0
+[2026-11-17 19:11:22,569: INFO/MainProcess] Task redis_connection_probe.work[c025de14-b814-427b-a3d7-f89d049a01ca] received
+[2026-11-17 19:11:22,738: INFO/MainProcess] Task redis_connection_probe.work[c025de14-b814-427b-a3d7-f89d049a01ca] succeeded in 0.1683938750065863s: 'ping-0'
+
+worker: Warm shutdown (MainProcess)

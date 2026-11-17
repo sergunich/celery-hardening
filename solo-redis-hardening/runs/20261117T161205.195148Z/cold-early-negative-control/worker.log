@@ -1,0 +1,62 @@
+ 
+ -------------- hardening-probe@localhost v5.7.0 (collider)
+--- ***** ----- 
+-- ******* ---- macOS-15.8.1-arm64-arm-64bit-Mach-O 2026-11-17 19:12:08
+- *** --- * --- 
+- ** ---------- [config]
+- ** ---------- .> app:         hardening_probe:0x1032117f0
+- ** ---------- .> transport:   redis+socket:///Users/sergunich/dev/my/celery-hardening/redis-84396.sock
+- ** ---------- .> results:     socket:///Users/sergunich/dev/my/celery-hardening/redis-84396.sock
+- *** --- * --- .> concurrency: 1 (solo)
+-- ******* ---- .> task events: OFF (enable -E to monitor tasks in this worker)
+--- ***** ----- 
+ -------------- [queues]
+                .> hardening-probe  exchange=hardening-probe(direct) key=hardening-probe
+                
+
+[tasks]
+  . hardening_probe.ping
+  . hardening_probe.work
+  . shutdown_probe.task
+
+[2026-11-17 19:12:08,557: INFO/MainProcess] Connected to redis+socket:///Users/sergunich/dev/my/celery-hardening/redis-84396.sock
+[2026-11-17 19:12:08,561: INFO/MainProcess] hardening-probe@localhost ready.
+[2026-11-17 19:12:08,569: INFO/MainProcess] Task hardening_probe.work[9945ed52-5de2-46aa-9843-0731bded9b4a] received
+
+worker: Hitting Ctrl+C again will terminate all running tasks!
+[2026-11-17 19:12:08,682: WARNING/MainProcess] Task hardening_probe.work[9945ed52-5de2-46aa-9843-0731bded9b4a] reject requeue=True: Solo worker shutting down
+Traceback (most recent call last):
+  File "/Users/sergunich/dev/my/celery-hardening/solo-redis-hardening/solo_hardening.py", line 30, in guarded
+    return fun(*args, **kwargs)
+  File "/Users/sergunich/dev/my/celery-hardening/solo-redis-hardening/hardening_probe.py", line 40, in work
+    time.sleep(duration)
+    ~~~~~~~~~~^^^^^^^^^^
+  File "/Users/sergunich/dev/my/celery-hardening/repos/celery/celery/apps/worker.py", line 343, in _handle_request
+    callback(worker)
+    ~~~~~~~~^^^^^^^^
+  File "/Users/sergunich/dev/my/celery-hardening/repos/celery/celery/apps/worker.py", line 479, in on_cold_shutdown
+    worker.consumer.cancel_active_requests()
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^
+  File "/Users/sergunich/dev/my/celery-hardening/repos/celery/celery/worker/consumer/consumer.py", line 929, in cancel_active_requests
+    request.cancel(self.pool, emit_retry=emit_retry)
+    ~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/sergunich/dev/my/celery-hardening/repos/celery/celery/worker/request.py", line 438, in cancel
+    pool.terminate_job(self.worker_pid, signal)
+    ~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/sergunich/dev/my/celery-hardening/repos/celery/celery/concurrency/base.py", line 113, in terminate_job
+    raise NotImplementedError(
+        f'{type(self)} does not implement kill_job')
+NotImplementedError: <class 'celery.concurrency.solo.TaskPool'> does not implement kill_job
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/Users/sergunich/dev/my/celery-hardening/repos/celery/celery/app/trace.py", line 564, in trace_task
+    R = retval = fun(*args, **kwargs)
+                 ~~~^^^^^^^^^^^^^^^^^
+  File "/Users/sergunich/dev/my/celery-hardening/repos/celery/celery/app/trace.py", line 883, in __protected_call__
+    return self.run(*args, **kwargs)
+           ~~~~~~~~^^^^^^^^^^^^^^^^^
+  File "/Users/sergunich/dev/my/celery-hardening/solo-redis-hardening/solo_hardening.py", line 38, in guarded
+    raise Reject("Solo worker shutting down", requeue=True) from exc
+celery.exceptions.Reject: ('Solo worker shutting down', True)

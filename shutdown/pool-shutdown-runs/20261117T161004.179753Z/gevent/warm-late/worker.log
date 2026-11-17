@@ -1,0 +1,26 @@
+ 
+ -------------- shutdown-probe@localhost v5.7.0 (collider)
+--- ***** ----- 
+-- ******* ---- macOS-15.8.1-arm64-arm-64bit-Mach-O 2026-11-17 19:10:23
+- *** --- * --- 
+- ** ---------- [config]
+- ** ---------- .> app:         shutdown_probe:0x104d0ee90
+- ** ---------- .> transport:   redis+socket:///Users/sergunich/dev/my/celery-hardening/redis-84132.sock
+- ** ---------- .> results:     socket:///Users/sergunich/dev/my/celery-hardening/redis-84132.sock
+- *** --- * --- .> concurrency: 1 (gevent)
+-- ******* ---- .> task events: OFF (enable -E to monitor tasks in this worker)
+--- ***** ----- 
+ -------------- [queues]
+                .> shutdown-probe   exchange=shutdown-probe(direct) key=shutdown-probe
+                
+
+[tasks]
+  . shutdown_probe.task
+
+[2026-11-17 19:10:23,872: INFO/MainProcess] Connected to redis+socket:///Users/sergunich/dev/my/celery-hardening/redis-84132.sock
+[2026-11-17 19:10:23,875: INFO/MainProcess] shutdown-probe@localhost ready.
+[2026-11-17 19:10:23,876: INFO/MainProcess] pidbox: Connected to redis+socket:///Users/sergunich/dev/my/celery-hardening/redis-84132.sock.
+[2026-11-17 19:10:23,883: INFO/MainProcess] Task shutdown_probe.task[bae4d64a-3135-4856-a2bc-a39855c6de7e] received
+
+worker: Warm shutdown (MainProcess)
+[2026-11-17 19:10:25,968: INFO/MainProcess] Task shutdown_probe.task[bae4d64a-3135-4856-a2bc-a39855c6de7e] succeeded in 2.084786874940619s: 'completed'
