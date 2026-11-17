@@ -31,7 +31,10 @@ macOS ARM64, Python 3.13.9, Redis 8.2.3**. Prefork children used **spawn**.
 **Validation:** 96/96 experiment checks passed. These checks reproduce
 observed behavior, including bugs; they do **not** certify all shutdown modes as correct.
 
-The preceding full run shared **92 cases** with this run; **0 differed** in task completion, backend state, observed ACK, message location, forced kill, exit code, or whether the hard handler ran. Elapsed times are not expected to match.
+The preceding full run shared **92 cases** with this run;
+**0 differed** in task completion, backend state, observed ACK,
+message location, forced kill, exit code, or whether the hard handler ran.
+Elapsed times are not expected to match.
 
 ## How to read the results
 

@@ -1,0 +1,19 @@
+[global]
+# Lint maintained prose, never upstream checkouts or recorded experimental evidence.
+exclude = ["repos/**", ".venv/**", "**/*-runs/**", "**/runs/**", "**/*-audit/**", "environment/validation/**"]
+respect-gitignore = true
+cache = false
+# Compact italic finding metadata and bold operational callouts are intentional.
+disable = ["MD036"]
+
+[MD013]
+line-length = 120
+# Preserve executable examples and wide evidence tables without reflowing them.
+code-blocks = false
+tables = false
+
+[per-file-ignores]
+# Findings intentionally keep their pool/type/proof metadata on one italic line.
+"README.md" = ["MD013"]
+# This maintained fragment is embedded beneath the report's existing H1.
+"shutdown/shutdown-appendix.md" = ["MD041"]

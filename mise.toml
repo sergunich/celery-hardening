@@ -7,6 +7,7 @@ locked = true
 python = "3.13.9"
 uv = "0.11.15"
 redis = "8.2.3"
+rumdl = "0.2.52"
 
 [env]
 PYTHONDONTWRITEBYTECODE = "1"
@@ -103,3 +104,7 @@ description = "Render shutdown.md from a COMPLETE 96-case summary"
 dir = "{{config_root}}"
 run = "uv run --locked --no-sync python shutdown/render-shutdown-report.py"
 
+[tasks."lint:md"]
+description = "Lint maintained Markdown documents (exclude sources and historical evidence)"
+dir = "{{config_root}}"
+run = "rumdl check --config .rumdl.toml ."

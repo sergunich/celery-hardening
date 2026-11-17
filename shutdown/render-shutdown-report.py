@@ -61,9 +61,9 @@ def main():
             if (any(old[f] != o[f] for f in fields)
                     or any(len(old["broker"][f]) != len(o["broker"][f]) for f in ("queued", "unacked"))):
                 diffs.append(key)
-        repeated = (f"The preceding full run shared **{compared} cases** with this run; "
-                    f"**{len(diffs)} differed** in task completion, backend state, observed ACK, "
-                    "message location, forced kill, exit code, or whether the hard handler ran. "
+        repeated = (f"The preceding full run shared **{compared} cases** with this run;\n"
+                    f"**{len(diffs)} differed** in task completion, backend state, observed ACK,\n"
+                    "message location, forced kill, exit code, or whether the hard handler ran.\n"
                     "Elapsed times are not expected to match.\n")
     parts = [f"""# Celery shutdowns: solo, prefork, threads, and gevent
 

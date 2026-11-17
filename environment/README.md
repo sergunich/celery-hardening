@@ -15,6 +15,7 @@ mise install --locked
 mise run setup
 mise run check
 mise run test
+mise run lint:md
 ```
 
 Setup does not start Redis or workers. It checks out locked upstream sources and
@@ -28,8 +29,8 @@ replace source checkouts. Run setup explicitly when the environment is absent.
 
 | File | Responsibility |
 | --- | --- |
-| [mise.toml](../mise.toml) | Exact Python 3.13.9, uv 0.11.15, Redis 8.2.3; shared task definitions and environment |
-| [mise.lock](../mise.lock) | Tool download URLs for macOS ARM64 and Linux x64; Python/uv artifact checksums |
+| [mise.toml](../mise.toml) | Exact Python 3.13.9, uv 0.11.15, Redis 8.2.3, rumdl 0.2.52; shared tasks and environment |
+| [mise.lock](../mise.lock) | Tool download URLs for macOS ARM64 and Linux x64; Python/uv/rumdl artifact checksums |
 | [.python-version](../.python-version) | Exact Python version for uv and other Python-aware tools |
 | [pyproject.toml](../pyproject.toml) | One non-package uv project; exact runtime dependency versions |
 | [uv.lock](../uv.lock) | Full dependency resolution, platform markers, artifact hashes |
@@ -74,6 +75,9 @@ No Celery, Kombu, Billiard, or Redis implementation is patched.
 - `sources` / `sync`: run the two explicit setup steps separately.
 - `check`: detect environment/source/lock drift without installing anything.
 - `test`: all unit/regression checks; no worker or Redis server starts.
+- `lint:md`: check maintained Markdown with pinned rumdl and
+  [the lint configuration](../.rumdl.toml). Excludes upstream sources and historical
+  evidence; preserves compact finding metadata and wide code examples/tables.
 - `smoke`: 30 focused real-worker cases spanning all seven runners and four pools.
 - `shutdown`, `solo-requeue`, `eta-prefetch`, `task-policy`,
   `redis-connection`, `redis-visibility`, `solo-hardening`: suite entry points.

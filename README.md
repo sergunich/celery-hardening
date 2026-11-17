@@ -246,8 +246,8 @@ The [lost-delivery
 experiment](redis-connection.md#6-delivery-reply-lost-before-unacked-registration)
 dropped a message-bearing BRPOP reply before Kombu registered it as unacked, leaving
 nothing for reconnect or visibility recovery. Worker death in that interval is a
-source-backed risk, not the injected fault. [Kombu PR
-#2831](solo-redis-hardening.md#kombu-pr-2831) proposes closing this gap; its retained
+source-backed risk, not the injected fault. [Kombu
+PR #2831](solo-redis-hardening.md#kombu-pr-2831) proposes closing this gap; its retained
 2026-11-16 snapshot was open/unmerged, not evidence of an installed or released fix.
 
 #### B5 - Restored Redis deliveries retain tags
@@ -1086,7 +1086,12 @@ self-contained configuration and source-setup safeguards.
 ```bash
 mise run check
 mise run test
+mise run lint:md
 ```
+
+Markdown lint uses pinned rumdl and [.rumdl.toml](.rumdl.toml), preserving compact
+finding metadata and wide examples/tables. Cloned sources and historical evidence
+are excluded.
 
 All suites share `.venv/`, pinned sources, import-path setup, and the private Redis
 fixture. `check` rejects version drift, wrong import origins, dirty source checkouts,

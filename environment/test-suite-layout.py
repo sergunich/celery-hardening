@@ -72,6 +72,9 @@ class SuiteLayoutTests(unittest.TestCase):
             self.assertEqual(tasks[name]["dir"], "{{config_root}}")
         self.assertEqual(tasks["sync"]["run"], 'uv sync --locked --python "$(mise where python)/bin/python"')
         self.assertEqual(set(tasks["setup"]["depends"]), {"sources", "sync"})
+        self.assertEqual(tasks["lint:md"]["run"], "rumdl check --config .rumdl.toml .")
+        self.assertEqual(tasks["lint:md"]["dir"], "{{config_root}}")
+        self.assertIn("rumdl", load_toml("mise.toml")["tools"])
 
     def test_scripts_parse_without_importing_probe_side_effects(self):
         for directory in DIRECTORIES:
