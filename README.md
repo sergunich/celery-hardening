@@ -701,19 +701,22 @@ canceled work. There is no separate “long-running” duration threshold.
 
 #### F7 - Reconnect can restore a task while its original body continues
 
-*Pool: solo, prefork, threads, gevent · Type: surprising semantics · Proofs: reproduced with workers*
+*Pool: prefork, threads, gevent · Type: surprising semantics · Proofs: reproduced with workers*
 
-After a disconnect, recovery can make a task available again without stopping its
-original execution. Reconnecting can therefore produce duplicate work rather than simply
-resume processing.
+With these pools, connection recovery can make a task available again while its original
+execution is still running. Without effective cancellation, this can produce duplicate
+executions rather than simply resume processing.
 
 The [active-work disconnect
 tests](redis-connection.md#3-cut-during-an-active-task-timing-and-cancellation-matter)
-completed duplicate bodies where cancellation was disabled or ineffective; with
-sufficient capacity, copies can overlap. Solo's queued ACK settled the message before
-consumer recovery in the brief-cut case, but failed during the sustained outage. Those
-outcomes depend on timing and do not establish a universal duplicate-free reconnect
-path.
+completed duplicate bodies where cancellation was disabled or ineffective; with enough
+capacity, copies can overlap. In contrast, solo's consumer handled reconnection only
+after its inline body returned. Its ACK succeeded before consumer recovery in the brief
+cut, but failed during the sustained outage, leaving completed work unacked—the
+[B2](#b2---reconnect-does-not-replay-every-failed-completion-ack) problem. Solo overlap
+caused by another worker's visibility scan is covered by
+[D6](#d6---solos-blocked-scanner-does-not-prevent-duplicates), not by consumer reconnection
+during the original body.
 
 #### F8 - Generic reconnect-prefetch reduction did not apply here
 
