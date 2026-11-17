@@ -13,7 +13,7 @@
 
 ## 1. Direct answer: these are not three effective Redis visibility timers
 
-The [Redis guide](https://docs.celeryqen/stable/getting-started/backends-and-brokers/redis.html#id3)
+The [Redis guide](https://docs.celeryq.dev/en/stable/getting-started/backends-and-brokers/redis.html#id3)
 and this checkout's `repos/celery/docs/getting-started/backends-and-brokers/redis.rst` show:
 
 ```python

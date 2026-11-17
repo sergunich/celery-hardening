@@ -35,7 +35,7 @@ deadlines.
 
 ### What does the warm-shutdown documentation mean?
 
-The [Workers Guide](https://docs.celeryqen/stable/userguide/workers.html#warm-shutdown)
+The [Workers Guide](https://docs.celeryq.dev/en/stable/userguide/workers.html#warm-shutdown)
 says that before the prefork warm-shutdown heartbeat fix:
 
 > This caused the broker to terminate the connection, which meant that tasks were not able to complete.

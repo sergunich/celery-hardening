@@ -1133,3 +1133,9 @@ resources to reconnect to or commands to execute now. The earlier
 See [portability validation](environment/portability-validation.md) for this migration.
 Changed runner hashes in new results are expected; historical evidence is never
 rewritten to match current sources.
+
+## License
+
+Original code and documentation are licensed under the [MIT License](LICENSE).
+Third-party material retains its original licenses; see
+[Third-party notices](THIRD_PARTY_NOTICES.md) for attribution and exceptions.
