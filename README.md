@@ -1,4 +1,4 @@
-# Celery Redis experiments
+# Celery Hardening
 
 Real-worker experiments investigating bugs, gotchas, and inconsistencies between
 Celery's documented and actual behavior with **solo, prefork, threads, and gevent**,
