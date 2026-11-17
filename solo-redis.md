@@ -373,7 +373,7 @@ not certify this exact deployment.
 | [Redis visibility report](redis-visibility.md) | Effective B-only configuration; scanner scope; solo early-ACK duplicates; repeated ETA execution; result TTL vs visibility |
 | Visibility report A5–A7 and [wiring tests](redis-visibility/test-visibility-config-wiring.py) | Other backend options remain meaningful; no independent R/T visibility timer; dictionary aliasing and explicit forwarding |
 
-Source checks additionally cover `celery/concurrency/solo.py`, RedisBackend's
+Source checks additionally cover `repos/celery/celery/concurrency/solo.py`, RedisBackend's
 retry policy/`ensure`, and the configuration reference for backend socket settings.
 Task deadlines, business idempotency, supervisor policy, Redis persistence/security,
 and the illustrative production tuning values are recommendations, not new runtime

@@ -1,0 +1,24 @@
+[check] $ uv run --locked --no-sync python environment/manage.py check
+warning: Using incompatible environment (`.venv`) due to `--no-sync` (The project environment's Python interpreter does not meet the Python preference: `only managed`)
+Using CPython 3.13.9
+Resolved 23 packages in 3ms
+{
+  "python": "3.13.9",
+  "uv": "0.11.15",
+  "redis": "8.2.3",
+  "imports": {
+    "celery": "repos/celery/celery/__init__.py",
+    "kombu": "repos/kombu/kombu/__init__.py"
+  }
+}
+[smoke] $ uv run --locked --no-sync python environment/manage.py smoke
+warning: Using incompatible environment (`.venv`) due to `--no-sync` (The project environment's Python interpreter does not meet the Python preference: `only managed`)
+Smoke: shutdown --case warm-late
+Smoke: solo-requeue 
+Smoke: eta-prefetch --case due-solo-late --case due-prefork-late --case due-threads-late --case due-gevent-late
+Smoke: task-policy --case failure-solo-ack --case failure-prefork-ack --case failure-threads-ack --case failure-gevent-ack --case lost-prefork-retry
+Smoke: redis-connection --case idle-reconnect-solo --case idle-reconnect-prefork --case idle-reconnect-threads --case idle-reconnect-gevent --case ack-before-commit-dedup
+Smoke: redis-visibility --case config-B --case prefork-reserved-expiry --case result-expiry-independent
+Smoke: solo-hardening 
+Smoke evidence: environment/validation/20261117T134402.649842Z
+Finished in 132.81s

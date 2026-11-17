@@ -35,12 +35,12 @@ deadlines.
 
 ### What does the warm-shutdown documentation mean?
 
-The [Workers Guide](https://docs.celeryq.dev/en/stable/userguide/workers.html#warm-shutdown)
+The [Workers Guide](https://docs.celeryqen/stable/userguide/workers.html#warm-shutdown)
 says that before the prefork warm-shutdown heartbeat fix:
 
 > This caused the broker to terminate the connection, which meant that tasks were not able to complete.
 
-The local `docs/userguide/workers.rst` contains this passage in its **5.6 change
+The local `repos/celery/docs/userguide/workers.rst` contains this passage in its **5.6 change
 note about maintaining broker heartbeats during prefork warm shutdown**. Those
 protocol heartbeats are not the service disabled by `--without-heartbeat`, and
 Redis does not use them.
@@ -538,24 +538,24 @@ consumption or to repair every old delivery before exit.
 
 ```bash
 # Existing uv environment and mise-managed private Redis; no new dependencies:
-bash .dev/environment/setup-shutdown-env.sh
-PYTHONDONTWRITEBYTECODE=1 .dev/.venv/bin/python .dev/redis-connection/test-redis-fault-proxy.py
-PYTHONDONTWRITEBYTECODE=1 .dev/.venv/bin/python .dev/redis-connection/verify-redis-connections.py
+mise run setup
+mise exec -- uv run --locked --no-sync python redis-connection/test-redis-fault-proxy.py
+mise run redis-connection
 
 # Focused solo/settlement checks:
-.dev/.venv/bin/python .dev/redis-connection/verify-redis-connections.py \
+mise run redis-connection \
   --case monitor-solo --case active-solo-cancel --case outage-solo \
   --case ack-before-commit-dedup --case ack-reply-lost \
   --case delivery-reply-lost
 ```
 
-- Worker module: `.dev/redis-connection/redis_connection_probe.py`.
-- Socket fault injector: `.dev/redis-connection/redis_fault_proxy.py`.
-- Runner: `.dev/redis-connection/verify-redis-connections.py`.
+- Worker module: `redis-connection/redis_connection_probe.py`.
+- Socket fault injector: `redis-connection/redis_fault_proxy.py`.
+- Runner: `redis-connection/verify-redis-connections.py`.
 - Final [47-case summary](redis-connection/redis-connection-runs/20261114T130305.113800Z/summary.json).
 - Each case contains `config.json`, worker logs, `events.jsonl`, `proxy.jsonl`,
   `monitor.jsonl`, and `result.json` with phase snapshots and assertions.
-- Final console: `.dev/redis-connection/redis-connection-validation-final.log`.
+- Final console: `redis-connection/redis-connection-validation-final.log`.
 - Five framing tests pass; no safety-deadline kills were needed. The two planned
   SIGKILLs are the explicit crash/replacement cases.
 
@@ -639,18 +639,18 @@ while its broker connection fails.
 
 ### A4. Source references and limits
 
-- `celery/worker/consumer/heart.py` and `celery/worker/heartbeat.py`: optional
+- `repos/celery/celery/worker/consumer/heart.py` and `repos/celery/celery/worker/heartbeat.py`: optional
   monitoring heartbeat service and stop/offline behavior.
-- `celery/worker/loops.py`: AMQP heartbeat support checks and event-loop progress.
-- `celery/worker/consumer/consumer.py`: retry selection, loss handling, cancellation,
+- `repos/celery/celery/worker/loops.py`: AMQP heartbeat support checks and event-loop progress.
+- `repos/celery/celery/worker/consumer/consumer.py`: retry selection, loss handling, cancellation,
   old ETA cleanup, and QoS-mode guard for prefetch reduction.
-- `celery/worker/request.py`: request-level ACK flag, cancellation, and pool callbacks.
-- `celery/app/trace.py`: completed-task deduplication conditions.
+- `repos/celery/celery/worker/request.py`: request-level ACK flag, cancellation, and pool callbacks.
+- `repos/celery/celery/app/trace.py`: completed-task deduplication conditions.
 - Installed Kombu `transport/redis.py`: BRPOP, health checks, Redis ACK emulation,
   visibility scans, restoration, and client socket options.
 - Installed Kombu `transport/virtual/base.py`: unacked registration after receipt
   of a popped message and preservation of serialized delivery metadata.
-- `celery/concurrency/prefork.py`: pool draining and timer/ready-callback handling
+- `repos/celery/celery/concurrency/prefork.py`: pool draining and timer/ready-callback handling
   during warm shutdown.
 
 These are controlled socket/path failures with a healthy, non-restarting Redis
@@ -731,8 +731,8 @@ Even a correct retry mechanism cannot undo a duplicate that has already started.
 Task effects, backend result storage, and broker ACK are separate operations;
 retrying connections does not make them atomic.
 
-Relevant source: `celery/worker/request.py` (`acknowledge`),
-`celery/worker/consumer/consumer.py` (`call_soon_ack` and request ACK promises),
+Relevant source: `repos/celery/celery/worker/request.py` (`acknowledge`),
+`repos/celery/celery/worker/consumer/consumer.py` (`call_soon_ack` and request ACK promises),
 and installed Kombu `message.py` (`ack_log_error`). The observed Redis connection
 error was logged/handled; not every exception type follows that exact path—for
 example, `BrokenPipeError` is explicitly re-raised by `ack_log_error`.
@@ -777,7 +777,7 @@ the consumer did not replay the ACK.
 
 This explanation is **source-verified, not a new runtime comparison**. The 47-case
 suite did not toggle `broker_channel_error_retry`. Relevant source:
-`celery/worker/consumer/consumer.py` (`Consumer.start`) and installed Kombu
+`repos/celery/celery/worker/consumer/consumer.py` (`Consumer.start`) and installed Kombu
 `transport/redis.py` (`get_redis_error_classes`).
 
 These notes are maintained with the report and will not be overwritten by future
@@ -864,8 +864,8 @@ confirmed that conflicting socket/health entries in the backend transport dictio
 left `app.backend.connparams` unchanged, while its `retry_policy` did take effect.
 The original 47-case suite was not rerun for this explanation.
 
-Relevant source: [RedisBackend](../celery/backends/redis.py)
+Relevant source: [RedisBackend](repos/celery/celery/backends/redis.py)
 (`__init__`, `_params_from_url`, `retry_policy`, `_transport_options`, Sentinel helpers),
-[base key/value backend](../celery/backends/base.py) (result-key prefix), and installed
+[base key/value backend](repos/celery/celery/backends/base.py) (result-key prefix), and installed
 Kombu `transport/redis.py` (broker transport options). These are implementation-specific
 configuration paths, not interchangeable names inferred from the word “transport”.

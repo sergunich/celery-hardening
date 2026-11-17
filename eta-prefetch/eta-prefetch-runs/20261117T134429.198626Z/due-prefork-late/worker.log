@@ -1,0 +1,27 @@
+ 
+ -------------- eta-probe@localhost v5.7.0 (collider)
+--- ***** ----- 
+-- ******* ---- macOS-15.8.1-arm64-arm-64bit-Mach-O 2026-11-17 16:44:34
+- *** --- * --- 
+- ** ---------- [config]
+- ** ---------- .> app:         shutdown_probe:0x104b3c1a0
+- ** ---------- .> transport:   redis+socket:///private/tmp/ce-portable-HETin2/redis-69885.sock
+- ** ---------- .> results:     socket:///private/tmp/ce-portable-HETin2/redis-69885.sock
+- *** --- * --- .> concurrency: 1 (prefork)
+-- ******* ---- .> task events: OFF (enable -E to monitor tasks in this worker)
+--- ***** ----- 
+ -------------- [queues]
+                .> eta-probe        exchange=eta-probe(direct) key=eta-probe
+                
+
+[tasks]
+  . eta_probe.work
+  . shutdown_probe.task
+
+[2026-11-17 16:44:34,092: INFO/MainProcess] Connected to redis+socket:///private/tmp/ce-portable-HETin2/redis-69885.sock
+[2026-11-17 16:44:34,099: INFO/MainProcess] eta-probe@localhost ready.
+[2026-11-17 16:44:34,106: INFO/MainProcess] Task eta_probe.work[3c0e5d3a-912e-4889-9379-4cb08d28c36d] received
+[2026-11-17 16:44:34,539: INFO/SpawnPoolWorker-1] child process 69900 calling self.run()
+
+worker: Warm shutdown (MainProcess)
+[2026-11-17 16:44:36,689: INFO/SpawnPoolWorker-1] Task eta_probe.work[3c0e5d3a-912e-4889-9379-4cb08d28c36d] succeeded in 1.5834789578802884s: 'due'

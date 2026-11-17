@@ -13,8 +13,8 @@
 
 ## 1. Direct answer: these are not three effective Redis visibility timers
 
-The [Redis guide](https://docs.celeryq.dev/en/stable/getting-started/backends-and-brokers/redis.html#id3)
-and this checkout's `docs/getting-started/backends-and-brokers/redis.rst` show:
+The [Redis guide](https://docs.celeryqen/stable/getting-started/backends-and-brokers/redis.html#id3)
+and this checkout's `repos/celery/docs/getting-started/backends-and-brokers/redis.rst` show:
 
 ```python
 app.conf.broker_transport_options = {'visibility_timeout': 43200}
@@ -424,24 +424,24 @@ recovery/deduplication, subject to application retention requirements.
 ## Reproduce and inspect
 
 ```bash
-bash .dev/environment/setup-shutdown-env.sh
-PYTHONDONTWRITEBYTECODE=1 .dev/.venv/bin/python .dev/redis-visibility/test-redis-visibility-probe.py
-PYTHONDONTWRITEBYTECODE=1 .dev/.venv/bin/python .dev/redis-visibility/verify-redis-visibility.py
+mise run setup
+mise exec -- uv run --locked --no-sync python redis-visibility/test-redis-visibility-probe.py
+mise run redis-visibility
 
 # Focused configuration and solo checks:
-PYTHONDONTWRITEBYTECODE=1 .dev/.venv/bin/python .dev/redis-visibility/verify-redis-visibility.py \
+mise run redis-visibility \
   --case config-B --case config-RT --case config-B12-R2-T2 \
   --case solo-short-other-queue --case solo-early-short-same-queue \
   --case solo-eta-short-dedup
 ```
 
-- Worker module: `.dev/redis-visibility/redis_visibility_probe.py`.
-- Runner: `.dev/redis-visibility/verify-redis-visibility.py`.
-- Observation tests: `.dev/redis-visibility/test-redis-visibility-probe.py`.
+- Worker module: `redis-visibility/redis_visibility_probe.py`.
+- Runner: `redis-visibility/verify-redis-visibility.py`.
+- Observation tests: `redis-visibility/test-redis-visibility-probe.py`.
 - Final [27-case summary](redis-visibility/redis-visibility-runs/20261114T190223.192003Z/summary.json).
 - Each case contains per-worker configuration/log files, `events.jsonl`, and
   `result.json` with phase snapshots, execution events, assertions, and exits.
-- Final console: `.dev/redis-visibility/redis-visibility-validation-final.log`.
+- Final console: `redis-visibility/redis-visibility-validation-final.log`.
 
 Exploratory and earlier validation runs remain available. The first exploration
 exposed an **instrumentation bug**, not a Redis recovery failure: scanned tags
@@ -455,16 +455,16 @@ also fail the final runner. No production Celery/Kombu/Redis code was changed.
 
 ### A1. Configuration wiring and initialization
 
-`celery/app/base.py`, `Celery._connection`, passes
+`repos/celery/celery/app/base.py`, `Celery._connection`, passes
 `conf.broker_transport_options` into the Kombu connection. The installed Redis
 channel includes `visibility_timeout` in `from_transport_options` and has a
 3600 s class default. `QoS.visibility_timeout` reads the channel value.
 
-`celery/app/defaults.py` has no standalone visibility-timeout option. The checked
+`repos/celery/celery/app/defaults.py` has no standalone visibility-timeout option. The checked
 Redis result-backend code does not read a visibility timeout from backend options
 or top-level configuration. It uses supported backend options selectively;
-`celery/backends/base.py` handles result key prefixes and
-`celery/backends/redis.py` handles result TTLs, retry policy, and Redis operations.
+`repos/celery/celery/backends/base.py` handles result key prefixes and
+`repos/celery/celery/backends/redis.py` handles result TTLs, retry policy, and Redis operations.
 
 Channel settings and the QoS cached property are initialized for a connection;
 changing `app.conf` is not a broadcast update to existing workers/channels.
@@ -510,7 +510,7 @@ not a production recovery-latency benchmark.
   results. Task `expires` and soft/hard execution limits are different policies,
   covered in the earlier reports rather than re-tested here.
 
-Completed-task deduplication is in `celery/app/trace.py`. These cases use matching
+Completed-task deduplication is in `repos/celery/celery/app/trace.py`. These cases use matching
 application/task ACK policies; mixed per-task overrides are not covered. The
 late-ACK gate, redelivery metadata, persistent backend, and available success
 information matter. A retained local successful-request cache can also help, but
@@ -547,7 +547,7 @@ Celery.connection_for_read / connection_for_write
   → restore_visible cutoff
 ```
 
-References: `celery/app/base.py:1290–1312`, installed Kombu
+References: `repos/celery/celery/app/base.py:1290–1312`, installed Kombu
 `connection.py:278–280`, `transport/virtual/base.py:494–499`, and Redis transport
 `from_transport_options`, `QoS.visibility_timeout`, and `restore_visible`.
 
@@ -703,7 +703,7 @@ core support.
 
 #### Additional verification and retained evidence
 
-[`.dev/redis-visibility/test-visibility-config-wiring.py`](redis-visibility/test-visibility-config-wiring.py) adds
+[`redis-visibility/test-visibility-config-wiring.py`](redis-visibility/test-visibility-config-wiring.py) adds
 **nine passing source-path tests**, separate from the 27 real-worker cases:
 
 - All eight presence combinations, using distinct B/R/T values, and explicit
@@ -718,10 +718,10 @@ core support.
 - Aliased dictionary mutation and explicit application forwarding.
 
 ```bash
-PYTHONDONTWRITEBYTECODE=1 .dev/.venv/bin/python .dev/redis-visibility/test-visibility-config-wiring.py
+mise exec -- uv run --locked --no-sync python redis-visibility/test-visibility-config-wiring.py
 ```
 
-Audit artifacts under `.dev/redis-visibility/redis-visibility-audit/` include
+Audit artifacts under `redis-visibility/redis-visibility-audit/` include
 [git evidence](redis-visibility/redis-visibility-audit/git-evidence.txt),
 [source hashes and search inventory](redis-visibility/redis-visibility-audit/manifest.json),
 [test output](redis-visibility/redis-visibility-audit/config-wiring-tests.log), and public GitHub

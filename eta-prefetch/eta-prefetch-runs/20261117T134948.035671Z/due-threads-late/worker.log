@@ -1,0 +1,26 @@
+ 
+ -------------- eta-probe@localhost v5.7.0 (collider)
+--- ***** ----- 
+-- ******* ---- macOS-15.8.1-arm64-arm-64bit-Mach-O 2026-11-17 16:49:58
+- *** --- * --- 
+- ** ---------- [config]
+- ** ---------- .> app:         shutdown_probe:0x1073338c0
+- ** ---------- .> transport:   redis+socket:///private/tmp/ce-portable-HETin2/redis-70612.sock
+- ** ---------- .> results:     socket:///private/tmp/ce-portable-HETin2/redis-70612.sock
+- *** --- * --- .> concurrency: 1 (thread)
+-- ******* ---- .> task events: OFF (enable -E to monitor tasks in this worker)
+--- ***** ----- 
+ -------------- [queues]
+                .> eta-probe        exchange=eta-probe(direct) key=eta-probe
+                
+
+[tasks]
+  . eta_probe.work
+  . shutdown_probe.task
+
+[2026-11-17 16:49:58,766: INFO/MainProcess] Connected to redis+socket:///private/tmp/ce-portable-HETin2/redis-70612.sock
+[2026-11-17 16:49:58,770: INFO/MainProcess] eta-probe@localhost ready.
+[2026-11-17 16:49:58,777: INFO/MainProcess] Task eta_probe.work[e268a3ed-4de4-42bb-a8b0-af257367882e] received
+[2026-11-17 16:50:01,035: INFO/MainProcess] Task eta_probe.work[e268a3ed-4de4-42bb-a8b0-af257367882e] succeeded in 1.258590041892603s: 'due'
+
+worker: Warm shutdown (MainProcess)

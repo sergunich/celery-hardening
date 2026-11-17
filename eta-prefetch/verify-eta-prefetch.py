@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """Focused ETA/countdown, prefetch, and shutdown experiments against private Redis.
 
-Run: .dev/.venv/bin/python .dev/eta-prefetch/verify-eta-prefetch.py [--case NAME]
+Run: mise run eta-prefetch [--case NAME]
 Uses the existing shutdown suite's isolated Redis/process helpers and ACK observer.
 """
 import argparse
@@ -17,9 +17,12 @@ import time
 import uuid
 
 SUITE = Path(__file__).resolve().parent
-DEV = SUITE.parent
-ROOT = DEV.parent
-spec = importlib.util.spec_from_file_location("shutdown_helpers", DEV / "shutdown/verify-pool-shutdown.py")
+sys.path.insert(0, str(SUITE.parent))
+from environment.runtime import (
+    ROOT, activate_sources, dependency_version, provenance, pythonpath, source_revision, private_redis,
+)
+activate_sources()
+spec = importlib.util.spec_from_file_location("shutdown_helpers", ROOT / "shutdown/verify-pool-shutdown.py")
 helpers = importlib.util.module_from_spec(spec)
 spec.loader.exec_module(helpers)
 Celery = helpers.Celery
@@ -57,11 +60,11 @@ def run_case(case, run_dir, client, broker, backend):
     folder.mkdir()
     client.flushall()  # Only the runner's private Redis server.
     event_path = folder / "events.jsonl"
-    config = dict(case, events=str(event_path), broker=broker, backend=backend, queue="eta-probe")
+    config = dict(case, events=str(event_path.relative_to(ROOT)), broker=broker, backend=backend, queue="eta-probe")
     env = os.environ.copy()
     for name in ("REMAP_SIGTERM", "CELERY_RDBSIG"):
         env.pop(name, None)
-    env.update(PYTHONPATH=os.pathsep.join([str(ROOT), str(SUITE), str(DEV / "shutdown")]), PYTHONDONTWRITEBYTECODE="1",
+    env.update(PYTHONPATH=pythonpath(SUITE, ROOT / "shutdown"), PYTHONDONTWRITEBYTECODE="1",
                PYTHONUNBUFFERED="1", SHUTDOWN_PROBE_CONFIG=json.dumps(config))
     publisher = Celery("eta_probe_publisher", broker=broker, backend=backend)
     tasks, phases, sent = {}, {}, []
@@ -296,9 +299,9 @@ def main():
     args = parser.parse_args()
     run_dir = SUITE / "eta-prefetch-runs" / datetime.now(timezone.utc).strftime("%Y%m%dT%H%M%S.%fZ")
     run_dir.mkdir(parents=True)
-    summary = dict(revision=subprocess.check_output(["git", "rev-parse", "HEAD"], cwd=ROOT, text=True).strip(),
+    summary = dict(provenance=provenance(), revision=source_revision(),
                    python=sys.version, platform=helpers.platform.platform(),
-                   dependencies={n: helpers.importlib.metadata.version(n) for n in ("kombu", "billiard", "gevent", "redis")}, outcomes=[])
+                   dependencies={n: dependency_version(n) for n in ("kombu", "billiard", "gevent", "redis")}, outcomes=[])
     with helpers.private_redis(run_dir) as (client, broker, backend):
         summary["redis_server"] = client.info("server")["redis_version"]
         for case in CASES:

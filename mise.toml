@@ -1,0 +1,105 @@
+min_version = "2026.8.4"
+
+[settings]
+locked = true
+
+[tools]
+python = "3.13.9"
+uv = "0.11.15"
+redis = "8.2.3"
+
+[env]
+PYTHONDONTWRITEBYTECODE = "1"
+PYTHONUNBUFFERED = "1"
+UV_PROJECT_ENVIRONMENT = "{{config_root}}/.venv"
+# Source imports, never installed Celery/Kombu wheels or an outer checkout.
+PYTHONPATH = "{{config_root}}/repos/celery:{{config_root}}/repos/kombu:{{config_root}}"
+
+[tasks."sources"]
+description = "Clone/check out the exact Celery and Kombu revisions"
+dir = "{{config_root}}"
+run = "python environment/manage.py sources"
+
+[tasks."sync"]
+description = "Sync the one shared Python environment without changing the lock"
+dir = "{{config_root}}"
+run = 'uv sync --locked --python "$(mise where python)/bin/python"'
+
+[tasks."setup"]
+description = "Prepare source checkouts and shared environment, then verify pins"
+dir = "{{config_root}}"
+depends = ["sources","sync"]
+run = "uv run --locked --no-sync python environment/manage.py check"
+
+[tasks."check"]
+description = "Check pins, import origins, clean upstream sources and lock consistency"
+dir = "{{config_root}}"
+run = "uv run --locked --no-sync python environment/manage.py check"
+
+[tasks."test"]
+description = "Run all unit/regression tests (no workers or Redis servers)"
+dir = "{{config_root}}"
+depends = ["check"]
+run = "uv run --locked --no-sync python environment/manage.py test"
+
+[tasks."smoke"]
+description = "Run focused real-worker checks across all suites and pools"
+dir = "{{config_root}}"
+depends = ["check"]
+run = "uv run --locked --no-sync python environment/manage.py smoke"
+
+[tasks."shutdown"]
+raw_args = true
+description = "Run the shutdown matrix; accepts --pool and --case"
+dir = "{{config_root}}"
+depends = ["check"]
+run = "uv run --locked --no-sync python shutdown/verify-pool-shutdown.py"
+
+[tasks."solo-requeue"]
+raw_args = true
+description = "Run the two solo requeue controls"
+dir = "{{config_root}}"
+depends = ["check"]
+run = "uv run --locked --no-sync python shutdown/verify-solo-requeue.py"
+
+[tasks."eta-prefetch"]
+raw_args = true
+description = "Run ETA/prefetch cases; accepts --case"
+dir = "{{config_root}}"
+depends = ["check"]
+run = "uv run --locked --no-sync python eta-prefetch/verify-eta-prefetch.py"
+
+[tasks."task-policy"]
+raw_args = true
+description = "Run task policy cases; accepts --case"
+dir = "{{config_root}}"
+depends = ["check"]
+run = "uv run --locked --no-sync python task-policy/verify-task-policies.py"
+
+[tasks."redis-connection"]
+raw_args = true
+description = "Run Redis connection fault cases; accepts --case"
+dir = "{{config_root}}"
+depends = ["check"]
+run = "uv run --locked --no-sync python redis-connection/verify-redis-connections.py"
+
+[tasks."redis-visibility"]
+raw_args = true
+description = "Run Redis visibility cases; accepts --case"
+dir = "{{config_root}}"
+depends = ["check"]
+run = "uv run --locked --no-sync python redis-visibility/verify-redis-visibility.py"
+
+[tasks."solo-hardening"]
+raw_args = true
+description = "Run solo application hardening cases; accepts --case"
+dir = "{{config_root}}"
+depends = ["check"]
+run = "uv run --locked --no-sync python solo-redis-hardening/verify-solo-hardening.py"
+
+[tasks."render:shutdown"]
+raw_args = true
+description = "Render shutdown.md from a COMPLETE 96-case summary"
+dir = "{{config_root}}"
+run = "uv run --locked --no-sync python shutdown/render-shutdown-report.py"
+

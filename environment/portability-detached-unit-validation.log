@@ -1,0 +1,110 @@
+[check] $ uv run --locked --no-sync python environment/manage.py check
+Resolved 23 packages in 3ms
+{
+  "python": "3.13.9",
+  "uv": "0.11.15",
+  "redis": "8.2.3",
+  "imports": {
+    "celery": "repos/celery/celery/__init__.py",
+    "kombu": "repos/kombu/kombu/__init__.py"
+  }
+}
+[test] $ uv run --locked --no-sync python environment/manage.py test
+
+Testing environment/test-source-setup.py
+test_already_imported_external_source_is_rejected (__main__.SourceSetupTests.test_already_imported_external_source_is_rejected) ... ok
+test_clone_is_detached_at_pin_and_repeat_setup_is_safe (__main__.SourceSetupTests.test_clone_is_detached_at_pin_and_repeat_setup_is_safe) ... Cloning into '/private/var/folders/46/mn99g2td359c3czk5pl65ytm0000gn/T/source-setup-f70ibnfp/experiments/repos/celery'...
+warning: filtering not recognized by server, ignoring
+HEAD is now at 6371539 Fixture
+HEAD is now at 6371539 Fixture
+ok
+test_dirty_checkout_is_not_reset (__main__.SourceSetupTests.test_dirty_checkout_is_not_reset) ... Cloning into '/private/var/folders/46/mn99g2td359c3czk5pl65ytm0000gn/T/source-setup-r45pcvmx/experiments/repos/celery'...
+warning: filtering not recognized by server, ignoring
+HEAD is now at 6371539 Fixture
+ok
+test_non_checkout_is_not_replaced (__main__.SourceSetupTests.test_non_checkout_is_not_replaced) ... ok
+test_wrong_origin_is_not_replaced (__main__.SourceSetupTests.test_wrong_origin_is_not_replaced) ... Cloning into '/private/var/folders/46/mn99g2td359c3czk5pl65ytm0000gn/T/source-setup-q4ht5b7p/experiments/repos/celery'...
+warning: filtering not recognized by server, ignoring
+HEAD is now at 6371539 Fixture
+ok
+
+----------------------------------------------------------------------
+Ran 5 tests in 0.782s
+
+OK
+
+Testing environment/test-suite-layout.py
+test_maintained_markdown_links_and_fragments_resolve (__main__.SuiteLayoutTests.test_maintained_markdown_links_and_fragments_resolve) ... 
+  test_maintained_markdown_links_and_fragments_resolve (__main__.SuiteLayoutTests.test_maintained_markdown_links_and_fragments_resolve) (report='redis-connection.md', target='../celery/backends/redis.py') ... FAIL
+  test_maintained_markdown_links_and_fragments_resolve (__main__.SuiteLayoutTests.test_maintained_markdown_links_and_fragments_resolve) (report='redis-connection.md', target='../celery/backends/base.py') ... FAIL
+  test_maintained_markdown_links_and_fragments_resolve (__main__.SuiteLayoutTests.test_maintained_markdown_links_and_fragments_resolve) (report='solo-redis-hardening.md', target='../celery/worker/request.py') ... FAIL
+  test_maintained_markdown_links_and_fragments_resolve (__main__.SuiteLayoutTests.test_maintained_markdown_links_and_fragments_resolve) (report='solo-redis-hardening.md', target='../celery/worker/consumer/consumer.py') ... FAIL
+test_mise_tasks_share_the_environment (__main__.SuiteLayoutTests.test_mise_tasks_share_the_environment) ... ok
+test_provenance_uses_repository_relative_paths (__main__.SuiteLayoutTests.test_provenance_uses_repository_relative_paths) ... ok
+test_python_and_tool_pins_agree (__main__.SuiteLayoutTests.test_python_and_tool_pins_agree) ... ok
+test_runner_help_from_unrelated_working_directory (__main__.SuiteLayoutTests.test_runner_help_from_unrelated_working_directory) ... ok
+test_scripts_parse_without_importing_probe_side_effects (__main__.SuiteLayoutTests.test_scripts_parse_without_importing_probe_side_effects) ... ok
+test_source_pins_and_imports_are_local (__main__.SuiteLayoutTests.test_source_pins_and_imports_are_local) ... ok
+test_uv_dependencies_are_locked_with_hashes (__main__.SuiteLayoutTests.test_uv_dependencies_are_locked_with_hashes) ... ok
+
+======================================================================
+FAIL: test_maintained_markdown_links_and_fragments_resolve (__main__.SuiteLayoutTests.test_maintained_markdown_links_and_fragments_resolve) (report='redis-connection.md', target='../celery/backends/redis.py')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/private/tmp/ce-portable-HETin2/environment/test-suite-layout.py", line 93, in test_maintained_markdown_links_and_fragments_resolve
+    self.assertTrue(destination.exists(), target)
+    ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: False is not true : ../celery/backends/redis.py
+
+======================================================================
+FAIL: test_maintained_markdown_links_and_fragments_resolve (__main__.SuiteLayoutTests.test_maintained_markdown_links_and_fragments_resolve) (report='redis-connection.md', target='../celery/backends/base.py')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/private/tmp/ce-portable-HETin2/environment/test-suite-layout.py", line 93, in test_maintained_markdown_links_and_fragments_resolve
+    self.assertTrue(destination.exists(), target)
+    ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: False is not true : ../celery/backends/base.py
+
+======================================================================
+FAIL: test_maintained_markdown_links_and_fragments_resolve (__main__.SuiteLayoutTests.test_maintained_markdown_links_and_fragments_resolve) (report='solo-redis-hardening.md', target='../celery/worker/request.py')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/private/tmp/ce-portable-HETin2/environment/test-suite-layout.py", line 93, in test_maintained_markdown_links_and_fragments_resolve
+    self.assertTrue(destination.exists(), target)
+    ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: False is not true : ../celery/worker/request.py
+
+======================================================================
+FAIL: test_maintained_markdown_links_and_fragments_resolve (__main__.SuiteLayoutTests.test_maintained_markdown_links_and_fragments_resolve) (report='solo-redis-hardening.md', target='../celery/worker/consumer/consumer.py')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/private/tmp/ce-portable-HETin2/environment/test-suite-layout.py", line 93, in test_maintained_markdown_links_and_fragments_resolve
+    self.assertTrue(destination.exists(), target)
+    ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: False is not true : ../celery/worker/consumer/consumer.py
+
+----------------------------------------------------------------------
+Ran 8 tests in 3.580s
+
+FAILED (failures=4)
+Traceback (most recent call last):
+  File "/private/tmp/ce-portable-HETin2/environment/manage.py", line 161, in <module>
+    main()
+    ~~~~^^
+  File "/private/tmp/ce-portable-HETin2/environment/manage.py", line 157, in main
+    {"sources": sync_sources, "check": check_environment, "test": tests, "smoke": smoke}[args.action]()
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^
+  File "/private/tmp/ce-portable-HETin2/environment/manage.py", line 121, in tests
+    run([sys.executable, str(script)], env=dict(os.environ, PYTHONPATH=pythonpath(),
+    ~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+                                              PYTHONDONTWRITEBYTECODE="1"))
+                                              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/private/tmp/ce-portable-HETin2/environment/manage.py", line 22, in run
+    return subprocess.run(command, cwd=ROOT, check=True, **kwargs)
+           ~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/sergunich/.local/share/uv/python/cpython-3.13.9-macos-aarch64-none/lib/python3.13/subprocess.py", line 577, in run
+    raise CalledProcessError(retcode, process.args,
+                             output=stdout, stderr=stderr)
+subprocess.CalledProcessError: Command '['/private/tmp/ce-portable-HETin2/.venv/bin/python3', '/private/tmp/ce-portable-HETin2/environment/test-suite-layout.py']' returned non-zero exit status 1.
+Finished in 4.77s
+[test] ERROR task failed

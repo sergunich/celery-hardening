@@ -1,14 +1,13 @@
 #!/usr/bin/env python3
 """Redis-only connection/heartbeat experiments; real CLI workers, isolated faults.
 
-Run with the existing .dev/.venv; --case may be repeated. No shared Redis,
+Run with mise run redis-connection; --case may be repeated. No shared Redis,
 Docker, firewall changes, or production-code patches are used.
 """
 import argparse
 import base64
 from datetime import datetime, timezone
 import hashlib
-import importlib.metadata
 import importlib.util
 import json
 import os
@@ -23,9 +22,12 @@ from urllib.parse import unquote, urlparse
 import uuid
 
 SUITE = Path(__file__).resolve().parent
-DEV = SUITE.parent
-ROOT = DEV.parent
-spec = importlib.util.spec_from_file_location("policy_helpers", DEV / "task-policy/verify-task-policies.py")
+sys.path.insert(0, str(SUITE.parent))
+from environment.runtime import (
+    ROOT, CELERY, activate_sources, dependency_version, provenance, pythonpath, source_revision, private_redis,
+)
+activate_sources()
+spec = importlib.util.spec_from_file_location("policy_helpers", ROOT / "task-policy/verify-task-policies.py")
 policy = importlib.util.module_from_spec(spec)
 spec.loader.exec_module(policy)
 helpers = policy.helpers
@@ -136,7 +138,7 @@ def run_case(case, run_dir, client, broker, backend):
     proxy = FaultProxy(unquote(urlparse(broker).path), folder / "proxy.jsonl")
     monitor = Monitor(client, folder / "monitor.jsonl")
     publisher = Celery("net_publisher", broker=broker, backend=backend)
-    config = dict(case, events=str(events_path), broker=proxy.url, backend=backend, queue="net-probe")
+    config = dict(case, events=str(events_path.relative_to(ROOT)), broker=proxy.url, backend=backend, queue="net-probe")
     (folder / "config.json").write_text(json.dumps(config, indent=2) + "\n")
     tasks, phases, actions, workers, logs, errors = {}, {}, [], [], [], []
     forced = []
@@ -169,7 +171,7 @@ def run_case(case, run_dir, client, broker, backend):
         env = os.environ.copy()
         for key in ("REMAP_SIGTERM", "CELERY_RDBSIG"):
             env.pop(key, None)
-        env.update(PYTHONPATH=os.pathsep.join([str(ROOT), str(SUITE), str(DEV / "shutdown")]), PYTHONDONTWRITEBYTECODE="1",
+        env.update(PYTHONPATH=pythonpath(SUITE, ROOT / "shutdown"), PYTHONDONTWRITEBYTECODE="1",
                    PYTHONUNBUFFERED="1", SHUTDOWN_PROBE_CONFIG=json.dumps(config))
         command = [sys.executable, "-m", "celery", "-A", "redis_connection_probe:app", "worker",
                    "--pool", case["pool"], "--concurrency", str(case.get("concurrency", 1)),
@@ -544,12 +546,12 @@ def main():
     run_dir = SUITE / "redis-connection-runs" / datetime.now(timezone.utc).strftime("%Y%m%dT%H%M%S.%fZ")
     run_dir.mkdir(parents=True)
     import kombu.transport.redis as transport
-    sources = [ROOT / "celery/worker/consumer/consumer.py", ROOT / "celery/worker/loops.py", Path(transport.__file__),
+    sources = [CELERY / "celery/worker/consumer/consumer.py", CELERY / "celery/worker/loops.py", Path(transport.__file__),
                SUITE / "redis_connection_probe.py", SUITE / "redis_fault_proxy.py", Path(__file__),
-               DEV / "environment/shutdown-requirements.lock"]
-    summary = dict(python=sys.version, platform=platform.platform(), celery=__import__("celery").__version__,
-        revision=subprocess.check_output(["git", "rev-parse", "HEAD"], cwd=ROOT, text=True).strip(),
-        dependencies={n: importlib.metadata.version(n) for n in ("kombu", "redis", "billiard", "gevent", "greenlet")},
+               ROOT / "uv.lock"]
+    summary = dict(provenance=provenance(), python=sys.version, platform=platform.platform(), celery=__import__("celery").__version__,
+        revision=source_revision(),
+        dependencies={n: dependency_version(n) for n in ("kombu", "redis", "billiard", "gevent", "greenlet")},
         source_sha256={str(p.relative_to(ROOT)): hashlib.sha256(p.read_bytes()).hexdigest() for p in sources}, outcomes=[])
     with helpers.private_redis(run_dir) as (client, broker, backend):
         summary["redis_server"] = client.info("server")["redis_version"]
@@ -559,7 +561,7 @@ def main():
                 continue
             summary["outcomes"].append(run_case(case, run_dir, client, broker, backend))
             (run_dir / "summary.json").write_text(json.dumps(summary, indent=2) + "\n")
-    print(f"Artifacts: {run_dir}")
+    print(f"Artifacts: {run_dir.relative_to(ROOT)}")
     return 0 if all(o["passed"] for o in summary["outcomes"]) else 1
 
 

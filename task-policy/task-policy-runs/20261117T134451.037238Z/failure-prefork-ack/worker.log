@@ -1,0 +1,40 @@
+ 
+ -------------- policy-probe@localhost v5.7.0 (collider)
+--- ***** ----- 
+-- ******* ---- macOS-15.8.1-arm64-arm-64bit-Mach-O 2026-11-17 16:44:53
+- *** --- * --- 
+- ** ---------- [config]
+- ** ---------- .> app:         shutdown_probe:0x1077601a0
+- ** ---------- .> transport:   redis+socket:///private/tmp/ce-portable-HETin2/redis-69936.sock
+- ** ---------- .> results:     socket:///private/tmp/ce-portable-HETin2/redis-69936.sock
+- *** --- * --- .> concurrency: 1 (prefork)
+-- ******* ---- .> task events: OFF (enable -E to monitor tasks in this worker)
+--- ***** ----- 
+ -------------- [queues]
+                .> policy-probe     exchange=policy-probe(direct) key=policy-probe
+                
+
+[tasks]
+  . policy_probe.ping
+  . policy_probe.work
+  . shutdown_probe.task
+
+[2026-11-17 16:44:53,894: INFO/MainProcess] Connected to redis+socket:///private/tmp/ce-portable-HETin2/redis-69936.sock
+[2026-11-17 16:44:53,900: INFO/MainProcess] policy-probe@localhost ready.
+[2026-11-17 16:44:53,911: INFO/MainProcess] Task policy_probe.work[e878cf70-65e5-4c21-b462-05120e1fd6d5] received
+[2026-11-17 16:44:54,335: INFO/SpawnPoolWorker-1] child process 69952 calling self.run()
+[2026-11-17 16:44:54,611: ERROR/SpawnPoolWorker-1] Task policy_probe.work[e878cf70-65e5-4c21-b462-05120e1fd6d5] raised unexpected: ValueError('intentional ordinary failure')
+Traceback (most recent call last):
+  File "/private/tmp/ce-portable-HETin2/repos/celery/celery/app/trace.py", line 564, in trace_task
+    R = retval = fun(*args, **kwargs)
+                 ~~~^^^^^^^^^^^^^^^^^
+  File "/private/tmp/ce-portable-HETin2/repos/celery/celery/app/trace.py", line 883, in __protected_call__
+    return self.run(*args, **kwargs)
+           ~~~~~~~~^^^^^^^^^^^^^^^^^
+  File "/private/tmp/ce-portable-HETin2/task-policy/policy_probe.py", line 60, in work
+    raise ValueError("intentional ordinary failure")
+ValueError: intentional ordinary failure
+[2026-11-17 16:44:54,883: INFO/MainProcess] Task policy_probe.ping[b753f432-a377-4f18-8deb-6165e8048fab] received
+[2026-11-17 16:44:54,884: INFO/SpawnPoolWorker-1] Task policy_probe.ping[b753f432-a377-4f18-8deb-6165e8048fab] succeeded in 0.0007714589592069387s: 'alive'
+
+worker: Warm shutdown (MainProcess)

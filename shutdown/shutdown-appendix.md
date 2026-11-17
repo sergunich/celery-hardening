@@ -1,8 +1,8 @@
 ## Appendix: shutdown, acknowledgment, and signal semantics
 
 > **Maintained explanation, not generated experiment output.** Edit
-> `.dev/shutdown/shutdown-appendix.md`, not this appendix's rendered copy in
-> `.dev/shutdown.md`. The renderer includes this text, rebasing relative links
+> `shutdown/shutdown-appendix.md`, not this appendix's rendered copy in
+> `shutdown.md`. The renderer includes this text, rebasing relative links
 > for the root report; missing or empty source files still prevent regeneration.
 > These explanations describe the tested checkout; review them explicitly if
 > a future version changes the implementation.
@@ -230,8 +230,8 @@ the scheduling callback. Therefore it can already be `True` **while the actual
 broker operation is still pending**. That is why the tests observe ACK operations
 and Redis state separately.
 
-Relevant source: `celery/worker/request.py` (`on_accepted`, `acknowledge`),
-`celery/worker/consumer/consumer.py` (`create_task_handler`, `call_soon_ack`),
+Relevant source: `repos/celery/celery/worker/request.py` (`on_accepted`, `acknowledge`),
+`repos/celery/celery/worker/consumer/consumer.py` (`create_task_handler`, `call_soon_ack`),
 Kombu's `asynchronous/hub.py` (`call_soon`, `create_loop`), and its Redis transport.
 
 ### A6. What does “SIGINTs coalesced while Python was in C” mean?
@@ -402,10 +402,10 @@ permanently on this task-level workaround.
 #### Reproduce and inspect
 
 ```bash
-.dev/.venv/bin/python .dev/shutdown/verify-solo-requeue.py
+mise run solo-requeue
 ```
 
-The experiment-only `catch="requeue"` branch in `.dev/shutdown/shutdown_probe.py` handles
+The experiment-only `catch="requeue"` branch in `shutdown/shutdown_probe.py` handles
 the recognized error and raises `Reject`; no Celery production code is patched.
 The runner checks actual ACK/reject calls, final Redis message state, and whether
 the restored original task ID can be fetched.

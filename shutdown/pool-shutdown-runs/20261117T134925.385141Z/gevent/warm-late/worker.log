@@ -1,0 +1,26 @@
+ 
+ -------------- shutdown-probe@localhost v5.7.0 (collider)
+--- ***** ----- 
+-- ******* ---- macOS-15.8.1-arm64-arm-64bit-Mach-O 2026-11-17 16:49:38
+- *** --- * --- 
+- ** ---------- [config]
+- ** ---------- .> app:         shutdown_probe:0x107a5dbd0
+- ** ---------- .> transport:   redis+socket:///private/tmp/ce-portable-HETin2/redis-70542.sock
+- ** ---------- .> results:     socket:///private/tmp/ce-portable-HETin2/redis-70542.sock
+- *** --- * --- .> concurrency: 1 (gevent)
+-- ******* ---- .> task events: OFF (enable -E to monitor tasks in this worker)
+--- ***** ----- 
+ -------------- [queues]
+                .> shutdown-probe   exchange=shutdown-probe(direct) key=shutdown-probe
+                
+
+[tasks]
+  . shutdown_probe.task
+
+[2026-11-17 16:49:39,007: INFO/MainProcess] Connected to redis+socket:///private/tmp/ce-portable-HETin2/redis-70542.sock
+[2026-11-17 16:49:39,010: INFO/MainProcess] shutdown-probe@localhost ready.
+[2026-11-17 16:49:39,011: INFO/MainProcess] pidbox: Connected to redis+socket:///private/tmp/ce-portable-HETin2/redis-70542.sock.
+[2026-11-17 16:49:39,018: INFO/MainProcess] Task shutdown_probe.task[65e77bb2-0816-472d-a0fa-cbdddb8b9c43] received
+
+worker: Warm shutdown (MainProcess)
+[2026-11-17 16:49:41,091: INFO/MainProcess] Task shutdown_probe.task[65e77bb2-0816-472d-a0fa-cbdddb8b9c43] succeeded in 2.07365595898591s: 'completed'

@@ -427,24 +427,24 @@ strategy. Increasing prefetch does not repair the stranded delivery. Do not use
 
 ```bash
 # Existing uv environment and mise-managed Redis, no new dependencies:
-bash .dev/environment/setup-shutdown-env.sh
-PYTHONDONTWRITEBYTECODE=1 .dev/.venv/bin/python .dev/task-policy/verify-task-policies.py
+mise run setup
+mise run task-policy
 
 # Solo-focused subset:
-.dev/.venv/bin/python .dev/task-policy/verify-task-policies.py \
+mise run task-policy \
   --case soft-solo --case hard-solo \
   --case failure-solo-discard --case lost-solo-whole-process \
   --case quit-solo-discard --case system-exit-solo
 ```
 
-- Worker module: `.dev/task-policy/policy_probe.py`.
-- Runner: `.dev/task-policy/verify-task-policies.py`.
+- Worker module: `task-policy/policy_probe.py`.
+- Runner: `task-policy/verify-task-policies.py`.
 - Final [47-case summary](task-policy/task-policy-runs/20261114T094306.436639Z/summary.json).
 - Focused [gevent/SystemExit confirmation](task-policy/task-policy-runs/20261114T093326.106995Z/summary.json).
 - Per-case `config.json`, `events.jsonl`, `worker.log`, and `result.json` contain
   resolved settings, ACK/reject events, retry publications, task attempts,
   backend history, broker snapshots, worker exit, and assertions.
-- Console: `.dev/task-policy/task-policy-validation-final.log`.
+- Console: `task-policy/task-policy-validation-final.log`.
 
 Exploratory/intermediate runs are retained. The initial expectation that gevent
 busy work would produce no timeout callback was corrected after observing the
@@ -496,19 +496,19 @@ Do not extrapolate the default failure table to every subclass of `BaseException
 
 ### A2. Relevant source
 
-- `celery/app/task.py`: setting binding/fallback, task retry defaults.
-- `celery/app/trace.py`: distinction between ordinary exceptions, task predicates,
+- `repos/celery/celery/app/task.py`: setting binding/fallback, task retry defaults.
+- `repos/celery/celery/app/trace.py`: distinction between ordinary exceptions, task predicates,
   and escaping `BaseException`; result storage precedes some postrun cleanup.
-- `celery/worker/request.py`: `on_timeout`, `on_failure`, `_retry_worker_lost`,
+- `repos/celery/celery/worker/request.py`: `on_timeout`, `on_failure`, `_retry_worker_lost`,
   `_success_was_stored`, generated `on_success`, and ACK/reject guards.
-- `celery/concurrency/solo.py` and `celery/concurrency/base.py`: inline execution,
+- `repos/celery/celery/concurrency/solo.py` and `repos/celery/celery/concurrency/base.py`: inline execution,
   ignored timer options, and the observed BaseException callback mismatch.
-- `celery/concurrency/thread.py`: executor submission; time-limit options unused.
-- `celery/concurrency/gevent.py`: cooperative `Timeout` context; no soft timer.
-- `celery/concurrency/asynpool.py` and installed Billiard `pool.py`: timeout timers,
+- `repos/celery/celery/concurrency/thread.py`: executor submission; time-limit options unused.
+- `repos/celery/celery/concurrency/gevent.py`: cooperative `Timeout` context; no soft timer.
+- `repos/celery/celery/concurrency/asynpool.py` and installed Billiard `pool.py`: timeout timers,
   soft signal delivery, child termination, and lost-child reporting.
-- `celery/backends/base.py`: SUCCESS-preserving result storage.
-- `docs/userguide/configuration.rst`: setting versions, defaults, and intended semantics.
+- `repos/celery/celery/backends/base.py`: SUCCESS-preserving result storage.
+- `repos/celery/docs/userguide/configuration.rst`: setting versions, defaults, and intended semantics.
 
 ### A3. What these experiments do not guarantee
 
@@ -549,7 +549,7 @@ Redis-native scheduled task and need not happen precisely at the deadline.
 Restoration also does not increment Celery's task retry counter. These experiments
 inspected the unacked records but did not wait for their 3600 s timeout.
 
-Relevant installed source: `kombu/transport/redis.py`, `QoS.reject`,
+Relevant installed source: `repos/kombu/kombu/transport/redis.py`, `QoS.reject`,
 `_remove_from_indices`, and `restore_visible`.
 
 ### A5. Early-ACK irreversibility is common to all pools

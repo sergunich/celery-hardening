@@ -1,0 +1,23 @@
+[sources] $ python environment/manage.py sources
+[sync] $ uv sync --locked --python "$(mise where python)/bin/python"
+[sync] Resolved 23 packages in 19ms
+[sync] Checked 19 packages in 7ms
+[sync] Finished in 113.3ms
+[sources] Cloning into '/private/tmp/ce-portable-HETin2/repos/celery'...
+[sources] HEAD is now at 6fcdbf904 Bump version: 5.7.0rc1 → 5.7.0 (#11025)
+[sources] Cloning into '/private/tmp/ce-portable-HETin2/repos/kombu'...
+[sources] HEAD is now at 703e96f2 Bump version: 5.7.0rc1 → 5.7.0
+[sources] Finished in 8.97s
+[setup] $ uv run --locked --no-sync python environment/manage.py check
+[setup] Resolved 23 packages in 3ms
+[setup] {
+[setup]   "python": "3.13.9",
+[setup]   "uv": "0.11.15",
+[setup]   "redis": "8.2.3",
+[setup]   "imports": {
+[setup]     "celery": "repos/celery/celery/__init__.py",
+[setup]     "kombu": "repos/kombu/kombu/__init__.py"
+[setup]   }
+[setup] }
+[setup] Finished in 470.0ms
+Finished in 9.45s

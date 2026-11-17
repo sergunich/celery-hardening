@@ -366,8 +366,8 @@ or process-local lock does not provide cross-worker exactly-once effects.
 - [Visibility report](redis-visibility.md): source wiring and common recovery
   mechanism; exact solo visibility duplicate counts are not new gevent measurements.
 
-Source checks include `celery/__init__.py` early patching,
-`celery/concurrency/gevent.py` scheduling/timeout/cancellation wrappers, request
+Source checks include `repos/celery/celery/__init__.py` early patching,
+`repos/celery/celery/concurrency/gevent.py` scheduling/timeout/cancellation wrappers, request
 callbacks, and RedisBackend retry handling. Production tuning and library
 compatibility recommendations are not a new integration test. Maintain this guide
 with the reports and revalidate the exact sources after upgrades.

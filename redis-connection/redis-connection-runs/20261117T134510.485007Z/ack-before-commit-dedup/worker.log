@@ -1,0 +1,106 @@
+ 
+ -------------- net-0@localhost v5.7.0 (collider)
+--- ***** ----- 
+-- ******* ---- macOS-15.8.1-arm64-arm-64bit-Mach-O 2026-11-17 16:45:27
+- *** --- * --- 
+- ** ---------- [config]
+- ** ---------- .> app:         shutdown_probe:0x11020ea50
+- ** ---------- .> transport:   redis://:**@127.0.0.1:61166/0
+- ** ---------- .> results:     socket:///private/tmp/ce-portable-HETin2/redis-69979.sock
+- *** --- * --- .> concurrency: 1 (solo)
+-- ******* ---- .> task events: OFF (enable -E to monitor tasks in this worker)
+--- ***** ----- 
+ -------------- [queues]
+                .> net-probe        exchange=net-probe(direct) key=net-probe
+                
+
+[tasks]
+  . redis_connection_probe.work
+  . shutdown_probe.task
+
+[2026-11-17 16:45:27,832: INFO/MainProcess] Connected to redis://:**@127.0.0.1:61166/0
+[2026-11-17 16:45:27,839: INFO/MainProcess] net-0@localhost ready.
+[2026-11-17 16:45:27,865: INFO/MainProcess] Task redis_connection_probe.work[d9efe826-9918-421d-8c96-13a4cd493607] received
+[2026-11-17 16:45:28,889: INFO/MainProcess] Task redis_connection_probe.work[d9efe826-9918-421d-8c96-13a4cd493607] succeeded in 1.0233302919659764s: 'work'
+[2026-11-17 16:45:28,890: CRITICAL/MainProcess] Couldn't ack '9d0bbe3f-2981-42e4-9ed4-3e79c9b416f3', reason:network:ConnectionError
+Traceback (most recent call last):
+  File "/private/tmp/ce-portable-HETin2/repos/kombu/kombu/message.py", line 131, in ack_log_error
+    self.ack(multiple=multiple)
+    ~~~~~~~~^^^^^^^^^^^^^^^^^^^
+  File "/private/tmp/ce-portable-HETin2/redis-connection/redis_connection_probe.py", line 71, in observe_ack
+    return _original_ack(self, *args, **kwargs)
+  File "/private/tmp/ce-portable-HETin2/shutdown/shutdown_probe.py", line 50, in observed_ack
+    result = _original_ack(self, *args, **kwargs)
+  File "/private/tmp/ce-portable-HETin2/repos/kombu/kombu/message.py", line 126, in ack
+    self.channel.basic_ack(self.delivery_tag, multiple=multiple)
+    ~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/private/tmp/ce-portable-HETin2/repos/kombu/kombu/transport/virtual/base.py", line 680, in basic_ack
+    self.qos.ack(delivery_tag)
+    ~~~~~~~~~~~~^^^^^^^^^^^^^^
+  File "/private/tmp/ce-portable-HETin2/repos/kombu/kombu/transport/redis.py", line 500, in ack
+    self._remove_from_indices(delivery_tag).execute()
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^
+  File "/private/tmp/ce-portable-HETin2/.venv/lib/python3.13/site-packages/redis/client.py", line 2233, in execute
+    response = conn.retry.call_with_retry(
+        lambda: execute(conn, stack, raise_on_error),
+        failure_callback,
+        with_failure_count=True,
+    )
+  File "/private/tmp/ce-portable-HETin2/.venv/lib/python3.13/site-packages/redis/retry.py", line 132, in call_with_retry
+    raise error
+  File "/private/tmp/ce-portable-HETin2/.venv/lib/python3.13/site-packages/redis/retry.py", line 120, in call_with_retry
+    return do()
+  File "/private/tmp/ce-portable-HETin2/.venv/lib/python3.13/site-packages/redis/client.py", line 2234, in <lambda>
+    lambda: execute(conn, stack, raise_on_error),
+            ~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/private/tmp/ce-portable-HETin2/.venv/lib/python3.13/site-packages/redis/client.py", line 2033, in _execute_transaction
+    self.parse_response(connection, "_")
+    ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^
+  File "/private/tmp/ce-portable-HETin2/.venv/lib/python3.13/site-packages/redis/client.py", line 2142, in parse_response
+    result = Redis.parse_response(self, connection, command_name, **options)
+  File "/private/tmp/ce-portable-HETin2/.venv/lib/python3.13/site-packages/redis/client.py", line 935, in parse_response
+    response = connection.read_response()
+  File "/private/tmp/ce-portable-HETin2/.venv/lib/python3.13/site-packages/redis/connection.py", line 1407, in read_response
+    response = self._parser.read_response(
+        disable_decoding=disable_decoding,
+        push_request=push_request,
+        timeout=timeout,
+    )
+  File "/private/tmp/ce-portable-HETin2/.venv/lib/python3.13/site-packages/redis/_parsers/resp3.py", line 40, in read_response
+    result = self._read_response(
+        disable_decoding=disable_decoding,
+        push_request=push_request,
+        timeout=timeout,
+    )
+  File "/private/tmp/ce-portable-HETin2/.venv/lib/python3.13/site-packages/redis/_parsers/resp3.py", line 65, in _read_response
+    raw = self._buffer.readline(timeout=timeout)
+  File "/private/tmp/ce-portable-HETin2/.venv/lib/python3.13/site-packages/redis/_parsers/socket.py", line 117, in readline
+    self._read_from_socket(timeout=timeout)
+    ~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^
+  File "/private/tmp/ce-portable-HETin2/.venv/lib/python3.13/site-packages/redis/_parsers/socket.py", line 67, in _read_from_socket
+    raise ConnectionError(SERVER_CLOSED_CONNECTION_ERROR)
+redis.exceptions.ConnectionError: Connection closed by server.
+[2026-11-17 16:45:28,899: WARNING/MainProcess] consumer: Connection to broker lost. Trying to re-establish the connection... (network:ConnectionError)
+[2026-11-17 16:45:28,899: INFO/MainProcess] Restoring 1 unacknowledged message(s)
+[2026-11-17 16:45:28,903: WARNING/MainProcess] /private/tmp/ce-portable-HETin2/redis-connection/redis_connection_probe.py:56: CPendingDeprecationWarning: 
+In Celery 5.1 we introduced an optional breaking change which
+on connection loss cancels all currently executed tasks with late acknowledgement enabled.
+These tasks cannot be acknowledged as the connection is gone, and the tasks are automatically redelivered
+back to the queue. You can enable this behavior using the worker_cancel_long_running_tasks_on_connection_loss
+setting. In Celery 5.1 it is set to False by default. The setting will be set to True by default in Celery 6.0.
+
+  result = _original_error(self, exc)
+
+[2026-11-17 16:45:28,903: INFO/MainProcess] Skipping prefetch count reduction after connection restart because per-consumer QoS (apply_global=False) is in effect and broker-side prefetch updates would not reach the running consumer.
+[2026-11-17 16:45:28,906: ERROR/MainProcess] consumer: Cannot connect to redis://:**@127.0.0.1:61166/0: Connection closed by server..
+Trying again in 2.00 seconds... (1/4)
+
+[2026-11-17 16:45:30,921: ERROR/MainProcess] consumer: Cannot connect to redis://:**@127.0.0.1:61166/0: Connection closed by server..
+Trying again in 4.00 seconds... (2/4)
+
+[2026-11-17 16:45:34,977: INFO/MainProcess] Connected to redis://:**@127.0.0.1:61166/0
+[2026-11-17 16:45:34,989: INFO/MainProcess] Task redis_connection_probe.work[d9efe826-9918-421d-8c96-13a4cd493607] received
+[2026-11-17 16:45:38,469: INFO/MainProcess] Task redis_connection_probe.work[91e3de5a-0d7f-4d31-8fef-a2b5fd9d39d7] received
+[2026-11-17 16:45:38,631: INFO/MainProcess] Task redis_connection_probe.work[91e3de5a-0d7f-4d31-8fef-a2b5fd9d39d7] succeeded in 0.16166420793160796s: 'ping'
+
+worker: Warm shutdown (MainProcess)

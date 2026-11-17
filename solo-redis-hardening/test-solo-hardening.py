@@ -6,7 +6,9 @@ import sys
 import unittest
 from unittest.mock import Mock, patch
 
-sys.path.insert(0, str(Path(__file__).resolve().parents[2]))
+sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
+from environment.runtime import activate_sources
+activate_sources()
 from celery import Celery, group
 from celery.exceptions import Reject, WorkerShutdown, WorkerTerminate
 from celery.worker import state

@@ -337,13 +337,13 @@ for the exact ordering and exceptions.
 
 Relevant implementation:
 
-- `celery/worker/strategy.py`: ETA branch, QoS increment, timer registration.
-- `celery/worker/state.py`: `scheduled_requests` is distinct from active/reserved.
-- `celery/worker/consumer/consumer.py`: `apply_eta_task`, `call_soon_ack`, and
+- `repos/celery/celery/worker/strategy.py`: ETA branch, QoS increment, timer registration.
+- `repos/celery/celery/worker/state.py`: `scheduled_requests` is distinct from active/reserved.
+- `repos/celery/celery/worker/consumer/consumer.py`: `apply_eta_task`, `call_soon_ack`, and
   shutdown cancellation of scheduled timers/local bookkeeping.
-- `celery/worker/consumer/tasks.py`: initial QoS, ETA limit wiring, Redis
+- `repos/celery/celery/worker/consumer/tasks.py`: initial QoS, ETA limit wiring, Redis
   disable-prefetch gate based on reserved requests rather than scheduled requests.
-- `celery/worker/request.py`: acceptance and early/late ACK policy.
+- `repos/celery/celery/worker/request.py`: acceptance and early/late ACK policy.
 - Kombu `common.py`: `QoS.increment_eventually`/`decrement_eventually` and cap behavior.
 
 ## Operational guidance and boundaries
@@ -377,25 +377,25 @@ Relevant implementation:
 
 ```bash
 # Uses the existing uv environment and mise-managed private Redis server:
-bash .dev/environment/setup-shutdown-env.sh
-PYTHONDONTWRITEBYTECODE=1 .dev/.venv/bin/python .dev/eta-prefetch/verify-eta-prefetch.py
+mise run setup
+mise run eta-prefetch
 
 # Focused checks:
-.dev/.venv/bin/python .dev/eta-prefetch/verify-eta-prefetch.py \
+mise run eta-prefetch \
   --case cap-three --case cap-with-zero-prefetch \
   --case due-solo-early --case cold-mixed-gevent
 ```
 
-- Worker module: `.dev/eta-prefetch/eta_probe.py`. Reuses the existing app and ACK observer
+- Worker module: `eta-prefetch/eta_probe.py`. Reuses the existing app and ACK observer
   from `shutdown/shutdown_probe.py`; adds ETA-aware task markers, pool-acceptance markers,
   and periodic scheduler-state observations.
-- Runner: `.dev/eta-prefetch/verify-eta-prefetch.py`. Reuses isolated Redis/process helpers
+- Runner: `eta-prefetch/verify-eta-prefetch.py`. Reuses isolated Redis/process helpers
   from the shutdown suite. Broker snapshots come from outside the worker, so
   solo's blocked consumer does not block observation.
 - Final [31-case summary](eta-prefetch/eta-prefetch-runs/20261113T152618.891666Z/summary.json).
 - Each case directory contains `config.json`, `worker.log`, `events.jsonl`, and
   `result.json`, including phase snapshots and per-message ACK/result/location.
-- Console summary: `.dev/eta-prefetch/eta-validation-console-final.log`.
+- Console summary: `eta-prefetch/eta-validation-console-final.log`.
 
 Exploratory runs are retained. An initial mixed-cap assertion expected two ETA
 messages behind an active late-ack task with prefetch 1, but correctly observed
@@ -486,8 +486,8 @@ failures handled by Celery's tracing machinery. An escaping shutdown exception
 or other unhandled error may unwind the call stack instead, so the subsequent
 QoS-decrement line is not guaranteed to execute in those paths.
 
-Relevant implementation: `celery/concurrency/solo.py`,
-`celery/concurrency/base.py` (`apply_target`), `celery/worker/components.py`,
-`celery/worker/worker.py` (`_process_task`), and
-`celery/worker/consumer/consumer.py` (`apply_eta_task`, `_limit_post_eta`,
+Relevant implementation: `repos/celery/celery/concurrency/solo.py`,
+`repos/celery/celery/concurrency/base.py` (`apply_target`), `repos/celery/celery/worker/components.py`,
+`repos/celery/celery/worker/worker.py` (`_process_task`), and
+`repos/celery/celery/worker/consumer/consumer.py` (`apply_eta_task`, `_limit_post_eta`,
 `_schedule_bucket_request`).

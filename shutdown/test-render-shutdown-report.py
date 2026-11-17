@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """Test report preservation without touching the actual report or experiment runs.
 
-Run: .dev/.venv/bin/python .dev/shutdown/test-render-shutdown-report.py
+Run: mise exec -- uv run --locked --no-sync python shutdown/test-render-shutdown-report.py
 """
 import json
 from pathlib import Path
@@ -12,7 +12,7 @@ import tempfile
 import unittest
 
 SUITE = Path(__file__).resolve().parent
-DEV = SUITE.parent
+ROOT = SUITE.parent
 SUMMARY = SUITE / "pool-shutdown-runs/20261113T081413.844718Z/summary.json"
 
 

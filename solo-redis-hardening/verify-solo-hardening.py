@@ -14,9 +14,12 @@ import time
 import uuid
 
 SUITE = Path(__file__).resolve().parent
-DEV = SUITE.parent
-ROOT = DEV.parent
-spec = importlib.util.spec_from_file_location('policy_helpers', DEV / 'task-policy/verify-task-policies.py')
+sys.path.insert(0, str(SUITE.parent))
+from environment.runtime import (
+    ROOT, activate_sources, provenance, pythonpath, private_redis,
+)
+activate_sources()
+spec = importlib.util.spec_from_file_location('policy_helpers', ROOT / 'task-policy/verify-task-policies.py')
 policy = importlib.util.module_from_spec(spec)
 spec.loader.exec_module(policy)
 helpers = policy.helpers
@@ -39,10 +42,10 @@ def run_case(case, run_dir, client, broker, backend):
     client.flushall()  # Only the private server created below.
     event_path = folder / 'events.jsonl'
     config = dict(case, broker=broker, backend=backend, queue='hardening-probe',
-                  events=str(event_path), pool='solo')
+                  events=str(event_path.relative_to(ROOT)), pool='solo')
     (folder / 'config.json').write_text(json.dumps(config, indent=2) + '\n')
     env = dict(os.environ, PYTHONDONTWRITEBYTECODE='1', PYTHONUNBUFFERED='1',
-               PYTHONPATH=os.pathsep.join(map(str, (ROOT, SUITE, DEV / 'shutdown'))),
+               PYTHONPATH=pythonpath(SUITE, ROOT / 'shutdown'),
                SHUTDOWN_PROBE_CONFIG=json.dumps(config))
     for key in ('REMAP_SIGTERM', 'CELERY_RDBSIG'):
         env.pop(key, None)
@@ -162,7 +165,7 @@ def main():
     run_dir.mkdir(parents=True)
     sources = [SUITE / name for name in ('solo_hardening.py', 'hardening_probe.py',
                                          'verify-solo-hardening.py', 'test-solo-hardening.py')]
-    summary = dict(source_sha256={str(p.relative_to(ROOT)): hashlib.sha256(p.read_bytes()).hexdigest()
+    summary = dict(provenance=provenance(), source_sha256={str(p.relative_to(ROOT)): hashlib.sha256(p.read_bytes()).hexdigest()
                                    for p in sources}, outcomes=[])
     with helpers.private_redis(run_dir) as (client, broker, backend):
         summary['redis_server'] = client.info('server')['redis_version']
@@ -171,7 +174,7 @@ def main():
                 continue
             summary['outcomes'].append(run_case(case, run_dir, client, broker, backend))
             (run_dir / 'summary.json').write_text(json.dumps(summary, indent=2) + '\n')
-    print(f'Artifacts: {run_dir}')
+    print(f'Artifacts: {run_dir.relative_to(ROOT)}')
     return 0 if all(o['passed'] for o in summary['outcomes']) else 1
 
 

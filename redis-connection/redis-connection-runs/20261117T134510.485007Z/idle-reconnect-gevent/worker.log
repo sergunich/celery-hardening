@@ -1,0 +1,158 @@
+ 
+ -------------- net-0@localhost v5.7.0 (collider)
+--- ***** ----- 
+-- ******* ---- macOS-15.8.1-arm64-arm-64bit-Mach-O 2026-11-17 16:45:21
+- *** --- * --- 
+- ** ---------- [config]
+- ** ---------- .> app:         shutdown_probe:0x104ebe5d0
+- ** ---------- .> transport:   redis://:**@127.0.0.1:61153/0
+- ** ---------- .> results:     socket:///private/tmp/ce-portable-HETin2/redis-69979.sock
+- *** --- * --- .> concurrency: 1 (gevent)
+-- ******* ---- .> task events: OFF (enable -E to monitor tasks in this worker)
+--- ***** ----- 
+ -------------- [queues]
+                .> net-probe        exchange=net-probe(direct) key=net-probe
+                
+
+[tasks]
+  . redis_connection_probe.work
+  . shutdown_probe.task
+
+[2026-11-17 16:45:21,407: INFO/MainProcess] Connected to redis://:**@127.0.0.1:61153/0
+[2026-11-17 16:45:21,413: INFO/MainProcess] net-0@localhost ready.
+[2026-11-17 16:45:21,415: INFO/MainProcess] pidbox: Connected to redis://:**@127.0.0.1:61153/0.
+[2026-11-17 16:45:21,417: WARNING/MainProcess] consumer: Connection to broker lost. Trying to re-establish the connection... (network:ConnectionError)
+[2026-11-17 16:45:21,417: WARNING/MainProcess] /private/tmp/ce-portable-HETin2/redis-connection/redis_connection_probe.py:56: CPendingDeprecationWarning: 
+In Celery 5.1 we introduced an optional breaking change which
+on connection loss cancels all currently executed tasks with late acknowledgement enabled.
+These tasks cannot be acknowledged as the connection is gone, and the tasks are automatically redelivered
+back to the queue. You can enable this behavior using the worker_cancel_long_running_tasks_on_connection_loss
+setting. In Celery 5.1 it is set to False by default. The setting will be set to True by default in Celery 6.0.
+
+  result = _original_error(self, exc)
+
+[2026-11-17 16:45:21,417: INFO/MainProcess] Skipping prefetch count reduction after connection restart because per-consumer QoS (apply_global=False) is in effect and broker-side prefetch updates would not reach the running consumer.
+Traceback (most recent call last):
+  File "src/gevent/_waiter.py", line 122, in gevent._gevent_c_waiter.Waiter.switch
+  File "/private/tmp/ce-portable-HETin2/repos/celery/celery/worker/pidbox.py", line 116, in loop
+    self._do_reset(c, connection)
+    ~~~~~~~~~~~~~~^^^^^^^^^^^^^^^
+  File "/private/tmp/ce-portable-HETin2/repos/celery/celery/worker/pidbox.py", line 106, in _do_reset
+    self.consumer = self.node.listen(callback=self.on_message)
+                    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/private/tmp/ce-portable-HETin2/repos/kombu/kombu/pidbox.py", line 98, in listen
+    consumer = self.Consumer(channel=channel,
+                             callbacks=[callback or self.handle_message],
+                             on_decode_error=self.on_decode_error)
+  File "/private/tmp/ce-portable-HETin2/repos/kombu/kombu/pidbox.py", line 78, in Consumer
+    return Consumer(
+        channel or self.channel, [queue], no_ack=no_ack,
+        accept=self.mailbox.accept if accept is None else accept,
+        **options
+    )
+  File "/private/tmp/ce-portable-HETin2/repos/kombu/kombu/messaging.py", line 583, in __init__
+    self.revive(self.channel)
+    ~~~~~~~~~~~^^^^^^^^^^^^^^
+  File "/private/tmp/ce-portable-HETin2/repos/kombu/kombu/messaging.py", line 607, in revive
+    self.declare()
+    ~~~~~~~~~~~~^^
+  File "/private/tmp/ce-portable-HETin2/repos/kombu/kombu/messaging.py", line 625, in declare
+    queue.declare()
+    ~~~~~~~~~~~~~^^
+  File "/private/tmp/ce-portable-HETin2/repos/kombu/kombu/entity.py", line 618, in declare
+    self._create_queue(nowait=nowait, channel=channel)
+    ~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/private/tmp/ce-portable-HETin2/repos/kombu/kombu/entity.py", line 629, in _create_queue
+    self.queue_bind(nowait=nowait, channel=channel)
+    ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/private/tmp/ce-portable-HETin2/repos/kombu/kombu/entity.py", line 673, in queue_bind
+    return self.bind_to(self.exchange, self.routing_key,
+           ~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+                        self.binding_arguments,
+                        ^^^^^^^^^^^^^^^^^^^^^^^
+                        channel=channel, nowait=nowait)
+                        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/private/tmp/ce-portable-HETin2/repos/kombu/kombu/entity.py", line 682, in bind_to
+    return (channel or self.channel).queue_bind(
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^
+        queue=self.name,
+        ^^^^^^^^^^^^^^^^
+    ...<3 lines>...
+        nowait=nowait,
+        ^^^^^^^^^^^^^^
+    )
+    ^
+  File "/private/tmp/ce-portable-HETin2/repos/kombu/kombu/transport/virtual/base.py", line 587, in queue_bind
+    self._queue_bind(exchange, *meta)
+    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^
+  File "/private/tmp/ce-portable-HETin2/repos/kombu/kombu/transport/redis.py", line 1742, in _queue_bind
+    self._refresh_binding(
+    ~~~~~~~~~~~~~~~~~~~~~^
+        keys=[key, self._script_binding_deadlines],
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+        args=[member, exchange, self._binding_ttl(queue)],
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+        client=client)
+        ^^^^^^^^^^^^^^
+  File "/private/tmp/ce-portable-HETin2/.venv/lib/python3.13/site-packages/redis/commands/core.py", line 10936, in __call__
+    return client.evalsha(self.sha, len(keys), *args)
+           ~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/private/tmp/ce-portable-HETin2/.venv/lib/python3.13/site-packages/redis/commands/core.py", line 11294, in evalsha
+    return self._evalsha("EVALSHA", sha, numkeys, *keys_and_args)
+           ~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/private/tmp/ce-portable-HETin2/.venv/lib/python3.13/site-packages/redis/commands/core.py", line 11262, in _evalsha
+    return self.execute_command(command, sha, numkeys, *keys_and_args)
+           ~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/private/tmp/ce-portable-HETin2/.venv/lib/python3.13/site-packages/redis/client.py", line 867, in execute_command
+    return self._execute_command(*args, **options)
+           ~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^
+  File "/private/tmp/ce-portable-HETin2/.venv/lib/python3.13/site-packages/redis/client.py", line 889, in _execute_command
+    result = conn.retry.call_with_retry(
+        lambda: self._send_command_parse_response(
+    ...<3 lines>...
+        with_failure_count=True,
+    )
+  File "/private/tmp/ce-portable-HETin2/.venv/lib/python3.13/site-packages/redis/retry.py", line 132, in call_with_retry
+    raise error
+  File "/private/tmp/ce-portable-HETin2/.venv/lib/python3.13/site-packages/redis/retry.py", line 120, in call_with_retry
+    return do()
+  File "/private/tmp/ce-portable-HETin2/.venv/lib/python3.13/site-packages/redis/client.py", line 890, in <lambda>
+    lambda: self._send_command_parse_response(
+            ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^
+        conn, command_name, *args, **options
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    ),
+    ^
+  File "/private/tmp/ce-portable-HETin2/.venv/lib/python3.13/site-packages/redis/client.py", line 819, in _send_command_parse_response
+    return self.parse_response(conn, command_name, **options)
+           ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/private/tmp/ce-portable-HETin2/.venv/lib/python3.13/site-packages/redis/client.py", line 935, in parse_response
+    response = connection.read_response()
+  File "/private/tmp/ce-portable-HETin2/.venv/lib/python3.13/site-packages/redis/connection.py", line 1407, in read_response
+    response = self._parser.read_response(
+        disable_decoding=disable_decoding,
+        push_request=push_request,
+        timeout=timeout,
+    )
+  File "/private/tmp/ce-portable-HETin2/.venv/lib/python3.13/site-packages/redis/_parsers/resp3.py", line 40, in read_response
+    result = self._read_response(
+        disable_decoding=disable_decoding,
+        push_request=push_request,
+        timeout=timeout,
+    )
+  File "/private/tmp/ce-portable-HETin2/.venv/lib/python3.13/site-packages/redis/_parsers/resp3.py", line 65, in _read_response
+    raw = self._buffer.readline(timeout=timeout)
+  File "/private/tmp/ce-portable-HETin2/.venv/lib/python3.13/site-packages/redis/_parsers/socket.py", line 117, in readline
+    self._read_from_socket(timeout=timeout)
+    ~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^
+  File "/private/tmp/ce-portable-HETin2/.venv/lib/python3.13/site-packages/redis/_parsers/socket.py", line 67, in _read_from_socket
+    raise ConnectionError(SERVER_CLOSED_CONNECTION_ERROR)
+redis.exceptions.ConnectionError: Connection closed by server.
+2026-11-17T13:45:21Z <built-in method switch of gevent._gevent_c_greenlet_primitives.TrackedRawGreenlet object at 0x1050e8a00> failed with ConnectionError
+
+[2026-11-17 16:45:21,425: INFO/MainProcess] Connected to redis://:**@127.0.0.1:61153/0
+[2026-11-17 16:45:21,430: INFO/MainProcess] pidbox: Connected to redis://:**@127.0.0.1:61153/0.
+[2026-11-17 16:45:21,455: INFO/MainProcess] Task redis_connection_probe.work[52e3b42b-60e3-4272-87bd-284d17f42902] received
+[2026-11-17 16:45:21,636: INFO/MainProcess] Task redis_connection_probe.work[52e3b42b-60e3-4272-87bd-284d17f42902] succeeded in 0.18105104099959135s: 'ping-0'
+
+worker: Warm shutdown (MainProcess)

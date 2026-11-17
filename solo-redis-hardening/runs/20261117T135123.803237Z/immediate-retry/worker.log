@@ -1,0 +1,31 @@
+ 
+ -------------- hardening-probe@localhost v5.7.0 (collider)
+--- ***** ----- 
+-- ******* ---- macOS-15.8.1-arm64-arm-64bit-Mach-O 2026-11-17 16:51:33
+- *** --- * --- 
+- ** ---------- [config]
+- ** ---------- .> app:         hardening_probe:0x1030b46e0
+- ** ---------- .> transport:   redis+socket:///private/tmp/ce-portable-HETin2/redis-70792.sock
+- ** ---------- .> results:     socket:///private/tmp/ce-portable-HETin2/redis-70792.sock
+- *** --- * --- .> concurrency: 1 (solo)
+-- ******* ---- .> task events: OFF (enable -E to monitor tasks in this worker)
+--- ***** ----- 
+ -------------- [queues]
+                .> hardening-probe  exchange=hardening-probe(direct) key=hardening-probe
+                
+
+[tasks]
+  . hardening_probe.ping
+  . hardening_probe.work
+  . shutdown_probe.task
+
+[2026-11-17 16:51:33,905: INFO/MainProcess] Connected to redis+socket:///private/tmp/ce-portable-HETin2/redis-70792.sock
+[2026-11-17 16:51:33,909: INFO/MainProcess] hardening-probe@localhost ready.
+[2026-11-17 16:51:33,928: INFO/MainProcess] Task hardening_probe.work[37368180-637d-447a-8b83-b94bcf64b179] received
+[2026-11-17 16:51:33,933: INFO/MainProcess] Task hardening_probe.work[37368180-637d-447a-8b83-b94bcf64b179] retry: Retry in 0s: RuntimeError('transient probe error')
+[2026-11-17 16:51:33,934: INFO/MainProcess] Task hardening_probe.work[37368180-637d-447a-8b83-b94bcf64b179] received
+[2026-11-17 16:51:34,241: INFO/MainProcess] Task hardening_probe.work[37368180-637d-447a-8b83-b94bcf64b179] succeeded in 0.3068775408901274s: 'completed'
+[2026-11-17 16:51:34,246: INFO/MainProcess] Task hardening_probe.ping[b372f93c-55a2-43ba-bcf5-806781ae3f23] received
+[2026-11-17 16:51:34,247: INFO/MainProcess] Task hardening_probe.ping[b372f93c-55a2-43ba-bcf5-806781ae3f23] succeeded in 0.0008378340862691402s: 'alive'
+
+worker: Warm shutdown (MainProcess)

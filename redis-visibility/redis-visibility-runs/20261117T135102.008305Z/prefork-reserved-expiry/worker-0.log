@@ -1,0 +1,32 @@
+ 
+ -------------- worker-0@localhost v5.7.0 (collider)
+--- ***** ----- 
+-- ******* ---- macOS-15.8.1-arm64-arm-64bit-Mach-O 2026-11-17 16:51:09
+- *** --- * --- 
+- ** ---------- [config]
+- ** ---------- .> app:         visibility_probe:0x105d17620
+- ** ---------- .> transport:   redis+socket:///private/tmp/ce-portable-HETin2/redis-70753.sock
+- ** ---------- .> results:     socket:///private/tmp/ce-portable-HETin2/redis-70753.sock
+- *** --- * --- .> concurrency: 1 (prefork)
+-- ******* ---- .> task events: OFF (enable -E to monitor tasks in this worker)
+--- ***** ----- 
+ -------------- [queues]
+                .> visibility-probe exchange=visibility-probe(direct) key=visibility-probe
+                
+
+[tasks]
+  . redis_visibility_probe.work
+
+[2026-11-17 16:51:09,700: INFO/MainProcess] Connected to redis+socket:///private/tmp/ce-portable-HETin2/redis-70753.sock
+[2026-11-17 16:51:09,703: INFO/MainProcess] worker-0@localhost ready.
+[2026-11-17 16:51:09,736: INFO/MainProcess] Task redis_visibility_probe.work[2b87214c-4602-4212-8472-3bda44afdf24] received
+[2026-11-17 16:51:10,138: INFO/SpawnPoolWorker-1] child process 70782 calling self.run()
+[2026-11-17 16:51:10,433: INFO/MainProcess] Task redis_visibility_probe.work[273b5a6b-68c4-4a00-b1d6-96a0de8a69bb] received
+[2026-11-17 16:51:15,423: INFO/SpawnPoolWorker-1] Task redis_visibility_probe.work[2b87214c-4602-4212-8472-3bda44afdf24] succeeded in 5.0181313750799745s: 'long'
+[2026-11-17 16:51:15,426: INFO/MainProcess] Task redis_visibility_probe.work[273b5a6b-68c4-4a00-b1d6-96a0de8a69bb] received
+[2026-11-17 16:51:15,428: INFO/MainProcess] Task redis_visibility_probe.work[2b87214c-4602-4212-8472-3bda44afdf24] received
+[2026-11-17 16:51:15,552: INFO/SpawnPoolWorker-1] Task redis_visibility_probe.work[273b5a6b-68c4-4a00-b1d6-96a0de8a69bb] succeeded in 0.12665916606783867s: 'reserved'
+[2026-11-17 16:51:15,680: INFO/SpawnPoolWorker-1] Task redis_visibility_probe.work[273b5a6b-68c4-4a00-b1d6-96a0de8a69bb] succeeded in 0.1265732920728624s: 'reserved'
+[2026-11-17 16:51:15,807: INFO/SpawnPoolWorker-1] Task redis_visibility_probe.work[2b87214c-4602-4212-8472-3bda44afdf24] succeeded in 0.12466366589069366s: 'long'
+
+worker: Warm shutdown (MainProcess)

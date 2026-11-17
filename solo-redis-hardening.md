@@ -281,8 +281,8 @@ Source path inspected: `Request.acknowledge` → consumer ACK promise →
 `after_return`, and `task_postrun` are not confirmed-ACK hooks. In the measured path
 an error can be handled/logged after the local acknowledged flag was set;
 `BrokenPipeError` also has a distinct re-raising path. Source:
-[Request](../celery/worker/request.py),
-[consumer callback scheduling](../celery/worker/consumer/consumer.py), and installed
+[Request](repos/celery/celery/worker/request.py),
+[consumer callback scheduling](repos/celery/celery/worker/consumer/consumer.py), and installed
 Kombu `message.py` / `transport/redis.py` (hashed in the validation metadata).
 
 A lower-level subclass/wrapper could intercept the socket operation, but safely
@@ -562,10 +562,10 @@ operation; [example validation](solo-redis-hardening/example-validation.log) als
 checks syntax, table formatting, and recorded source hashes.
 
 ```bash
-PYTHONDONTWRITEBYTECODE=1 .dev/.venv/bin/python .dev/solo-redis-hardening/test-solo-hardening.py
-PYTHONDONTWRITEBYTECODE=1 .dev/.venv/bin/python .dev/solo-redis-hardening/verify-solo-hardening.py
+mise exec -- uv run --locked --no-sync python solo-redis-hardening/test-solo-hardening.py
+mise run solo-hardening
 # Focused selection:
-.dev/.venv/bin/python .dev/solo-redis-hardening/verify-solo-hardening.py \
+mise run solo-hardening \
   --case cold-mixed-legacy-eta --case immediate-retry
 ```
 

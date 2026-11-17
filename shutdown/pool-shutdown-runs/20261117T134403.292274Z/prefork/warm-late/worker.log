@@ -1,0 +1,26 @@
+ 
+ -------------- shutdown-probe@localhost v5.7.0 (collider)
+--- ***** ----- 
+-- ******* ---- macOS-15.8.1-arm64-arm-64bit-Mach-O 2026-11-17 16:44:08
+- *** --- * --- 
+- ** ---------- [config]
+- ** ---------- .> app:         shutdown_probe:0x10717c1a0
+- ** ---------- .> transport:   redis+socket:///private/tmp/ce-portable-HETin2/redis-69832.sock
+- ** ---------- .> results:     socket:///private/tmp/ce-portable-HETin2/redis-69832.sock
+- *** --- * --- .> concurrency: 1 (prefork)
+-- ******* ---- .> task events: OFF (enable -E to monitor tasks in this worker)
+--- ***** ----- 
+ -------------- [queues]
+                .> shutdown-probe   exchange=shutdown-probe(direct) key=shutdown-probe
+                
+
+[tasks]
+  . shutdown_probe.task
+
+[2026-11-17 16:44:08,071: INFO/MainProcess] Connected to redis+socket:///private/tmp/ce-portable-HETin2/redis-69832.sock
+[2026-11-17 16:44:08,077: INFO/MainProcess] shutdown-probe@localhost ready.
+[2026-11-17 16:44:08,084: INFO/MainProcess] Task shutdown_probe.task[0f808e33-3420-4947-a243-fe874afc7f93] received
+[2026-11-17 16:44:08,515: INFO/SpawnPoolWorker-1] child process 69856 calling self.run()
+
+worker: Warm shutdown (MainProcess)
+[2026-11-17 16:44:10,981: INFO/SpawnPoolWorker-1] Task shutdown_probe.task[0f808e33-3420-4947-a243-fe874afc7f93] succeeded in 2.4499322921037674s: 'completed'

@@ -315,7 +315,7 @@ as an automatic execution lock.
 - [Visibility report](redis-visibility.md): option wiring, shared scanning,
   age threshold, result retention, and limits of extrapolation to other pools.
 
-Source checks include `celery/concurrency/thread.py`, `celery/app/base.py` backend
+Source checks include `repos/celery/celery/concurrency/thread.py`, `repos/celery/celery/app/base.py` backend
 selection, and RedisBackend retry handling. Thread-safety/connection sizing and
 illustrative production tuning are recommendations rather than new measurements.
 Maintain this guide separately from raw reports; no new worker matrix or production

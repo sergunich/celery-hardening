@@ -997,50 +997,66 @@ none provides an unconditional delivery or exactly-once guarantee.
 | [redis-connection/](redis-connection/) | [Redis connections](redis-connection.md) | 47 selected cases; wire-fault proxy/tests, probe/runner, logs and runs |
 | [redis-visibility/](redis-visibility/) | [Redis visibility](redis-visibility.md) | 27 selected cases; observation/configuration tests, source/history audit, logs and runs |
 | [solo-redis-hardening/](solo-redis-hardening/) | [Solo hardening](solo-redis-hardening.md) | Seven worker cases, 14 unit tests; application examples, probe/runner, logs, runs and PR snapshots |
-| [environment/](environment/) | [Layout validation](environment/layout-validation.md) | Shared setup/lock, relocation map and layout checks |
+| [environment/](environment/) | [Shared environment](environment/README.md), [portability validation](environment/portability-validation.md) | mise tasks, shared uv/tool/source locks, setup and layout checks |
 
 Counts describe recorded suites, not every possible pool/setting combination.
 Reports link to per-case evidence and separate measurements from extrapolation.
-Shutdown owns shared private-Redis/process helpers; several suites reuse its
-observers and task-policy cleanup. Runners supply explicit checkout/suite import
-paths, including for prefork spawn; suites are not independent copied projects.
+Shared environment utilities own source paths, provenance, and private Redis;
+several suites also reuse shutdown observers and task-policy cleanup. Runners supply
+explicit source/suite import paths, including for prefork spawn. All suites use the
+same pinned sources and environment.
 
 ## Running the experiments
 
 ### Prerequisites and setup
 
-**All commands below assume the parent Celery checkout root**, not the nested
-`.dev/` Git repository root. Keep this experiment repository at `.dev/` inside the
-matching Celery checkout. Install **uv** and **mise** first, then:
+**Run commands from this experiment repository's root.** It is self-contained:
+no surrounding Celery checkout is needed. Use mise **2026.8.4** (the validated
+bootstrap version) or a compatible newer version, Git, and a native build toolchain
+for Redis. Inspect the configuration before trusting it:
 
 ```bash
-bash .dev/environment/setup-shutdown-env.sh
+mise trust
+mise install --locked
+mise run setup
 ```
 
-The script creates/reuses `.dev/.venv` with Python 3.13, syncs the shared dependency
-lock using uv, and installs Redis 8.2.3 through mise. It imports Celery from the
-checkout, without installing/patching its sources or starting a shared Redis.
-**Do not relocate the existing virtual environment:** its scripts contain absolute
-paths. Runners resolve their own paths and can be invoked from another cwd using
-absolute paths, but the examples here use checkout-relative paths.
+[mise.toml](mise.toml) and [mise.lock](mise.lock) pin Python **3.13.9**, uv
+**0.11.15**, and Redis **8.2.3**. [pyproject.toml](pyproject.toml) and
+[uv.lock](uv.lock) define one shared Python environment for every experiment.
+Setup uses `uv sync --locked`, not a fresh dependency resolution.
+
+[repos.lock.toml](repos.lock.toml) pins the full Git revisions of Celery and Kombu.
+Setup clones them into ignored `repos/celery/` and `repos/kombu/` and checks out
+detached revisions. Both are imported directly through `PYTHONPATH`; neither is
+installed as a Python distribution. Setup refuses to discard local source edits.
+[Environment documentation](environment/README.md) explains the locks, task
+commands, source checks, and deliberate upgrade procedure.
+
+**Do not move an existing virtual environment.** When this repository is relocated,
+recreate `.venv/` with `mise run setup`; virtualenv scripts contain absolute paths.
+No relocation, new remote, or GitHub publication is part of this setup.
 
 Run on an isolated development machine. The suites start real workers and private
 Redis servers, own their cleanup, and deliberately inject signals, process deaths,
 socket blackholes, and outages. Fixtures disable Redis persistence: they do not
 validate production durability. The recorded macOS/spawn results are not Linux,
-Windows, RabbitMQ, Docker, high-load, or combined-outage certification. Accelerated
-fault timings and example socket values are not validated production budgets.
+Windows, RabbitMQ, Docker, high-load, or combined-outage certification. Tool download
+locks cover macOS ARM64 and Linux x64; Linux behavior has not been certified.
 
 ### Focused real-worker checks
 
 ```bash
-.dev/.venv/bin/python .dev/shutdown/verify-pool-shutdown.py --pool solo --case warm-late
-.dev/.venv/bin/python .dev/shutdown/verify-solo-requeue.py
-.dev/.venv/bin/python .dev/eta-prefetch/verify-eta-prefetch.py --case due-solo-late
-.dev/.venv/bin/python .dev/task-policy/verify-task-policies.py --case failure-solo-ack
-.dev/.venv/bin/python .dev/redis-connection/verify-redis-connections.py --case delivery-reply-lost
-.dev/.venv/bin/python .dev/redis-visibility/verify-redis-visibility.py --case solo-eta-short-late
-.dev/.venv/bin/python .dev/solo-redis-hardening/verify-solo-hardening.py --case cold-mixed-legacy-eta
+mise run shutdown --pool solo --case warm-late
+mise run solo-requeue
+mise run eta-prefetch --case due-solo-late
+mise run task-policy --case failure-solo-ack
+mise run redis-connection --case delivery-reply-lost
+mise run redis-visibility --case solo-eta-short-late
+mise run solo-hardening --case cold-mixed-legacy-eta
+
+# Focused portability controls across all suites and all four pools:
+mise run smoke
 ```
 
 ### Full suites and case discovery
@@ -1050,43 +1066,48 @@ runners expose cases with `--help` and accept repeated `--case`; the shutdown
 matrix also accepts repeated `--pool`:
 
 ```bash
-.dev/.venv/bin/python .dev/redis-connection/verify-redis-connections.py --help
-.dev/.venv/bin/python .dev/shutdown/verify-pool-shutdown.py
-.dev/.venv/bin/python .dev/solo-redis-hardening/verify-solo-hardening.py
+mise tasks
+mise run redis-connection --help
+mise run shutdown
+mise run solo-hardening
 ```
 
-**Exception: `verify-solo-requeue.py` has no argument parser. It always runs both
-real-worker cases, even if passed `--help`.** Do not use it for a harmless help check.
+The solo-requeue task always runs its two controls unless passed `--help`;
+help now exits without starting workers. Task arguments are forwarded to the
+underlying suite runner. Tasks set their working directory to this repository's
+root; `mise -C /path/to/experiments run TASK` also works from an unrelated directory.
 
 ### Unit and regression checks
 
-These checks do not start real Redis/workers or install dependencies. The recorded
-suite contains **43 tests**, separate from the real-worker case counts above.
+These checks do not start real Redis/workers or install dependencies. The original
+recorded suite contained **43 tests**; the current suite additionally checks the
+self-contained configuration and source-setup safeguards.
 
 ```bash
-PYTHONDONTWRITEBYTECODE=1 .dev/.venv/bin/python .dev/environment/test-suite-layout.py
-PYTHONDONTWRITEBYTECODE=1 .dev/.venv/bin/python .dev/shutdown/test-render-shutdown-report.py
-PYTHONDONTWRITEBYTECODE=1 .dev/.venv/bin/python .dev/redis-connection/test-redis-fault-proxy.py
-PYTHONDONTWRITEBYTECODE=1 .dev/.venv/bin/python .dev/redis-visibility/test-redis-visibility-probe.py
-PYTHONDONTWRITEBYTECODE=1 .dev/.venv/bin/python .dev/redis-visibility/test-visibility-config-wiring.py
-PYTHONDONTWRITEBYTECODE=1 .dev/.venv/bin/python .dev/solo-redis-hardening/test-solo-hardening.py
+mise run check
+mise run test
 ```
+
+All suites share `.venv/`, pinned sources, import-path setup, and the private Redis
+fixture. `check` rejects version drift, wrong import origins, dirty source checkouts,
+installed Celery/Kombu wheels, or a stale uv lock before worker tasks run.
 
 ### Reading artifacts and rendering the shutdown report
 
 Runners write **new timestamped directories inside their suites**, containing
-summary JSON, per-case results, logs/events, effective settings, and source hashes.
-They do not overwrite maintained reports or old runs. Inspect body starts/completions,
-backend state, actual ACK/reject operations, queued/unacked/restored records, and
-process exit separately. Application business effects need their own evidence;
-backend SUCCESS alone cannot establish them or delivery settlement.
+summary JSON, per-case results, logs/events, effective settings, source revisions,
+and repository-relative harness hashes. They do not overwrite maintained reports or
+old runs. Inspect body starts/completions, backend state, actual ACK/reject operations,
+queued/unacked/restored records, and process exit separately. Runtime logs may still
+contain machine-specific traceback and Unix-socket paths; these are observations,
+not setup dependencies.
 
 Only the shutdown report has a renderer:
 
 ```bash
-.dev/.venv/bin/python .dev/shutdown/render-shutdown-report.py \
-  .dev/shutdown/pool-shutdown-runs/20261113T081413.844718Z/summary.json \
-  --previous .dev/shutdown/pool-shutdown-runs/20261113T080741.135372Z/summary.json
+mise run render:shutdown \
+  shutdown/pool-shutdown-runs/20261113T081413.844718Z/summary.json \
+  --previous shutdown/pool-shutdown-runs/20261113T080741.135372Z/summary.json
 ```
 
 This command **writes `shutdown.md`**. It requires a complete 96-case summary and
@@ -1097,10 +1118,13 @@ manually.
 
 ### Historical paths and provenance
 
-Raw logs, run/configuration JSON, source manifests, audit snapshots, and the pinned
-lock were relocated without rewriting their contents. Old absolute paths, hashes,
-and socket/process identifiers describe the original run—not resources to reconnect
-to or commands to execute now. Use the [migration map](environment/layout-migration.json)
-and [layout validation](environment/layout-validation.md) to navigate old paths.
-Changed runner hashes in new results are expected; preserve historical evidence
-rather than rewriting it to match the current layout.
+Historical logs, run/configuration JSON, source manifests, and audit snapshots are
+preserved byte-for-byte. The former pip-style dependency lock is retained as
+[historical-requirements.lock](environment/historical-requirements.lock), not used
+for setup. Old absolute paths and repository names describe the original runs—not
+resources to reconnect to or commands to execute now. The earlier
+[migration map](environment/layout-migration.json) and
+[layout validation](environment/layout-validation.md) document the previous layout.
+See [portability validation](environment/portability-validation.md) for this migration.
+Changed runner hashes in new results are expected; historical evidence is never
+rewritten to match current sources.

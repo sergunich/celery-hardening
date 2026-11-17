@@ -1,12 +1,11 @@
 #!/usr/bin/env python3
 """Focused real-worker comparison of time limits, ACK policy, and executor loss.
 
-All resources/artifacts stay in .dev; only our private Redis is flushed.
+All resources/artifacts stay in this repository; only our private Redis is flushed.
 --case may be repeated. PASS reproduces a behavior, not necessarily correct behavior.
 """
 import argparse
 from datetime import datetime, timezone
-import importlib.metadata
 import importlib.util
 import json
 import os
@@ -19,9 +18,12 @@ import time
 import uuid
 
 SUITE = Path(__file__).resolve().parent
-DEV = SUITE.parent
-ROOT = DEV.parent
-spec = importlib.util.spec_from_file_location("shutdown_helpers", DEV / "shutdown/verify-pool-shutdown.py")
+sys.path.insert(0, str(SUITE.parent))
+from environment.runtime import (
+    ROOT, activate_sources, dependency_version, provenance, pythonpath, source_revision, private_redis,
+)
+activate_sources()
+spec = importlib.util.spec_from_file_location("shutdown_helpers", ROOT / "shutdown/verify-pool-shutdown.py")
 helpers = importlib.util.module_from_spec(spec)
 spec.loader.exec_module(helpers)
 Celery = helpers.Celery
@@ -141,12 +143,12 @@ def run_case(case, run_dir, client, broker, backend):
     folder.mkdir()
     client.flushall()
     event_path = folder / "events.jsonl"
-    config = dict(case, broker=broker, backend=backend, events=str(event_path), queue="policy-probe")
+    config = dict(case, broker=broker, backend=backend, events=str(event_path.relative_to(ROOT)), queue="policy-probe")
     (folder / "config.json").write_text(json.dumps(config, indent=2) + "\n")
     env = os.environ.copy()
     for key in ("REMAP_SIGTERM", "CELERY_RDBSIG"):
         env.pop(key, None)
-    env.update(PYTHONPATH=os.pathsep.join([str(ROOT), str(SUITE), str(DEV / "shutdown")]), PYTHONDONTWRITEBYTECODE="1",
+    env.update(PYTHONPATH=pythonpath(SUITE, ROOT / "shutdown"), PYTHONDONTWRITEBYTECODE="1",
                PYTHONUNBUFFERED="1", SHUTDOWN_PROBE_CONFIG=json.dumps(config))
     command = [sys.executable, "-m", "celery", "-A", "policy_probe:app", "worker",
                "--pool", case["pool"], "--concurrency", "1", "--hostname", "policy-probe@localhost",
@@ -334,10 +336,10 @@ def main():
     args = parser.parse_args()
     run_dir = SUITE / "task-policy-runs" / datetime.now(timezone.utc).strftime("%Y%m%dT%H%M%S.%fZ")
     run_dir.mkdir(parents=True)
-    summary = dict(python=sys.version, platform=platform.platform(),
-        revision=subprocess.check_output(["git", "rev-parse", "HEAD"], cwd=ROOT, text=True).strip(),
+    summary = dict(provenance=provenance(), python=sys.version, platform=platform.platform(),
+        revision=source_revision(),
         celery=__import__("celery").__version__,
-        dependencies={n: importlib.metadata.version(n) for n in ("billiard", "kombu", "gevent", "greenlet", "redis")},
+        dependencies={n: dependency_version(n) for n in ("billiard", "kombu", "gevent", "greenlet", "redis")},
         outcomes=[])
     with helpers.private_redis(run_dir) as (client, broker, backend):
         summary["redis_server"] = client.info("server")["redis_version"]
@@ -346,7 +348,7 @@ def main():
                 continue
             summary["outcomes"].append(run_case(case, run_dir, client, broker, backend))
             (run_dir / "summary.json").write_text(json.dumps(summary, indent=2) + "\n")
-    print(f"Artifacts: {run_dir}")
+    print(f"Artifacts: {run_dir.relative_to(ROOT)}")
     return 0 if all(o["passed"] for o in summary["outcomes"]) else 1
 
 

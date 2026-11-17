@@ -1,0 +1,25 @@
+ 
+ -------------- worker-1@localhost v5.7.0 (collider)
+--- ***** ----- 
+-- ******* ---- macOS-15.8.1-arm64-arm-64bit-Mach-O 2026-11-17 16:45:43
+- *** --- * --- 
+- ** ---------- [config]
+- ** ---------- .> app:         visibility_probe:0x1120fe270
+- ** ---------- .> transport:   redis+socket:///private/tmp/ce-portable-HETin2/redis-70049.sock
+- ** ---------- .> results:     socket:///private/tmp/ce-portable-HETin2/redis-70049.sock
+- *** --- * --- .> concurrency: 1 (solo)
+-- ******* ---- .> task events: OFF (enable -E to monitor tasks in this worker)
+--- ***** ----- 
+ -------------- [queues]
+                .> visibility-probe exchange=visibility-probe(direct) key=visibility-probe
+                
+
+[tasks]
+  . redis_visibility_probe.work
+
+[2026-11-17 16:45:43,237: INFO/MainProcess] Connected to redis+socket:///private/tmp/ce-portable-HETin2/redis-70049.sock
+[2026-11-17 16:45:43,240: INFO/MainProcess] worker-1@localhost ready.
+[2026-11-17 16:45:44,252: INFO/MainProcess] Task redis_visibility_probe.work[12d57f67-663a-46a4-b2af-6425f58cb68c] received
+[2026-11-17 16:45:44,377: INFO/MainProcess] Task redis_visibility_probe.work[12d57f67-663a-46a4-b2af-6425f58cb68c] succeeded in 0.12435575015842915s: 'abandoned'
+
+worker: Warm shutdown (MainProcess)

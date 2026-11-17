@@ -1,0 +1,41 @@
+ 
+ -------------- hardening-probe@localhost v5.7.0 (collider)
+--- ***** ----- 
+-- ******* ---- macOS-15.8.1-arm64-arm-64bit-Mach-O 2026-11-17 16:51:29
+- *** --- * --- 
+- ** ---------- [config]
+- ** ---------- .> app:         hardening_probe:0x1047ac6e0
+- ** ---------- .> transport:   redis+socket:///private/tmp/ce-portable-HETin2/redis-70792.sock
+- ** ---------- .> results:     socket:///private/tmp/ce-portable-HETin2/redis-70792.sock
+- *** --- * --- .> concurrency: 1 (solo)
+-- ******* ---- .> task events: OFF (enable -E to monitor tasks in this worker)
+--- ***** ----- 
+ -------------- [queues]
+                .> hardening-probe  exchange=hardening-probe(direct) key=hardening-probe
+                
+
+[tasks]
+  . hardening_probe.ping
+  . hardening_probe.work
+  . shutdown_probe.task
+
+[2026-11-17 16:51:29,678: INFO/MainProcess] Connected to redis+socket:///private/tmp/ce-portable-HETin2/redis-70792.sock
+[2026-11-17 16:51:29,681: INFO/MainProcess] hardening-probe@localhost ready.
+[2026-11-17 16:51:29,689: INFO/MainProcess] Task hardening_probe.work[1e1f3984-f6fb-452e-b318-db7a78cb9fb4] received
+[2026-11-17 16:51:29,690: ERROR/MainProcess] Task hardening_probe.work[1e1f3984-f6fb-452e-b318-db7a78cb9fb4] raised unexpected: NotImplementedError('ordinary application error')
+Traceback (most recent call last):
+  File "/private/tmp/ce-portable-HETin2/repos/celery/celery/app/trace.py", line 564, in trace_task
+    R = retval = fun(*args, **kwargs)
+                 ~~~^^^^^^^^^^^^^^^^^
+  File "/private/tmp/ce-portable-HETin2/repos/celery/celery/app/trace.py", line 883, in __protected_call__
+    return self.run(*args, **kwargs)
+           ~~~~~~~~^^^^^^^^^^^^^^^^^
+  File "/private/tmp/ce-portable-HETin2/solo-redis-hardening/solo_hardening.py", line 30, in guarded
+    return fun(*args, **kwargs)
+  File "/private/tmp/ce-portable-HETin2/solo-redis-hardening/hardening_probe.py", line 37, in work
+    raise NotImplementedError('ordinary application error')
+NotImplementedError: ordinary application error
+[2026-11-17 16:51:29,715: INFO/MainProcess] Task hardening_probe.ping[ff8ccecc-d547-4cec-a821-dcab4a74ad59] received
+[2026-11-17 16:51:29,715: INFO/MainProcess] Task hardening_probe.ping[ff8ccecc-d547-4cec-a821-dcab4a74ad59] succeeded in 0.00034545897506177425s: 'alive'
+
+worker: Warm shutdown (MainProcess)

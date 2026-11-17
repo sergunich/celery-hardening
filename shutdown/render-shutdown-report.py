@@ -10,7 +10,7 @@ from pathlib import Path
 import re
 from urllib.parse import urlsplit
 
-DEV = Path(__file__).resolve().parent.parent
+ROOT = Path(__file__).resolve().parent.parent
 POOLS = ["solo", "prefork", "threads", "gevent"]
 
 
@@ -31,7 +31,7 @@ def main():
     parser.add_argument("summary", type=Path)
     parser.add_argument("--previous", type=Path)
     args = parser.parse_args()
-    appendix_path = DEV / "shutdown/shutdown-appendix.md"
+    appendix_path = ROOT / "shutdown/shutdown-appendix.md"
     try:
         appendix = appendix_path.read_text(encoding="utf-8")
     except OSError as exc:
@@ -44,7 +44,7 @@ def main():
     names = list(dict.fromkeys(o["case"]["name"] for o in outcomes))
     if len(outcomes) != 96 or any((p, n) not in by_key for p in POOLS for n in names):
         raise SystemExit("Report requires the complete 24-case x 4-pool run")
-    artifacts = args.summary.resolve().parent.relative_to(DEV)
+    artifacts = args.summary.resolve().parent.relative_to(ROOT)
     passed = sum(o["passed"] for o in outcomes)
     repeated = ""
     if args.previous:
@@ -377,9 +377,9 @@ error. These tests have no reserved ETA tasks and say nothing about ETA recovery
   `(False, None, None)`. The request success callback can then send a late ACK
   even though the task body never finished and no backend success was stored.
 
-Relevant source: `celery/apps/worker.py`, `celery/worker/worker.py`,
-`celery/worker/consumer/consumer.py` (`call_soon_ack`),
-`celery/worker/request.py`, and `celery/concurrency/{solo,prefork,thread,gevent}.py`.
+Relevant source: `repos/celery/celery/apps/worker.py`, `repos/celery/celery/worker/worker.py`,
+`repos/celery/celery/worker/consumer/consumer.py` (`call_soon_ack`),
+`repos/celery/celery/worker/request.py`, and `repos/celery/celery/concurrency/{solo,prefork,thread,gevent}.py`.
 
 ## Recommendation
 
@@ -396,11 +396,11 @@ and neither process exit codes nor result-backend states prove delivery safety.
 ## Reproduce and inspect
 
 ```bash
-bash .dev/environment/setup-shutdown-env.sh
-PYTHONDONTWRITEBYTECODE=1 .dev/.venv/bin/python .dev/shutdown/verify-pool-shutdown.py
+mise run setup
+mise run shutdown
 
 # Selected pools/cases (flags are repeatable):
-.dev/.venv/bin/python .dev/shutdown/verify-pool-shutdown.py \\
+mise run shutdown \\
   --pool prefork --pool threads --pool gevent \\
   --case soft-short-late --case soft-long-late --case cold-late
 ```
@@ -411,20 +411,20 @@ connects to an existing Redis instance. Each case uses a fresh worker process,
 and the runner cleans up its workers, child processes, and Redis instance.
 The temporary Redis databases are reset only inside that private server.
 
-- `.dev/environment/setup-shutdown-env.sh`: uv environment, pinned Python dependencies,
-  Redis 8.2.3 installed through mise (no global/project activation).
-- `.dev/shutdown/verify-pool-shutdown.py`: sends signals, inspects Redis, checks behavior,
+- `mise.toml`, `mise.lock`, `pyproject.toml`, `uv.lock`, and `repos.lock.toml`:
+  shared pinned tools, Python dependencies, and Celery/Kombu source checkouts.
+- `shutdown/verify-pool-shutdown.py`: sends signals, inspects Redis, checks behavior,
   and writes per-case artifacts; returns nonzero on check failure.
-- `.dev/shutdown/shutdown_probe.py`: task definitions and observation-only hooks. Actual
+- `shutdown/shutdown_probe.py`: task definitions and observation-only hooks. Actual
   workers run through `python -m celery ... --pool ...`; gevent receives Celery's
   normal early monkey-patching. Shutdown implementations are not replaced.
   ACK/reject methods and the hard handler are wrapped only to record calls,
   then delegate to their original implementations without swallowing exceptions.
-- `.dev/shutdown/render-shutdown-report.py`: regenerates experiment sections from a complete
+- `shutdown/render-shutdown-report.py`: regenerates experiment sections from a complete
   run's `summary.json`, optionally comparing it with a previous run, then includes
-  the maintained `.dev/shutdown/shutdown-appendix.md`. Refuses to overwrite this report if
+  the maintained `shutdown/shutdown-appendix.md`. Refuses to overwrite this report if
   that source is missing or empty; experiment runs never write the appendix source.
-- `.dev/shutdown/test-render-shutdown-report.py`: verifies appendix preservation across
+- `shutdown/test-render-shutdown-report.py`: verifies appendix preservation across
   regeneration and that missing/empty appendix sources leave the report untouched.
 """)
     parts.append(f"""
@@ -434,8 +434,8 @@ Each `<pool>/<case>/` directory contains `config.json`, `events.jsonl`,
 all planned and actually delivered signals are retained.
 
 ```bash
-.dev/.venv/bin/python .dev/shutdown/render-shutdown-report.py \\
-  .dev/{artifacts}/summary.json
+mise run render:shutdown \\
+  {artifacts}/summary.json
 ```
 
 ## Environment and boundaries
@@ -456,11 +456,11 @@ all planned and actually delivered signals are retained.
 - No universal shutdown-duration guarantee follows from these timings. Native
   code, signal coalescing, teardown, and application exception handling all matter.
 
-All scripts, logs, and this report remain under locally ignored `.dev/`
-(`/.dev/` in `.git/info/exclude`). No production code or shared ignore file was changed.
+All scripts, logs, and this report belong to this self-contained experiment repository.
+Pinned Celery and Kombu sources live under ignored `repos/`; production sources are not patched.
 """)
-    parts.append("\n" + rebase_appendix_links(appendix, appendix_path.parent, DEV))
-    output = DEV / "shutdown.md"
+    parts.append("\n" + rebase_appendix_links(appendix, appendix_path.parent, ROOT))
+    output = ROOT / "shutdown.md"
     output.write_text("".join(parts), encoding="utf-8")
     print(f"Wrote {output}: {len(outcomes)} rows")
 

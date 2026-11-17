@@ -1,14 +1,12 @@
 #!/usr/bin/env python3
 """Compare real Celery CLI workers against a private Redis broker/backend.
 
-.dev/.venv/bin/python .dev/shutdown/verify-pool-shutdown.py [--pool prefork] [--case cold-late]
-No shared Redis is used. Artifacts remain under .dev/shutdown/pool-shutdown-runs/.
+mise run shutdown [--pool prefork] [--case cold-late]
+No shared Redis is used. Artifacts remain under shutdown/pool-shutdown-runs/.
 """
 import argparse
-from contextlib import contextmanager
 from datetime import datetime, timezone
 import hashlib
-import importlib.metadata
 import json
 import os
 from pathlib import Path
@@ -20,9 +18,11 @@ import time
 import uuid
 
 SUITE = Path(__file__).resolve().parent
-DEV = SUITE.parent
-ROOT = DEV.parent
-sys.path.insert(0, str(ROOT))
+sys.path.insert(0, str(SUITE.parent))
+from environment.runtime import (
+    ROOT, activate_sources, dependency_version, provenance, pythonpath, source_revision, private_redis,
+)
+activate_sources()
 from celery import Celery
 import redis
 
@@ -87,43 +87,6 @@ def kill_group(pid):
     except ProcessLookupError:
         return False
 
-
-@contextmanager
-def private_redis(run_dir):
-    install = subprocess.check_output(["mise", "where", "redis@8.2.3"], text=True).strip()
-    executable = Path(install) / "bin/redis-server"
-    socket = DEV / f"shutdown-{os.getpid()}.sock"
-    if socket.exists():
-        raise RuntimeError(f"Refusing to reuse existing socket {socket}")
-    with (run_dir / "redis.log").open("w") as log:
-        server = subprocess.Popen(
-            [str(executable), "--port", "0", "--unixsocket", str(socket),
-             "--unixsocketperm", "700", "--save", "", "--appendonly", "no", "--dir", str(run_dir)],
-            stdout=log, stderr=subprocess.STDOUT, start_new_session=True,
-        )
-        client = redis.Redis(unix_socket_path=str(socket))
-        try:
-            until = time.monotonic() + 10
-            while True:
-                try:
-                    if client.ping():
-                        break
-                except redis.ConnectionError:
-                    pass
-                if server.poll() is not None or time.monotonic() > until:
-                    raise RuntimeError(f"Private Redis did not start; see {run_dir / 'redis.log'}")
-                time.sleep(0.05)
-            yield client, f"redis+socket://{socket}?virtual_host=0", f"redis+socket://{socket}?virtual_host=1"
-        finally:
-            client.close()
-            if server.poll() is None:
-                server.terminate()
-                try:
-                    server.wait(timeout=5)
-                except subprocess.TimeoutExpired:
-                    server.kill()
-                    server.wait(timeout=5)
-            socket.unlink(missing_ok=True)
 
 
 def broker_snapshot(client, task_id):
@@ -238,12 +201,12 @@ def run_case(case, pool, run_dir, client, broker, backend, native_iterations):
     queue = "shutdown-probe"
     task_id = str(uuid.uuid4())
     config = dict(case, pool=pool, queue=queue, broker=broker, backend=backend,
-                  events=str(folder / "events.jsonl"), native_iterations=native_iterations)
+                  events=str((folder / "events.jsonl").relative_to(ROOT)), native_iterations=native_iterations)
     (folder / "config.json").write_text(json.dumps(config, indent=2) + "\n")
     env = os.environ.copy()
     for key in ("REMAP_SIGTERM", "CELERY_RDBSIG"):
         env.pop(key, None)
-    env.update(PYTHONPATH=os.pathsep.join([str(ROOT), str(SUITE)]), PYTHONDONTWRITEBYTECODE="1",
+    env.update(PYTHONPATH=pythonpath(SUITE), PYTHONDONTWRITEBYTECODE="1",
                PYTHONUNBUFFERED="1", SHUTDOWN_PROBE_CONFIG=json.dumps(config))
     command = [sys.executable, "-m", "celery", "-A", "shutdown_probe:app", "worker",
                "--pool", pool, "--concurrency", "1", "--hostname", "shutdown-probe@localhost",
@@ -361,10 +324,10 @@ def main():
     before = time.monotonic()
     hashlib.pbkdf2_hmac("sha256", b"probe", b"salt", 200_000)
     native_iterations = int(200_000 * 2.0 / (time.monotonic() - before))
-    summary = dict(
+    summary = dict(provenance=provenance(),
         python=sys.version, platform=platform.platform(),
-        revision=subprocess.check_output(["git", "rev-parse", "HEAD"], cwd=ROOT, text=True).strip(),
-        dependencies={name: importlib.metadata.version(name) for name in ("billiard", "kombu", "redis", "gevent", "greenlet")},
+        revision=source_revision(),
+        dependencies={name: dependency_version(name) for name in ("billiard", "kombu", "redis", "gevent", "greenlet")},
         outcomes=[],
     )
     with private_redis(run_dir) as (client, broker, backend):

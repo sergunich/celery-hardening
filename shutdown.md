@@ -391,9 +391,9 @@ error. These tests have no reserved ETA tasks and say nothing about ETA recovery
   `(False, None, None)`. The request success callback can then send a late ACK
   even though the task body never finished and no backend success was stored.
 
-Relevant source: `celery/apps/worker.py`, `celery/worker/worker.py`,
-`celery/worker/consumer/consumer.py` (`call_soon_ack`),
-`celery/worker/request.py`, and `celery/concurrency/{solo,prefork,thread,gevent}.py`.
+Relevant source: `repos/celery/celery/apps/worker.py`, `repos/celery/celery/worker/worker.py`,
+`repos/celery/celery/worker/consumer/consumer.py` (`call_soon_ack`),
+`repos/celery/celery/worker/request.py`, and `repos/celery/celery/concurrency/{solo,prefork,thread,gevent}.py`.
 
 ## Recommendation
 
@@ -410,11 +410,11 @@ and neither process exit codes nor result-backend states prove delivery safety.
 ## Reproduce and inspect
 
 ```bash
-bash .dev/environment/setup-shutdown-env.sh
-PYTHONDONTWRITEBYTECODE=1 .dev/.venv/bin/python .dev/shutdown/verify-pool-shutdown.py
+mise run setup
+mise run shutdown
 
 # Selected pools/cases (flags are repeatable):
-.dev/.venv/bin/python .dev/shutdown/verify-pool-shutdown.py \
+mise run shutdown \
   --pool prefork --pool threads --pool gevent \
   --case soft-short-late --case soft-long-late --case cold-late
 ```
@@ -425,20 +425,20 @@ connects to an existing Redis instance. Each case uses a fresh worker process,
 and the runner cleans up its workers, child processes, and Redis instance.
 The temporary Redis databases are reset only inside that private server.
 
-- `.dev/environment/setup-shutdown-env.sh`: uv environment, pinned Python dependencies,
-  Redis 8.2.3 installed through mise (no global/project activation).
-- `.dev/shutdown/verify-pool-shutdown.py`: sends signals, inspects Redis, checks behavior,
+- `mise.toml`, `mise.lock`, `pyproject.toml`, `uv.lock`, and `repos.lock.toml`:
+  shared pinned tools, Python dependencies, and Celery/Kombu source checkouts.
+- `shutdown/verify-pool-shutdown.py`: sends signals, inspects Redis, checks behavior,
   and writes per-case artifacts; returns nonzero on check failure.
-- `.dev/shutdown/shutdown_probe.py`: task definitions and observation-only hooks. Actual
+- `shutdown/shutdown_probe.py`: task definitions and observation-only hooks. Actual
   workers run through `python -m celery ... --pool ...`; gevent receives Celery's
   normal early monkey-patching. Shutdown implementations are not replaced.
   ACK/reject methods and the hard handler are wrapped only to record calls,
   then delegate to their original implementations without swallowing exceptions.
-- `.dev/shutdown/render-shutdown-report.py`: regenerates experiment sections from a complete
+- `shutdown/render-shutdown-report.py`: regenerates experiment sections from a complete
   run's `summary.json`, optionally comparing it with a previous run, then includes
-  the maintained `.dev/shutdown/shutdown-appendix.md`. Refuses to overwrite this report if
+  the maintained `shutdown/shutdown-appendix.md`. Refuses to overwrite this report if
   that source is missing or empty; experiment runs never write the appendix source.
-- `.dev/shutdown/test-render-shutdown-report.py`: verifies appendix preservation across
+- `shutdown/test-render-shutdown-report.py`: verifies appendix preservation across
   regeneration and that missing/empty appendix sources leave the report untouched.
 
 **Results used here:** [shutdown/pool-shutdown-runs/20261113T081413.844718Z/summary.json](shutdown/pool-shutdown-runs/20261113T081413.844718Z/summary.json).
@@ -447,8 +447,8 @@ Each `<pool>/<case>/` directory contains `config.json`, `events.jsonl`,
 all planned and actually delivered signals are retained.
 
 ```bash
-.dev/.venv/bin/python .dev/shutdown/render-shutdown-report.py \
-  .dev/shutdown/pool-shutdown-runs/20261113T081413.844718Z/summary.json
+mise run render:shutdown \
+  shutdown/pool-shutdown-runs/20261113T081413.844718Z/summary.json
 ```
 
 ## Environment and boundaries
@@ -469,14 +469,14 @@ all planned and actually delivered signals are retained.
 - No universal shutdown-duration guarantee follows from these timings. Native
   code, signal coalescing, teardown, and application exception handling all matter.
 
-All scripts, logs, and this report remain under locally ignored `.dev/`
-(`/.dev/` in `.git/info/exclude`). No production code or shared ignore file was changed.
+All scripts, logs, and this report belong to this self-contained experiment repository.
+Pinned Celery and Kombu sources live under ignored `repos/`; production sources are not patched.
 
 ## Appendix: shutdown, acknowledgment, and signal semantics
 
 > **Maintained explanation, not generated experiment output.** Edit
-> `.dev/shutdown/shutdown-appendix.md`, not this appendix's rendered copy in
-> `.dev/shutdown.md`. The renderer includes this text, rebasing relative links
+> `shutdown/shutdown-appendix.md`, not this appendix's rendered copy in
+> `shutdown.md`. The renderer includes this text, rebasing relative links
 > for the root report; missing or empty source files still prevent regeneration.
 > These explanations describe the tested checkout; review them explicitly if
 > a future version changes the implementation.
@@ -704,8 +704,8 @@ the scheduling callback. Therefore it can already be `True` **while the actual
 broker operation is still pending**. That is why the tests observe ACK operations
 and Redis state separately.
 
-Relevant source: `celery/worker/request.py` (`on_accepted`, `acknowledge`),
-`celery/worker/consumer/consumer.py` (`create_task_handler`, `call_soon_ack`),
+Relevant source: `repos/celery/celery/worker/request.py` (`on_accepted`, `acknowledge`),
+`repos/celery/celery/worker/consumer/consumer.py` (`create_task_handler`, `call_soon_ack`),
 Kombu's `asynchronous/hub.py` (`call_soon`, `create_loop`), and its Redis transport.
 
 ### A6. What does “SIGINTs coalesced while Python was in C” mean?
@@ -876,10 +876,10 @@ permanently on this task-level workaround.
 #### Reproduce and inspect
 
 ```bash
-.dev/.venv/bin/python .dev/shutdown/verify-solo-requeue.py
+mise run solo-requeue
 ```
 
-The experiment-only `catch="requeue"` branch in `.dev/shutdown/shutdown_probe.py` handles
+The experiment-only `catch="requeue"` branch in `shutdown/shutdown_probe.py` handles
 the recognized error and raises `Reject`; no Celery production code is patched.
 The runner checks actual ACK/reject calls, final Redis message state, and whether
 the restored original task ID can be fetched.

@@ -1,0 +1,58 @@
+ 
+ -------------- shutdown-probe@localhost v5.7.0 (collider)
+--- ***** ----- 
+-- ******* ---- macOS-15.8.1-arm64-arm-64bit-Mach-O 2026-11-17 16:44:26
+- *** --- * --- 
+- ** ---------- [config]
+- ** ---------- .> app:         shutdown_probe:0x1047b7a10
+- ** ---------- .> transport:   redis+socket:///private/tmp/ce-portable-HETin2/redis-69865.sock
+- ** ---------- .> results:     socket:///private/tmp/ce-portable-HETin2/redis-69865.sock
+- *** --- * --- .> concurrency: 1 (solo)
+-- ******* ---- .> task events: OFF (enable -E to monitor tasks in this worker)
+--- ***** ----- 
+ -------------- [queues]
+                .> shutdown-probe   exchange=shutdown-probe(direct) key=shutdown-probe
+                
+
+[tasks]
+  . shutdown_probe.task
+
+[2026-11-17 16:44:26,283: INFO/MainProcess] Connected to redis+socket:///private/tmp/ce-portable-HETin2/redis-69865.sock
+[2026-11-17 16:44:26,287: INFO/MainProcess] shutdown-probe@localhost ready.
+[2026-11-17 16:44:26,358: INFO/MainProcess] Task shutdown_probe.task[3dfb09db-0c60-4741-b2ae-5d596a29ed79] received
+
+worker: Hitting Ctrl+C again will terminate all running tasks!
+[2026-11-17 16:44:26,670: WARNING/MainProcess] Task shutdown_probe.task[3dfb09db-0c60-4741-b2ae-5d596a29ed79] reject requeue=True: solo worker shutting down
+Traceback (most recent call last):
+  File "/private/tmp/ce-portable-HETin2/shutdown/shutdown_probe.py", line 95, in probe
+    time.sleep(0.1)
+    ~~~~~~~~~~^^^^^
+  File "/private/tmp/ce-portable-HETin2/repos/celery/celery/apps/worker.py", line 343, in _handle_request
+    callback(worker)
+    ~~~~~~~~^^^^^^^^
+  File "/private/tmp/ce-portable-HETin2/repos/celery/celery/apps/worker.py", line 479, in on_cold_shutdown
+    worker.consumer.cancel_active_requests()
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^
+  File "/private/tmp/ce-portable-HETin2/repos/celery/celery/worker/consumer/consumer.py", line 929, in cancel_active_requests
+    request.cancel(self.pool, emit_retry=emit_retry)
+    ~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/private/tmp/ce-portable-HETin2/repos/celery/celery/worker/request.py", line 438, in cancel
+    pool.terminate_job(self.worker_pid, signal)
+    ~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/private/tmp/ce-portable-HETin2/repos/celery/celery/concurrency/base.py", line 113, in terminate_job
+    raise NotImplementedError(
+        f'{type(self)} does not implement kill_job')
+NotImplementedError: <class 'celery.concurrency.solo.TaskPool'> does not implement kill_job
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/private/tmp/ce-portable-HETin2/repos/celery/celery/app/trace.py", line 564, in trace_task
+    R = retval = fun(*args, **kwargs)
+                 ~~~^^^^^^^^^^^^^^^^^
+  File "/private/tmp/ce-portable-HETin2/repos/celery/celery/app/trace.py", line 883, in __protected_call__
+    return self.run(*args, **kwargs)
+           ~~~~~~~~^^^^^^^^^^^^^^^^^
+  File "/private/tmp/ce-portable-HETin2/shutdown/shutdown_probe.py", line 107, in probe
+    raise Reject("solo worker shutting down", requeue=True) from exc
+celery.exceptions.Reject: ('solo worker shutting down', True)

@@ -7,7 +7,6 @@ runner's private Redis is flushed. --case can be repeated.
 import argparse
 from datetime import datetime, timezone
 import hashlib
-import importlib.metadata
 import importlib.util
 import itertools
 import json
@@ -21,9 +20,12 @@ import time
 import uuid
 
 SUITE = Path(__file__).resolve().parent
-DEV = SUITE.parent
-ROOT = DEV.parent
-spec = importlib.util.spec_from_file_location("policy_helpers", DEV / "task-policy/verify-task-policies.py")
+sys.path.insert(0, str(SUITE.parent))
+from environment.runtime import (
+    ROOT, CELERY, activate_sources, dependency_version, provenance, pythonpath, source_revision, private_redis,
+)
+activate_sources()
+spec = importlib.util.spec_from_file_location("policy_helpers", ROOT / "task-policy/verify-task-policies.py")
 policy = importlib.util.module_from_spec(spec)
 spec.loader.exec_module(policy)
 helpers = policy.helpers
@@ -89,7 +91,7 @@ def run_case(case, run_dir, client, broker, backend):
     publisher = Celery("visibility_publisher", broker=broker, backend=backend)
     publisher.conf.broker_transport_options = (
         {"visibility_timeout": case["publisher_visibility"]} if "publisher_visibility" in case else {})
-    base = dict(case, broker=broker, backend=backend, events=str(events_path), queue="visibility-probe")
+    base = dict(case, broker=broker, backend=backend, events=str(events_path.relative_to(ROOT)), queue="visibility-probe")
     workers, logs, configs, tasks, phases, actions, errors, forced = [], [], [], {}, {}, [], [], []
     start = time.monotonic()
     main_id = second_id = None
@@ -114,7 +116,7 @@ def run_case(case, run_dir, client, broker, backend):
         env = os.environ.copy()
         for key in ("REMAP_SIGTERM", "CELERY_RDBSIG"):
             env.pop(key, None)
-        env.update(PYTHONPATH=os.pathsep.join([str(ROOT), str(SUITE), str(DEV / "shutdown")]), PYTHONDONTWRITEBYTECODE="1",
+        env.update(PYTHONPATH=pythonpath(SUITE, ROOT / "shutdown"), PYTHONDONTWRITEBYTECODE="1",
                    PYTHONUNBUFFERED="1", VISIBILITY_PROBE_CONFIG=json.dumps(config))
         pool = config["pool"]
         command = [sys.executable, "-m", "celery", "-A", "redis_visibility_probe:app", "worker",
@@ -329,13 +331,13 @@ def main():
     run_dir = SUITE / "redis-visibility-runs" / datetime.now(timezone.utc).strftime("%Y%m%dT%H%M%S.%fZ")
     run_dir.mkdir(parents=True)
     import kombu.transport.redis as transport
-    sources = [Path(__file__), SUITE / "redis_visibility_probe.py", DEV / "task-policy/verify-task-policies.py",
-               DEV / "shutdown/verify-pool-shutdown.py", SUITE / "test-redis-visibility-probe.py",
-               DEV / "environment/shutdown-requirements.lock", Path(transport.__file__),
-               ROOT / "celery/app/base.py", ROOT / "celery/app/defaults.py", ROOT / "celery/backends/redis.py"]
-    summary = dict(python=sys.version, platform=platform.platform(), celery=__import__("celery").__version__,
-        revision=subprocess.check_output(["git", "rev-parse", "HEAD"], cwd=ROOT, text=True).strip(),
-        dependencies={n: importlib.metadata.version(n) for n in ("kombu", "redis", "billiard", "gevent", "greenlet")},
+    sources = [Path(__file__), SUITE / "redis_visibility_probe.py", ROOT / "task-policy/verify-task-policies.py",
+               ROOT / "shutdown/verify-pool-shutdown.py", SUITE / "test-redis-visibility-probe.py",
+               ROOT / "uv.lock", Path(transport.__file__),
+               CELERY / "celery/app/base.py", CELERY / "celery/app/defaults.py", CELERY / "celery/backends/redis.py"]
+    summary = dict(provenance=provenance(), python=sys.version, platform=platform.platform(), celery=__import__("celery").__version__,
+        revision=source_revision(),
+        dependencies={n: dependency_version(n) for n in ("kombu", "redis", "billiard", "gevent", "greenlet")},
         source_sha256={str(p.relative_to(ROOT)): hashlib.sha256(p.read_bytes()).hexdigest() for p in sources}, outcomes=[])
     with helpers.private_redis(run_dir) as (client, broker, backend):
         summary["redis_server"] = client.info("server")["redis_version"]
@@ -345,7 +347,7 @@ def main():
                 continue
             summary["outcomes"].append(run_case(case, run_dir, client, broker, backend))
             (run_dir / "summary.json").write_text(json.dumps(summary, indent=2) + "\n")
-    print(f"Artifacts: {run_dir}", flush=True)
+    print(f"Artifacts: {run_dir.relative_to(ROOT)}", flush=True)
     return 0 if all(o["passed"] for o in summary["outcomes"]) else 1
 
 

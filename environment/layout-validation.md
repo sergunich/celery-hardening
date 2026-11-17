@@ -4,14 +4,17 @@ This records the directory reorganization and subsequent document renames, not a
 new full behavioral matrix. Counts and runtime results below describe the original
 relocation; document-renaming checks are recorded separately at the end. The main
 reports still cite their original complete runs. No Celery, Kombu, Billiard, or
-Redis production code/configuration was changed.
+Redis production code/configuration was changed. This is a historical validation
+record; the current environment and checks are documented in
+[portability validation](portability-validation.md).
 
 See [README.md](../README.md) for the layout, reproduction commands, and historical-path
-policy. Main reports and guides remain at `.dev/` root; supporting documents now live with their suites.
+policy. Main reports and guides remain at the repository root; supporting documents now live with their suites.
 
 ## Files and historical integrity
 
-Original relocation counts (before the later document renames), compared against nested `.dev` Git revision
+Original relocation counts (before the later document renames), compared against
+experiment repository Git revision
 `aab808d6d5159d42c847e486f7c8f49b192550ac` before the reorganization:
 
 - **3,174 tracked files relocated**, grouped by experiment or shared environment.
@@ -45,11 +48,11 @@ Logs: [shutdown](../shutdown/layout-unit-tests.log),
 [wiring](../redis-visibility/wiring-layout-unit-tests.log),
 [layout](layout-unit-tests.log).
 
-The layout regression test additionally checks:
+At the time, the layout regression test additionally checked:
 
 - Migration targets exist without old-root compatibility copies.
 - All current suite Python scripts parse without importing side-effecting probes.
-- Root Markdown file links and explicit `.dev/` paths resolve.
+- Root Markdown file links and explicit experiment paths resolved.
 - Five runners and the renderer support `--help` from an unrelated working directory
   without an inherited `PYTHONPATH`.
 - The setup script resolves the Celery root and shared lock from another working
@@ -63,7 +66,7 @@ byte-identical to the path-updated report and still embeds the maintained append
 ## Targeted real-worker checks
 
 **23/23 cases passed**, invoked from `/tmp` using absolute script paths and the
-existing `.dev/.venv`. Each runner created and cleaned up its own private Redis;
+existing `.venv`. Each runner created and cleaned up its own private Redis;
 no shared Redis, Docker, or production services were used. Prefork spawn and gevent
 CLI early initialization were exercised, not just module syntax/imports.
 
@@ -86,7 +89,7 @@ source-hash inputs, cleanup, and suite-local artifact creation. The full histori
 
 - Main report names now omit `-results`; setup guide names omit `-recommended-setup`.
 - This validation document lives in `environment/`; the maintained shutdown
-  appendix lives in `shutdown/`. Main reports and setup guides remain at `.dev/` root.
+  appendix lives in `shutdown/`. Main reports and setup guides remain at the repository root.
 - The path map includes the document moves/renames. Markdown links resolve relative
   to each document's new location, including this file and the standalone appendix.
 - The renderer reads `shutdown/shutdown-appendix.md` and writes root `shutdown.md`.

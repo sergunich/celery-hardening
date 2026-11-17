@@ -1,22 +1,24 @@
 #!/usr/bin/env python3
 """Verify a version-specific task-level Reject workaround for solo cold shutdown.
 
-Run: .dev/.venv/bin/python .dev/shutdown/verify-solo-requeue.py
+Run: mise run solo-requeue
 This does not guarantee interruption inside the task's catch block or broker recovery.
 """
+import argparse
 from datetime import datetime, timezone
 import importlib.util
 import json
 from pathlib import Path
 
-DEV = Path(__file__).resolve().parent
-spec = importlib.util.spec_from_file_location("shutdown_helpers", DEV / "verify-pool-shutdown.py")
+SUITE = Path(__file__).resolve().parent
+spec = importlib.util.spec_from_file_location("shutdown_helpers", SUITE / "verify-pool-shutdown.py")
 helpers = importlib.util.module_from_spec(spec)
 spec.loader.exec_module(helpers)
 
 
 def main():
-    run_dir = DEV / "solo-requeue-runs" / datetime.now(timezone.utc).strftime("%Y%m%dT%H%M%S.%fZ")
+    argparse.ArgumentParser(description=__doc__).parse_args()
+    run_dir = SUITE / "solo-requeue-runs" / datetime.now(timezone.utc).strftime("%Y%m%dT%H%M%S.%fZ")
     run_dir.mkdir(parents=True)
     outcomes = []
     with helpers.private_redis(run_dir) as (client, broker, backend):
@@ -41,8 +43,8 @@ def main():
             (run_dir / "solo" / case["name"] / "result.json").write_text(json.dumps(o, indent=2) + "\n")
             outcomes.append(o)
             print(f"Requeue checks: {'PASS' if o['passed'] else 'FAIL'} {case['name']}: {o['errors']}", flush=True)
-    (run_dir / "summary.json").write_text(json.dumps(dict(outcomes=outcomes), indent=2) + "\n")
-    print(f"Artifacts: {run_dir}")
+    (run_dir / "summary.json").write_text(json.dumps(dict(provenance=helpers.provenance(), outcomes=outcomes), indent=2) + "\n")
+    print(f"Artifacts: {run_dir.relative_to(helpers.ROOT)}")
     return 0 if all(o["passed"] for o in outcomes) else 1
 
 
